@@ -68,14 +68,14 @@ public class StellarityItems {
 
     public static final Item PHO = register("pho",
         //? >= 1.21 {
-        /*Item::new,
-         *///? } else {
-        BowlFoodItem::new,
-        //? }
+        Item::new,
+         //? } else {
+        /*BowlFoodItem::new,
+        *///? }
         foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder()
             //? = 1.21.1 {
-            /*.usingConvertsTo(Items.BOWL)
-             *///? }
+            .usingConvertsTo(Items.BOWL)
+             //? }
             , 13, 20f, true,
             new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
             new EffectChance(new MobEffectInstance(
@@ -100,8 +100,8 @@ public class StellarityItems {
         List.of()
     ) {
         @Override
-        public void appendHoverText(ItemStack itemStack, /*? 1.20.1 { */    Level level /*? } else { */ /*TooltipContext context *//*? } */, List<Component> list, TooltipFlag tooltipFlag) {
-            super.appendHoverText(itemStack, /*? 1.20.1 { */ level /*? } else { */ /*context *//*? }*/, list, tooltipFlag);
+        public void appendHoverText(ItemStack itemStack, /*? 1.20.1 { */    /*Level level *//*? } else { */ TooltipContext context /*? } */, List<Component> list, TooltipFlag tooltipFlag) {
+            super.appendHoverText(itemStack, /*? 1.20.1 { */ /*level *//*? } else { */ context /*? }*/, list, tooltipFlag);
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.chorus_plating")).withStyle(ChatFormatting.BLUE)));
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.minecraft.shulker_shell")).withStyle(ChatFormatting.BLUE)));
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
@@ -150,20 +150,20 @@ public class StellarityItems {
         foodProperties = foodProperties
             .nutrition(nutrition)
             //? < 1.21.1 {
-            .saturationMod(saturation);
+            /*.saturationMod(saturation);
 
         for (EffectChance ec : effectChances) {
             foodProperties.effect(ec.effect, ec.chance);
         }
-        //?} else {
-        /*.saturationModifier(saturation);
-         *///?}
+        *///?} else {
+        .saturationModifier(saturation);
+         //?}
         if (alwaysEat) {
             foodProperties =
                 //? = 1.20.1
-                foodProperties.alwaysEat();
+                //foodProperties.alwaysEat();
             //? >= 1.21.1
-            //foodProperties.alwaysEdible();
+            foodProperties.alwaysEdible();
         }
         return properties.food(foodProperties.build());
     }

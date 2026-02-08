@@ -16,7 +16,7 @@ import xyz.kohara.stellarity.Stellarity;
 //? }
 
 //$ clientOnly
-@net.minecraftforge.api.distmarker.OnlyIn(net.minecraftforge.api.distmarker.Dist.CLIENT)
+@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class PhantomItemFrameRenderer extends ItemFrameRenderer<PhantomItemFrame> {
     public static final StateDefinition<Block, BlockState> FAKE_STATE_DEFINITION = (new StateDefinition.Builder<Block, BlockState>(Blocks.AIR)).add(new Property[]{}).create(Block::defaultBlockState, BlockState::new);
 

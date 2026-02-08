@@ -1,10 +1,10 @@
 package xyz.kohara.stellarity.registry.effect;
 
 //? > 1.21 {
-/*import net.minecraft.tags.EntityTypeTags;
-*///?} else {
-import net.minecraft.world.entity.MobType;
-//?}
+import net.minecraft.tags.EntityTypeTags;
+//?} else {
+/*import net.minecraft.world.entity.MobType;
+*///?}
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,31 +17,31 @@ public class PrismaticInfernoEffect extends MobEffect {
     }
 
     @Override
-    public /*? > 1.21 {*//*boolean *//*? } else {*/void/*? }*/applyEffectTick(LivingEntity livingEntity, int amplifier) {
+    public /*? > 1.21 {*/boolean /*? } else {*//*void*//*? }*/applyEffectTick(LivingEntity livingEntity, int amplifier) {
         Level level = livingEntity.level();
-        if (level.isClientSide()) return /*? if > 1.21 {*//*false *//*?}*/;
+        if (level.isClientSide()) return /*? if > 1.21 {*/false /*?}*/;
         boolean isInDaylight = level.canSeeSky(livingEntity.blockPosition()) &&
             level.dimension() == Level.OVERWORLD &&
             (!level.isRaining() && !level.isThundering() && level.isDay());
         //? if < 1.21.1 {
-        boolean isUndead = livingEntity.getMobType() == MobType.UNDEAD;
-         //?} else {
-        /*boolean isUndead = livingEntity.getType().is(EntityTypeTags.UNDEAD);
-        *///?}
+        /*boolean isUndead = livingEntity.getMobType() == MobType.UNDEAD;
+         *///?} else {
+        boolean isUndead = livingEntity.getType().is(EntityTypeTags.UNDEAD);
+        //?}
         float damage = 1f;
         if (isUndead) damage *= 2;
         if (isInDaylight) damage *= 2;
 
         livingEntity.hurt(livingEntity.damageSources().source(StellarityDamageTypes.PRISMATIC_INFERNO), damage);
         /*? if >= 1.21.1 {*/
-        /*return true; *//*?}*/
+        return true; /*?}*/
     }
 
     @Override
     //? < 1.21.1
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    //public boolean isDurationEffectTick(int duration, int amplifier) {
     //? >= 1.21.1
-    //public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return duration % 20 == 0;
     }
 }

@@ -87,7 +87,7 @@ public abstract class TeleportingFood extends Item {
 
             if (livingEntity instanceof Player player) {
             //? = 1.21.1
-            //player.resetCurrentImpulseContext();
+            player.resetCurrentImpulseContext();
             player.getCooldowns().addCooldown(this, 20);
             }
         }

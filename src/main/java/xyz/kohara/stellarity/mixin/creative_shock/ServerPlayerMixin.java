@@ -54,7 +54,7 @@ public abstract class ServerPlayerMixin extends Player {
     private void effectAdded(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
         GameType type = gameMode.getGameModeForPlayer();
 
-        if (!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect))
+        if (!(effectInstance.getEffect()/*? > 1.21 {*/.value()/*? } */ instanceof CreativeShockEffect effect))
             return;
 
         if (!effect.extremeCreativeShock() && type == GameType.CREATIVE) return;
@@ -71,7 +71,7 @@ public abstract class ServerPlayerMixin extends Player {
     protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
     *///? }
     {
-        if (!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect))
+        if (!(effectInstance.getEffect()/*? > 1.21 {*/.value()/*? } */ instanceof CreativeShockEffect))
             return;
 
         setGameMode(initialGameType);

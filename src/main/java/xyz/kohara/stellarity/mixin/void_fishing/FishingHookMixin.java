@@ -29,8 +29,8 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 //? if forge {
-import net.minecraftforge.common.ToolAction;
-//? } else if neoforge {
+/*import net.minecraftforge.common.ToolAction;
+*///? } else if neoforge {
 /*import net.neoforged.neoforge.common.ToolAction;
 *///? }
 import org.jetbrains.annotations.Nullable;
@@ -54,8 +54,8 @@ import xyz.kohara.stellarity.interface_injection.ExtFishingHook;
 
 //? >= 1.21 {
 
-/*import net.minecraft.core.registries.Registries;
- *///? }
+import net.minecraft.core.registries.Registries;
+ //? }
 
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile implements ExtFishingHook {
@@ -100,10 +100,10 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
     @Unique
     private boolean isEnd() {
         //? <= 1.20.1 {
-        return this.level().dimensionTypeId() == BuiltinDimensionTypes.END;
-        //?} else {
-        /*return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
-         *///?}
+        /*return this.level().dimensionTypeId() == BuiltinDimensionTypes.END;
+        *///?} else {
+        return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
+         //?}
     }
 
     @Unique
@@ -215,19 +215,19 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
     }
 
     //? if fabric {
-    /*@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+    @WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     public boolean dontStopFisherOfVoids(ItemStack instance, Item item, Operation<Boolean> original) {
-        return instance.is(StellarityItems.FISHER_OF_VOIDS.get()) || original.call(instance, item);
+        return instance.is(StellarityItems.FISHER_OF_VOIDS.asItem()) || original.call(instance, item);
     }
-    *///? } else {
-    //? if forge
-    @WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/minecraftforge/common/ToolAction;)Z"))
+    //? } else {
+    /*//? if forge
+    //@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/minecraftforge/common/ToolAction;)Z"))
     //? if neoforge
-    /*@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/neoforged/neoforge/common/ToolAction;)Z"))*/
+    /^@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/neoforged/neoforge/common/ToolAction;)Z"))^/
     public boolean dontStopFisherOfVoids(ItemStack instance, ToolAction toolAction, Operation<Boolean> original) {
         return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, toolAction);
     }
-    //? }
+    *///? }
 
     @WrapOperation(method = "catchingFish", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/projectile/FishingHook;lureSpeed:I", opcode = Opcodes.GETFIELD))
     private int increaseLure(FishingHook instance, Operation<Integer> original) {
@@ -238,10 +238,10 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
         }
 
         //? < 1.21 {
-        return lure + 2;
-        //? } else {
-        /*return lure + 200;
-         *///? }
+        /*return lure + 2;
+        *///? } else {
+        return lure + 200;
+         //? }
     }
 
     @Unique
@@ -253,10 +253,10 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
     private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> original, @Local Player player, @Local(argsOnly = true) ItemStack itemStack) {
         if (isVoidFishing) {
             //? 1.20.1 {
-            instance = level().getServer().getLootData().getLootTable(Stellarity.id("void_fishing/event"));
-            //? } else {
-            /*instance = level().getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
-             *///? }
+            /*instance = level().getServer().getLootData().getLootTable(Stellarity.id("void_fishing/event"));
+            *///? } else {
+            instance = level().getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
+             //? }
         }
         ObjectArrayList<ItemStack> list = original.call(instance, lootParams);
         if (isVoidFishing) {

@@ -2,13 +2,16 @@ package xyz.kohara.stellarity.utils;
 
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
-import net.minecraftforge.registries.ForgeRegistry;
 
-import java.lang.invoke.MethodHandle;
+
+
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+
+//? if forge {
+/*import net.minecraftforge.registries.ForgeRegistry;
+import java.lang.invoke.MethodHandle;
+*///? }
 
 public class MiscUtil {
     //When the throwable constructor doesnt support this
@@ -32,7 +35,7 @@ public class MiscUtil {
     public static void temporarilyUnfreezeRegistry(Registry<?> registry, Runnable action) {
         try {
             //? if forge {
-            boolean forge = false;
+            /*boolean forge = false;
             Class<?> namespacedWrapperClass = Class.forName("net.minecraftforge.registries.NamespacedWrapper");
             try {
                 namespacedWrapperClass.cast(registry);
@@ -63,7 +66,7 @@ public class MiscUtil {
                 frozen1.set(forgeRegistry, bools[2]);
                 return;
             }
-            //? }
+            *///? }
             // impl is always vanilla, neo just adds another base layer to it
             MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(MappedRegistry.class, MethodHandles.lookup());
             VarHandle frozen = lookup.findVarHandle(MappedRegistry.class, "frozen", boolean.class);

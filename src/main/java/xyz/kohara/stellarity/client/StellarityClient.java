@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.client;
 
 //? if forge {
-import net.minecraftforge.api.distmarker.Dist;
+/*import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -10,6 +10,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+*///? } else if fabric {
+import net.fabricmc.api.ClientModInitializer;
 //? }
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.client.registry.StellarityClientNetworking;
@@ -18,16 +20,16 @@ import xyz.kohara.stellarity.client.registry.StellarityModels;
 import xyz.kohara.stellarity.client.registry.StellarityTooltips;
 
 //$ clientOnly
-@net.minecraftforge.api.distmarker.OnlyIn(net.minecraftforge.api.distmarker.Dist.CLIENT)
+@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 //? if forge {
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Stellarity.MOD_ID)
-//? } else if neoforge {
+/*@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Stellarity.MOD_ID)
+*///? } else if neoforge {
 /*@EventBusSubscriber
 *///? }
-public class StellarityClient /*? if fabric >> ' {'*//*implements ClientModInitializer*/ {
+public class StellarityClient /*? if fabric >> ' {'*/implements ClientModInitializer {
     //? if fabric {
     
-    /*@Override
+    @Override
     public void onInitializeClient() {
         Stellarity.LOGGER.info("Stellarity Client Initializing");
 
@@ -36,8 +38,8 @@ public class StellarityClient /*? if fabric >> ' {'*//*implements ClientModIniti
         StellarityTooltips.init();
         StellarityClientNetworking.init();
     }
-    *///? } else {
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    //? } else {
+    /*@SubscribeEvent(priority = EventPriority.HIGHEST)
     static void registerModels(ModelEvent.BakingCompleted event) {
         StellarityModels.initModelPredicates();
     }
@@ -66,5 +68,5 @@ public class StellarityClient /*? if fabric >> ' {'*//*implements ClientModIniti
     static void itemTooltipThing(ItemTooltipEvent event) {
         StellarityTooltips.init(event);
     }
-    //? }
+    *///? }
 }
