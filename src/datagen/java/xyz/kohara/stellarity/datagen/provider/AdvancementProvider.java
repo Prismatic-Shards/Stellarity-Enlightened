@@ -1,20 +1,22 @@
 package xyz.kohara.stellarity.datagen.provider;
 
-
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.advancements.*;
+//? if fabric {
+/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
+*///? }
 
+import net.minecraft.advancements.*;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-//? <= 1.21.10 {
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.advancements.critereon.*;
-//? } else {
-/*import net.minecraft.advancements.critereon.*;
- *///? }
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
@@ -34,26 +36,43 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import java.util.HashMap;
 //?}
 
-public class AdvancementProvider extends FabricAdvancementProvider {
+//? if fabric {
+/*public class AdvancementProvider extends FabricAdvancementProvider {
 
     //? >= 1.21.1 {
-    /*public final AdvancementType TASK = AdvancementType.TASK;
-    public final AdvancementType GOAL = AdvancementType.GOAL;
-    public final AdvancementType CHALLENGE = AdvancementType.CHALLENGE;
-
-    public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    /^public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
-
-    *///?} else {
-
-    public final FrameType TASK = FrameType.TASK;
-    public final FrameType GOAL = FrameType.GOAL;
-    public final FrameType CHALLENGE = FrameType.CHALLENGE;
-
+    ^///? } else {
     public AdvancementProvider(FabricDataOutput output) {
         super(output);
     }
+    //? }
+*///? } else {
+public class AdvancementProvider extends net.minecraft.data.advancements.AdvancementProvider {
+    public AdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(output,
+            registryLookup,
+            List.of(
+            //? >= 1.21.1 {
+            /*AdvancementProvider::generateAdvancement
+            *///? } else {
+            (unused, consumer) -> generateAdvancement(consumer)
+            //? }
+            )
+        );
+    }
+
+//? }
+    
+    //? >= 1.21.1 {
+    /*public static final AdvancementType TASK = AdvancementType.TASK;
+    public static final AdvancementType GOAL = AdvancementType.GOAL;
+    public static final AdvancementType CHALLENGE = AdvancementType.CHALLENGE;
+    *///? } else {
+    public static final FrameType TASK = FrameType.TASK;
+    public static final FrameType GOAL = FrameType.GOAL;
+    public static final FrameType CHALLENGE = FrameType.CHALLENGE;
 
     public static Advancement dummy(ResourceLocation id) {
         return new Advancement(id,
@@ -65,10 +84,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
             true
         );
     }
-    //?}
-
-    @Override
-    public void generateAdvancement(
+    //? }
+    
+    //overrides in fabric but doesnt in (neo)forge
+    public /*? forgelike {*/static/*?}*/ void generateAdvancement(
         //? >= 1.21.1 {
         /*HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer
          *///?} else {
@@ -127,12 +146,12 @@ public class AdvancementProvider extends FabricAdvancementProvider {
     }
 
     //? < 1.21.1 {
-    private CriterionTriggerInstance impossible() {
+    private static CriterionTriggerInstance impossible() {
         return new ImpossibleTrigger.TriggerInstance();
     }
 
     //?} else {
-    /*private Criterion<ImpossibleTrigger.TriggerInstance> impossible() {
+    /*private static Criterion<ImpossibleTrigger.TriggerInstance> impossible() {
         return CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance());
     }
     *///?}

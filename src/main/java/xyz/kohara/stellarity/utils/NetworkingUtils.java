@@ -12,7 +12,7 @@ public class NetworkingUtils {
      * this may sound wild but this is the client method
      */
     public static void registerS2CReceiver(ResourceLocation id, NetworkManager.NetworkReceiver receiver) {
-        if (Platform.getEnvironment() == Env.CLIENT) throw new IllegalStateException("Client method accessed from server!");
+        if (Platform.getEnvironment() != Env.CLIENT) throw new IllegalStateException("Client method accessed from server!");
         NetworkManager.registerReceiver(NetworkManager.Side.S2C, id, receiver);
     }
     
@@ -25,7 +25,7 @@ public class NetworkingUtils {
     }
     
     public static void sendPacketC2S(ResourceLocation id, FriendlyByteBuf buf) {
-        if (Platform.getEnvironment() == Env.CLIENT) throw new IllegalStateException("Client method accessed from server!");
+        if (Platform.getEnvironment() != Env.CLIENT) throw new IllegalStateException("Client method accessed from server!");
         NetworkManager.sendToServer(id, buf);
     }
 }

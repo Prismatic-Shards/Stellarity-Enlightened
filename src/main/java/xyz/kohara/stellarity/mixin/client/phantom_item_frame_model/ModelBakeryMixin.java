@@ -1,5 +1,5 @@
 //? 1.20.1 {
-package xyz.kohara.stellarity.client.mixin.phantom_item_frame_model;
+package xyz.kohara.stellarity.mixin.client.phantom_item_frame_model;
 
 
 import net.minecraft.client.renderer.block.BlockModelShaper;
@@ -19,7 +19,7 @@ public abstract class ModelBakeryMixin {
     @Shadow
     protected abstract void loadTopLevel(ModelResourceLocation par1);
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/Map;forEach(Ljava/util/function/BiConsumer;)V", ordinal = 0))
+    @Inject(method = "<init>", at = @At(value = "RETURN"))
     private void addStellarityModels(CallbackInfo ci) {
         FAKE_STATE_DEFINITION.getPossibleStates().forEach((blockState) -> this.loadTopLevel(BlockModelShaper.stateToModelLocation(Stellarity.id("phantom_item_frame"), blockState)));
 

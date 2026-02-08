@@ -21,7 +21,7 @@ public class PhantomItemFrameItem extends ItemFrameItem {
     }
 
     public PhantomItemFrameItem(Item.Properties properties) {
-        this(StellarityEntities.PHANTOM_ITEM_FRAME.get(), properties);
+        this(StellarityEntities.PHANTOM_ITEM_FRAME, properties);
     }
 
     public InteractionResult useOn(UseOnContext useOnContext) {

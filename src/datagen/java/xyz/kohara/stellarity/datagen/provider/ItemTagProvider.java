@@ -1,10 +1,16 @@
 package xyz.kohara.stellarity.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.world.item.Item;
+//? if forge {
+import net.minecraftforge.common.data.ExistingFileHelper;
+//? }
+import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItemTags;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -12,39 +18,21 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.tags.ItemTags;
 
-//? >= 1.21.9 {
-/*import net.minecraft.data.tags.TagAppender;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-*///?}
-
-public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
-        super(output, completableFuture, blockTagProvider);
+public class ItemTagProvider extends TagsProvider<Item> {
+    public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture/*? if !fabric {*/, ExistingFileHelper existingFileHelper/*?}*/) {
+        super(output, Registries.ITEM, registriesFuture, Stellarity.MOD_ID/*? if !fabric {*/, existingFileHelper/*?}*/);
     }
-
-    public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(output, completableFuture);
-    }
-
-    //? >= 1.21.9 {
-    /*public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
-        return this.valueLookupBuilder(tagKey);
-    }
-    *///?}
-
 
     @Override
     public void addTags(HolderLookup.Provider provider) {
-        getOrCreateTagBuilder(StellarityItemTags.FISHES).add(
-            StellarityItems.AMETHYST_BUDFISH,
-            StellarityItems.BUBBLEFISH,
-            StellarityItems.CRIMSON_TIGERFISH,
-            StellarityItems.ENDER_KOI,
-            StellarityItems.FLAREFIN_KOI,
-            StellarityItems.CRYSTAL_HEARTFISH
-        );
+        getOrCreateRawBuilder(StellarityItemTags.FISHES)
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.AMETHYST_BUDFISH))
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.BUBBLEFISH))
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.CRIMSON_TIGERFISH))
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.ENDER_KOI))
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.FLAREFIN_KOI))
+            .addTag(BuiltInRegistries.ITEM.getKey(StellarityItems.CRYSTAL_HEARTFISH));
 
-        getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
+        getOrCreateRawBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES.location());
     }
 }

@@ -101,7 +101,7 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 
     @Override
     public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
-        return StellarityRecipeSerializers.ALTAR_SIMPLE.get();
+        return StellarityRecipeSerializers.ALTAR_SIMPLE;
     }
 
     public static class Serializer implements RecipeSerializer<AltarSimpleRecipe> {

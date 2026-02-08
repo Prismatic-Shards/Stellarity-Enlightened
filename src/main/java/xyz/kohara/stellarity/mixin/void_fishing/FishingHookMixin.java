@@ -225,7 +225,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
     //? if neoforge
     /*@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/neoforged/neoforge/common/ToolAction;)Z"))*/
     public boolean dontStopFisherOfVoids(ItemStack instance, ToolAction toolAction, Operation<Boolean> original) {
-        return instance.is(StellarityItems.FISHER_OF_VOIDS.get()) || original.call(instance, toolAction);
+        return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, toolAction);
     }
     //? }
 

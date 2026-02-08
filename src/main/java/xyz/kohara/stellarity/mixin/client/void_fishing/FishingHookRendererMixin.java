@@ -1,5 +1,5 @@
 //? <= 1.21.1 {
-package xyz.kohara.stellarity.client.mixin.void_fishing;
+package xyz.kohara.stellarity.mixin.client.void_fishing;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -25,7 +25,7 @@ public class FishingHookRendererMixin {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/minecraftforge/common/ToolAction;)Z")
     )
     public boolean addFisherOfVoids(ItemStack instance, ToolAction toolAction, Operation<Boolean> original) {
-        return instance.is(StellarityItems.FISHER_OF_VOIDS.get()) || original.call(instance, toolAction);
+        return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, toolAction);
     }
     //? }
     //? } else if = 1.21.1 {

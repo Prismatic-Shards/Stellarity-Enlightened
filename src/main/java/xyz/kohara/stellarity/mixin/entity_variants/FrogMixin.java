@@ -46,7 +46,7 @@ public abstract class FrogMixin extends Entity {
         Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
 
         if (holder.is(BiomeTags.IS_END)) {
-            setVariant(StellarityFrogVariants.END.get());
+            setVariant(StellarityFrogVariants.END);
         }
     }
     //? } else {
@@ -58,7 +58,7 @@ public abstract class FrogMixin extends Entity {
         Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
 
         if (holder.is(BiomeTags.IS_END)) {
-            setVariant(BuiltInRegistries.FROG_VARIANT.wrapAsHolder(StellarityFrogVariants.END.get()));
+            setVariant(BuiltInRegistries.FROG_VARIANT.wrapAsHolder(StellarityFrogVariants.END));
         }
     }
     *///? }

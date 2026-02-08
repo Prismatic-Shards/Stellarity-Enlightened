@@ -44,7 +44,8 @@ version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
 
 val requiredJava = when {
-    stonecutter.eval(stonecutter.current.version, ">=1.20") -> JavaVersion.VERSION_21
+    stonecutter.eval(stonecutter.current.version, ">1.21.11") -> JavaVersion.VERSION_25
+    stonecutter.eval(stonecutter.current.version, ">=1.20.5") -> JavaVersion.VERSION_21
     stonecutter.eval(stonecutter.current.version, ">=1.18") -> JavaVersion.VERSION_17
     stonecutter.eval(stonecutter.current.version, ">=1.17") -> JavaVersion.VERSION_16
     else -> JavaVersion.VERSION_1_8
@@ -82,7 +83,6 @@ dependencies {
     //should fix forge
     val mixinExtras = "io.github.llamalad7:mixinextras-%s:${property("deps.mixin_extras")}"
     "io.github.llamalad7:mixinextras-$loader:${property("deps.mixin_extras")}".let {modApi(it); /*compileOnlyApi(it);*/ annotationProcessor(it); include(it) }
-    "io.github.llamalad7:mixinextras-common:${property("deps.mixin_extras")}".let { compileOnlyApi(it); annotationProcessor(it) }//fixes forge not being able to find mixinextras for whatever reason
     modImplementation("dev.architectury:architectury-$loader:${property("deps.arch_api")}")
     if (loader.isFabric()) {
         modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
@@ -105,7 +105,6 @@ dependencies {
     // for required dependencies, use modImplementation
     // be sure to declare deps.patchouli (or similar) in version/<version>/run/mods/gradle.properties where the mod applies
     modImplementation("vazkii.patchouli:Patchouli:${property("deps.patchouli")}")
-    implementation("dev.aaronhowser.mods:aaron-1.21.1:1.5.0-build.107")
 }
 
 
@@ -126,6 +125,13 @@ loom {
         if (it.exists()) accessWidenerPath = it
     }
 
+    mixin.useLegacyMixinAp = true //we are legacy anyway
+
+    if (loader.isForge()) forge {
+        mixinConfig("stellarity.mixins.json")
+        this.convertAccessWideners = true
+    }
+
     decompilerOptions.named("vineflower") {
         options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
     }
@@ -141,14 +147,9 @@ loom {
     runConfigs.all {
         ideConfigGenerated(true)
         vmArgs("-Dmixin.debug.export=true -XX:+AllowEnhancedClassRedefinition")
-        if (loader.isForge()) {
-            vmArgs("-Dfml.pluginLayerLibraries=language-minecraft-47.3.0.jar -Dfml.gameLayerLibraries=language-minecraft-47.3.0.jar")
-        }
     }
 }
-
-
-
+/*
 fabricApi {
     configureDataGeneration {
         client = true
@@ -158,16 +159,12 @@ fabricApi {
     }
 
     sourceSets["datagen"].apply {
-        kotlin {
-            if (stonecutter.eval(stonecutter.current.version, "> 1.21.1")) {
-                exclude("dev/aaronhowser/mods/patchoulidatagen/**")
-            }
+        dependencies {
+            implementation("dev.aaronhowser.mods:aaron-1.21.1:1.5.0-build.107")
         }
     }
-
-
 }
-
+*/
 
 java {
     withSourcesJar()
@@ -178,12 +175,10 @@ java {
 fletchingTable {
     mixins.register("main") {
         //its monolithic already
-        mixin("default", "stellarity.mixins.json") {
-            env(MixinEnvironment.Env.CLIENT, "xyz.kohara.stellarity.client.mixin")
-        }
-        mixin("default", "stellarity-$loader.mixins.json") {
-            env(MixinEnvironment.Env.DEFAULT, "xyz.kohara.stellarity.platform.$loader")
-        }
+        mixin("default", "stellarity.mixins.json")
+//        mixin("default", "stellarity-$loader.mixins.json") {
+//            env(MixinEnvironment.Env.DEFAULT, "xyz.kohara.stellarity.platform.$loader")
+//        }
     }
 
     j52j.register("main") {
@@ -225,6 +220,9 @@ tasks {
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
     }
+
+    runClient { dependsOn("processResources") }
+    runServer { dependsOn("processResources") }
 
     build {
         dependsOn("validateAccessWidener")

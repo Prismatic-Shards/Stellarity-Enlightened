@@ -26,16 +26,16 @@ public abstract class EntityMixin implements ExtEntity
 
     @Unique
     @Mutable
-    protected SynchedEntityData entityData;
+    protected SynchedEntityData stellarity_Fabric$entityData;
 
     @Override
     public int stellarity$getGlowColor() {
-        return entityData.get(DATA_GLOW_COLOR);
+        return stellarity_Fabric$entityData.get(DATA_GLOW_COLOR);
     }
 
     @Override
     public void stellarity$setGlowColor(int color) {
-        entityData.set(DATA_GLOW_COLOR, color);
+        stellarity_Fabric$entityData.set(DATA_GLOW_COLOR, color);
     }
 
     @Override
@@ -44,15 +44,15 @@ public abstract class EntityMixin implements ExtEntity
     }
 
     //? 1.20.1 {
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;defineSynchedData()V", ordinal = 0))
+    @Inject(method = "<init>", at = @At("RETURN"))
     private void addSynchedData(EntityType<?> entityType, Level level, CallbackInfo ci) {
-        entityData = new SynchedEntityData((Entity) (Object) this);
+        stellarity_Fabric$entityData = new SynchedEntityData((Entity) (Object) this);
         stellarity$defineSynchedData();
     }
 
     @Override
     public <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
-        entityData.define(accessor, initialValue);
+        stellarity_Fabric$entityData.define(accessor, initialValue);
     }
 
     //?} else {
@@ -86,6 +86,6 @@ public abstract class EntityMixin implements ExtEntity
 
     @Override
     public SynchedEntityData stellarity$entityData() {
-        return entityData;
+        return stellarity_Fabric$entityData;
     }
 }

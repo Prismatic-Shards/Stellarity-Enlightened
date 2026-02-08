@@ -40,7 +40,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
     private Vec3 oldPos = null;
 
     public ThrownPrismaticPearl(Level level, LivingEntity livingEntity, ItemStack itemStack) {
-        super(StellarityEntities.PRISMATIC_PEARL.get(), livingEntity, level);
+        super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
         setItem(itemStack);
     }
 
@@ -163,12 +163,12 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
     }
 
     public ThrownPrismaticPearl(Level level, LivingEntity livingEntity) {
-        super(StellarityEntities.PRISMATIC_PEARL.get(), livingEntity, level);
+        super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
     }
 
     @Override
     protected Item getDefaultItem() {
-        return StellarityItems.PRISMATIC_PEARL.get();
+        return StellarityItems.PRISMATIC_PEARL;
     }
 
     private static final int[] LAND_COLORS = {

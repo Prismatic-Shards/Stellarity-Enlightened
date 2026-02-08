@@ -35,14 +35,14 @@ public class EnderGrassBlock extends GrassBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!canBeGrass(state, level, pos)) {
-            level.setBlockAndUpdate(pos, StellarityBlocks.ENDER_DIRT.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, StellarityBlocks.ENDER_DIRT.defaultBlockState());
         } else {
             if (level.getMaxLocalRawBrightness(pos.above()) >= 3) {
                 BlockState blockState = this.defaultBlockState();
 
                 for (int i = 0; i < 4; ++i) {
                     BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                    if (level.getBlockState(blockPos).is(StellarityBlocks.ENDER_DIRT.get()) && canPropagate(blockState, level, blockPos)) {
+                    if (level.getBlockState(blockPos).is(StellarityBlocks.ENDER_DIRT) && canPropagate(blockState, level, blockPos)) {
                         level.setBlockAndUpdate(blockPos, blockState.setValue(SNOWY, level.getBlockState(blockPos.above()).is(Blocks.SNOW)));
                     }
                 }

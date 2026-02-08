@@ -1,8 +1,13 @@
 package xyz.kohara.stellarity.datagen.provider.loot_table;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+//? if fabric {
+/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+*///? }
 
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -12,6 +17,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
+import java.util.Collections;
 import java.util.function.BiConsumer;
 
 //? > 1.21 {
@@ -33,24 +39,27 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.HashMap;
 
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
-
-public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
+//? if fabric {
+/*public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
 
     //? 1.20.1 {
     public FishingLootTableProvider(FabricDataOutput output) {
         super(output, LootContextParamSets.FISHING);
     }
     //? } else {
-    /*private final CompletableFuture<HolderLookup.Provider> registryLookup;
+    /^private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
     public FishingLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.FISHING);
         this.registryLookup = registryLookup;
 
     }
-    *///? }
-
-
+    ^///? }
+*///? } else {
+public class FishingLootTableProvider implements LootTableSubProvider {
+    public FishingLootTableProvider() {}
+//? }
+    
     public static final HashMap<String, LootTable.Builder> LOOT_TABLES = new HashMap<>();
 
     public static void define(/*? > 1.21 { *//*HolderLookup.Provider lookup*//*? } */) {

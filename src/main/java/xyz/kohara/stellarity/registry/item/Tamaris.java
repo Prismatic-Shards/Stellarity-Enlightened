@@ -92,10 +92,10 @@ public class Tamaris extends SwordItem {
                         *///? }
                     );
 
-                    nearby.playSound(StellaritySounds.TAMARIS_EXECUTE.get());
+                    nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);
 
                     if (failed) {
-                        player.getCooldowns().addCooldown(StellarityItems.TAMARIS.get(), 11 * 20);
+                        player.getCooldowns().addCooldown(StellarityItems.TAMARIS, 11 * 20);
                     }
 
                     break;

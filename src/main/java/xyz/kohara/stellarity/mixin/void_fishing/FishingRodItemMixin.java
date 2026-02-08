@@ -18,7 +18,7 @@ public class FishingRodItemMixin {
     private FishingHook markVoidFishing(Player player, Level level, int i, int j, Operation<FishingHook> original, @Local ItemStack itemStack) {
         FishingHook hook = original.call(player, level, i, j);
 
-        if (itemStack.is(StellarityItems.FISHER_OF_VOIDS.get())) {
+        if (itemStack.is(StellarityItems.FISHER_OF_VOIDS)) {
             hook.stellarity$buffVoidFishing(true);
         }
 

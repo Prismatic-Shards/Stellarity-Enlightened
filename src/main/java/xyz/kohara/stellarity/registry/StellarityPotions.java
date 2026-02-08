@@ -21,7 +21,7 @@ public class StellarityPotions {
     
     public static final HashMap<Potion, Integer> COLORS = new HashMap<>();
 
-    public static final RegistrySupplier<Potion> BLIND_RAGE = register("blind_rage", "blind_rage",
+    public static final Potion BLIND_RAGE = register("blind_rage", "blind_rage",
         new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 0),
         new MobEffectInstance(
             //? < 1.21.9 {
@@ -36,12 +36,15 @@ public class StellarityPotions {
     *///? }
 
 
-    private static RegistrySupplier<Potion> register(String id, String name, MobEffectInstance... effects) {
-        return POTIONS.register(Stellarity.id(id), () -> new Potion("stellarity." + name, effects));
+    private static Potion register(String id, String name, MobEffectInstance... effects) {
+        var ret = new Potion("stellarity." + name, effects);
+        POTIONS.register(Stellarity.id(id), () -> ret);
+        return ret;
     }
 
     public static void init() {
         Stellarity.LOGGER.info("Registering Stellarity Potions");
-        BLIND_RAGE.listen(potion -> COLORS.put(potion, 7230976));
+        //please use hex for colors :>
+        COLORS.put(BLIND_RAGE, 0x6e5600);
     }
 }

@@ -34,7 +34,7 @@ public class PrismaticPearlItem extends Item {
             pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F * 1.25F, 1.0F);
             level.addFreshEntity(pearl);
 
-            serverLevel.playSound(null, player.blockPosition(), StellaritySounds.PRISMATIC_PEARL_THROW.get(), SoundSource.NEUTRAL);
+            serverLevel.playSound(null, player.blockPosition(), StellaritySounds.PRISMATIC_PEARL_THROW, SoundSource.NEUTRAL);
         }
 
         return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());

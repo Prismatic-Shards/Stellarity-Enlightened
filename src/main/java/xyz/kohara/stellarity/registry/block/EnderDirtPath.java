@@ -32,14 +32,14 @@ public class EnderDirtPath extends DirtPathBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return
             !this.defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) ?
-                Block.pushEntitiesUp(this.defaultBlockState(), StellarityBlocks.ENDER_DIRT.get().defaultBlockState(), context.getLevel(), context.getClickedPos()) :
+                Block.pushEntitiesUp(this.defaultBlockState(), StellarityBlocks.ENDER_DIRT.defaultBlockState(), context.getLevel(), context.getClickedPos()) :
                 super.getStateForPlacement(context);
     }
 
     @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
         if (direction == Direction.UP && !blockState.canSurvive(levelAccessor, blockPos)) {
-            return StellarityBlocks.ENDER_DIRT.get().defaultBlockState();
+            return StellarityBlocks.ENDER_DIRT.defaultBlockState();
         }
 
         return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);

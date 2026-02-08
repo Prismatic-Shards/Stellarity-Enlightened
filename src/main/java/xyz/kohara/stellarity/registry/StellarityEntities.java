@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import org.jetbrains.annotations.ApiStatus;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.entity.PhantomItemFrame;
 import xyz.kohara.stellarity.registry.entity.ThrownPrismaticPearl;
@@ -14,12 +15,14 @@ import xyz.kohara.stellarity.registry.entity.variants.StellarityFrogVariants;
 public class StellarityEntities {
     private static final Registrar<EntityType<?>> ENTITY_TYPES = StellarityRegistries.MANAGER.get().get(Registries.ENTITY_TYPE);
 
-    public static final RegistrySupplier<EntityType<PhantomItemFrame>> PHANTOM_ITEM_FRAME = register("phantom_item_frame", EntityType.Builder.of(PhantomItemFrame::new, MobCategory.MISC));
-    public static final RegistrySupplier<EntityType<ThrownPrismaticPearl>> PRISMATIC_PEARL = register("prismatic_pearl", EntityType.Builder.of(ThrownPrismaticPearl::new, MobCategory.MISC));
+    public static final EntityType<PhantomItemFrame> PHANTOM_ITEM_FRAME = register("phantom_item_frame", EntityType.Builder.of(PhantomItemFrame::new, MobCategory.MISC));
+    public static final EntityType<ThrownPrismaticPearl> PRISMATIC_PEARL = register("prismatic_pearl", EntityType.Builder.of(ThrownPrismaticPearl::new, MobCategory.MISC));
 
-    public static <T extends Entity> RegistrySupplier<EntityType<T>> register(String id, EntityType.Builder<T> builder) {
+    public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
         var location = Stellarity.id(id);
-        return ENTITY_TYPES.register(location, () -> builder.build(location.toString()));
+        var ret = builder.build(location.toString());
+        ENTITY_TYPES.register(location, () -> ret);
+        return ret;
     }
 
     public static void init() {

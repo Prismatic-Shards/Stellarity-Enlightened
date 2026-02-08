@@ -1,24 +1,38 @@
 package xyz.kohara.stellarity.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+//? if fabric {
+/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+*///? }
 
+import net.minecraft.data.CachedOutput;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import net.minecraft.data.models.BlockModelGenerators;
 
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.model.TexturedModel;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-public class ModelProvider extends FabricModelProvider {
+import java.util.function.BiFunction;
+
+//? if fabric {
+/*public class ModelProvider extends FabricModelProvider {
     public ModelProvider(FabricDataOutput output) {
         super(output);
     }
+*///? } else {
+public final class ModelProvider {
+//? }
 
     public final static Item[] FLAT_ITEMS = new Item[]{
         StellarityItems.SUSHI,
@@ -53,7 +67,60 @@ public class ModelProvider extends FabricModelProvider {
         StellarityItems.PRISMATIC_PEARL,
         StellarityItems.ENDONOMICON
     };
-
+    
+    //? if forge {
+    public static final class Blocks extends BlockModelProvider {
+        public Blocks(PackOutput output, ExistingFileHelper existingFileHelper) {
+            super(output, "block", existingFileHelper);
+        }
+        
+        @Override
+        protected void registerModels() {
+            //only doing datagen for those models that aren't present already
+            //dirt
+            this.cubeAll("ender_dirt", Stellarity.id("block/ender_dirt"));
+            this.cubeAll("rooted_ender_dirt", Stellarity.id("block/rooted_ender_dirt"));
+            this.cubeBottomTop("ender_dirt_path",
+                Stellarity.id("block/ender_dirt_path_side"),
+                Stellarity.id("block/ender_dirt"),
+                Stellarity.id("block/ender_dirt_path_side")
+            );
+            //ashen froglight
+            this.cubeColumn("ashen_froglight",
+                Stellarity.id("block/ashen_froglight_side"),
+                Stellarity.id("block/ashen_froglight_top"));
+        }
+        
+        @Override
+        public String getName() {
+            return "Stellarity (on Forge) Block model builder";
+        }
+    }
+    
+    public static final class Items extends ItemModelProvider {
+        public Items(PackOutput output, ExistingFileHelper existingFileHelper) {
+            super(output, "item", existingFileHelper);
+        }
+        
+        @Override
+        protected void registerModels() {
+            //fisher of voids
+            this.singleTexture("fisher_of_voids_cast", Stellarity.mcId("item/handheld_rod"), Stellarity.id("item/fisher_of_voids_cast"));
+            //tamaris
+            this.singleTexture("tamaris", Stellarity.mcId("item/handheld"), Stellarity.id("item/tamaris"));
+            //everything else
+            for (Item item : FLAT_ITEMS) {
+                this.basicItem(item);
+            }
+        }
+        
+        @Override
+        public String getName() {
+            return "Stellarity (on Forge) Item model builder";
+        }
+    }
+    //? } else if fabric {
+    
     @Override
     public void generateBlockStateModels(BlockModelGenerators generators) {
         generators.createTrivialCube(StellarityBlocks.ENDER_DIRT);
@@ -77,4 +144,5 @@ public class ModelProvider extends FabricModelProvider {
         }
 
     }
+    //? }
 }

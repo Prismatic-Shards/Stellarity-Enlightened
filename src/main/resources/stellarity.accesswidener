@@ -14,7 +14,6 @@ transitive-accessible method net/minecraft/world/damagesource/DamageSources sour
 transitive-accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
 transitive-accessible method net/minecraft/world/damagesource/DamageSources source (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;
 
-#? < 1.21.9
 extendable method net/minecraft/client/renderer/entity/ItemFrameRenderer getFrameModelResourceLoc (Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/ModelResourceLocation;
 
 #? > 1.21

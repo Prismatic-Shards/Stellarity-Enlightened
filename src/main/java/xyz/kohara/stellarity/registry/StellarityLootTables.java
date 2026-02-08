@@ -53,7 +53,7 @@ public class StellarityLootTables {
                         damage().source(
                             entity().entityType(entityType(EntityType.FROG)).nbt(nbt(tag))
                         )
-                    )).add(item(StellarityItems.ASHEN_FROGLIGHT.get())));
+                    )).add(item(StellarityItems.ASHEN_FROGLIGHT)));
             }
         });
     }

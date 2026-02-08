@@ -1,34 +1,34 @@
 package xyz.kohara.stellarity.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+//? if forge {
+import net.minecraftforge.common.data.ExistingFileHelper;
+//? }
+import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 import java.util.concurrent.CompletableFuture;
-//? >= 1.21.9 {
-/*import net.minecraft.data.tags.TagAppender;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
-*///? }
 
-public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public BlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+public class BlockTagProvider extends TagsProvider<Block> {
+    public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture/*? if !fabric {*/, ExistingFileHelper existingFileHelper/*?}*/) {
+        super(output, Registries.BLOCK, registriesFuture, Stellarity.MOD_ID/*? if !fabric {*/, existingFileHelper/*?}*/);
     }
-
-    //? >= 1.21.9 {
-    /*public TagAppender<Block, Block> getOrCreateTagBuilder(TagKey<Block> tagKey) {
-        return this.valueLookupBuilder(tagKey);
-    }
-    *///?}
-
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL).add(StellarityBlocks.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT, StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.ROOTED_ENDER_DIRT);
-
-        getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(StellarityBlocks.ALTAR_OF_THE_ACCURSED);
+        getOrCreateRawBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
+            .addTag(BuiltInRegistries.BLOCK.getKey(StellarityBlocks.ENDER_DIRT_PATH))
+            .addTag(BuiltInRegistries.BLOCK.getKey(StellarityBlocks.ENDER_DIRT))
+            .addTag(BuiltInRegistries.BLOCK.getKey(StellarityBlocks.ENDER_GRASS_BLOCK))
+            .addTag(BuiltInRegistries.BLOCK.getKey(StellarityBlocks.ROOTED_ENDER_DIRT));
+        
+        getOrCreateRawBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+            .addTag(BuiltInRegistries.BLOCK.getKey(StellarityBlocks.ALTAR_OF_THE_ACCURSED));
     }
 }

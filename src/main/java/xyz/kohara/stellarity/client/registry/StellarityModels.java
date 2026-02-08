@@ -60,8 +60,8 @@ public class StellarityModels {
     }
 
     public static void initModelPredicates() {
-        registerBowModel(StellarityItems.CALL_OF_THE_VOID.get());
-        registerFishingRodModel(StellarityItems.FISHER_OF_VOIDS.get());
+        registerBowModel(StellarityItems.CALL_OF_THE_VOID);
+        registerFishingRodModel(StellarityItems.FISHER_OF_VOIDS);
         Stellarity.LOGGER.info("Stellarity Model Predicates Initialized!");
     }
     
@@ -74,11 +74,11 @@ public class StellarityModels {
             return 0x91BD59;
         };
         //? if fabric {
-        /*ColorProviderRegistry.BLOCK.finishSetup(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK.get());
+        /*ColorProviderRegistry.BLOCK.finishSetup(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(StellarityBlocks.ENDER_GRASS_BLOCK.get(), RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(StellarityBlocks.ENDER_GRASS_BLOCK, RenderType.cutout());
         *///? } else if forge {
-        event.register(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK.get());
+        event.register(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK);
         
         //TODO port the fabric thing
         //? }
@@ -89,9 +89,9 @@ public class StellarityModels {
     public static void initItemColors(/*? if forge >> ' {'*/RegisterColorHandlersEvent.Item event) {
         ItemColor itemColor = (itemStack, i) -> 0x91BD59;
         //? if fabric {
-        /*ColorProviderRegistry.ITEM.finishSetup(itemColor, StellarityItems.ENDER_GRASS_BLOCK.get());
+        /*ColorProviderRegistry.ITEM.finishSetup(itemColor, StellarityItems.ENDER_GRASS_BLOCK);
         *///? } else if forge {
-        event.register(itemColor, StellarityItems.ENDER_GRASS_BLOCK.get());
+        event.register(itemColor, StellarityItems.ENDER_GRASS_BLOCK);
         //? }
 
         Stellarity.LOGGER.info("Initialized Item Model Colors");

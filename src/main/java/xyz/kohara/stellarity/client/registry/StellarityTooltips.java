@@ -24,10 +24,11 @@ import java.util.List;
 public class StellarityTooltips {
     public static final Component EMPTY_LINE = Component.literal("");
     public static final Component STELLARITY = Component.translatable("Stellarity").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC);
-
+    private static boolean initialized = false;
 
     public static void init(/*? if forge >>' {'*/ItemTooltipEvent event) {
-        Stellarity.LOGGER.info("Registering Stellarity Tooltips");
+        //? if fabric
+        /*Stellarity.LOGGER.info("Registering Stellarity Tooltips");*/
 
         //? if fabric {
         /*ItemTooltipCallback.EVENT.finishSetup((

@@ -11,10 +11,8 @@ import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 //? } else {
 /*
@@ -24,6 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.kohara.stellarity.client.StellarityClient;
 import xyz.kohara.stellarity.registry.*;
+
+import static net.minecraft.core.registries.BuiltInRegistries.*;
+import static xyz.kohara.stellarity.utils.MiscUtil.temporarilyUnfreezeRegistry;
+
 //? if forgelike
 @Mod(Stellarity.MOD_ID)
 //? if forge {
@@ -45,20 +47,21 @@ public class Stellarity /*? if fabric >> ' {'*//*implements ModInitializer*/ {
         IEventBus event = FMLJavaModLoadingContext.get().getModEventBus();
         EventBuses.registerModEventBus(MOD_ID, event);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> event.addListener(EventPriority.HIGHEST, StellarityClient::clientSetup));
-        StellarityEntities.init();
-        StellarityBlocks.init();
-        StellarityItems.init();
+        //very funny code
+        temporarilyUnfreezeRegistry(ENTITY_TYPE, StellarityEntities::init);
+        temporarilyUnfreezeRegistry(BLOCK, StellarityBlocks::init);
+        temporarilyUnfreezeRegistry(ITEM, StellarityItems::init);
         StellarityNetworking.init();
-        StellarityPotions.init();
-        StellarityCreativeModeTabs.init();
-        StellarityBlockEntityTypes.init();
+        temporarilyUnfreezeRegistry(POTION, StellarityPotions::init);
+        temporarilyUnfreezeRegistry(CREATIVE_MODE_TAB, StellarityCreativeModeTabs::init);
+        temporarilyUnfreezeRegistry(BLOCK_ENTITY_TYPE, StellarityBlockEntityTypes::init);
         StellarityLootTables.init();
         StellarityCriteriaTriggers.init();
-        StellarityRecipeTypes.init();
-        StellarityRecipeSerializers.init();
-        StellarityPaintings.init();
-        StellarityMobEffects.init();
-        StellaritySounds.init();
+        temporarilyUnfreezeRegistry(RECIPE_TYPE, StellarityRecipeTypes::init);
+        temporarilyUnfreezeRegistry(RECIPE_SERIALIZER, StellarityRecipeSerializers::init);
+        temporarilyUnfreezeRegistry(PAINTING_VARIANT, StellarityPaintings::init);
+        temporarilyUnfreezeRegistry(MOB_EFFECT, StellarityMobEffects::init);
+        temporarilyUnfreezeRegistry(SOUND_EVENT, StellaritySounds::init);
     }
     //? } else if neoforge {
     /*

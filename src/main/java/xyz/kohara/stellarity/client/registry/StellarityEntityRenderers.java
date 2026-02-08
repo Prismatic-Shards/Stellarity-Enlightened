@@ -21,8 +21,8 @@ public class StellarityEntityRenderers {
         /*EntityRendererRegistry.finishSetup(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
         EntityRendererRegistry.finishSetup(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
         *///? } else {
-        event.registerEntityRenderer(StellarityEntities.PHANTOM_ITEM_FRAME.get(), PhantomItemFrameRenderer::new);
-        event.registerEntityRenderer(StellarityEntities.PRISMATIC_PEARL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
+        event.registerEntityRenderer(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
         //? }
     }
 

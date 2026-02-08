@@ -28,7 +28,7 @@ ordering = "AFTER"
 side = "BOTH"
 
 [[mixins]]
-config = "stellarity-common.mixins.json"
+config = "stellarity.mixins.json"
 
 [[mixins]]
 config = "stellarity-neoforge.mixins.json"

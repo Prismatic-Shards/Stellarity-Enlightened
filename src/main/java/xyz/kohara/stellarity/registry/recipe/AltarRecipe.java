@@ -48,7 +48,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
         @Override
             *///? }
         public int size() {
-            return ((SimpleContainerAccessor) this).items().size();
+            return ((SimpleContainerAccessor) this).stellarity$items().size();
         }
     }
 
@@ -166,13 +166,13 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
     @Override
     default RecipeType<? extends Recipe<Input>> getType() {
-        return StellarityRecipeTypes.ALTAR_RECIPE.get();
+        return StellarityRecipeTypes.ALTAR_RECIPE;
     }
 
 
     @Override
     default boolean matches(Input container, Level level) {
-        return craft(((SimpleContainerAccessor) container).items()) == null;
+        return craft(((SimpleContainerAccessor) container).stellarity$items()) == null;
     }
 
     static void handleItems(ServerLevel serverLevel, double x, double y, double z, boolean locked) {
@@ -217,7 +217,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
             /*var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_RECIPE);
              *///? }
             //? = 1.20.1 {
-            for (var recipe : serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE.get())) {
+            for (var recipe : serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE)) {
              //? } else {
             /*for (var recipeHolder : allRecipes) {
                 var recipe = recipeHolder.value();
