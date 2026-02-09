@@ -29,9 +29,3 @@ side = "BOTH"
 
 [[mixins]]
 config = "stellarity.mixins.json"
-
-[[mixins]]
-config = "stellarity-neoforge.mixins.json"
-
-[[accessTransformers]]
-file="accesstransformers/${at_file}"

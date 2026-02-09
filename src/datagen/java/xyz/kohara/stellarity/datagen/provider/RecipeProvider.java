@@ -1,10 +1,6 @@
 package xyz.kohara.stellarity.datagen.provider;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-
-
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,14 +26,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 *///? }
 
-public class RecipeProvider extends FabricRecipeProvider {
+public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
 
     //? 1.20.1 {
-    public RecipeProvider(FabricDataOutput output) {
+    public RecipeProvider(PackOutput output) {
         super(output);
     }
     //? } else {
-    /*public RecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    /*public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
     *///? }
@@ -54,18 +50,6 @@ public class RecipeProvider extends FabricRecipeProvider {
             //? > 1.21.9
             //ResourceKey.create(Registries.RECIPE, recipe.id()),
             recipe, null);
-    }
-    *///? }
-
-    //? > 1.21.9 {
-    /*@Override
-    public net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
-        return new net.minecraft.data.recipes.RecipeProvider(provider, recipeOutput) {
-            @Override
-            public void buildRecipes() {
-                RecipeProvider.this.buildRecipes(provider, output);
-            }
-        };
     }
     *///? }
 
@@ -112,10 +96,4 @@ public class RecipeProvider extends FabricRecipeProvider {
             new ItemStack(StellarityItems.ENDONOMICON, 1)
         ));
     }
-
-    @Override
-    public String getName() {
-        return Stellarity.MOD_ID;
-    }
-
 }

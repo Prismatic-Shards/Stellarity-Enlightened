@@ -1,38 +1,38 @@
 package xyz.kohara.stellarity.datagen;
 
 //? if fabric {
-/*import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-*///? } else if forge {
-import net.minecraft.core.HolderLookup;
+//? } else if forge {
+/*import net.minecraft.core.HolderLookup;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-//? }
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+*///? }
+import net.minecraft.data.DataProvider;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.datagen.provider.*;
 import xyz.kohara.stellarity.datagen.provider.loot_table.BlockLootTableProvider;
 import xyz.kohara.stellarity.datagen.provider.loot_table.FishingLootTableProvider;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 //? if forge {
-@Mod.EventBusSubscriber(modid = Stellarity.MOD_ID)
-//? }
-public class StellarityDatagen /*? if fabric >> ' {'*//* implements DataGeneratorEntrypoint, ModInitializer*/ {
+/*@Mod.EventBusSubscriber(modid = Stellarity.MOD_ID)
+*///? }
+public class StellarityDatagen /*? if fabric >> ' {'*/ implements DataGeneratorEntrypoint, ModInitializer {
     //? if fabric {
-    /*@Override
+    @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
@@ -40,7 +40,7 @@ public class StellarityDatagen /*? if fabric >> ' {'*//* implements DataGenerato
         pack.addProvider(ModelProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(ItemTagProvider::new);
-        pack.addProvider(RecipeProvider::new);
+        pack.addProvider((FabricDataGenerator.Pack.Factory<? extends DataProvider>) RecipeProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(FishingLootTableProvider::new);
@@ -58,8 +58,8 @@ public class StellarityDatagen /*? if fabric >> ' {'*//* implements DataGenerato
     public @Nullable String getEffectiveModId() {
         return "stellarity";
     }
-    *///? } else if forge {
-    @SubscribeEvent
+    //? } else if forge {
+    /*@SubscribeEvent
     public static void theDatagen(GatherDataEvent event) {
         // here you go
         // im only fixing this because datagen suddenly started running itself
@@ -70,9 +70,10 @@ public class StellarityDatagen /*? if fabric >> ' {'*//* implements DataGenerato
         PackOutput clientOutput = generator.getPackOutput("assets/stellarity");
         PackOutput serverOutput = generator.getPackOutput("data/stellarity");
         
-        generator.addProvider(event.includeClient(), new ModelProvider.Blocks(clientOutput, existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModelProvider.Items(clientOutput, existingFileHelper));
-        generator.addProvider(event.includeServer(), new LootTableProvider(
+        generator.addProvider(true, new ModelProvider.Blocks(clientOutput, existingFileHelper));
+        generator.addProvider(true, new ModelProvider.Items(clientOutput, existingFileHelper));
+        generator.addProvider(true, new RecipeProvider(serverOutput));
+        generator.addProvider(true, new LootTableProvider(
             serverOutput,
             Collections.emptySet(),
             List.of(
@@ -80,10 +81,10 @@ public class StellarityDatagen /*? if fabric >> ' {'*//* implements DataGenerato
                 new LootTableProvider.SubProviderEntry(FishingLootTableProvider::new, LootContextParamSets.FISHING)
             )
         ));
-        generator.addProvider(event.includeServer(), new AdvancementProvider(serverOutput, registryLookup));
-        generator.addProvider(event.includeServer(), new EndonomiconBookProvider(serverOutput, generator, lookup, "endonomicon"));
-        generator.addProvider(event.includeServer(), new BlockTagProvider(serverOutput, registryLookup, existingFileHelper));
-        generator.addProvider(event.includeServer(), new ItemTagProvider(serverOutput, registryLookup, existingFileHelper));
+        generator.addProvider(true, new AdvancementProvider(serverOutput, registryLookup));
+        generator.addProvider(true, new EndonomiconBookProvider(serverOutput, generator, lookup, "endonomicon"));
+        generator.addProvider(true, new BlockTagProvider(serverOutput, registryLookup, existingFileHelper));
+        generator.addProvider(true, new ItemTagProvider(serverOutput, registryLookup, existingFileHelper));
     }
-    //? }
+    *///? }
 }

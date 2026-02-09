@@ -1,9 +1,9 @@
 package xyz.kohara.stellarity.datagen.provider.loot_table;
 
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-*///? }
+//? }
 
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -40,25 +40,25 @@ import java.util.HashMap;
 
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 //? if fabric {
-/*public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
+public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
 
     //? 1.20.1 {
     public FishingLootTableProvider(FabricDataOutput output) {
         super(output, LootContextParamSets.FISHING);
     }
     //? } else {
-    /^private final CompletableFuture<HolderLookup.Provider> registryLookup;
+    /*private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
     public FishingLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.FISHING);
         this.registryLookup = registryLookup;
 
     }
-    ^///? }
-*///? } else {
-public class FishingLootTableProvider implements LootTableSubProvider {
+    *///? }
+//? } else {
+/*public class FishingLootTableProvider implements LootTableSubProvider {
     public FishingLootTableProvider() {}
-//? }
+*///? }
     
     public static final HashMap<String, LootTable.Builder> LOOT_TABLES = new HashMap<>();
 

@@ -13,6 +13,7 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.entity.PhantomItemFrame;
 import xyz.kohara.stellarity.registry.entity.ThrownPrismaticPearl;
 import xyz.kohara.stellarity.registry.entity.variants.StellarityFrogVariants;
+import xyz.kohara.stellarity.utils.MiscUtil;
 
 public class StellarityEntities {
     public static final EntityType<PhantomItemFrame> PHANTOM_ITEM_FRAME = register("phantom_item_frame", EntityType.Builder.of(PhantomItemFrame::new, MobCategory.MISC));
@@ -25,6 +26,6 @@ public class StellarityEntities {
 
     public static void init() {
         Stellarity.LOGGER.info("Registering Stellarity Entities");
-        StellarityFrogVariants.init();
+        MiscUtil.temporarilyUnfreezeRegistry(BuiltInRegistries.FROG_VARIANT, StellarityFrogVariants::init);
     }
 }

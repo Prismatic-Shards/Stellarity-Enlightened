@@ -1,8 +1,11 @@
 package xyz.kohara.stellarity.datagen.provider;
 
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+//? } else if forge {
+/*import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.common.data.ExistingFileHelper;
 *///? }
 
 import net.minecraft.data.CachedOutput;
@@ -10,8 +13,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import net.minecraft.data.models.BlockModelGenerators;
@@ -26,13 +27,13 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 import java.util.function.BiFunction;
 
 //? if fabric {
-/*public class ModelProvider extends FabricModelProvider {
+public class ModelProvider extends FabricModelProvider {
     public ModelProvider(FabricDataOutput output) {
         super(output);
     }
-*///? } else {
-public final class ModelProvider {
-//? }
+//? } else {
+/*public final class ModelProvider {
+*///? }
 
     public final static Item[] FLAT_ITEMS = new Item[]{
         StellarityItems.SUSHI,
@@ -69,7 +70,7 @@ public final class ModelProvider {
     };
     
     //? if forge {
-    public static final class Blocks extends BlockModelProvider {
+    /*public static final class Blocks extends BlockModelProvider {
         public Blocks(PackOutput output, ExistingFileHelper existingFileHelper) {
             super(output, "block", existingFileHelper);
         }
@@ -119,8 +120,7 @@ public final class ModelProvider {
             return "Stellarity (on Forge) Item model builder";
         }
     }
-    //? } else if fabric {
-    
+    *///? } else if fabric {
     @Override
     public void generateBlockStateModels(BlockModelGenerators generators) {
         generators.createTrivialCube(StellarityBlocks.ENDER_DIRT);

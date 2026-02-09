@@ -1,9 +1,9 @@
 package xyz.kohara.stellarity.datagen.provider;
 
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-*///? }
+//? }
 
 import net.minecraft.advancements.*;
 
@@ -37,33 +37,33 @@ import java.util.HashMap;
 //?}
 
 //? if fabric {
-/*public class AdvancementProvider extends FabricAdvancementProvider {
+public class AdvancementProvider extends FabricAdvancementProvider {
 
     //? >= 1.21.1 {
-    /^public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    /*public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
-    ^///? } else {
+    *///? } else {
     public AdvancementProvider(FabricDataOutput output) {
         super(output);
     }
     //? }
-*///? } else {
-public class AdvancementProvider extends net.minecraft.data.advancements.AdvancementProvider {
+//? } else {
+/*public class AdvancementProvider extends net.minecraft.data.advancements.AdvancementProvider {
     public AdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output,
             registryLookup,
             List.of(
             //? >= 1.21.1 {
-            /*AdvancementProvider::generateAdvancement
-            *///? } else {
+            /^AdvancementProvider::generateAdvancement
+            ^///? } else {
             (unused, consumer) -> generateAdvancement(consumer)
             //? }
             )
         );
     }
 
-//? }
+*///? }
     
     //? >= 1.21.1 {
     /*public static final AdvancementType TASK = AdvancementType.TASK;
@@ -87,7 +87,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
     //? }
     
     //overrides in fabric but doesnt in (neo)forge
-    public /*? forgelike {*/static/*?}*/ void generateAdvancement(
+    public /*? forgelike {*//*static*//*?}*/ void generateAdvancement(
         //? >= 1.21.1 {
         /*HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer
          *///?} else {

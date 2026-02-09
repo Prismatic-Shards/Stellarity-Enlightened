@@ -1,9 +1,9 @@
 package xyz.kohara.stellarity.datagen.provider.loot_table;
 
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-*///? }
+//? }
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -39,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 
 //? if fabric {
-/*public class BlockLootTableProvider extends FabricBlockLootTableProvider {
+public class BlockLootTableProvider extends FabricBlockLootTableProvider {
     
     //? 1.20.1 {
     public BlockLootTableProvider(FabricDataOutput dataOutput) {
@@ -47,16 +47,16 @@ import static xyz.kohara.stellarity.utils.LootTableUtils.*;
     }
     //? } else {
 
-    /^public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    /*public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
-    ^///? }
-*///? } else {
-public class BlockLootTableProvider extends BlockLootSubProvider {
+    *///? }
+//? } else {
+/*public class BlockLootTableProvider extends BlockLootSubProvider {
     public BlockLootTableProvider() {
         super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
     }
-//? }
+*///? }
 
     private static final Block[] DROP_SELF = {
         StellarityBlocks.ASHEN_FROGLIGHT,

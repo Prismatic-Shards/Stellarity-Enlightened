@@ -131,6 +131,7 @@ loom {
 
     fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
     accessWidenerPath = sc.process(rootProject.file("src/main/resources/stellarity.accesswidener"), "build/dev.aw")
+    enableTransitiveAccessWideners = true
     file("build/generated/stonecutter/main/resources/stellarity.accesswidener").let {
         if (it.exists()) accessWidenerPath = it
     }
@@ -158,7 +159,12 @@ loom {
         ideConfigGenerated(true)
         vmArgs("-Dmixin.debug.export=true -XX:+AllowEnhancedClassRedefinition")
     }
+
+
 }
+
+val generatedResources = file("src/main/generated")
+//temporarily disabled so that you can import the project
 /*
 fabricApi {
     configureDataGeneration {
@@ -170,12 +176,17 @@ fabricApi {
 
     sourceSets["datagen"].apply {
         dependencies {
-            implementation("dev.aaronhowser.mods:aaron-1.21.1:1.5.0-build.107")
+            modImplementation("dev.aaronhowser.mods:aaron-1.21.1:1.5.0-build.107")
         }
     }
 }
-*/
 
+if (loader.isForge()) loom.runConfigs["datagen"].apply {
+    data()
+    programArgs("--all", "--mod", "stellarity_datagen")
+    programArgs("--output", generatedResources.absolutePath)
+}
+*/
 java {
     withSourcesJar()
     targetCompatibility = requiredJava
@@ -205,20 +216,12 @@ tasks.withType<ProcessResources> {
     inputs.property("minecraft", project.property("mod.mc_dep"))
     inputs.property("fabric_api", project.property("deps.fabric_api"))
 
-    val mcver = stonecutter.current.version
-
-    val accesstransformer = when {
-        stonecutter.eval(mcver, ">=1.21") -> "1.21.1.cfg"
-        else -> "1.20.1.cfg"
-    }
-
     val props = mapOf(
         "id" to project.property("mod.id"),
         "name" to project.property("mod.name"),
         "version" to project.property("mod.version"),
         "minecraft" to project.property("mod.mc_dep"),
-        "fabric_api" to project.property("deps.fabric_api"),
-        "at_file" to accesstransformer,
+        "fabric_api" to project.property("deps.fabric_api")
     )
 
 
