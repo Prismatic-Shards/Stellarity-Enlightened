@@ -1,11 +1,10 @@
 package xyz.kohara.stellarity.registry;
 
-import com.mojang.datafixers.util.Pair;
 import dev.architectury.hooks.item.tool.HoeItemHooks;
 import dev.architectury.hooks.item.tool.ShovelItemHooks;
-import dev.architectury.registry.registries.Registrar;
 
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -22,31 +21,27 @@ import xyz.kohara.stellarity.registry.block.EnderGrassBlock;
 import java.util.function.Function;
 
 public class StellarityBlocks {
-    private static final Registrar<Block> BLOCKS = StellarityRegistries.MANAGER.get().get(Registries.BLOCK);
-    
     public static final Block ENDER_DIRT = register("ender_dirt", Block::new, BlockBehaviour.Properties.of()
         .mapColor(MapColor.DIRT)
         .strength(0.5F)
         .sound(SoundType.ROOTED_DIRT));
-    public static final Block ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.blockProperties());
-    public static final Block ASHEN_FROGLIGHT = register("ashen_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+    public static final EnderGrassBlock ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.blockProperties());
+    public static final RotatedPillarBlock ASHEN_FROGLIGHT = register("ashen_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
         .mapColor(MapColor.SAND)
         .strength(0.3F)
         .lightLevel((state) -> 15)
         .sound(SoundType.FROGLIGHT));
-    public static final Block ROOTED_ENDER_DIRT = register("rooted_ender_dirt", RootedDirtBlock::new, BlockBehaviour.Properties.of()
+    public static final RootedDirtBlock ROOTED_ENDER_DIRT = register("rooted_ender_dirt", RootedDirtBlock::new, BlockBehaviour.Properties.of()
         .mapColor(MapColor.DIRT)
         .strength(0.5F)
         .sound(SoundType.ROOTED_DIRT));
-    public static final Block ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.blockProperties());
-    public static final Block ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.blockProperties());
+    public static final EnderDirtPath ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.blockProperties());
+    public static final AltarOfTheAccursed ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.blockProperties());
 
 
-    public static Block register(String id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings) {
+    public static <T extends Block> T register(String id, Function<BlockBehaviour.Properties, T> blockFactory, BlockBehaviour.Properties settings) {
         var location = Stellarity.id(id);
-        var ret = blockFactory.apply(settings);
-        BLOCKS.register(location, () -> ret);
-        return ret;
+        return Registry.register(BuiltInRegistries.BLOCK, location, blockFactory.apply(settings));
     }
 
     public static void init() {

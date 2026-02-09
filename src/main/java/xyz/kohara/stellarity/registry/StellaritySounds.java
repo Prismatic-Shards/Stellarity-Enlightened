@@ -1,10 +1,7 @@
 package xyz.kohara.stellarity.registry;
 
-import dev.architectury.registry.registries.Registrar;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import xyz.kohara.stellarity.Stellarity;
 

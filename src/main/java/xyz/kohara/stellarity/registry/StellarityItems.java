@@ -3,6 +3,8 @@ package xyz.kohara.stellarity.registry;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -20,8 +22,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public class StellarityItems {
-    private static final Registrar<Item> ITEMS = StellarityRegistries.MANAGER.get().get(Registries.ITEM);
-    
     public static final BlockItem ENDER_DIRT = registerBlock("ender_dirt", StellarityBlocks.ENDER_DIRT);
     public static final BlockItem ENDER_GRASS_BLOCK = registerBlock("ender_grass_block", StellarityBlocks.ENDER_GRASS_BLOCK);
     public static final BlockItem ASHEN_FROGLIGHT = registerBlock("ashen_froglight", StellarityBlocks.ASHEN_FROGLIGHT);
@@ -68,14 +68,14 @@ public class StellarityItems {
 
     public static final Item PHO = register("pho",
         //? >= 1.21 {
-        Item::new,
-         //? } else {
-        /*BowlFoodItem::new,
-        *///? }
+        /*Item::new,
+         *///? } else {
+        BowlFoodItem::new,
+        //? }
         foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder()
             //? = 1.21.1 {
-            .usingConvertsTo(Items.BOWL)
-             //? }
+            /*.usingConvertsTo(Items.BOWL)
+             *///? }
             , 13, 20f, true,
             new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
             new EffectChance(new MobEffectInstance(
@@ -100,8 +100,8 @@ public class StellarityItems {
         List.of()
     ) {
         @Override
-        public void appendHoverText(ItemStack itemStack, /*? 1.20.1 { */    /*Level level *//*? } else { */ TooltipContext context /*? } */, List<Component> list, TooltipFlag tooltipFlag) {
-            super.appendHoverText(itemStack, /*? 1.20.1 { */ /*level *//*? } else { */ context /*? }*/, list, tooltipFlag);
+        public void appendHoverText(ItemStack itemStack, /*? 1.20.1 { */    Level level /*? } else { */ /*TooltipContext context *//*? } */, List<Component> list, TooltipFlag tooltipFlag) {
+            super.appendHoverText(itemStack, /*? 1.20.1 { */ level /*? } else { */ /*context *//*? }*/, list, tooltipFlag);
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.chorus_plating")).withStyle(ChatFormatting.BLUE)));
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.minecraft.shulker_shell")).withStyle(ChatFormatting.BLUE)));
             list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
@@ -123,20 +123,15 @@ public class StellarityItems {
     }
 
     public static BlockItem registerBlock(String name, Block block, Item.Properties settings) {
-        var ret = new BlockItem(block, settings);
-        ITEMS.register(Stellarity.id(name), () -> ret);
-        return ret;
+        return Registry.register(BuiltInRegistries.ITEM, Stellarity.id(name), new BlockItem(block, settings));
     }
 
-    public static <T extends Item> T register(String name, Function<Item.Properties, Item> itemFactory) {
+    public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory) {
         return register(name, itemFactory, new Item.Properties());
     }
-
-    @SuppressWarnings("unchecked") //bruh
-    public static <T extends Item> T register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
-        var ret = (T) itemFactory.apply(settings);
-        ITEMS.register(Stellarity.id(name), () -> ret);
-        return ret;
+    
+    public static <T extends Item> T register(String name, Function<Item.Properties, T> itemFactory, Item.Properties settings) {
+        return Registry.register(BuiltInRegistries.ITEM, Stellarity.id(name), itemFactory.apply(settings));
     }
 
     public record EffectChance(MobEffectInstance effect, float chance) {
@@ -150,20 +145,20 @@ public class StellarityItems {
         foodProperties = foodProperties
             .nutrition(nutrition)
             //? < 1.21.1 {
-            /*.saturationMod(saturation);
+            .saturationMod(saturation);
 
         for (EffectChance ec : effectChances) {
             foodProperties.effect(ec.effect, ec.chance);
         }
-        *///?} else {
-        .saturationModifier(saturation);
-         //?}
+        //?} else {
+        /*.saturationModifier(saturation);
+         *///?}
         if (alwaysEat) {
             foodProperties =
                 //? = 1.20.1
-                //foodProperties.alwaysEat();
+                foodProperties.alwaysEat();
             //? >= 1.21.1
-            foodProperties.alwaysEdible();
+            //foodProperties.alwaysEdible();
         }
         return properties.food(foodProperties.build());
     }

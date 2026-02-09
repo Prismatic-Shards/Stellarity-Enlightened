@@ -14,15 +14,11 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity;
 
 public class StellarityBlockEntityTypes {
-    private static final Registrar<BlockEntityType<?>> BLOCK_ENTITY_TYPES = StellarityRegistries.MANAGER.get().get(Registries.BLOCK_ENTITY_TYPE);
-    
     public static final BlockEntityType<AltarOfTheAccursedBlockEntity> ALTAR_OF_THE_ACCURSED =
         register("altar_of_the_accursed", AltarOfTheAccursedBlockEntity::new, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
     
     public static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
-        var ret = BlockEntityType.Builder.of(factory, blocks).build(null);
-        BLOCK_ENTITY_TYPES.register(Stellarity.id(path), () -> ret);
-        return ret;
+        return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Stellarity.id(path), BlockEntityType.Builder.of(factory, blocks).build(null));
     }
 
     public static void init() {

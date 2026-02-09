@@ -6,7 +6,7 @@ plugins {
     id("co.uzzu.dotenv.gradle") version "4.0.0"
 }
 
-stonecutter active "neoforge+1.21.1"
+stonecutter active "fabric+1.20.1"
 
 /*
 // Make newer versions be published last

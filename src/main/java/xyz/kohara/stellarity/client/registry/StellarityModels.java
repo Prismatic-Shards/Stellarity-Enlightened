@@ -14,18 +14,18 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 //? if forge {
 /*import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 *///? } else if fabric {
-/*import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-*///? } else if neoforge {
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-//? }
+//? } else if neoforge {
+/*import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+*///? }
 
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 
 //$ clientOnly
-@net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
+@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class StellarityModels {
     private static void registerBowModel(Item bow) {
         ItemProperties.register(bow, Stellarity.mcId("pull"), (itemStack, clientWorld, entity, seed) -> {
@@ -33,9 +33,9 @@ public class StellarityModels {
                 return 0.0F;
             }
             //? = 1.20.1
-            //return entity.getUseItem() != itemStack ? 0.0F : (itemStack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
+            return entity.getUseItem() != itemStack ? 0.0F : (itemStack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
             //? = 1.21.1
-            return entity.getUseItem() != itemStack ? 0.0F : (itemStack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
+            //return entity.getUseItem() != itemStack ? 0.0F : (itemStack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) / 20.0F;
         });
 
         ItemProperties.register(bow, Stellarity.mcId("pulling"), (itemStack, clientWorld, entity, seed) -> {
@@ -68,7 +68,7 @@ public class StellarityModels {
         Stellarity.LOGGER.info("Stellarity Model Predicates Initialized!");
     }
 
-    public static void initBlockColors(/*? if !fabric >> ') {'*/RegisterColorHandlersEvent.Block event) {
+    public static void initBlockColors(/*? if !fabric >> ')'*//*RegisterColorHandlersEvent.Block event*/) {
         BlockColor blockColor = (state, world, pos, tintIndex) -> {
             if (world != null && pos != null) {
                 return BiomeColors.getAverageGrassColor(world, pos);
@@ -77,10 +77,10 @@ public class StellarityModels {
             return 0x91BD59;
         };
         //? if fabric {
-        /*ColorProviderRegistry.BLOCK.register(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK);
+        ColorProviderRegistry.BLOCK.register(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK);
 
         BlockRenderLayerMap.INSTANCE.putBlock(StellarityBlocks.ENDER_GRASS_BLOCK, RenderType.cutout());
-        *///? } else if forge {
+        //? } else if forgelike {
         /*event.register(blockColor, StellarityBlocks.ENDER_GRASS_BLOCK);
 
         //TODO port the fabric thing
@@ -89,11 +89,11 @@ public class StellarityModels {
         Stellarity.LOGGER.info("Initialized Block Model Colors");
     }
 
-    public static void initItemColors(/*? if !fabric >> ') {'*/RegisterColorHandlersEvent.Item event) {
+    public static void initItemColors(/*? if !fabric >> ')'*//*RegisterColorHandlersEvent.Item event*/) {
         ItemColor itemColor = (itemStack, i) -> 0x91BD59;
         //? if fabric {
-        /*ColorProviderRegistry.ITEM.register(itemColor, StellarityItems.ENDER_GRASS_BLOCK);
-        *///? } else if forge {
+        ColorProviderRegistry.ITEM.register(itemColor, StellarityItems.ENDER_GRASS_BLOCK);
+        //? } else if forgelike {
         /*event.register(itemColor, StellarityItems.ENDER_GRASS_BLOCK);
         *///? }
 
@@ -102,10 +102,10 @@ public class StellarityModels {
     }
 
     //? if fabric {
-    /*public static void init() {
+    public static void init() {
         initModelPredicates();
         initBlockColors();
         initItemColors();
     }
-    *///? }
+    //? }
 }

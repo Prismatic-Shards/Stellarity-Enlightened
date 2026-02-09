@@ -1,5 +1,5 @@
 //? 1.21.1 {
-package xyz.kohara.stellarity.mixin.phantom_item_frame_model;
+/*package xyz.kohara.stellarity.mixin.client.phantom_item_frame_model;
 
 
 import net.minecraft.client.resources.model.BlockStateModelLoader;
@@ -28,4 +28,4 @@ public abstract class BlockStateModelLoaderMixin {
         loadBlockStateDefinitions(Stellarity.id("phantom_item_frame"), FAKE_STATE_DEFINITION);
     }
 }
-//? }
+*///? }

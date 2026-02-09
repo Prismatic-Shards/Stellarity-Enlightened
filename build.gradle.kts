@@ -186,9 +186,6 @@ fletchingTable {
     mixins.register("main") {
         //its monolithic already
         mixin("default", "stellarity.mixins.json")
-//        mixin("default", "stellarity-$loader.mixins.json") {
-//            env(MixinEnvironment.Env.DEFAULT, "xyz.kohara.stellarity.platform.$loader")
-//        }
     }
 
     j52j.register("main") {

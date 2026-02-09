@@ -61,12 +61,12 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
     }
 
     @Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;addPlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-    private void addPlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' */(name = "serverplayer") ServerPlayer player) {
+    private void addPlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' *//*(name = "serverplayer")*/ ServerPlayer player) {
         stellarity$crystalsRemaining.addPlayer(player);
     }
 
     @Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;removePlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-    private void removePlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' */(name = "serverplayer1") ServerPlayer player) {
+    private void removePlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' *//*(name = "serverplayer1")*/ ServerPlayer player) {
         stellarity$crystalsRemaining.removePlayer(player);
     }
 }

@@ -30,10 +30,10 @@ import java.util.Comparator;
 public class Tamaris extends SwordItem {
     public Tamaris(Properties properties) {
         //? if 1.20.1 {
-        /*super(Tiers.NETHERITE, 2, -2.4f, properties);
-        *///? } else {
-        super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
-        //? }
+        super(Tiers.NETHERITE, 2, -2.4f, properties);
+        //? } else {
+        /*super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
+        *///? }
     }
 
 
@@ -86,10 +86,10 @@ public class Tamaris extends SwordItem {
                     player.teleportTo(nearestPos.x, nearestPos.y, nearestPos.z);
                     itemStack.hurtAndBreak(1, player,
                         //? 1.20.1 {
-                        /*(livingEntityx) -> livingEntityx.broadcastBreakEvent(EquipmentSlot.MAINHAND)
-                         *///? } else {
-                        EquipmentSlot.MAINHAND
-                        //? }
+                        (livingEntityx) -> livingEntityx.broadcastBreakEvent(EquipmentSlot.MAINHAND)
+                         //? } else {
+                        /*EquipmentSlot.MAINHAND
+                        *///? }
                     );
 
                     nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);

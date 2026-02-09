@@ -30,8 +30,8 @@ import xyz.kohara.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity
 import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
 
 //? > 1.21 {
-import com.mojang.serialization.MapCodec;
- //? } else {
+/*import com.mojang.serialization.MapCodec;
+ *///? } else {
 
 //? }
 
@@ -85,7 +85,7 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 
 
     //? = 1.20.1
-    //@SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return SHAPE;
@@ -94,11 +94,11 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 
     //? > 1.21 {
 
-    @Override
+    /*@Override
     public MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(AltarOfTheAccursed::new);
     }
-    //? } else {
+    *///? } else {
 
     //? }
 

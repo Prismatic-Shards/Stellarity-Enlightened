@@ -13,14 +13,14 @@ public class StellarityLootTables {
         LootEvent.MODIFY_LOOT_TABLE.register(
              (
             //? 1.20.1 {
-            /*lootDataManager, id, context, builtin
-            *///? } else {
-            key, context, b
-            //? }
+            lootDataManager, id, context, builtin
+            //? } else {
+            /*key, context, b
+            *///? }
         ) -> {
             //? 1.21.1 {
-            var id = key.location();
-            //? }
+            /*var id = key.location();
+            *///? }
             
             if (id.equals(Stellarity.mcId("entities/magma_cube"))) {
                 Stellarity.LOGGER.info("Modifying Magma Cube Loot Table");

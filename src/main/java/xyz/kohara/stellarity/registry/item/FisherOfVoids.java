@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import net.minecraftforge.common.ToolActions;
 *///? } else if neoforge {
 
-import net.neoforged.neoforge.common.ItemAbilities;
+/*import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
-//? }
+*///? }
 
 public class FisherOfVoids extends FishingRodItem {
     public FisherOfVoids(Properties properties) {
@@ -21,10 +21,9 @@ public class FisherOfVoids extends FishingRodItem {
     public static Properties properties() {
         return new Properties().stacksTo(1).durability(100);
     }
-
-    @Override
+    
     //? neoforge {
-    public boolean canPerformAction(
+    /*public boolean canPerformAction(
         @NotNull ItemStack stack, ItemAbility itemAbility
  
     ) {
@@ -32,7 +31,7 @@ public class FisherOfVoids extends FishingRodItem {
         return super.canPerformAction(stack, itemAbility);
 
     }
-    //? } else if forge {
+    *///? } else if forge {
     /*public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
         if (toolAction.equals(ToolActions.FISHING_ROD_CAST)) return true;
         return super.canPerformAction(stack, toolAction);

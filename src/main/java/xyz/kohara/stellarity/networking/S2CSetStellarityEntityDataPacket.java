@@ -8,25 +8,25 @@ import xyz.kohara.stellarity.Stellarity;
 import java.util.ArrayList;
 
 //? if 1.20.1 {
-/*import net.minecraft.network.FriendlyByteBuf;
-*///? } else {
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+//? } else {
+/*import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.codec.StreamCodec;
-//? }
+*///? }
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.DataValue<?>> list)
 //? if > 1.21 {
-    implements CustomPacketPayload
-    //? }
+    /*implements CustomPacketPayload
+    *///? }
 {
     public static final ResourceLocation ID = Stellarity.id("set_entity_data");
 
     //? if 1.20.1 {
-    /*public FriendlyByteBuf pack() {
+    public FriendlyByteBuf pack() {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         buf.writeVarInt(id);
         for (SynchedEntityData.DataValue<?> dataValue : list) {
@@ -49,8 +49,8 @@ public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.Da
 
         return new S2CSetStellarityEntityDataPacket(id, list);
     }
-    *///? } else {
-    public static final Type<S2CSetStellarityEntityDataPacket> TYPE = new Type<>(ID);
+    //? } else {
+    /*public static final Type<S2CSetStellarityEntityDataPacket> TYPE = new Type<>(ID);
 
     @Override
     public Type<? extends CustomPacketPayload> type() {
@@ -82,5 +82,5 @@ public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.Da
         }
     };
 
-    //? }
+    *///? }
 }

@@ -10,8 +10,6 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.effect.*;
 
 public class StellarityMobEffects {
-    private static final Registrar<MobEffect> MOB_EFFECTS = StellarityRegistries.MANAGER.get().get(Registries.MOB_EFFECT);
-    
     public static final VoidedEffect VOIDED = register("voided", new VoidedEffect());
     public static final JinxEffect JINX = register("jinx", new JinxEffect());
 
@@ -22,8 +20,7 @@ public class StellarityMobEffects {
 
 
     public static <T extends MobEffect> T register(String name, T effect) {
-        MOB_EFFECTS.register(Stellarity.id(name), () -> effect);
-        return effect;
+        return Registry.register(BuiltInRegistries.MOB_EFFECT, Stellarity.id(name), effect);
     }
 
     public static void init() {

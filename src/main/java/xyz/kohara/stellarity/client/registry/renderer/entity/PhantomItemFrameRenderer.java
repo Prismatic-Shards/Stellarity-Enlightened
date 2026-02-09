@@ -9,18 +9,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
 import xyz.kohara.stellarity.registry.entity.PhantomItemFrame;
 
-//? < 1.21.9 {
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import xyz.kohara.stellarity.Stellarity;
-//? }
 
 //$ clientOnly
-@net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
+@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class PhantomItemFrameRenderer extends ItemFrameRenderer<PhantomItemFrame> {
     public static final StateDefinition<Block, BlockState> FAKE_STATE_DEFINITION = (new StateDefinition.Builder<Block, BlockState>(Blocks.AIR)).add(new Property[]{}).create(Block::defaultBlockState, BlockState::new);
-
-    //? < 1.21.9 {
+    
     private static final ModelResourceLocation MODEL_LOCATION = new ModelResourceLocation(Stellarity.id("phantom_item_frame"), "");
 
     public PhantomItemFrameRenderer(EntityRendererProvider.Context context) {
@@ -33,9 +30,4 @@ public class PhantomItemFrameRenderer extends ItemFrameRenderer<PhantomItemFrame
 
         return MODEL_LOCATION;
     }
-    //? } else {
-    /*public PhantomItemFrameRenderer(EntityRendererProvider.Context context) {
-        super(context);
-    }
-    *///? }
 }
