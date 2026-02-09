@@ -36,7 +36,7 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
     protected abstract void findOrCreateDragon();
 
     @Unique
-    private final ServerBossEvent crystalsRemaining = new ServerBossEvent(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
+    private final ServerBossEvent stellarity$crystalsRemaining = new ServerBossEvent(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
 
     @Override
     public boolean stellarity$dragonKilled() {
@@ -51,22 +51,22 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
         }
     }
 
-    @Inject(method = "tick", at = @At("TAIL"))
+    @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        crystalsRemaining.setVisible(!dragonKilled);
+        stellarity$crystalsRemaining.setVisible(!dragonKilled);
         if (!dragonKilled) {
-            crystalsRemaining.setProgress(Math.min((float) crystalsAlive / SpikeFeature.NUMBER_OF_SPIKES, 1.0f));
-            crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE));
+            stellarity$crystalsRemaining.setProgress(Math.min((float) crystalsAlive / SpikeFeature.NUMBER_OF_SPIKES, 1.0f));
+            stellarity$crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE));
         }
     }
 
     @Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;addPlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-    private void addPlayerBossBar(CallbackInfo ci, @Local ServerPlayer player) {
-        crystalsRemaining.addPlayer(player);
+    private void addPlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' */(name = "serverplayer") ServerPlayer player) {
+        stellarity$crystalsRemaining.addPlayer(player);
     }
 
     @Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;removePlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-    private void removePlayerBossBar(CallbackInfo ci, @Local ServerPlayer player) {
-        crystalsRemaining.removePlayer(player);
+    private void removePlayerBossBar(CallbackInfo ci, @Local/*? if !fabric >> ' Server' */(name = "serverplayer1") ServerPlayer player) {
+        stellarity$crystalsRemaining.removePlayer(player);
     }
 }

@@ -2,6 +2,7 @@ package xyz.kohara.stellarity.mixin.extend_classes;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import dev.architectury.networking.NetworkManager;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
@@ -15,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.networking.S2CSetStellarityEntityDataPacket;
-import xyz.kohara.stellarity.utils.NetworkingUtils;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -33,11 +33,11 @@ public abstract class ServerEntityMixin {
     private List<SynchedEntityData.DataValue<?>> trackedDataValues;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    //? < 1.21.9 {
+        //? < 1.21.9 {
     private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, Consumer consumer, CallbackInfo ci) {
-    //? } else {
-    /*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
-    *///? }
+        //? } else {
+        /*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
+         *///? }
         trackedDataValues = entity.stellarity$entityData().getNonDefaultValues();
     }
 
@@ -55,7 +55,13 @@ public abstract class ServerEntityMixin {
         if (trackedDataValues == null) return;
         for (var serverPlayer : level.players()) {
             var packet = new S2CSetStellarityEntityDataPacket(entity.getId(), list);
-            NetworkingUtils.sendPacketS2C(serverPlayer, S2CSetStellarityEntityDataPacket.ID, packet.pack());
+            NetworkManager.sendToPlayer(serverPlayer,
+                //? 1.20.1 {
+                /*S2CSetStellarityEntityDataPacket.ID, packet.pack()
+                 *///? } else {
+                packet
+                //? }
+            );
         }
     }
 
@@ -63,7 +69,13 @@ public abstract class ServerEntityMixin {
     private void sendStellarityPairingData(ServerPlayer serverPlayer, CallbackInfo ci) {
         if (trackedDataValues != null) {
             var packet = new S2CSetStellarityEntityDataPacket(entity.getId(), trackedDataValues);
-            NetworkingUtils.sendPacketS2C(serverPlayer, S2CSetStellarityEntityDataPacket.ID, packet.pack());
+            NetworkManager.sendToPlayer(serverPlayer,
+                //? 1.20.1 {
+                /*S2CSetStellarityEntityDataPacket.ID, packet.pack()
+                 *///? } else {
+                packet
+                //? }
+            );
         }
     }
 }

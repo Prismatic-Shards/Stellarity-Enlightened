@@ -5,8 +5,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 //? if fabric {
-import net.fabricmc.api.ModInitializer;
-//? } else if forge {
+/*import net.fabricmc.api.ModInitializer;
+*///? } else if forge {
 /*import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -14,26 +14,29 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-*///? } else {
-/*
-*///? }
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import xyz.kohara.stellarity.client.StellarityClient;
 import xyz.kohara.stellarity.registry.*;
 
 import static net.minecraft.core.registries.BuiltInRegistries.*;
 import static xyz.kohara.stellarity.utils.MiscUtil.temporarilyUnfreezeRegistry;
+*///? } else if neoforge {
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+//? }
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 //? if forgelike
-//@Mod(Stellarity.MOD_ID)
+@Mod(Stellarity.MOD_ID)
 //? if forge {
 /*@Mod.EventBusSubscriber
 *///? } else if neoforge {
-/*@EventBusSubscriber
-*///? }
-public class Stellarity /*? if fabric >> ' {'*/implements ModInitializer {
+@EventBusSubscriber
+//? }
+public class Stellarity /*? if fabric >> ' {'*//*implements ModInitializer*/ {
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
     // That way, it's clear which mod wrote info, warnings, and errors.
@@ -64,8 +67,8 @@ public class Stellarity /*? if fabric >> ' {'*/implements ModInitializer {
         temporarilyUnfreezeRegistry(SOUND_EVENT, StellaritySounds::init);
     }
     *///? } else if neoforge {
-    /*
-    *///? }
+    
+    //? }
 
     public static ResourceLocation id(String path) {
         //deduplication of redundant code
@@ -100,7 +103,7 @@ public class Stellarity /*? if fabric >> ' {'*/implements ModInitializer {
     }
 
     //? if fabric {
-    @Override
+    /*@Override
     public void onInitialize() {
         // This code runs as soon as Minecraft is in a mod-load-ready state.
         // However, some things (like resources) may still be uninitialized.
@@ -122,5 +125,5 @@ public class Stellarity /*? if fabric >> ' {'*/implements ModInitializer {
         StellaritySounds.init();
         
     }
-    //? }
+    *///? }
 }

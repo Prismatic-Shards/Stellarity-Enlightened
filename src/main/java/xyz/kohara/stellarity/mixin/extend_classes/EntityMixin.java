@@ -26,16 +26,16 @@ public abstract class EntityMixin implements ExtEntity
 
     @Unique
     @Mutable
-    protected SynchedEntityData stellarity_Fabric$entityData;
+    protected SynchedEntityData entityData;
 
     @Override
     public int stellarity$getGlowColor() {
-        return stellarity_Fabric$entityData.get(DATA_GLOW_COLOR);
+        return entityData.get(DATA_GLOW_COLOR);
     }
 
     @Override
     public void stellarity$setGlowColor(int color) {
-        stellarity_Fabric$entityData.set(DATA_GLOW_COLOR, color);
+        entityData.set(DATA_GLOW_COLOR, color);
     }
 
     @Override
@@ -46,13 +46,13 @@ public abstract class EntityMixin implements ExtEntity
     //? 1.20.1 {
     /*@Inject(method = "<init>", at = @At("RETURN"))
     private void addSynchedData(EntityType<?> entityType, Level level, CallbackInfo ci) {
-        stellarity_Fabric$entityData = new SynchedEntityData((Entity) (Object) this);
+        entityData = new SynchedEntityData((Entity) (Object) this);
         stellarity$defineSynchedData();
     }
 
     @Override
     public <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
-        stellarity_Fabric$entityData.define(accessor, initialValue);
+        entityData.define(accessor, initialValue);
     }
 
     *///?} else {
@@ -86,6 +86,6 @@ public abstract class EntityMixin implements ExtEntity
 
     @Override
     public SynchedEntityData stellarity$entityData() {
-        return stellarity_Fabric$entityData;
+        return entityData;
     }
 }

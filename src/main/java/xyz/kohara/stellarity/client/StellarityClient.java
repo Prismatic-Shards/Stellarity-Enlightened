@@ -11,25 +11,40 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 *///? } else if fabric {
-import net.fabricmc.api.ClientModInitializer;
+/*import net.fabricmc.api.ClientModInitializer;
+*///? } else if neoforge {
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+
+
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 //? }
-import xyz.kohara.stellarity.Stellarity;
+
+//? if !fabric {
+
 import xyz.kohara.stellarity.client.registry.StellarityClientNetworking;
 import xyz.kohara.stellarity.client.registry.StellarityEntityRenderers;
 import xyz.kohara.stellarity.client.registry.StellarityModels;
 import xyz.kohara.stellarity.client.registry.StellarityTooltips;
+//? }
+import xyz.kohara.stellarity.Stellarity;
 
 //$ clientOnly
-@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
+@net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
 //? if forge {
 /*@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Stellarity.MOD_ID)
 *///? } else if neoforge {
-/*@EventBusSubscriber
-*///? }
-public class StellarityClient /*? if fabric >> ' {'*/implements ClientModInitializer {
+@EventBusSubscriber
+//? }
+public class StellarityClient /*? if fabric >> ' {'*//*implements ClientModInitializer*/ {
     //? if fabric {
     
-    @Override
+    /*@Override
     public void onInitializeClient() {
         Stellarity.LOGGER.info("Stellarity Client Initializing");
 
@@ -38,8 +53,8 @@ public class StellarityClient /*? if fabric >> ' {'*/implements ClientModInitial
         StellarityTooltips.init();
         StellarityClientNetworking.init();
     }
-    //? } else {
-    /*@SubscribeEvent(priority = EventPriority.HIGHEST)
+    *///? } else {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     static void registerModels(ModelEvent.BakingCompleted event) {
         StellarityModels.initModelPredicates();
     }
@@ -68,5 +83,5 @@ public class StellarityClient /*? if fabric >> ' {'*/implements ClientModInitial
     static void itemTooltipThing(ItemTooltipEvent event) {
         StellarityTooltips.init(event);
     }
-    *///? }
+    //? }
 }

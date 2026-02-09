@@ -16,9 +16,15 @@ val platform: String = property("loom.platform") as String
 loom.silentMojangMappingsLicense()
 
 enum class Loader(val loaderName: String) {
-    FABRIC("fabric") { override fun isFabric(): Boolean = true },
-    FORGE("forge") { override fun isForge(): Boolean = true },
-    NEOFORGE("neoforge") { override fun isNeoforge(): Boolean = true },
+    FABRIC("fabric") {
+        override fun isFabric(): Boolean = true
+    },
+    FORGE("forge") {
+        override fun isForge(): Boolean = true
+    },
+    NEOFORGE("neoforge") {
+        override fun isNeoforge(): Boolean = true
+    },
     UNKNOWN("unknown");
 
     open fun isFabric(): Boolean = false
@@ -82,7 +88,11 @@ dependencies {
     mappings(loom.officialMojangMappings())
     //should fix forge
     val mixinExtras = "io.github.llamalad7:mixinextras-%s:${property("deps.mixin_extras")}"
-    "io.github.llamalad7:mixinextras-$loader:${property("deps.mixin_extras")}".let {modApi(it); /*compileOnlyApi(it);*/ annotationProcessor(it); include(it) }
+    "io.github.llamalad7:mixinextras-$loader:${property("deps.mixin_extras")}".let {
+        modApi(it); /*compileOnlyApi(it);*/ annotationProcessor(
+        it
+    ); include(it)
+    }
     modImplementation("dev.architectury:architectury-$loader:${property("deps.arch_api")}")
     if (loader.isFabric()) {
         modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
@@ -188,6 +198,8 @@ fletchingTable {
     }
 }
 
+
+
 tasks.withType<ProcessResources> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     inputs.property("id", project.property("mod.id"))
@@ -196,13 +208,22 @@ tasks.withType<ProcessResources> {
     inputs.property("minecraft", project.property("mod.mc_dep"))
     inputs.property("fabric_api", project.property("deps.fabric_api"))
 
+    val mcver = stonecutter.current.version
+
+    val accesstransformer = when {
+        stonecutter.eval(mcver, ">=1.21") -> "1.21.1.cfg"
+        else -> "1.20.1.cfg"
+    }
+
     val props = mapOf(
         "id" to project.property("mod.id"),
         "name" to project.property("mod.name"),
         "version" to project.property("mod.version"),
         "minecraft" to project.property("mod.mc_dep"),
         "fabric_api" to project.property("deps.fabric_api"),
+        "at_file" to accesstransformer,
     )
+
 
     filesMatching("fabric.mod.json") { expand(props) }
     filesMatching("mods.toml") { expand(props) }
@@ -211,6 +232,7 @@ tasks.withType<ProcessResources> {
     val mixinJava = "JAVA_${requiredJava.majorVersion}"
     filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 }
+
 
 tasks {
     // Builds the version into a shared folder in `build/libs/${mod version}/`
@@ -290,6 +312,7 @@ stonecutter {
         else -> "@net.fabricmc.api.Environment(net.fabricmc.api.EnvType.SERVER)"
     }
 }
+
 
 /*
 // Publishes builds to a maven repository under `com.example:template:0.1.0+mc`

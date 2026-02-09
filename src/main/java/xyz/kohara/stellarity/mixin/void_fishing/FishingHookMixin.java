@@ -28,11 +28,6 @@ import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
-//? if forge {
-/*import net.minecraftforge.common.ToolAction;
-*///? } else if neoforge {
-/*import net.neoforged.neoforge.common.ToolAction;
-*///? }
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.*;
@@ -214,18 +209,13 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
         original.call(instance, soundEvent, evalVoidFishing() ? 1.5f : v, p);
     }
 
+    /*
+     * for forge and neoforge this is handled by apis
+     */
     //? if fabric {
-    @WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+    /*@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
     public boolean dontStopFisherOfVoids(ItemStack instance, Item item, Operation<Boolean> original) {
         return instance.is(StellarityItems.FISHER_OF_VOIDS.asItem()) || original.call(instance, item);
-    }
-    //? } else {
-    /*//? if forge
-    //@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/minecraftforge/common/ToolAction;)Z"))
-    //? if neoforge
-    /^@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;canPerformAction(Lnet/neoforged/neoforge/common/ToolAction;)Z"))^/
-    public boolean dontStopFisherOfVoids(ItemStack instance, ToolAction toolAction, Operation<Boolean> original) {
-        return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, toolAction);
     }
     *///? }
 
