@@ -12,3 +12,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] Brittle**
 
 - Refactored to be more efficent instead of checking every tick.
+
+**[*] Prismatic Inferno**
+
+- Uses Minecraft's fire damage instead of prismatic inferno custom damage, may be subject to change in the future.  

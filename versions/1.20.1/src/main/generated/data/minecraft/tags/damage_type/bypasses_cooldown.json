@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "stellarity:no_knockback_ignores_iframes",
+      "id": "stellarity:brittle",
       "required": false
     }
   ]

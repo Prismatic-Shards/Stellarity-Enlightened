@@ -167,6 +167,7 @@
   "commands.stellarity.kill_ender_dragon.success": "Killed the Ender Dragon",
   "commands.stellarity.reset_config_to_default.success": "All configs have been reset to default",
   "commands.stellarity.uninstall.success": "Removed all registered Stellarity scoreboards, teams and bossbars",
+  "death.attack.stellarity.brittle": "%1$s shattered into ice shards by magic",
   "death.attack.stellarity.dot.frostburn.1": "%1$s was turned into an icicle",
   "death.attack.stellarity.dot.frostburn.2": "%1$s's blood froze",
   "death.attack.stellarity.dot.leeching": "%1$s's life was leeched away",

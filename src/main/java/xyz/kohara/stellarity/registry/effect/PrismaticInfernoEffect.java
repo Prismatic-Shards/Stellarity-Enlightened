@@ -3,13 +3,13 @@ package xyz.kohara.stellarity.registry.effect;
 //? > 1.21 {
 
 /*import net.minecraft.tags.EntityTypeTags;
-*///?} else {
+    *///?} else {
 
 import net.minecraft.world.entity.MobType;
  //?}
 //? > 1.21.9 {
 /*import net.minecraft.server.level.ServerLevel;
-    *///? }
+ *///? }
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,16 +40,14 @@ public class PrismaticInfernoEffect extends MobEffect {
         if (isUndead) damage *= 2;
         if (isInDaylight) damage *= 2;
 
-        livingEntity./*? < 1.21.9 {*/ hurt( /*? } else { */ /*hurtServer(serverLevel, *//*? }*/livingEntity.damageSources().source(StellarityDamageTypes.PRISMATIC_INFERNO), damage);
+        livingEntity./*? < 1.21.9 {*/ hurt( /*? } else { */ /*hurtServer(serverLevel, *//*? }*/livingEntity.damageSources().inFire(), damage);
+        livingEntity.setRemainingFireTicks(25);
         /*? if >= 1.21.1 {*/
         /*return true; *//*?}*/
     }
 
     @Override
-        //? < 1.21.1
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        //? >= 1.21.1
-    //public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+    public boolean /*? 1.20.1 {*/isDurationEffectTick/*? } else { */ /*shouldApplyEffectTickThisTick *//*? } */(int duration, int amplifier) {
         return duration % 20 == 0;
     }
 }
