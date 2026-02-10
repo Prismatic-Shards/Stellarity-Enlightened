@@ -27,7 +27,7 @@ import java.util.Map;
 
 //? } else {
 /*import net.minecraft.core.Holder;
-*///? }
+ *///? }
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -63,7 +63,6 @@ public abstract class LivingEntityMixin extends Entity {
         setTicksFrozen(160);
 
         appliedBrittle = true;
-
 
         damageUtility.damageEntity((LivingEntity) (Object) this, (float) amplifier + 1);
 
