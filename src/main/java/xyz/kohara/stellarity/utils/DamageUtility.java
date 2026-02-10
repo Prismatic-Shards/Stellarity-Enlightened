@@ -2,6 +2,7 @@ package xyz.kohara.stellarity.utils;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.Stellarity;
 //? 1.20.1 {
 import java.util.UUID;
-//? } else {
+ //? } else {
 /*import net.minecraft.world.item.Item;
 *///? }
 
@@ -54,7 +55,7 @@ public final class DamageUtility {
     }
 
     public void damageEntity(LivingEntity entity, float damage) {
-        if (noop) return;
+        if (noop || !(entity.level() instanceof ServerLevel serverLevel)) return;
         float damageWithBonus = calculateDamageBoostEfficiency(entity, damage, damageBoostEfficiency);
         ModifiableArg<Float> actualNonAPDamage = new ModifiableArg<>(damageWithBonus);
         ModifiableArg<Float> apDamage = new ModifiableArg<>(0.0f);
@@ -67,8 +68,8 @@ public final class DamageUtility {
         PreDamage.EVENT.invoker().preDamage(entity, actualNonAPDamage, apDamage, clone);
         //the actual damaging part
         if (apDamage.getArg() != 0)
-            entity.hurt(apDamageSource, apDamage.getArg());
-        entity.hurt(damageSource, actualNonAPDamage.getArg());
+            entity./*? < 1.21.11 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/apDamageSource, apDamage.getArg());
+        entity./*? < 1.21.11 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/damageSource, actualNonAPDamage.getArg());
         PostDamage.EVENT.invoker().postDamage(entity, actualNonAPDamage.getArg(), apDamage.getArg(), clone);
     }
 

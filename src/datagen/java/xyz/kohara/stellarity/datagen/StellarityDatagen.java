@@ -23,6 +23,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint, ModInitialize
         pack.addProvider(BlockLootTableProvider::new);
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(FishingLootTableProvider::new);
+        pack.addProvider(DamageTagProvider::new);
 
 
         //? <= 1.21.1 {

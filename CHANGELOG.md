@@ -1,24 +1,14 @@
-# 0.3.1
-
-was originally gonna be a hotfix but like already started with some other stuff, so its going to be 0.3.1
+# 0.4.0
 
 # Changes
 
 Unless annotated, all changes are considered to be up to date with
 the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](https://modrinth.com/datapack/stellarity)
 
-## Misc Bug Fixes
-
-- Fixed client mixins as they were not being applied at all.
-
-## Blocks
-
-**[*] AOTA**
-
-- Seperated states out to `locked` and `place_type`. May affect existing altars from loading older worlds.
-- Items now no longer remain glitched on top of an locked altar when switches from unlocked to locked.
-- Added a new state `SATCHEL` to `place_type` state for converting altars from crying obsidian and upcoming satchel.
-
 # Developers Note
 
-oopsies 🤭
+# Mob Effects
+
+**[*] Brittle**
+
+- Refactored to be more efficent instead of checking every tick.

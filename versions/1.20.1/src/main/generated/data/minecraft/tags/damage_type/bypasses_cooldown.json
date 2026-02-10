@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "stellarity:no_knockback_ignores_iframes",
+      "required": false
+    }
+  ]
+}
