@@ -7,6 +7,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 public class StellarityItemTags {
     public static final TagKey<Item> FISHES = bind("fishes");
+    public static final TagKey<Item> ELYTRA_ENCHANTABLE = bind("enchantable/elytra");
 
 
     private static TagKey<Item> bind(String id) {

@@ -1,9 +1,10 @@
-package xyz.kohara.stellarity.datagen.provider;
+package xyz.kohara.stellarity.datagen.provider.tag;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.registry.StellarityItemTags;
 import xyz.kohara.stellarity.registry.StellarityItems;
@@ -43,8 +44,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             StellarityItems.ENDER_KOI,
             StellarityItems.FLAREFIN_KOI,
             StellarityItems.CRYSTAL_HEARTFISH
+
         );
 
         getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
+        getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
     }
 }

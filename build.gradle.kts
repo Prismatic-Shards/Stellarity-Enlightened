@@ -157,7 +157,7 @@ fletchingTable {
 }
 
 tasks.withType<ProcessResources> {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     inputs.property("id", project.property("mod.id"))
     inputs.property("name", project.property("mod.name"))
     inputs.property("version", project.property("mod.version"))

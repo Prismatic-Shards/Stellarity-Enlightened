@@ -1,4 +1,4 @@
-package xyz.kohara.stellarity.datagen.provider;
+package xyz.kohara.stellarity.datagen.provider.tag;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -10,8 +10,6 @@ import net.minecraft.world.damagesource.DamageType;
 import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
 //? < 1.21.11 {
-import net.minecraft.tags.TagKey;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider.FabricTagBuilder;
 //? }
 
 import java.util.concurrent.CompletableFuture;
@@ -42,10 +40,10 @@ public class DamageTagProvider extends FabricTagProvider<DamageType> {
 //        );
 
         //? > 1.20.1 {
-        /*builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
+        builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
             StellarityDamageTypes.BRITTLE
         );
-        *///? }
+        //? }
 
 //        builder(DamageTypeTags.BYPASSES_ENCHANTMENTS).addOptional(
 //            StellarityDamageTypes.BRITTLE

@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation
 
 
 //? 1.21.1 {
-/*import net.minecraft.network.chat.ComponentSerialization
+import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.core.component.DataComponentPatch
 
 import com.mojang.serialization.JsonOps
@@ -18,7 +18,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.NbtOps
 import net.minecraft.resources.RegistryOps
 
-*///? }
+//? }
 
 
 object Util {
@@ -60,14 +60,14 @@ object Util {
     fun JsonObject.addIfNotNull(key: String, value: Component?) {
         if (value != null) {
             //? 1.20.1 {
-            this.add(key, Component.Serializer.toJsonTree(value))
-            //? } else {
-            /*val element = ComponentSerialization.CODEC
+            /*this.add(key, Component.Serializer.toJsonTree(value))
+            *///? } else {
+            val element = ComponentSerialization.CODEC
                 .encodeStart(JsonOps.INSTANCE, value)
                 .result()
                 .orElseThrow()
             this.add(key, element)
-            *///? }
+            //? }
         }
     }
 
@@ -79,7 +79,7 @@ object Util {
     }
 
     //? 1.21.1 {
-    /*fun getComponentPatchString(
+    fun getComponentPatchString(
         componentPatch: DataComponentPatch,
         registries: HolderLookup.Provider
     ): String {
@@ -118,6 +118,6 @@ object Util {
         sb.append("]")
         return sb.toString()
     }
-    *///? }
+    //? }
 
 }

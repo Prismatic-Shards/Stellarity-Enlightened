@@ -7,7 +7,7 @@ import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 public class StellarityCriteriaTriggers {
     public static final VoidFishedTrigger VOID_FISHED = CriteriaTriggers.register(
         //? > 1.21
-        //"stellarity:void_fished",
+        "stellarity:void_fished",
         new VoidFishedTrigger()
     );
 

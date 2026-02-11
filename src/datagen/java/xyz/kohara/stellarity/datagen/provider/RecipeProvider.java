@@ -16,11 +16,11 @@ import xyz.kohara.stellarity.registry.recipe.AltarSimpleRecipe;
 import java.util.LinkedHashMap;
 
 //? 1.20.1 {
-import net.minecraft.data.recipes.FinishedRecipe;
+/*import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
-//? } else {
-/*import net.minecraft.core.HolderLookup;
+*///? } else {
+import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,34 +28,34 @@ import net.minecraft.resources.ResourceKey;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
-*///? }
+//? }
 
 public class RecipeProvider extends FabricRecipeProvider {
 
     //? 1.20.1 {
-    public RecipeProvider(FabricDataOutput output) {
+    /*public RecipeProvider(FabricDataOutput output) {
         super(output);
     }
-    //? } else {
-    /*public RecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    *///? } else {
+    public RecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
-    *///? }
+    //? }
 
     //? 1.20.1 {
-    public static void altarOfTheAccursed(Consumer<FinishedRecipe> output, AltarRecipe recipe) {
+    /*public static void altarOfTheAccursed(Consumer<FinishedRecipe> output, AltarRecipe recipe) {
         output.accept(recipe.finished());
     }
-    //? } else {
-    /*public static void altarOfTheAccursed(RecipeOutput output, AltarRecipe recipe) {
+    *///? } else {
+    public static void altarOfTheAccursed(RecipeOutput output, AltarRecipe recipe) {
         output.accept(
             //? = 1.21.1
-            //recipe.id(),
+            recipe.id(),
             //? > 1.21.9
             //ResourceKey.create(Registries.RECIPE, recipe.id()),
             recipe, null);
     }
-    *///? }
+    //? }
 
     //? > 1.21.9 {
     /*@Override
@@ -70,12 +70,12 @@ public class RecipeProvider extends FabricRecipeProvider {
     *///? }
 
     //? = 1.20.1 {
-    @Override
-    public void buildRecipes(Consumer<FinishedRecipe> output) {
-        //? } = 1.21.1 {
     /*@Override
+    public void buildRecipes(Consumer<FinishedRecipe> output) {
+        *///? } = 1.21.1 {
+    @Override
     public void buildRecipes(RecipeOutput output) {
-        *///? } else {
+        //? } else {
         /*public void buildRecipes(HolderLookup.Provider provider, RecipeOutput output) {
          *///? }
         altarOfTheAccursed(output, new AltarSimpleRecipe(

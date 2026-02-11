@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.datagen.provider.*;
-import xyz.kohara.stellarity.datagen.provider.loot_table.BlockLootTableProvider;
-import xyz.kohara.stellarity.datagen.provider.loot_table.FishingLootTableProvider;
+import xyz.kohara.stellarity.datagen.provider.loot_table.*;
+import xyz.kohara.stellarity.datagen.provider.tag.*;
 
 public class StellarityDatagen implements DataGeneratorEntrypoint, ModInitializer {
 

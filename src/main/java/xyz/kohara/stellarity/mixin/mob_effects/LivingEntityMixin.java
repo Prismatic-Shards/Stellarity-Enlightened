@@ -33,10 +33,10 @@ import java.util.Map;
 
 //? } else {
 
-/*import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.EntityTypeTags;
 
 import net.minecraft.core.Holder;
-    *///? }
+    //? }
 
 //? > 1.21.10 {
 /*import net.minecraft.server.level.ServerLevel;
@@ -47,14 +47,14 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Shadow
     @Final
-    private Map</*? 1.20.1 { */MobEffect/*? } else { */ /*Holder<MobEffect> *//*? }*/, MobEffectInstance> activeEffects;
+    private Map</*? 1.20.1 { *//*MobEffect*//*? } else { */ Holder<MobEffect> /*? }*/, MobEffectInstance> activeEffects;
 
     @Shadow
         //? 1.20.1
-    public abstract boolean hasEffect(MobEffect par1);
+    //public abstract boolean hasEffect(MobEffect par1);
 
     //? > 1.21
-    //public abstract boolean hasEffect(Holder<MobEffect> par1);
+    public abstract boolean hasEffect(Holder<MobEffect> par1);
 
 
     @Unique

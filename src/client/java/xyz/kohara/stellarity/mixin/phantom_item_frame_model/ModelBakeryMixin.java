@@ -1,5 +1,5 @@
 //? 1.20.1 {
-package xyz.kohara.stellarity.mixin.phantom_item_frame_model;
+/*package xyz.kohara.stellarity.mixin.phantom_item_frame_model;
 
 
 import net.minecraft.client.renderer.block.BlockModelShaper;
@@ -26,4 +26,4 @@ public abstract class ModelBakeryMixin {
         Stellarity.LOGGER.info("Registered Phantom Item Frame block states for model loading.");
     }
 }
-//? }
+*///? }
