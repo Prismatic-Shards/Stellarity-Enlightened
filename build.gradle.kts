@@ -1,4 +1,5 @@
 import dev.kikugie.fletching_table.annotation.MixinEnvironment
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("fabric-loom")
@@ -10,6 +11,10 @@ plugins {
     // `maven-publish`
 }
 
+kotlin {
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+}
+
 version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
 
@@ -19,6 +24,8 @@ val requiredJava = when {
     stonecutter.eval(stonecutter.current.version, ">=1.17") -> JavaVersion.VERSION_16
     else -> JavaVersion.VERSION_1_8
 }
+
+
 
 
 

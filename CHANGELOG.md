@@ -15,4 +15,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[*] Prismatic Inferno**
 
-- Uses Minecraft's fire damage instead of prismatic inferno custom damage, may be subject to change in the future.  
+- Uses Minecraft's fire damage instead of prismatic inferno custom damage, may be subject to change in the future.
+
+# Enchantments
+
+**[+] Critical Strike**
+
+**[+] Levitation Shot**

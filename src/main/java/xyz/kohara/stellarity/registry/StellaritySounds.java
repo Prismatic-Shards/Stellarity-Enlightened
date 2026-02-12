@@ -12,6 +12,8 @@ public class StellaritySounds {
     public static final SoundEvent TAMARIS_EXECUTE_BG = register("item.tamaris.execute_bg");
     public static final SoundEvent TAMARIS_RAVE = register("item.tamaris.rave");
 
+    public static final SoundEvent CRITICAL_STRIKE = register("enchantment.critical_strike.crit");
+
 
     public static final SoundEvent PRISMATIC_PEARL_THROW = register("item.prismatic_pearl.throw");
 

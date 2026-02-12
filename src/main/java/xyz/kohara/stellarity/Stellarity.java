@@ -60,10 +60,12 @@ public class Stellarity implements ModInitializer {
         // Proceed with mild caution.
 
         StellarityItems.init();
+        StellarityParticles.init();
         StellarityNetworking.init();
         StellarityPotions.init();
         StellarityBlocks.init();
         StellarityCreativeModeTabs.init();
+        StellarityEnchantments.init();
         StellarityEntities.init();
         StellarityBlockEntityTypes.init();
         StellarityLootTables.init();
@@ -73,6 +75,7 @@ public class Stellarity implements ModInitializer {
         StellarityPaintings.init();
         StellarityMobEffects.init();
         StellaritySounds.init();
-        
+
+
     }
 }
