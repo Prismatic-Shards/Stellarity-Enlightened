@@ -20,11 +20,13 @@
         ],
         "client": [
             "xyz.kohara.stellarity.StellarityClient"
+        ],
+        "fabric-datagen": [
+            "xyz.kohara.stellarity.StellarityDatagen"
         ]
     },
     "mixins": [
-        "stellarity.mixins.json",
-        "stellarity.client.mixins.json"
+        "stellarity.mixins.json"
     ],
     "accessWidener": "stellarity.accesswidener",
     "depends": {

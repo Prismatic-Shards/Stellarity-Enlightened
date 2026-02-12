@@ -2,8 +2,7 @@
     "required": true,
     "package": "xyz.kohara.stellarity.mixin",
     "compatibilityLevel": "${java}",
-    "mixins": [
-    ],
+    "mixins": [],
     "injectors": {
         "defaultRequire": 1
     },

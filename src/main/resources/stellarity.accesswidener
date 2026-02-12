@@ -14,10 +14,10 @@ accessible class net/minecraft/world/entity/projectile/FishingHook$FishHookState
 extendable method net/minecraft/client/renderer/entity/ItemFrameRenderer getFrameModelResourceLoc (Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/ModelResourceLocation;
 
 #? > 1.21 {
-accessible method net/minecraft/network/syncher/SynchedEntityData <init> (Lnet/minecraft/network/syncher/SyncedDataHolder;[Lnet/minecraft/network/syncher/SynchedEntityData$DataItem;)V
-
-extendable class net/minecraft/world/item/enchantment/Enchantment
-accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentInSlotVisitor
+#accessible method net/minecraft/network/syncher/SynchedEntityData <init> (Lnet/minecraft/network/syncher/SyncedDataHolder;[Lnet/minecraft/network/syncher/SynchedEntityData$DataItem;)V
+#
+#extendable class net/minecraft/world/item/enchantment/Enchantment
+#accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentInSlotVisitor
 #? }
 
 accessible field net/minecraft/world/entity/LivingEntity lastHurt F

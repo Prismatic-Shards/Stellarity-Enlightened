@@ -2,11 +2,11 @@ package xyz.kohara.stellarity.registry;
 
 //? 1.20.1 {
 
-/*import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
- *///?} else {
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+ //?} else {
 
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-    //? }
+/*import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+    *///? }
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
@@ -18,11 +18,11 @@ import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 public class StellarityLootTables {
     public static void init() {
         LootTableEvents.MODIFY.register((
-            /*?1.20.1 {*//*resourceManager, lootManager, id, builder, source*//*? } else {*/  key, builder, source, provider /*?}*/) -> {
+            /*?1.20.1 {*/resourceManager, lootManager, id, builder, source/*? } else {*/  /*key, builder, source, provider *//*?}*/) -> {
             //? 1.21.1 {
-            var id = key.location();
+            /*var id = key.location();
 
-             //? } > 1.21.10 {
+             *///? } > 1.21.10 {
             /*var id = key.identifier();
             *///? }
 

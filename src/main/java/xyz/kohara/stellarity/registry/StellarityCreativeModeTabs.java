@@ -14,11 +14,11 @@ import net.minecraft.world.level.ItemLike;
 import xyz.kohara.stellarity.Stellarity;
 
 //? 1.20.1 {
-/*import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionUtils;
 
-    *///?} else {
-import net.minecraft.world.item.alchemy.PotionContents;
- //?}
+    //?} else {
+/*import net.minecraft.world.item.alchemy.PotionContents;
+ *///?}
 
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
 
@@ -58,10 +58,10 @@ public class StellarityCreativeModeTabs {
 
     public static final ItemStack[] FOOD_ITEMSTACKS = new ItemStack[]{
         //? 1.20.1 {
-        /*PotionUtils.setPotion(new ItemStack(Items.POTION), StellarityPotions.BLIND_RAGE)
-        *///?} else {
-        PotionContents.createItemStack(Items.POTION, StellarityPotions.BLIND_RAGE_HOLDER)
-         //?}
+        PotionUtils.setPotion(new ItemStack(Items.POTION), StellarityPotions.BLIND_RAGE)
+        //?} else {
+        /*PotionContents.createItemStack(Items.POTION, StellarityPotions.BLIND_RAGE_HOLDER)
+         *///?}
     };
 
     public static final ItemLike[] EQUIPMENT_ITEMS = new ItemLike[]{

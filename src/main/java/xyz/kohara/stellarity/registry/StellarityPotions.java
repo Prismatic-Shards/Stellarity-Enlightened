@@ -8,8 +8,8 @@ import net.minecraft.world.item.alchemy.Potion;
 import xyz.kohara.stellarity.Stellarity;
 
 //? > 1.21 {
-import net.minecraft.core.Holder;
-//? }
+/*import net.minecraft.core.Holder;
+*///? }
 
 import java.util.HashMap;
 
@@ -27,8 +27,8 @@ public class StellarityPotions {
             , 15 * 20, 2));
 
     //? > 1.21 {
-    public static final Holder<Potion> BLIND_RAGE_HOLDER = BuiltInRegistries.POTION.wrapAsHolder(BLIND_RAGE);
-    //? }
+    /*public static final Holder<Potion> BLIND_RAGE_HOLDER = BuiltInRegistries.POTION.wrapAsHolder(BLIND_RAGE);
+    *///? }
 
 
     private static Potion register(String id, String name, MobEffectInstance... effects) {

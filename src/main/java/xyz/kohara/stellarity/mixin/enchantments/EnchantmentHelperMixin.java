@@ -1,5 +1,5 @@
 //? > 1.21 {
-package xyz.kohara.stellarity.mixin.enchantments;
+/*package xyz.kohara.stellarity.mixin.enchantments;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -48,4 +48,4 @@ public class EnchantmentHelperMixin {
         original.call(serverLevel, entity, damageSource, holder, i, enchantedItemInUse);
     }
 }
-//? }
+*///? }

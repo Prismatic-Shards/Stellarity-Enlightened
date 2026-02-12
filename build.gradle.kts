@@ -79,12 +79,10 @@ dependencies {
 
 loom {
 
-    splitEnvironmentSourceSets()
 
     mods {
         create(project.property("mod.id") as String) {
             sourceSet(sourceSets["main"])
-            sourceSet(sourceSets["client"])
         }
     }
 
@@ -119,20 +117,15 @@ loom {
 fabricApi {
     configureDataGeneration {
         client = true
-        modId = "stellarity-datagen"
-        createSourceSet = true
-        strictValidation = true
     }
 
-    sourceSets["datagen"].apply {
+    sourceSets["main"].apply {
         kotlin {
             if (stonecutter.eval(stonecutter.current.version, "> 1.21.1")) {
                 exclude("dev/aaronhowser/mods/patchoulidatagen/**")
             }
         }
     }
-
-
 }
 
 
@@ -146,19 +139,11 @@ java {
 
 fletchingTable {
     mixins.register("main") {
-        mixin("default", "stellarity.mixins.json")
-    }
-
-    mixins.register("client") {
-        mixin("default", "stellarity.client.mixins.json") {
-            environment = MixinEnvironment.Env.CLIENT
+        mixin("default", "stellarity.mixins.json") {
+            env("DEFAULT")
         }
-    }
-
-
-    j52j.register("main") {
-        if (stonecutter.eval(stonecutter.current.version, "< 1.21")) {
-            extension("json", "data/stellarity/loot_table/void_fishing/* -> /data/stellarity/loot_tables/void_fishing/")
+        mixin("client", "stellarity.client.mixins.json") {
+            env("CLIENT")
         }
     }
 }

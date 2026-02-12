@@ -6,7 +6,7 @@ import xyz.kohara.stellarity.Stellarity;
 //? 1.20.1 {
 
 
-/*import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import xyz.kohara.stellarity.registry.enchantment.*;
 
 import net.minecraft.core.Registry;
@@ -25,10 +25,10 @@ public class StellarityEnchantments {
     }
 }
 
-*///? } else {
+//? } else {
 
 
-import net.minecraft.core.registries.Registries;
+/*import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 public class StellarityEnchantments {
     public static final ResourceKey<Enchantment> AMBUSH = register("ambush");
@@ -49,4 +49,4 @@ public class StellarityEnchantments {
     }
 }
 
-//? }
+*///? }

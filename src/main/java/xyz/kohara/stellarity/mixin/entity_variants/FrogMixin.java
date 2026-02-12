@@ -22,11 +22,11 @@ import xyz.kohara.stellarity.registry.entity.variants.StellarityFrogVariants;
 
 //? 1.21.1 {
 
-import net.minecraft.core.registries.BuiltInRegistries;
- //? } else {
+/*import net.minecraft.core.registries.BuiltInRegistries;
+ *///? } else {
 
-/*import net.minecraft.nbt.CompoundTag;
-*///? }
+import net.minecraft.nbt.CompoundTag;
+//? }
 
 @Mixin(Frog.class)
 public abstract class FrogMixin extends Entity {
@@ -38,7 +38,7 @@ public abstract class FrogMixin extends Entity {
 
 
     //? 1.20.1 {
-    /*@Shadow
+    @Shadow
     public abstract void setVariant(FrogVariant par1);
 
     @Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
@@ -49,8 +49,8 @@ public abstract class FrogMixin extends Entity {
             setVariant(StellarityFrogVariants.END);
         }
     }
-    *///? } else {
-    @Shadow
+    //? } else {
+    /*@Shadow
     public abstract void setVariant(Holder<FrogVariant> holder);
 
     @Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
@@ -61,7 +61,7 @@ public abstract class FrogMixin extends Entity {
             setVariant(BuiltInRegistries.FROG_VARIANT.wrapAsHolder(StellarityFrogVariants.END));
         }
     }
-    //? }
+    *///? }
 
 }
 
