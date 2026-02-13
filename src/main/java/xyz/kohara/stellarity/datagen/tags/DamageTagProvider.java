@@ -1,4 +1,4 @@
-package xyz.kohara.stellarity.datagen.tag;
+package xyz.kohara.stellarity.datagen.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -7,6 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
+import xyz.kohara.stellarity.tags.StellarityDamageTypeTags;
 import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
 //? < 1.21.11 {
@@ -34,6 +36,8 @@ public class DamageTagProvider extends FabricTagProvider<DamageType> {
         builder(DamageTypeTags.BYPASSES_COOLDOWN).addOptional(
             StellarityDamageTypes.BRITTLE
         );
+
+        builder(StellarityDamageTypeTags.MELEE).add(DamageTypes.PLAYER_ATTACK, DamageTypes.MOB_ATTACK, DamageTypes.MOB_ATTACK).addOptional(StellarityDamageTypes.PRISMEMBER);
 
 //        builder(DamageTypeTags.BYPASSES_ARMOR).addOptional(
 //            StellarityDamageTypes.BRITTLE

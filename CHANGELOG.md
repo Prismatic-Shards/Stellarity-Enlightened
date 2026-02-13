@@ -19,6 +19,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 # Enchantments
 
+**[+] Ambush**
+
 **[+] Critical Strike**
 
 **[+] Levitation Shot**
+
+**[+] Void Shot**
+
+**[+] Void Strike**

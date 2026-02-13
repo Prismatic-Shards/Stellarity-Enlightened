@@ -1,5 +1,7 @@
 package xyz.kohara.stellarity.registry.enchantment;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +24,16 @@ public class CriticalStrike extends DamageEnchantment {
         return 3;
     }
 
+    @Override
+    public boolean isTreasureOnly() {
+        return true;
+    }
+
+    @Override
+    public Component getFullname(int i) {
+        return super.getFullname(i).copy().withStyle(ChatFormatting.DARK_PURPLE);
+    }
+
 
     public boolean checkCompatibility(Enchantment enchantment) {
         return enchantment instanceof DamageEnchantment;
@@ -29,12 +41,12 @@ public class CriticalStrike extends DamageEnchantment {
 
     @Override
     public int getMinCost(int i) {
-        return 50 + 11 * i;
+        return 50 + 11 * (i - 1);
     }
 
     @Override
     public int getMaxCost(int i) {
-        return 75 + 15 * i;
+        return 75 + 15 * (i - 1);
     }
 
     @Override

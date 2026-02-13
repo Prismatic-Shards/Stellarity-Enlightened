@@ -1,4 +1,3 @@
-import dev.kikugie.fletching_table.annotation.MixinEnvironment
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -234,6 +233,8 @@ stonecutter {
     replacements.string(current.parsed.matches(">=1.21.11")) {
         replace("ResourceLocation", "Identifier")
         replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
+        replace("projectile.Arrow", "projectile.arrow.Arrow")
+        replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
     }
 }
 

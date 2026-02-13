@@ -1,12 +1,11 @@
 package xyz.kohara.stellarity;
 
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.datagen.*;
 import xyz.kohara.stellarity.datagen.loot_table.*;
-import xyz.kohara.stellarity.datagen.tag.*;
+import xyz.kohara.stellarity.datagen.tags.*;
 
 public class StellarityDatagen implements DataGeneratorEntrypoint {
 
@@ -24,13 +23,15 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagProvider::new);
         pack.addProvider(FishingLootTableProvider::new);
         pack.addProvider(DamageTagProvider::new);
+        pack.addProvider(EntityTagProvider::new);
+        pack.addProvider(BiomeTagProvider::new);
 
 
         //? <= 1.21.1 {
         pack.addProvider((fabricDataOutput, completableFuture) -> new EndonomiconBookProvider(fabricDataOutput, fabricDataGenerator, completableFuture.join(), "endonomicon"));
         //? }
     }
-    
+
     @Override
     public @Nullable String getEffectiveModId() {
         return "stellarity";

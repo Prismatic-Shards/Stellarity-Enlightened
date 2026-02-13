@@ -1,4 +1,4 @@
-package xyz.kohara.stellarity.datagen.tag;
+package xyz.kohara.stellarity.datagen.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -6,7 +6,7 @@ import net.minecraft.core.HolderLookup;
 
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
-import xyz.kohara.stellarity.registry.StellarityItemTags;
+import xyz.kohara.stellarity.tags.StellarityItemTags;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -49,5 +49,14 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
         getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
+        //? 1.20.1 {
+        getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
+            .add(Items.BOW, Items.CROSSBOW, StellarityItems.CALL_OF_THE_VOID);
+        //? } else {
+        /*getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
+            .forceAddTag(ItemTags.BOW_ENCHANTABLE)
+            .forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
+        *///? }
+
     }
 }

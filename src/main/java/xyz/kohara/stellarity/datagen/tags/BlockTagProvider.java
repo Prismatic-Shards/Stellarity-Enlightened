@@ -1,11 +1,11 @@
-package xyz.kohara.stellarity.datagen.tag;
+package xyz.kohara.stellarity.datagen.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
-import xyz.kohara.stellarity.registry.StellarityBlockTags;
+import xyz.kohara.stellarity.tags.StellarityBlockTags;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 import java.util.concurrent.CompletableFuture;

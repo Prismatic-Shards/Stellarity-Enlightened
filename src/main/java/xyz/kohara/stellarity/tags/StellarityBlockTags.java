@@ -1,4 +1,4 @@
-package xyz.kohara.stellarity.registry;
+package xyz.kohara.stellarity.tags;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;

@@ -14,6 +14,10 @@ public class StellaritySounds {
 
     public static final SoundEvent CRITICAL_STRIKE = register("enchantment.critical_strike.crit");
 
+    public static final SoundEvent AMBUSH_LEVEL_1 = register("enchantment.ambush.level_1");
+    public static final SoundEvent AMBUSH_LEVEL_2 = register("enchantment.ambush.level_2");
+    public static final SoundEvent AMBUSH_LEVEL_3 = register("enchantment.ambush.level_3");
+
 
     public static final SoundEvent PRISMATIC_PEARL_THROW = register("item.prismatic_pearl.throw");
 

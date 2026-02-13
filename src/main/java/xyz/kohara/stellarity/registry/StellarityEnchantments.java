@@ -15,6 +15,9 @@ public class StellarityEnchantments {
 
     public static final Enchantment LEVITATION_SHOT = register("levitation_shot", new LevitationShot());
     public static final Enchantment CRITICAL_STRIKE = register("critical_strike", new CriticalStrike());
+    public static final Enchantment AMBUSH = register("ambush", new Ambush());
+    public static final Enchantment VOID_STRIKE = register("void_strike", new VoidStrike());
+    public static final Enchantment VOID_SHOT = register("void_shot", new VoidShot());
 
     public static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(BuiltInRegistries.ENCHANTMENT, Stellarity.id(name), enchantment);

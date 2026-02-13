@@ -10,8 +10,13 @@ extendable method net/minecraft/world/entity/decoration/ItemFrame onItemChanged 
 accessible class net/minecraft/server/commands/AdvancementCommands$Action
 accessible class net/minecraft/world/entity/projectile/FishingHook$FishHookState
 
-#? < 1.21.9
+
+#? < 1.21.9 {
 extendable method net/minecraft/client/renderer/entity/ItemFrameRenderer getFrameModelResourceLoc (Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/ModelResourceLocation;
+inject-interface net/minecraft/world/entity/projectile/Arrow xyz/kohara/stellarity/interface_injection/ExtArrow
+#? } else {
+#inject-interface net/minecraft/world/entity/projectile/arrow/Arrow xyz/kohara/stellarity/interface_injection/ExtArrow
+#? }
 
 #? > 1.21 {
 #accessible method net/minecraft/network/syncher/SynchedEntityData <init> (Lnet/minecraft/network/syncher/SyncedDataHolder;[Lnet/minecraft/network/syncher/SynchedEntityData$DataItem;)V
