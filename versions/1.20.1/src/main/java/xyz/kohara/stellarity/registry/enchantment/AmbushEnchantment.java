@@ -11,9 +11,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import xyz.kohara.stellarity.registry.StellaritySounds;
 
-public class Ambush extends Enchantment {
-    public Ambush() {
-        super(Rarity.RARE, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+public class AmbushEnchantment extends Enchantment {
+    public AmbushEnchantment() {
+        super(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override

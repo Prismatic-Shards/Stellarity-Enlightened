@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.kohara.stellarity.interface_injection.ExtArrow;
+import xyz.kohara.stellarity.interface_injection.ExtAbstractArrow;
 import xyz.kohara.stellarity.registry.StellarityEnchantments;
 
 @Mixin(BowItem.class)
@@ -23,7 +23,7 @@ public class BowItemMixin {
         int levitationShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.LEVITATION_SHOT, itemStack);
         boolean voidShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.VOID_SHOT, itemStack) > 0;
 
-        if (abstractArrow instanceof ExtArrow arrow) {
+        if (abstractArrow instanceof ExtAbstractArrow arrow) {
             if (levitationShot > 0) arrow.stellarity$setLevitationShot(levitationShot);
             if (voidShot) arrow.stellarity$setVoidShot(true);
         }

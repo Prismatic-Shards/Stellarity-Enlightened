@@ -12,11 +12,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import xyz.kohara.stellarity.registry.StellarityParticles;
 import xyz.kohara.stellarity.registry.StellaritySounds;
 
-public class CriticalStrike extends DamageEnchantment {
+public class CriticalStrikeEnchantment extends DamageEnchantment {
     private final RandomSource random = RandomSource.create();
 
-    public CriticalStrike() {
-        super(Rarity.RARE, 9999, EquipmentSlot.MAINHAND);
+    public CriticalStrikeEnchantment() {
+        super(Rarity.VERY_RARE, 9999, EquipmentSlot.MAINHAND);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CriticalStrike extends DamageEnchantment {
             target.playSound(StellaritySounds.CRITICAL_STRIKE);
             float height = target.getBbHeight() * 0.7f;
             float width = target.getBbWidth() * 0.7f;
-            level.sendParticles(StellarityParticles.CRITICAL_STRIKE, target.getX(), target.getY(0.5), target.getZ(), 50, width, height, width, 0.3);
+            level.sendParticles(StellarityParticles.CRITICAL_STRIKE, target.getX(), target.getY(0.5), target.getZ(), 20, width, height, width, 0.3);
 
         }
     }

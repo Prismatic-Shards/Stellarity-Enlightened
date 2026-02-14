@@ -4,8 +4,10 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -17,16 +19,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 import xyz.kohara.stellarity.registry.StellarityMobEffects;
+import xyz.kohara.stellarity.registry.StellarityParticles;
 import xyz.kohara.stellarity.utils.DamageUtility;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 //? 1.20.1 {
@@ -97,4 +95,17 @@ public abstract class LivingEntityMixin extends Entity {
 
         return true;
     }
+
+    //? 1.20.1 {
+    @WrapOperation(method = "tickEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
+    private void addCustomEffectParticles(Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original) {
+        var contains = activeEffects.containsKey(StellarityMobEffects.CREATIVE_SHOCK);
+        var size = activeEffects.size();
+
+        if (!contains || size != 1) original.call(instance, particleOptions, d, e, f, g, h, i);
+        if (contains) original.call(instance, StellarityParticles.CREATIVE_SHOCK, d, e, f, g, h, i);
+    }
+    //? }
+
+
 }

@@ -26,8 +26,6 @@ val requiredJava = when {
 
 
 
-
-
 repositories {
     /**
      * Restricts dependency search of the given [groups] to the [maven URL][url],
@@ -102,6 +100,7 @@ loom {
     runConfigs["server"].apply {
         runDir = "./serverrun"
     }
+    
 
     runConfigs.all {
         ideConfigGenerated(true)
@@ -116,7 +115,10 @@ loom {
 fabricApi {
     configureDataGeneration {
         client = true
+
+
     }
+
 
     sourceSets["main"].apply {
         kotlin {
@@ -125,7 +127,9 @@ fabricApi {
             }
         }
     }
+
 }
+
 
 
 java {
@@ -235,6 +239,8 @@ stonecutter {
         replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
         replace("projectile.Arrow", "projectile.arrow.Arrow")
         replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
+        replace("projectile/AbstractArrow", "projectile/arrow/AbstractArrow")
+        replace("projectile/Arrow", "projectile/arrow/Arrow")
     }
 }
 

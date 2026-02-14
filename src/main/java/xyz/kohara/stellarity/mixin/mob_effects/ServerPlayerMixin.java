@@ -1,4 +1,4 @@
-package xyz.kohara.stellarity.mixin.creative_shock;
+package xyz.kohara.stellarity.mixin.mob_effects;
 
 
 import com.mojang.authlib.GameProfile;
@@ -17,16 +17,25 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
+//? < 1.21.9 {
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.BlockPos;
+    //? } else {
+/*import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import com.llamalad7.mixinextras.sugar.Local;
 
 import java.util.Collection;
+*///? }
 
-//? < 1.21.9 {
-import net.minecraft.core.BlockPos;
 
-    //? } else {
-/*import com.llamalad7.mixinextras.sugar.Local;
+import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
+//? 1.20.1 {
+
+//? } else {
+/*import xyz.kohara.stellarity.registry.StellarityMobEffects;
  *///? }
+
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
@@ -58,11 +67,16 @@ public abstract class ServerPlayerMixin extends Player {
     private void effectAdded(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
         var type = gameMode.getGameModeForPlayer();
 
-        if (!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect))
-            return;
+
+        if (//? 1.20.1 {
+            !(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
+            //? } else {
+            /*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
+             *///? }
+        ) return;
 
 
-        if (!effect.extremeCreativeShock() && type == GameType.CREATIVE) return;
+        if (!CreativeShockEffect.extremeCreativeShock() && type == GameType.CREATIVE) return;
 
         if (initialGameType == null) initialGameType = type;
         setGameMode(GameType.ADVENTURE);
@@ -77,14 +91,43 @@ public abstract class ServerPlayerMixin extends Player {
     protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
     *///? }
     {
+        if (//? 1.20.1 {
+            !(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
+            //? } else {
+            /*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
+             *///? }
+        ) return;
 
-        if (!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect))
-            return;
+        if (initialGameType == null) initialGameType = GameType.SURVIVAL;
 
         setGameMode(initialGameType);
         initialGameType = null;
-
-
     }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
+    public void saveData(
+        //? < 1.21.9 {
+        CompoundTag tag, CallbackInfo ci
+        //? } else {
+        /*ValueOutput tag, CallbackInfo ci
+         *///? }
+    ) {
+        if (initialGameType != null) tag.putString("stellarity:initial_gamemode", initialGameType.getName());
+    }
+
+    //? > 1.21.9
+    //@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+    public void readData(
+        //? < 1.21.9 {
+        CompoundTag tag, CallbackInfo ci
+        //? } else {
+        /*ValueInput tag, CallbackInfo ci
+         *///? }
+    ) {
+        if (tag.contains("stellarity:initial_gamemode")) {
+            initialGameType = GameType.byName(tag.getString("stellarity:initial_gamemode")/*? > 1.21.9 >> ');'*//*.orElse("survival")*/);
+        }
+    }
+
 
 }

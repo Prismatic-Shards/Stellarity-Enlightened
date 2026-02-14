@@ -1,8 +1,5 @@
 {
     "textures": [
-        "stellarity:critical_strike_1",
-        "stellarity:critical_strike_2",
-        "stellarity:critical_strike_3",
-        "stellarity:critical_strike_4"
+        "stellarity:critical_strike"
     ]
 }

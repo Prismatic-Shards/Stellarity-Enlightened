@@ -1,6 +1,6 @@
 package xyz.kohara.stellarity.interface_injection;
 
-public interface ExtArrow {
+public interface ExtAbstractArrow {
 
     default int stellarity$levitationShot() {
         throw new AssertionError("Not transformed!");

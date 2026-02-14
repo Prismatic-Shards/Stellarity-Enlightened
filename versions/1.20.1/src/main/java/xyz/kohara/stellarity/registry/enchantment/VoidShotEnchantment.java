@@ -6,8 +6,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class VoidShot extends Enchantment {
-    public VoidShot() {
+public class VoidShotEnchantment extends Enchantment {
+    public VoidShotEnchantment() {
         super(Rarity.VERY_RARE, EnchantmentCategory.BOW, new EquipmentSlot[]{
             EquipmentSlot.MAINHAND
         });
@@ -32,6 +32,4 @@ public class VoidShot extends Enchantment {
     public int getMaxCost(int i) {
         return 100;
     }
-
-
 }

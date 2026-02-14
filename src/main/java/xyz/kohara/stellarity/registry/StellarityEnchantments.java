@@ -13,11 +13,14 @@ import net.minecraft.core.Registry;
 
 public class StellarityEnchantments {
 
-    public static final Enchantment LEVITATION_SHOT = register("levitation_shot", new LevitationShot());
-    public static final Enchantment CRITICAL_STRIKE = register("critical_strike", new CriticalStrike());
-    public static final Enchantment AMBUSH = register("ambush", new Ambush());
-    public static final Enchantment VOID_STRIKE = register("void_strike", new VoidStrike());
-    public static final Enchantment VOID_SHOT = register("void_shot", new VoidShot());
+    public static final Enchantment LEVITATION_SHOT = register("levitation_shot", new LevitationShotEnchantment());
+    public static final Enchantment CRITICAL_STRIKE = register("critical_strike", new CriticalStrikeEnchantment());
+    public static final Enchantment AMBUSH = register("ambush", new AmbushEnchantment());
+    public static final Enchantment VOID_STRIKE = register("void_strike", new VoidStrikeEnchantment());
+    public static final Enchantment VOID_SHOT = register("void_shot", new VoidShotEnchantment());
+    public static final Enchantment PLATED = register("plated", new PlatedEnchantment());
+    public static final Enchantment SOARING = register("soaring", new SoaringEnchantment());
+    public static final Enchantment DUNE_SPEED = register("dune_speed", new DuneSpeedEnchantment());
 
     public static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(BuiltInRegistries.ENCHANTMENT, Stellarity.id(name), enchantment);
