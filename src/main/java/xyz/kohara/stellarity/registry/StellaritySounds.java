@@ -18,6 +18,10 @@ public class StellaritySounds {
     public static final SoundEvent AMBUSH_LEVEL_2 = register("enchantment.ambush.level_2");
     public static final SoundEvent AMBUSH_LEVEL_3 = register("enchantment.ambush.level_3");
 
+    public static final SoundEvent FIRES_OF_HOKKAI = register("music_disc.fires_of_hokkai");
+    public static final SoundEvent DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc.deviants_light_music_box");
+    public static final SoundEvent PRECIPICE_STEREO = register("music_disc.precipice_stereo");
+
 
     public static final SoundEvent PRISMATIC_PEARL_THROW = register("item.prismatic_pearl.throw");
 

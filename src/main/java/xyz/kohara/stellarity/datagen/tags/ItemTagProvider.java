@@ -58,5 +58,15 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             .forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
         *///? }
 
+        //? 1.20.1 {
+        getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(
+            StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+            StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
+            StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
+        );
+
+        //? }
+
+
     }
 }

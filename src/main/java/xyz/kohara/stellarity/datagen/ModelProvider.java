@@ -69,7 +69,10 @@ public class ModelProvider extends FabricModelProvider {
         StellarityItems.PURPUR_KEY,
         StellarityItems.WINGED_KEY,
         StellarityItems.PRISMATIC_PEARL,
-        StellarityItems.ENDONOMICON
+        StellarityItems.ENDONOMICON,
+        StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+        StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
+        StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
     };
 
     @Override

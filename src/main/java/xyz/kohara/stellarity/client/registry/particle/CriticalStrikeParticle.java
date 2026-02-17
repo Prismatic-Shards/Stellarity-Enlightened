@@ -1,7 +1,9 @@
 package xyz.kohara.stellarity.client.registry.particle;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 
 import net.minecraft.client.particle.Particle;
@@ -20,6 +22,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.client.particle.SpriteSet;
 *///? }
 
+@Environment(EnvType.CLIENT)
 public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle/*? } else {*//*SingleQuadParticle*//*? }*/ {
     private float scale = 1f;
 
@@ -64,8 +67,7 @@ public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle
     }
 
     *///? }
-
-
+    
     @Environment(EnvType.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
 

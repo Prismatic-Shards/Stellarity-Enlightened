@@ -26,7 +26,6 @@ import java.util.function.Consumer;
 
 *///?} else {
 import net.minecraft.world.level.Level;
-import xyz.kohara.stellarity.registry.item.*;
 //? }
 
 
@@ -162,6 +161,31 @@ public class StellarityItems {
 
     public static final Item PRISMATIC_PEARL = register("prismatic_pearl", PrismaticPearlItem::new, PrismaticPearlItem.properties());
     public static final Item ENDONOMICON = register("endonomicon", Endonomicon::new, Endonomicon.properties());
+
+    public static final Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
+        //? 1.20.1 {
+        (prop) -> new RecordItem(13, StellaritySounds.DEVIANTS_LIGHT_MUSIC_BOX, prop, 350), new Item.Properties().stacksTo(1)
+        //? } else {
+        /*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.DEVIANTS_LIGHT_MUSIC_BOX)
+         *///? }
+    );
+
+
+    public static final Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
+        //? 1.20.1 {
+        (prop) -> new RecordItem(13, StellaritySounds.FIRES_OF_HOKKAI, prop, 350), new Item.Properties().stacksTo(1)
+        //? } else {
+        /*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
+         *///? }
+    );
+
+    public static final Item MUSIC_DISC_PRECIPICE_STEREO = register("music_disc_precipice_stereo",
+        //? 1.20.1 {
+        (prop) -> new RecordItem(13, StellaritySounds.PRECIPICE_STEREO, prop, 350), new Item.Properties().stacksTo(1)
+        //? } else {
+        /*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.PRECIPICE_STEREO)
+         *///? }
+    );
 
     public static Item registerBlock(String name, Block block) {
         return registerBlock(name, block, new Item.Properties());

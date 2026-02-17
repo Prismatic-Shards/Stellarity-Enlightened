@@ -79,7 +79,10 @@ public class StellarityCreativeModeTabs {
         StellarityItems.STARLIGHT_SOOT,
         StellarityItems.GILDED_PURPUR_KEY,
         StellarityItems.PURPUR_KEY,
-        StellarityItems.WINGED_KEY
+        StellarityItems.WINGED_KEY,
+        StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+        StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
+        StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
     };
 
     public static final ItemLike[] TRINKET_ITEMS = new ItemLike[]{
