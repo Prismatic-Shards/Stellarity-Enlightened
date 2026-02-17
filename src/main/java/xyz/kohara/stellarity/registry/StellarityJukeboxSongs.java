@@ -12,7 +12,7 @@ import xyz.kohara.stellarity.Stellarity;
 public class StellarityJukeboxSongs {
     //? > 1.21 {
     /*public static final ResourceKey<JukeboxSong> FIRES_OF_HOKKAI = key("fires_of_hokkai");
-    public static final ResourceKey<JukeboxSong> DEVIANTS_LIGHT_MUSIC_BOX = key("deviant_light_music_box");
+    public static final ResourceKey<JukeboxSong> DEVIANTS_LIGHT_MUSIC_BOX = key("deviants_light_music_box");
     public static final ResourceKey<JukeboxSong> PRECIPICE_STEREO = key("precipice_stereo");
 
 

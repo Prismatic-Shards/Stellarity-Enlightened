@@ -62,6 +62,12 @@ public class StellarityCreativeModeTabs {
         //?} else {
         /*PotionContents.createItemStack(Items.POTION, StellarityPotions.BLIND_RAGE_HOLDER)
          *///?}
+        ,
+        //? 1.20.1 {
+        PotionUtils.setPotion(new ItemStack(Items.POTION), StellarityPotions.LONG_BLIND_RAGE)
+        //?} else {
+        /*PotionContents.createItemStack(Items.POTION, StellarityPotions.LONG_BLIND_RAGE_HOLDER)
+         *///?}
     };
 
     public static final ItemLike[] EQUIPMENT_ITEMS = new ItemLike[]{

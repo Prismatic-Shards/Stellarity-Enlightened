@@ -173,7 +173,7 @@ public class StellarityItems {
 
     public static final Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
         //? 1.20.1 {
-        (prop) -> new RecordItem(13, StellaritySounds.FIRES_OF_HOKKAI, prop, 350), new Item.Properties().stacksTo(1)
+        (prop) -> new RecordItem(6, StellaritySounds.FIRES_OF_HOKKAI, prop, 350), new Item.Properties().stacksTo(1)
         //? } else {
         /*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
          *///? }
@@ -181,7 +181,7 @@ public class StellarityItems {
 
     public static final Item MUSIC_DISC_PRECIPICE_STEREO = register("music_disc_precipice_stereo",
         //? 1.20.1 {
-        (prop) -> new RecordItem(13, StellaritySounds.PRECIPICE_STEREO, prop, 350), new Item.Properties().stacksTo(1)
+        (prop) -> new RecordItem(10, StellaritySounds.PRECIPICE_STEREO, prop, 350), new Item.Properties().stacksTo(1)
         //? } else {
         /*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.PRECIPICE_STEREO)
          *///? }

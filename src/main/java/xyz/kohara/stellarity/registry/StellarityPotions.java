@@ -9,7 +9,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 //? > 1.21 {
 /*import net.minecraft.core.Holder;
-*///? }
+ *///? }
 
 import java.util.HashMap;
 
@@ -21,16 +21,27 @@ public class StellarityPotions {
         new MobEffectInstance(
             //? < 1.21.9 {
             MobEffects.DAMAGE_BOOST
-             //? } else {
+            //? } else {
             /*MobEffects.STRENGTH
-            *///? }
+             *///? }
             , 15 * 20, 2));
+
+    public static final Potion LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage", new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
+        new MobEffectInstance(
+            //? < 1.21.9 {
+            MobEffects.DAMAGE_BOOST
+            //? } else {
+            /*MobEffects.STRENGTH
+             *///? }
+            , 22 * 20, 2));
 
     //? > 1.21 {
     /*public static final Holder<Potion> BLIND_RAGE_HOLDER = BuiltInRegistries.POTION.wrapAsHolder(BLIND_RAGE);
-    *///? }
+    public static final Holder<Potion> LONG_BLIND_RAGE_HOLDER = BuiltInRegistries.POTION.wrapAsHolder(LONG_BLIND_RAGE);
+     *///? }
 
 
+    // id because there can be potions with _ext and _long but they share same translation
     private static Potion register(String id, String name, MobEffectInstance... effects) {
         return Registry.register(BuiltInRegistries.POTION, Stellarity.id(id), new Potion("stellarity." + name, effects));
     }
@@ -38,5 +49,6 @@ public class StellarityPotions {
     public static void init() {
         Stellarity.LOGGER.info("Registering Stellarity Potions");
         COLORS.put(BLIND_RAGE, 7230976);
+        COLORS.put(LONG_BLIND_RAGE, 7230976);
     }
 }

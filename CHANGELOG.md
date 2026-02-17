@@ -7,6 +7,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 # Developers Note
 
+# Items
+
+**[+] Music Disc: ZUN - The Deviant's Unobstructed Light (Music Box Ver.)**
+
+**[+] Music Disc: ZUN - Fires of Hokkai**
+
+**[+] Music Disc: Aaron Cherof - Precipice (Stereo Ver.)**
+
 # Mob Effects
 
 **[*] Brittle**
@@ -47,3 +55,4 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Critical Strike**
 
 **[+] Creative Shock**
+
