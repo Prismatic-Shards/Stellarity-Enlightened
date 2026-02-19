@@ -107,7 +107,8 @@ public class ModelProvider extends FabricModelProvider {
         generators.generateFishingRod(StellarityItems.FISHER_OF_VOIDS);
         *///?} else {
         generators.generateFlatItem(StellarityItems.FISHER_OF_VOIDS, "_cast", ModelTemplates.FLAT_HANDHELD_ROD_ITEM);
-        //?}
+         //?}
+
 
         generators.generateFlatItem(StellarityItems.TAMARIS, ModelTemplates.FLAT_HANDHELD_ITEM);
 
