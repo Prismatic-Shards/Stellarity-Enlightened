@@ -15,6 +15,30 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Music Disc: Aaron Cherof - Precipice (Stereo Ver.)**
 
+**[+] Amarene**
+
+**[+] Blind Rage Potion**
+
+**[+] Endurance Potion**
+
+**[+] Entanglement Potion**
+
+**[+] Frost Cloud Potion**
+
+**[+] Hellfire Treader Potion**
+
+**[+] Lifeforce Potion**
+
+**[+] Spelunker Potion**
+
+**[+] Poseidon's Nectar**
+
+**[+] Red Potion**
+
+**[+] Regeneraga**
+
+**[+] Luck Potion**
+
 # Mob Effects
 
 **[*] Brittle**

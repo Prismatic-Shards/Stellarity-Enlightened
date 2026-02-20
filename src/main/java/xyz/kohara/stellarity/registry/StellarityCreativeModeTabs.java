@@ -8,19 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.ItemLike;
 import xyz.kohara.stellarity.Stellarity;
 
-//? 1.20.1 {
-import net.minecraft.world.item.alchemy.PotionUtils;
-
- //?} else {
-/*import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-*///?}
 
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
 
@@ -58,73 +48,33 @@ public class StellarityCreativeModeTabs {
         StellarityItems.PHO
     };
 
-    public static ItemStack createPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {
-        return
-            //? 1.20.1 {
-            PotionUtils.setPotion(new ItemStack(Items.POTION), potion)
-             //?} else {
-            /*PotionContents.createItemStack(Items.POTION, potion)
-            *///?}
-            ;
-    }
-
-    public static ItemStack createSplashPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {
-        return
-            //? 1.20.1 {
-            PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion)
-             //?} else {
-            /*PotionContents.createItemStack(Items.SPLASH_POTION
-                , potion)
-            *///?}
-            ;
-    }
-
-    public static ItemStack createLingeringPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {
-        return
-            //? 1.20.1 {
-            PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion)
-             //?} else {
-            /*PotionContents.createItemStack(Items.LINGERING_POTION
-                , potion)
-            *///?}
-            ;
-    }
 
     public static final ItemStack[] FOOD_ITEMSTACKS = new ItemStack[]{
-        createPotion(StellarityPotions.AMARENE),
-        createPotion(StellarityPotions.BLIND_RAGE),
-        createPotion(StellarityPotions.LONG_BLIND_RAGE),
-
-        createPotion(StellarityPotions.ENDURANCE),
-        createPotion(StellarityPotions.LONG_ENDURANCE),
-        createPotion(StellarityPotions.STRONG_ENDURANCE),
-
-        createSplashPotion(StellarityPotions.ENTANGLEMENT),
-        createSplashPotion(StellarityPotions.LONG_ENTANGLEMENT),
-        createSplashPotion(StellarityPotions.STRONG_ENTANGLEMENT),
-
-        createLingeringPotion(StellarityPotions.FROST_CLOUD),
-
-        createPotion(StellarityPotions.HELLFIRE_TREADER),
-        createPotion(StellarityPotions.LONG_HELLFIRE_TREADER),
-        createPotion(StellarityPotions.STRONG_HELLFIRE_TREADER),
-
-        createPotion(StellarityPotions.LIFEFORCE),
-        createPotion(StellarityPotions.LONG_LIFEFORCE),
-        createPotion(StellarityPotions.STRONG_LIFEFORCE),
-
-        createPotion(StellarityPotions.SPELUNKER),
-        createPotion(StellarityPotions.LONG_SPELUNKER),
-        createPotion(StellarityPotions.STRONG_SPELUNKER),
-
-        createPotion(StellarityPotions.POSEIDONS_NECTAR),
-        createPotion(StellarityPotions.RED),
-
-        createPotion(StellarityPotions.REGENERAGA),
-        createPotion(StellarityPotions.LONG_REGENERAGA),
-        createPotion(StellarityPotions.STRONG_REGENERAGA),
-
-        createPotion(StellarityPotions.LUCK)
+        StellarityItems.AMARENE_POTION,
+        StellarityItems.BLIND_RAGE_POTION,
+        StellarityItems.LONG_BLIND_RAGE_POTION,
+        StellarityItems.ENDURANCE_POTION,
+        StellarityItems.LONG_ENDURANCE_POTION,
+        StellarityItems.STRONG_ENDURANCE_POTION,
+        StellarityItems.ENTANGLEMENT_POTION,
+        StellarityItems.LONG_ENTANGLEMENT_POTION,
+        StellarityItems.STRONG_ENTANGLEMENT_POTION,
+        StellarityItems.FROST_CLOUD_POTION,
+        StellarityItems.HELLFIRE_TREADER_POTION,
+        StellarityItems.LONG_HELLFIRE_TREADER_POTION,
+        StellarityItems.STRONG_HELLFIRE_TREADER_POTION,
+        StellarityItems.LIFEFORCE_POTION,
+        StellarityItems.LONG_LIFEFORCE_POTION,
+        StellarityItems.STRONG_LIFEFORCE_POTION,
+        StellarityItems.SPELUNKER_POTION,
+        StellarityItems.LONG_SPELUNKER_POTION,
+        StellarityItems.STRONG_SPELUNKER_POTION,
+        StellarityItems.POSEIDONS_NECTAR_POTION,
+        StellarityItems.RED_POTION,
+        StellarityItems.REGENERAGA_POTION,
+        StellarityItems.LONG_REGENERAGA_POTION,
+        StellarityItems.STRONG_REGENERAGA_POTION,
+        StellarityItems.LUCK_POTION,
     };
 
 
@@ -202,7 +152,7 @@ public class StellarityCreativeModeTabs {
             }
 
             for (ItemStack stack : stacks) {
-                itemGroup.accept(stack);
+                itemGroup.accept(stack.copy());
             }
         });
     }
