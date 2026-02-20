@@ -5,29 +5,28 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityPotions;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 //? < 1.21.9 {
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.Inject;
 //? } else {
 /^import java.util.OptionalInt;
-import java.util.function.Consumer;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.TooltipFlag;
 ^///? }
 
 @Mixin(PotionContents.class)
@@ -77,11 +76,26 @@ public abstract class PotionContentsMixin {
 
     ^///? }
 
-    @WrapMethod(method = "addToTooltip")
+
+    //? > 1.21.9 {
+    /^@WrapMethod(method = "addToTooltip")
     private void removeRedTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter, Operation<Void> original) {
         if (potion.map((p) -> p.is(Stellarity.id("red"))).orElse(false)) return;
 
         original.call(tooltipContext, consumer, tooltipFlag, dataComponentGetter);
     }
+    ^///? } else {
+
+
+    @WrapMethod(method = "addPotionTooltip(Ljava/util/function/Consumer;FF)V")
+    private void removeRedTooltip(Consumer<Component> consumer, float f, float g, Operation<Void> original) {
+        if (potion.map((p) -> p.is(Stellarity.id("red"))).orElse(false)) return;
+
+        original.call(consumer, f, g);
+    }
+
+    //? }
+
+
 }
 *///? }

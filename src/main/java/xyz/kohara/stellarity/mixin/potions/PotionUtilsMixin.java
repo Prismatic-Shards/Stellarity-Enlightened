@@ -1,13 +1,16 @@
 //? 1.20.1 {
 package xyz.kohara.stellarity.mixin.potions;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,12 +19,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.kohara.stellarity.registry.StellarityPotions;
 
 import java.util.Collection;
+import java.util.List;
 
 @Mixin(PotionUtils.class)
 public abstract class PotionUtilsMixin {
+
     @Shadow
-    public static int getColor(Collection<MobEffectInstance> collection) {
-        return 0;
+    public static @Nullable Potion getPotion(ItemStack itemStack) {
+        return null;
     }
 
     @Inject(method = "getColor(Lnet/minecraft/world/item/alchemy/Potion;)I", at = @At("HEAD"), cancellable = true)
@@ -42,6 +47,13 @@ public abstract class PotionUtilsMixin {
         }
 
         return original.call(collection);
+    }
+
+    @WrapMethod(method = "addPotionTooltip(Lnet/minecraft/world/item/ItemStack;Ljava/util/List;F)V")
+    private static void removeRedPotionTooltip(ItemStack itemStack, List<Component> list, float f, Operation<Void> original) {
+        var potion = getPotion(itemStack);
+        if (potion != null && potion.equals(StellarityPotions.RED)) return;
+        original.call(itemStack, list, f);
     }
 }
 //? }

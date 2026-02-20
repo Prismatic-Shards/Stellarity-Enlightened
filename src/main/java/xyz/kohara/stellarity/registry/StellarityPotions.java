@@ -116,6 +116,21 @@ public class StellarityPotions {
         new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 390 * 20)
     );
 
+    public static final /*? 1.20.1 {*/Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ REGENERAGA = register("regeneraga", "regeneraga",
+        new MobEffectInstance(MobEffects.REGENERATION, 140, 2),
+        new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+    );
+
+    public static final /*? 1.20.1 {*/Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_REGENERAGA = register("long_regeneraga", "regeneraga",
+        new MobEffectInstance(MobEffects.REGENERATION, 210, 2),
+        new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+    );
+
+    public static final /*? 1.20.1 {*/Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_REGENERAGA = register("strong_regeneraga", "regeneraga",
+        new MobEffectInstance(MobEffects.REGENERATION, 70, 4),
+        new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+    );
+
     public static final /*? 1.20.1 {*/Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ RED = register("red", "red",
         new MobEffectInstance(MobEffects.DARKNESS, -1, 9),
         new MobEffectInstance(/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, -1, 9),
@@ -131,11 +146,14 @@ public class StellarityPotions {
         new MobEffectInstance(MobEffects.GLOWING, -1)
     );
 
+    public static final /*? 1.20.1 {*/Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LUCK = register("luck", "luck",
+        new MobEffectInstance(MobEffects.LUCK)
+    );
+
     // id because there can be potions with _ext and _long but they share same translation
     private static /*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*? }*/ register(String id, String name, MobEffectInstance... effects) {
         return Registry./*? 1.20.1 {*/register/*?} else {*//*registerForHolder*//*? }*/(BuiltInRegistries.POTION, Stellarity.id(id), new Potion("stellarity." + name, effects));
     }
-
 
     public static void init() {
         Stellarity.LOGGER.info("Registering Stellarity Potions");
@@ -160,5 +178,9 @@ public class StellarityPotions {
         COLORS.put(STRONG_SPELUNKER, 16767232);
         COLORS.put(POSEIDONS_NECTAR, 4695807);
         COLORS.put(RED, 16056354);
+        COLORS.put(REGENERAGA, 16121975);
+        COLORS.put(LONG_REGENERAGA, 16121975);
+        COLORS.put(STRONG_REGENERAGA, 16121975);
+        COLORS.put(LUCK, 5882118);
     }
 }

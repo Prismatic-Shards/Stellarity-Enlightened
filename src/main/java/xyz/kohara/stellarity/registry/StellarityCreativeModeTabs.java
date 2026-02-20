@@ -94,24 +94,37 @@ public class StellarityCreativeModeTabs {
         createPotion(StellarityPotions.AMARENE),
         createPotion(StellarityPotions.BLIND_RAGE),
         createPotion(StellarityPotions.LONG_BLIND_RAGE),
+
         createPotion(StellarityPotions.ENDURANCE),
         createPotion(StellarityPotions.LONG_ENDURANCE),
         createPotion(StellarityPotions.STRONG_ENDURANCE),
+
         createSplashPotion(StellarityPotions.ENTANGLEMENT),
         createSplashPotion(StellarityPotions.LONG_ENTANGLEMENT),
         createSplashPotion(StellarityPotions.STRONG_ENTANGLEMENT),
+
         createLingeringPotion(StellarityPotions.FROST_CLOUD),
+
         createPotion(StellarityPotions.HELLFIRE_TREADER),
         createPotion(StellarityPotions.LONG_HELLFIRE_TREADER),
         createPotion(StellarityPotions.STRONG_HELLFIRE_TREADER),
+
         createPotion(StellarityPotions.LIFEFORCE),
         createPotion(StellarityPotions.LONG_LIFEFORCE),
         createPotion(StellarityPotions.STRONG_LIFEFORCE),
+
         createPotion(StellarityPotions.SPELUNKER),
         createPotion(StellarityPotions.LONG_SPELUNKER),
         createPotion(StellarityPotions.STRONG_SPELUNKER),
+
         createPotion(StellarityPotions.POSEIDONS_NECTAR),
-        createPotion(StellarityPotions.RED)
+        createPotion(StellarityPotions.RED),
+
+        createPotion(StellarityPotions.REGENERAGA),
+        createPotion(StellarityPotions.LONG_REGENERAGA),
+        createPotion(StellarityPotions.STRONG_REGENERAGA),
+
+        createPotion(StellarityPotions.LUCK)
     };
 
 

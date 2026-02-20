@@ -26,7 +26,7 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 import net.minecraft.world.level.storage.ValueOutput;
 *///? } else {
 import net.minecraft.nbt.CompoundTag;
- //? }
+    //? }
 
 import java.util.Set;
 
@@ -40,7 +40,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
     public ThrownPrismaticPearl(Level level, LivingEntity livingEntity, ItemStack itemStack) {
         //? > 1.21.9 {
         /*super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level, itemStack);
-        *///? } else {
+         *///? } else {
         super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
         setItem(itemStack);
 
@@ -207,9 +207,9 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
             var owner = getOwner();
             if (owner != null) {
                 owner.teleportTo(serverLevel, position.x, position.y, position.z, Set.of(), owner.getYHeadRot(), owner.getXRot() /*? > 1.21.9 {*//*, true *//*? }*/);
+                level.playSound(null, owner.blockPosition(), SoundEvents.ENDER_EYE_DEATH, SoundSource.NEUTRAL);
             }
 
-            level.playSound(null, owner.blockPosition(), SoundEvents.ENDER_EYE_DEATH, SoundSource.NEUTRAL);
 
             this.discard();
         }
