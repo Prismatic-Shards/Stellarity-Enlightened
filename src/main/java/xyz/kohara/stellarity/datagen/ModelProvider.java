@@ -72,7 +72,9 @@ public class ModelProvider extends FabricModelProvider {
         StellarityItems.ENDONOMICON,
         StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
         StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-        StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
+        StellarityItems.MUSIC_DISC_PRECIPICE_STEREO,
+        StellarityItems.ROYAL_JELLY,
+        StellarityItems.ROYAL_JELLY_II
     };
 
     @Override
@@ -107,7 +109,7 @@ public class ModelProvider extends FabricModelProvider {
         generators.generateFishingRod(StellarityItems.FISHER_OF_VOIDS);
         *///?} else {
         generators.generateFlatItem(StellarityItems.FISHER_OF_VOIDS, "_cast", ModelTemplates.FLAT_HANDHELD_ROD_ITEM);
-         //?}
+        //?}
 
 
         generators.generateFlatItem(StellarityItems.TAMARIS, ModelTemplates.FLAT_HANDHELD_ITEM);

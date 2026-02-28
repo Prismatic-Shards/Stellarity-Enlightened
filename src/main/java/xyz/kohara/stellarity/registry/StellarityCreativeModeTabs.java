@@ -45,7 +45,9 @@ public class StellarityCreativeModeTabs {
         StellarityItems.PRISMATIC_SUSHI,
         StellarityItems.SHEPHERDS_PIE,
         StellarityItems.CHORUS_PIE,
-        StellarityItems.PHO
+        StellarityItems.PHO,
+        StellarityItems.ROYAL_JELLY,
+        StellarityItems.ROYAL_JELLY_II
     };
 
 
