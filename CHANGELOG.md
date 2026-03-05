@@ -39,6 +39,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Luck Potion**
 
+**[+] Royal Jelly**
+
+**[+] Royal Jelly II**
+
 # Mob Effects
 
 **[*] Brittle**
@@ -79,4 +83,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Critical Strike**
 
 **[+] Creative Shock**
+
+# Structures
+
+**[*] End Gateway**
+
+- Replaced with the Stellarity end gateway
 

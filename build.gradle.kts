@@ -100,7 +100,7 @@ loom {
     runConfigs["server"].apply {
         runDir = "./serverrun"
     }
-    
+
 
     runConfigs.all {
         ideConfigGenerated(true)
@@ -239,8 +239,6 @@ stonecutter {
         replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
         replace("projectile.Arrow", "projectile.arrow.Arrow")
         replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
-        replace("projectile/AbstractArrow", "projectile/arrow/AbstractArrow")
-        replace("projectile/Arrow", "projectile/arrow/Arrow")
     }
 }
 

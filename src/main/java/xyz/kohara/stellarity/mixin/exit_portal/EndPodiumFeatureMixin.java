@@ -1,5 +1,7 @@
 package xyz.kohara.stellarity.mixin.exit_portal;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,9 +17,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EndPodiumFeature.class)
 public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfiguration> {
@@ -39,8 +38,8 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
         }
     }
 
-    @Inject(method = "place", at = @At("HEAD"), cancellable = true)
-    private void stellarityPortal(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext, CallbackInfoReturnable<Boolean> cir) {
+    @WrapMethod(method = "place")
+    private boolean stellarityPortal(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext, Operation<Boolean> original) {
         BlockPos blockPos = featurePlaceContext.origin();
         WorldGenLevel level = featurePlaceContext.level();
 
@@ -144,7 +143,6 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
         setBlock(level, blockPos.above(6), Blocks.BEDROCK.defaultBlockState());
 
 
-        cir.setReturnValue(true);
-        cir.cancel();
+        return true;
     }
 }

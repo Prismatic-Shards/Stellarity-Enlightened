@@ -40,7 +40,7 @@ public class RoyalJelly extends Item {
             var effects = livingEntity.getActiveEffects().stream().toList();
 
             for (var effect : effects) {
-                if (effect.getEffect().getCategory() == MobEffectCategory.HARMFUL) {
+                if (effect.getEffect()/*? > 1.21 >> '.get' *//*.value()*/.getCategory() == MobEffectCategory.HARMFUL) {
                     livingEntity.removeEffect(effect.getEffect());
                 }
             }
