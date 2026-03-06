@@ -73,6 +73,18 @@ dependencies {
 }
 
 
+stonecutter {
+    replacements.string(current.parsed.matches(">=1.21.11")) {
+        replace("ResourceLocation", "Identifier")
+        replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
+        replace("projectile.Arrow", "projectile.arrow.Arrow")
+        replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
+        replace("projectile/Arrow", "projectile/arrow/Arrow")
+        replace("projectile/AbstractArrow", "projectile/arrow/AbstractArrow")
+    }
+}
+
+
 
 loom {
 
@@ -173,7 +185,16 @@ tasks.withType<ProcessResources> {
 
     val mixinJava = "JAVA_${requiredJava.majorVersion}"
     filesMatching("*.mixins.json") { expand("java" to mixinJava) }
+
+    print("start try rename")
+    if (stonecutter.eval(stonecutter.current.version, "< 1.21")) {
+
+        filesMatching("data/stellarity/structure/**/*") {
+            relativePath = RelativePath(true, relativePath.replace(Regex("structure/"), "structures/"))
+        }
+    }
 }
+
 
 tasks {
 
@@ -229,16 +250,6 @@ publishMods {
         if (stonecutter.eval(stonecutter.current.version, "<= 1.21.1")) {
             optional("patchouli")
         }
-    }
-}
-
-
-stonecutter {
-    replacements.string(current.parsed.matches(">=1.21.11")) {
-        replace("ResourceLocation", "Identifier")
-        replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
-        replace("projectile.Arrow", "projectile.arrow.Arrow")
-        replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
     }
 }
 

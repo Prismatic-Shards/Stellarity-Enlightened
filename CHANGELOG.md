@@ -88,5 +88,11 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[*] End Gateway**
 
+- Changed to Stellarity end gateway
+
+**[*] Crystal Towers**
+
+- Moved towers out to Stellarity's set locations.
+
 - Replaced with the Stellarity end gateway
 

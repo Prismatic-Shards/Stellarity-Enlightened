@@ -14,7 +14,6 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-
         pack.addProvider(ModelProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(ItemTagProvider::new);
@@ -25,6 +24,10 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTagProvider::new);
         pack.addProvider(EntityTagProvider::new);
         pack.addProvider(BiomeTagProvider::new);
+        pack.addProvider(ConfiguredFeatureProvider::new);
+        pack.addProvider(PlacedFeatureProvider::new);
+        pack.addProvider(ProcessorListProvider::new);
+        pack.addProvider(BiomeProvider::new);
 
 
         //? <= 1.21.1 {

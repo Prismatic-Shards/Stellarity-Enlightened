@@ -22,6 +22,7 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
     }
 
     @Override
+    @Nullable
     public BlockPos stellarity$getPortalLocation() {
         return portalLocation;
     }
