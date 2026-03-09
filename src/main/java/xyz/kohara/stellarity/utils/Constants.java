@@ -7,7 +7,6 @@ import java.util.List;
 public class Constants {
     public static final List<SpikeFeature.EndSpike> OBSIDIAN_SPIKES = List.of(
         new SpikeFeature.EndSpike(63, 0, 5, 100, false),
-        new SpikeFeature.EndSpike(63, 0, 5, 100, false),
         new SpikeFeature.EndSpike(50, 36, 4, 105, false),
         new SpikeFeature.EndSpike(18, 59, 4, 94, false),
         new SpikeFeature.EndSpike(-19, 59, 5, 106, false),

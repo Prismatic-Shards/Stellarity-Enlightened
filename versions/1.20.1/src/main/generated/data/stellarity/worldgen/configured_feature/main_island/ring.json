@@ -11,13 +11,6 @@
         "radius": 5
       },
       {
-        "centerX": 63,
-        "centerZ": 0,
-        "guarded": false,
-        "height": 100,
-        "radius": 5
-      },
-      {
         "centerX": 50,
         "centerZ": 36,
         "guarded": false,

@@ -8,12 +8,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.SpikeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.SpikeConfiguration;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.utils.Constants;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ConfiguredFeatureProvider extends FabricDynamicRegistryProvider {
