@@ -82,6 +82,10 @@ stonecutter {
         replace("projectile/Arrow", "projectile/arrow/Arrow")
         replace("projectile/AbstractArrow", "projectile/arrow/AbstractArrow")
     }
+
+    replacements.string(current.parsed.matches("> 1.21")) {
+        replace("BootstapContext", "BootstrapContext")
+    }
 }
 
 

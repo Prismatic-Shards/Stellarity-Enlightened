@@ -7,7 +7,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomSequence;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -57,11 +56,12 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
     @WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/SpikeFeature;placeSpike(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/configurations/SpikeConfiguration;Lnet/minecraft/world/level/levelgen/feature/SpikeFeature$EndSpike;)V"))
     private void placeAltar(SpikeFeature instance, ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, SpikeConfiguration spikeConfiguration, SpikeFeature.EndSpike endSpike, Operation<Void> original) {
         try {
-            var altarPos = new BlockPos(endSpike.getCenterX(), endSpike.getHeight() - 17, endSpike.getCenterZ());
+            var altarPos = new BlockPos(endSpike.getCenterX(), endSpike.getHeight() - 20, endSpike.getCenterZ());
             var originalAltar = serverLevelAccessor.getBlockState(altarPos);
 
 
             original.call(instance, serverLevelAccessor, randomSource, spikeConfiguration, endSpike);
+            if (!endSpike.stellarity$hasAltar()) return;
 
             var placePos = altarPos.offset(-8, -9, -9);
 

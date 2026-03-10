@@ -12,17 +12,13 @@ import xyz.kohara.stellarity.Stellarity;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class ProcessorListProvider extends FabricDynamicRegistryProvider {
-    public ProcessorListProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
-    }
+public class ProcessorListProvider {
 
     public static ResourceKey<StructureProcessorList> id(String name) {
         return Stellarity.key(Registries.PROCESSOR_LIST, name);
     }
 
-    @Override
-    protected void configure(HolderLookup.Provider provider, Entries entries) {
+    public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
         entries.add(id("obsidian_spikes"), new StructureProcessorList(
             List.of(new RuleProcessor(
                 List.of(new ProcessorRule(
@@ -32,10 +28,5 @@ public class ProcessorListProvider extends FabricDynamicRegistryProvider {
                 ))
             ))
         ));
-    }
-
-    @Override
-    public String getName() {
-        return "stellarity-processor-list-provider";
     }
 }

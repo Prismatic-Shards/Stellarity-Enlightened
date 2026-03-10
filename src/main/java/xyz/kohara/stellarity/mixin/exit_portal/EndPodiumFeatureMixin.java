@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
@@ -13,6 +14,7 @@ import net.minecraft.world.level.levelgen.feature.EndPodiumFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -47,6 +49,10 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
             for (int dz = -6; dz <= 6; dz++) {
                 setBlock(level, blockPos.offset(dx, 0, dz), Blocks.OBSIDIAN.defaultBlockState());
             }
+        }
+
+        for (EndCrystal crystal : level.getEntitiesOfClass(EndCrystal.class, new AABB(blockPos.offset(-1, 0, -1).getCenter(), blockPos.offset(1, 3, 1).getCenter()))) {
+            crystal.discard();
         }
 
 

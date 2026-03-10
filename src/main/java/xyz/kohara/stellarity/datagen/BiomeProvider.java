@@ -4,29 +4,23 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.biome.BiomeData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import xyz.kohara.stellarity.Stellarity;
 
-import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
-public class BiomeProvider extends FabricDynamicRegistryProvider {
-
-    public BiomeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
-    }
+public class BiomeProvider {
 
     public static Holder<Biome> THE_END;
 
-    @Override
-    protected void configure(HolderLookup.Provider provider, Entries entries) {
+    public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
         THE_END = entries.add(Stellarity.mcKey(Registries.BIOME, "the_end"), new Biome.BiomeBuilder()
             .temperature(0.8f)
             .downfall(0.4f)
@@ -45,14 +39,9 @@ public class BiomeProvider extends FabricDynamicRegistryProvider {
                 provider.lookupOrThrow(Registries.PLACED_FEATURE),
                 provider.lookupOrThrow(Registries.CONFIGURED_CARVER)
             )
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES,
-                    PlacedFeatureProvider.MAIN_ISLAND_RING
-                ).build())
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, PlacedFeatureProvider.MAIN_ISLAND_RING)
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, PlacedFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM)
+                .build())
             .build());
-    }
-
-    @Override
-    public String getName() {
-        return "stellarity-biome-provider";
     }
 }

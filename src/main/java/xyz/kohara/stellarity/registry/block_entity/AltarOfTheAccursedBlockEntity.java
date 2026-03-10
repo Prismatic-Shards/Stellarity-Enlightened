@@ -39,6 +39,7 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
+
     public static <T extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
         boolean locked = blockState.getValue(AltarOfTheAccursed.LOCKED);
         var placeType = blockState.getValue(AltarOfTheAccursed.PLACE_TYPE);

@@ -2,13 +2,19 @@ package xyz.kohara.stellarity;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.datagen.*;
 import xyz.kohara.stellarity.datagen.loot_table.*;
 import xyz.kohara.stellarity.datagen.tags.*;
 
 public class StellarityDatagen implements DataGeneratorEntrypoint {
-
+    @Override
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureProvider::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrap);
+    }
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
@@ -24,10 +30,8 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTagProvider::new);
         pack.addProvider(EntityTagProvider::new);
         pack.addProvider(BiomeTagProvider::new);
-        pack.addProvider(ConfiguredFeatureProvider::new);
-        pack.addProvider(PlacedFeatureProvider::new);
-        pack.addProvider(ProcessorListProvider::new);
-        pack.addProvider(BiomeProvider::new);
+
+        pack.addProvider(DynamicRegistriesProvider::new);
 
 
         //? <= 1.21.1 {

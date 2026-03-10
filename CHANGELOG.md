@@ -92,7 +92,11 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[*] Crystal Towers**
 
-- Moved towers out to Stellarity's set locations.
+- Moved towers out to Stellarity's set locations
+
+**[*] Exit Portal**
+
+- Added an obsidian platform to the portal
 
 - Replaced with the Stellarity end gateway
 
