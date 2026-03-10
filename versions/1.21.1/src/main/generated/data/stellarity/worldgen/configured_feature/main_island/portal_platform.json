@@ -9,7 +9,8 @@
         "guarded": false,
         "height": 70,
         "radius": 16,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": false
       }
     ]
   }

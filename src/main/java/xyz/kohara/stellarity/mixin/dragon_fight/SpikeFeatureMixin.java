@@ -43,11 +43,13 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 	@Definition(id = "OBSIDIAN", field = "Lnet/minecraft/world/level/block/Blocks;OBSIDIAN:Lnet/minecraft/world/level/block/Block;")
 	@Expression("OBSIDIAN.?()")
 	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private BlockState stellaritySpike(Block instance, Operation<BlockState> original, @Local BlockPos blockPos, @Local(argsOnly = true) SpikeFeature.EndSpike spike) {
-		int distance = spike.getHeight() - blockPos.getY();
+	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local BlockPos blockPos, @Local(argsOnly = true) SpikeFeature.EndSpike spike) {
+		if (spike.stellarity$hasCryingObsidianTops()) {
+			int distance = spike.getHeight() - blockPos.getY();
 
-		if (distance <= 15f && random.nextFloat() < -0.05f * distance + 0.8f)
-			return Blocks.CRYING_OBSIDIAN.defaultBlockState();
+			if (distance <= 15f && random.nextFloat() < -0.05f * distance + 0.8f)
+				return Blocks.CRYING_OBSIDIAN.defaultBlockState();
+		}
 
 		return original.call(instance);
 

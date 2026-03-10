@@ -14,7 +14,6 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.utils.Constants;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class ConfiguredFeatureProvider {
 	public static Holder<ConfiguredFeature<?, ?>> MAIN_ISLAND_RING;

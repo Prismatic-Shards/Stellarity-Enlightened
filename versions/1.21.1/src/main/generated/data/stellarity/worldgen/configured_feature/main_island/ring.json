@@ -9,7 +9,8 @@
         "guarded": false,
         "height": 100,
         "radius": 5,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": 50,
@@ -17,7 +18,8 @@
         "guarded": false,
         "height": 105,
         "radius": 4,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": 18,
@@ -25,7 +27,8 @@
         "guarded": false,
         "height": 94,
         "radius": 4,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": -19,
@@ -33,7 +36,8 @@
         "guarded": false,
         "height": 106,
         "radius": 5,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": -51,
@@ -41,7 +45,8 @@
         "guarded": false,
         "height": 105,
         "radius": 4,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": -63,
@@ -49,7 +54,8 @@
         "guarded": false,
         "height": 93,
         "radius": 5,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": -51,
@@ -57,7 +63,8 @@
         "guarded": false,
         "height": 100,
         "radius": 6,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": -19,
@@ -65,7 +72,8 @@
         "guarded": false,
         "height": 96,
         "radius": 6,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": 18,
@@ -73,7 +81,8 @@
         "guarded": false,
         "height": 87,
         "radius": 5,
-        "stellarity:has_altar": false
+        "stellarity:altar": false,
+        "stellarity:crying_obsidian_tops": true
       },
       {
         "centerX": 50,
@@ -81,7 +90,8 @@
         "guarded": false,
         "height": 105,
         "radius": 8,
-        "stellarity:has_altar": true
+        "stellarity:altar": true,
+        "stellarity:crying_obsidian_tops": true
       }
     ]
   }

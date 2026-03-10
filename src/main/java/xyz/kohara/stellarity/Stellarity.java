@@ -2,12 +2,14 @@ package xyz.kohara.stellarity;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 import xyz.kohara.stellarity.registry.*;
 
 public class Stellarity implements ModInitializer {
@@ -53,6 +55,8 @@ public class Stellarity implements ModInitializer {
 		return ResourceKey.create(registry, mcId(path));
 	}
 
+	boolean audit = true;
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -76,6 +80,7 @@ public class Stellarity implements ModInitializer {
 		StellarityMobEffects.init();
 		StellaritySounds.init();
 
-
+		if (FabricLoader.getInstance().isDevelopmentEnvironment() && audit)
+			MixinEnvironment.getCurrentEnvironment().audit();
 	}
 }

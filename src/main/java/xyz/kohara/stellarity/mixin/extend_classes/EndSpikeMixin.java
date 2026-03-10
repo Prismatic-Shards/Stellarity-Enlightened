@@ -12,18 +12,30 @@ import xyz.kohara.stellarity.utils.CodecExtensionHelper;
 @Mixin(SpikeFeature.EndSpike.class)
 public class EndSpikeMixin implements ExtEndSpike {
 	@Unique
-	private boolean hasAltar;
+	private boolean altar;
+
+	@Unique
+	private boolean cryingObsidianTops;
 
 	@Override
 	public boolean stellarity$hasAltar() {
-		return hasAltar;
+		return altar;
 	}
 
 	@Override
-	public void stellarity$setAltar(boolean hasAltar) {
-		this.hasAltar = hasAltar;
+	public void stellarity$setAltar(boolean altar) {
+		this.altar = altar;
 	}
 
+	@Override
+	public boolean stellarity$hasCryingObsidianTops() {
+		return cryingObsidianTops;
+	}
+
+	@Override
+	public void stellarity$setCryingObsidianTops(boolean cryingObsidianTops) {
+		this.cryingObsidianTops = cryingObsidianTops;
+	}
 
 	@ModifyExpressionValue(
 		method = "<clinit>",
@@ -33,8 +45,11 @@ public class EndSpikeMixin implements ExtEndSpike {
 		)
 	)
 	private static Codec<SpikeFeature.EndSpike> more(Codec<SpikeFeature.EndSpike> original) {
-		return CodecExtensionHelper.buildExtensionCodec(original, (instance, wrapper) ->
-			instance.group(wrapper, Codec.BOOL.fieldOf("stellarity:has_altar").orElse(false).forGetter(ExtEndSpike::stellarity$hasAltar)).apply(instance, ExtEndSpike::apply), ExtEndSpike::applyDefaults
+		return CodecExtensionHelper.buildExtensionCodec(original, (instance, wrapper) -> instance.group(wrapper,
+				Codec.BOOL.fieldOf("stellarity:altar").orElse(false).forGetter(ExtEndSpike::stellarity$hasAltar),
+				Codec.BOOL.fieldOf("stellarity:crying_obsidian_tops").orElse(false).forGetter(ExtEndSpike::stellarity$hasCryingObsidianTops)
+			).apply(instance, ExtEndSpike::apply),
+			ExtEndSpike::applyDefaults
 		);
 	}
 }
