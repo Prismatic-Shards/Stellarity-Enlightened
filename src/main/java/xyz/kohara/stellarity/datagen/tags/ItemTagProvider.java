@@ -20,53 +20,53 @@ import net.minecraft.world.item.Item;
 *///?}
 
 public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
-    public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
-        super(output, completableFuture, blockTagProvider);
-    }
+	public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
+		super(output, completableFuture, blockTagProvider);
+	}
 
-    public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(output, completableFuture);
-    }
+	public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(output, completableFuture);
+	}
 
-    //? >= 1.21.9 {
-    /*public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
-        return this.valueLookupBuilder(tagKey);
-    }
-    *///?}
-
-
-    @Override
-    public void addTags(HolderLookup.Provider provider) {
-        getOrCreateTagBuilder(StellarityItemTags.FISHES).add(
-            StellarityItems.AMETHYST_BUDFISH,
-            StellarityItems.BUBBLEFISH,
-            StellarityItems.CRIMSON_TIGERFISH,
-            StellarityItems.ENDER_KOI,
-            StellarityItems.FLAREFIN_KOI,
-            StellarityItems.CRYSTAL_HEARTFISH
-
-        );
-
-        getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
-        getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
-        //? 1.20.1 {
-        getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
-            .add(Items.BOW, Items.CROSSBOW, StellarityItems.CALL_OF_THE_VOID);
-        //? } else {
-        /*getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
-            .forceAddTag(ItemTags.BOW_ENCHANTABLE)
-            .forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
-        *///? }
-
-        //? 1.20.1 {
-        getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(
-            StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
-            StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-            StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
-        );
-
-        //? }
+	//? >= 1.21.9 {
+	/*public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
+		return this.valueLookupBuilder(tagKey);
+	}
+	*///?}
 
 
-    }
+	@Override
+	public void addTags(HolderLookup.Provider provider) {
+		getOrCreateTagBuilder(StellarityItemTags.FISHES).add(
+			StellarityItems.AMETHYST_BUDFISH,
+			StellarityItems.BUBBLEFISH,
+			StellarityItems.CRIMSON_TIGERFISH,
+			StellarityItems.ENDER_KOI,
+			StellarityItems.FLAREFIN_KOI,
+			StellarityItems.CRYSTAL_HEARTFISH
+
+		);
+
+		getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
+		getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
+		//? 1.20.1 {
+		getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
+			.add(Items.BOW, Items.CROSSBOW, StellarityItems.CALL_OF_THE_VOID);
+		//? } else {
+		/*getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
+			.forceAddTag(ItemTags.BOW_ENCHANTABLE)
+			.forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
+		*///? }
+
+		//? 1.20.1 {
+		getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(
+			StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+			StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
+			StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
+		);
+
+		//? }
+
+
+	}
 }

@@ -16,28 +16,28 @@ import java.util.function.Consumer;
 
 public class EndonomiconBookProvider extends PatchouliBookProvider {
 
-    public EndonomiconBookProvider(FabricDataOutput fabricDataOutput, DataGenerator generator, HolderLookup.Provider registries, String bookName) {
-        super(generator, registries, bookName, fabricDataOutput);
-    }
+	public EndonomiconBookProvider(FabricDataOutput fabricDataOutput, DataGenerator generator, HolderLookup.Provider registries, String bookName) {
+		super(generator, registries, bookName, fabricDataOutput);
+	}
 
 
-    @Override
-    public void buildPages(@NotNull Consumer<PatchouliBookElement> consumer) {
-        PatchouliBook book = PatchouliBook.builder()
-            .setBookText(
-                Stellarity.MOD_ID,
-                "Endonomicon",
-                "An WIP collection of Stellarity knowledge."
-            )
-            .disableBook()
-            .save(consumer);
+	@Override
+	public void buildPages(@NotNull Consumer<PatchouliBookElement> consumer) {
+		PatchouliBook book = PatchouliBook.builder()
+			.setBookText(
+				Stellarity.MOD_ID,
+				"Endonomicon",
+				"An WIP collection of Stellarity knowledge."
+			)
+			.disableBook()
+			.save(consumer);
 
 
-        //TODO: update with actual chorus armor item
-        PatchouliBookCategory armors = PatchouliBookCategory.builder().book(book)
-            .setDisplay("Armors", "All Stellarity Armors", StellarityItems.CHORUS_PLATING)
-            .save(consumer, "armors");
-    }
+		//TODO: update with actual chorus armor item
+		PatchouliBookCategory armors = PatchouliBookCategory.builder().book(book)
+			.setDisplay("Armors", "All Stellarity Armors", StellarityItems.CHORUS_PLATING)
+			.save(consumer, "armors");
+	}
 
 }
 //?}

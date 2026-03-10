@@ -25,36 +25,36 @@ import java.util.List;
 @Mixin(PotionUtils.class)
 public abstract class PotionUtilsMixin {
 
-    @Shadow
-    public static @Nullable Potion getPotion(ItemStack itemStack) {
-        return null;
-    }
+	@Shadow
+	public static @Nullable Potion getPotion(ItemStack itemStack) {
+		return null;
+	}
 
-    @Inject(method = "getColor(Lnet/minecraft/world/item/alchemy/Potion;)I", at = @At("HEAD"), cancellable = true)
-    private static void getColorPotion(Potion potion, CallbackInfoReturnable<Integer> cir) {
-        Integer color = StellarityPotions.COLORS.get(potion);
-        if (color == null) return;
+	@Inject(method = "getColor(Lnet/minecraft/world/item/alchemy/Potion;)I", at = @At("HEAD"), cancellable = true)
+	private static void getColorPotion(Potion potion, CallbackInfoReturnable<Integer> cir) {
+		Integer color = StellarityPotions.COLORS.get(potion);
+		if (color == null) return;
 
-        cir.setReturnValue(color);
-        cir.cancel();
-    }
+		cir.setReturnValue(color);
+		cir.cancel();
+	}
 
-    @WrapOperation(method = "getColor(Lnet/minecraft/world/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/alchemy/PotionUtils;getColor(Ljava/util/Collection;)I"))
-    private static int getColorItemStack(Collection<MobEffectInstance> collection, Operation<Integer> original, @Local(argsOnly = true) ItemStack itemStack) {
-        Potion potion = PotionUtils.getPotion(itemStack);
-        Integer color = StellarityPotions.COLORS.get(potion);
-        if (color != null) {
-            return color;
-        }
+	@WrapOperation(method = "getColor(Lnet/minecraft/world/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/alchemy/PotionUtils;getColor(Ljava/util/Collection;)I"))
+	private static int getColorItemStack(Collection<MobEffectInstance> collection, Operation<Integer> original, @Local(argsOnly = true) ItemStack itemStack) {
+		Potion potion = PotionUtils.getPotion(itemStack);
+		Integer color = StellarityPotions.COLORS.get(potion);
+		if (color != null) {
+			return color;
+		}
 
-        return original.call(collection);
-    }
+		return original.call(collection);
+	}
 
-    @WrapMethod(method = "addPotionTooltip(Lnet/minecraft/world/item/ItemStack;Ljava/util/List;F)V")
-    private static void removeRedPotionTooltip(ItemStack itemStack, List<Component> list, float f, Operation<Void> original) {
-        var potion = getPotion(itemStack);
-        if (potion != null && potion.equals(StellarityPotions.RED)) return;
-        original.call(itemStack, list, f);
-    }
+	@WrapMethod(method = "addPotionTooltip(Lnet/minecraft/world/item/ItemStack;Ljava/util/List;F)V")
+	private static void removeRedPotionTooltip(ItemStack itemStack, List<Component> list, float f, Operation<Void> original) {
+		var potion = getPotion(itemStack);
+		if (potion != null && potion.equals(StellarityPotions.RED)) return;
+		original.call(itemStack, list, f);
+	}
 }
 //? }

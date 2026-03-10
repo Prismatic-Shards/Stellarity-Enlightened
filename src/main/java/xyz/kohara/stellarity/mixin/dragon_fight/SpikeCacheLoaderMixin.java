@@ -10,8 +10,8 @@ import java.util.List;
 
 @Mixin(SpikeFeature.SpikeCacheLoader.class)
 public class SpikeCacheLoaderMixin {
-    @WrapMethod(method = "load(Ljava/lang/Long;)Ljava/util/List;")
-    private List<SpikeFeature.EndSpike> stellaritySpikes(Long long_, Operation<List<SpikeFeature.EndSpike>> original) {
-        return Constants.OBSIDIAN_SPIKES;
-    }
+	@WrapMethod(method = "load(Ljava/lang/Long;)Ljava/util/List;")
+	private List<SpikeFeature.EndSpike> stellaritySpikes(Long long_, Operation<List<SpikeFeature.EndSpike>> original) {
+		return Constants.OBSIDIAN_SPIKES;
+	}
 }

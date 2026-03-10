@@ -24,114 +24,114 @@ import org.joml.Vector3f;
 //? }
 
 public class AltarOfTheAccursedBlockEntity extends BlockEntity {
-    public AltarOfTheAccursedBlockEntity(BlockPos pos, BlockState state) {
-        this(StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED, pos, state);
-    }
+	public AltarOfTheAccursedBlockEntity(BlockPos pos, BlockState state) {
+		this(StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED, pos, state);
+	}
 
-    private long ticksPassed = 0;
+	private long ticksPassed = 0;
 
-    public AltarOfTheAccursedBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(blockEntityType, blockPos, blockState);
-    }
+	public AltarOfTheAccursedBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+		super(blockEntityType, blockPos, blockState);
+	}
 
-    @Override
-    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-
-    public static <T extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
-        boolean locked = blockState.getValue(AltarOfTheAccursed.LOCKED);
-        var placeType = blockState.getValue(AltarOfTheAccursed.PLACE_TYPE);
-        if (blockEntity instanceof AltarOfTheAccursedBlockEntity entity) {
-            entity.ticksPassed++;
-            var centerPos = blockPos.getCenter();
-            double x = centerPos.x;
-            double y = centerPos.y;
-            double z = centerPos.z;
-
-            if (level.isClientSide()) {
-                if (locked) return;
-
-                float angle = entity.ticksPassed / 20f;
-                double dx = Mth.cos(angle);
-                double dz = Mth.sin(angle);
-
-                //? >= 1.21.9 {
-
-                /*var purpleParticle = new DustColorTransitionOptions(12255487, 1769509, 1.4f);
-                 *///?} else {
-                var purpleParticle = new DustColorTransitionOptions(new Vector3f(0.733f, 0.0f, 1.0f), new Vector3f(0.106f, 0.0f, 0.145f), 1.4f);
-                //? }
-
-                level.addParticle(
-                    purpleParticle,
-                    x + dx, y, z + dz,
-                    0, 0, 0
-                );
+	@Override
+	public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 
 
-                level.addParticle(
-                    purpleParticle,
-                    x - dx, y, z - dz,
-                    0, 0, 0
-                );
+	public static <T extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, T blockEntity) {
+		boolean locked = blockState.getValue(AltarOfTheAccursed.LOCKED);
+		var placeType = blockState.getValue(AltarOfTheAccursed.PLACE_TYPE);
+		if (blockEntity instanceof AltarOfTheAccursedBlockEntity entity) {
+			entity.ticksPassed++;
+			var centerPos = blockPos.getCenter();
+			double x = centerPos.x;
+			double y = centerPos.y;
+			double z = centerPos.z;
+
+			if (level.isClientSide()) {
+				if (locked) return;
+
+				float angle = entity.ticksPassed / 20f;
+				double dx = Mth.cos(angle);
+				double dz = Mth.sin(angle);
+
+				//? >= 1.21.9 {
+
+				/*var purpleParticle = new DustColorTransitionOptions(12255487, 1769509, 1.4f);
+				 *///?} else {
+				var purpleParticle = new DustColorTransitionOptions(new Vector3f(0.733f, 0.0f, 1.0f), new Vector3f(0.106f, 0.0f, 0.145f), 1.4f);
+				//? }
+
+				level.addParticle(
+					purpleParticle,
+					x + dx, y, z + dz,
+					0, 0, 0
+				);
 
 
-                dx = Mth.cos(-angle) * 1.5;
-                dz = Mth.sin(-angle) * 1.5;
+				level.addParticle(
+					purpleParticle,
+					x - dx, y, z - dz,
+					0, 0, 0
+				);
 
 
-                level.addParticle(
-                    purpleParticle,
-                    x + dx, y, z + dz,
-                    0, 0, 0
-                );
-
-                level.addParticle(
-                    purpleParticle,
-                    x - dx, y, z - dz,
-                    0, 0, 0
-                );
-                if (entity.ticksPassed % 3 == 0) {
-                    dx = level.random.nextGaussian() * 0.5;
-                    dz = level.random.nextGaussian() * 0.5;
-                    level.addParticle(
-                        ParticleTypes.ENCHANT,
-                        x + dx, y + 1.5, z + dz,
-                        dx * 2, -1.5, dz * 2
-                    );
-                }
-
-                level.addParticle(
-                    ParticleTypes.WITCH,
-                    x, y + 0.5, z,
-                    0, 0,
-                    0
-                );
-
-            } else if (level instanceof ServerLevel serverLevel) {
-
-                if (!placeType.bypassesDragon()) {
-                    var end = serverLevel.getServer().getLevel(Level.END);
-                    EndDragonFight dragonFight = end == null ? null : end.getDragonFight();
+				dx = Mth.cos(-angle) * 1.5;
+				dz = Mth.sin(-angle) * 1.5;
 
 
-                    boolean newLocked = dragonFight != null && !(dragonFight.hasPreviouslyKilledDragon() && dragonFight.stellarity$dragonKilled());
-                    if (locked != newLocked) {
-                        locked = newLocked;
-                        serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(AltarOfTheAccursed.LOCKED, newLocked));
-                    }
-                }
+				level.addParticle(
+					purpleParticle,
+					x + dx, y, z + dz,
+					0, 0, 0
+				);
 
-                if (entity.ticksPassed % 10 == 0) {
-                    AltarRecipe.handleItems(serverLevel, x, y, z, locked);
-                }
-                ;
+				level.addParticle(
+					purpleParticle,
+					x - dx, y, z - dz,
+					0, 0, 0
+				);
+				if (entity.ticksPassed % 3 == 0) {
+					dx = level.random.nextGaussian() * 0.5;
+					dz = level.random.nextGaussian() * 0.5;
+					level.addParticle(
+						ParticleTypes.ENCHANT,
+						x + dx, y + 1.5, z + dz,
+						dx * 2, -1.5, dz * 2
+					);
+				}
 
-            }
-        }
-    }
+				level.addParticle(
+					ParticleTypes.WITCH,
+					x, y + 0.5, z,
+					0, 0,
+					0
+				);
+
+			} else if (level instanceof ServerLevel serverLevel) {
+
+				if (!placeType.bypassesDragon()) {
+					var end = serverLevel.getServer().getLevel(Level.END);
+					EndDragonFight dragonFight = end == null ? null : end.getDragonFight();
+
+
+					boolean newLocked = dragonFight != null && !(dragonFight.hasPreviouslyKilledDragon() && dragonFight.stellarity$dragonKilled());
+					if (locked != newLocked) {
+						locked = newLocked;
+						serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(AltarOfTheAccursed.LOCKED, newLocked));
+					}
+				}
+
+				if (entity.ticksPassed % 10 == 0) {
+					AltarRecipe.handleItems(serverLevel, x, y, z, locked);
+				}
+				;
+
+			}
+		}
+	}
 
 
 }

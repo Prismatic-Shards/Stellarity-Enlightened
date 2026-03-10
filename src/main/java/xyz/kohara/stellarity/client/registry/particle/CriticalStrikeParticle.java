@@ -12,7 +12,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 //? < 1.21.9 {
 
 import net.minecraft.client.particle.*;
-    //? } else {
+	//? } else {
 /*import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
@@ -24,70 +24,70 @@ import net.minecraft.client.particle.SpriteSet;
 
 @Environment(EnvType.CLIENT)
 public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle/*? } else {*//*SingleQuadParticle*//*? }*/ {
-    private float scale = 1f;
+	private float scale = 1f;
 
-    public CriticalStrikeParticle(ClientLevel clientLevel, double d, double e, double f/*? > 1.21.9 >> ') {'*//*, TextureAtlasSprite textureAtlasSprite*/) {
-        super(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, textureAtlasSprite*/);
+	public CriticalStrikeParticle(ClientLevel clientLevel, double d, double e, double f/*? > 1.21.9 >> ') {'*//*, TextureAtlasSprite textureAtlasSprite*/) {
+		super(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, textureAtlasSprite*/);
 
-        this.x = d;
-        this.y = e;
-        this.z = f;
+		this.x = d;
+		this.y = e;
+		this.z = f;
 
-        setLifetime(20);
+		setLifetime(20);
 
-        scale(1f);
-    }
+		scale(1f);
+	}
 
-    @Override
-    public void tick() {
-        scale -= 0.05f;
-        scale(scale);
+	@Override
+	public void tick() {
+		scale -= 0.05f;
+		scale(scale);
 
-        super.tick();
+		super.tick();
 
-    }
+	}
 
-    @Override
-    protected int getLightColor(float f) {
-        return 240;
-    }
+	@Override
+	protected int getLightColor(float f) {
+		return 240;
+	}
 
-    //? < 1.21.9 {
-    @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
-
-    //? } else {
-
-    /*@Override
-    public Layer getLayer() {
-        return Layer.OPAQUE;
-    }
-
-    *///? }
-    
-    @Environment(EnvType.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
+	//? < 1.21.9 {
+	@Override
+	public ParticleRenderType getRenderType() {
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+	}
 
 
-        private final SpriteSet sprite;
+	//? } else {
 
-        public Provider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
-        }
+	/*@Override
+	public Layer getLayer() {
+		return Layer.OPAQUE;
+	}
 
+	*///? }
 
-        @Override
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? > 1.21.9 >> ') {'*//*, RandomSource randomSource*/) {
-            var particle = new CriticalStrikeParticle(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, this.sprite.get(randomSource)*/);
-            //? < 1.21.9 {
-            particle.pickSprite(this.sprite);
-            //? }
-            return particle;
-        }
+	@Environment(EnvType.CLIENT)
+	public static class Provider implements ParticleProvider<SimpleParticleType> {
 
 
-    }
+		private final SpriteSet sprite;
+
+		public Provider(SpriteSet spriteSet) {
+			this.sprite = spriteSet;
+		}
+
+
+		@Override
+		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? > 1.21.9 >> ') {'*//*, RandomSource randomSource*/) {
+			var particle = new CriticalStrikeParticle(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, this.sprite.get(randomSource)*/);
+			//? < 1.21.9 {
+			particle.pickSprite(this.sprite);
+			//? }
+			return particle;
+		}
+
+
+	}
 }

@@ -4,46 +4,46 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 //? > 1.21 {
 /*import xyz.kohara.stellarity.registry.StellarityParticles;
-*///? }
+ *///? }
 
 
 public class CreativeShockEffect extends MobEffect {
-    //TODO maybe use a config for it or something
-    public static boolean extremeCreativeShock() {
-        return true;
-    }
+	//TODO maybe use a config for it or something
+	public static boolean extremeCreativeShock() {
+		return true;
+	}
 
-    public CreativeShockEffect() {
-        super(MobEffectCategory.HARMFUL, 0xFD3DB5/*? > 1.21 >> ');'*//*, StellarityParticles.CREATIVE_SHOCK*/);
-    }
+	public CreativeShockEffect() {
+		super(MobEffectCategory.HARMFUL, 0xFD3DB5/*? > 1.21 >> ');'*//*, StellarityParticles.CREATIVE_SHOCK*/);
+	}
 
 
-//    public /*? > 1.21 {*/ /*boolean *//*? } else { */ void /*? } */ applyEffectTick(/*? > 1.21.9 {*/ /*ServerLevel serverLevel,  *//*? } */LivingEntity livingEntity, int amplifier) {
-//        if (!(livingEntity instanceof ServerPlayer player)) return /*? if >= 1.21.1 {*//*false *//*?}*/;
-//        GameType type = player.gameMode.getGameModeForPlayer();
-//        if (type.isBlockPlacingRestricted()) return /*? if >= 1.21.1 {*//*false *//*?}*/;
-//        if (initialGameType == null) initialGameType = type;
-//        switch (type) {
-//            case CREATIVE -> {
-//                if (extremeCreativeShock) {
-//                    player.gameMode.changeGameModeForPlayer(GameType.ADVENTURE);
-//                    return /*? if >= 1.21.1 {*//*true *//*?}*/;
-//                }
-//            }
-//            case SURVIVAL -> {
-//                player.gameMode.changeGameModeForPlayer(GameType.ADVENTURE);
-//                return /*? if >= 1.21.1 {*//*true *//*?}*/;
-//            }
-//        }
-//        /*? if >= 1.21.1 {*/
-//        /*return false;*//*?}*/
-//    }
+//	public /*? > 1.21 {*/ /*boolean *//*? } else { */ void /*? } */ applyEffectTick(/*? > 1.21.9 {*/ /*ServerLevel serverLevel,  *//*? } */LivingEntity livingEntity, int amplifier) {
+//		if (!(livingEntity instanceof ServerPlayer player)) return /*? if >= 1.21.1 {*//*false *//*?}*/;
+//		GameType type = player.gameMode.getGameModeForPlayer();
+//		if (type.isBlockPlacingRestricted()) return /*? if >= 1.21.1 {*//*false *//*?}*/;
+//		if (initialGameType == null) initialGameType = type;
+//		switch (type) {
+//			case CREATIVE -> {
+//				if (extremeCreativeShock) {
+//					player.gameMode.changeGameModeForPlayer(GameType.ADVENTURE);
+//					return /*? if >= 1.21.1 {*//*true *//*?}*/;
+//				}
+//			}
+//			case SURVIVAL -> {
+//				player.gameMode.changeGameModeForPlayer(GameType.ADVENTURE);
+//				return /*? if >= 1.21.1 {*//*true *//*?}*/;
+//			}
+//		}
+//		/*? if >= 1.21.1 {*/
+//		/*return false;*//*?}*/
+//	}
 //
-//    @Override
-//        //? < 1.21.1
-//    public boolean isDurationEffectTick(int duration, int amplifier) {
-//        //? >= 1.21.1
-//        //public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-//        return true;
-//    }
+//	@Override
+//		//? < 1.21.1
+//	public boolean isDurationEffectTick(int duration, int amplifier) {
+//		//? >= 1.21.1
+//		//public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+//		return true;
+//	}
 }

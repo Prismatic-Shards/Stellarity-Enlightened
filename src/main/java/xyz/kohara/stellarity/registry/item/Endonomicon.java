@@ -17,48 +17,48 @@ import xyz.kohara.stellarity.Stellarity;
  *///? }
 
 public class Endonomicon extends Item {
-    public Endonomicon(Properties properties) {
-        super(properties);
-    }
+	public Endonomicon(Properties properties) {
+		super(properties);
+	}
 
-    public static Properties properties() {
-        return new Properties().stacksTo(1);
-    }
-
-
-    @Override
-    public /*? < 1.21.9 { */InteractionResultHolder<ItemStack>/*? } else { */ /*InteractionResult*//*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
-        var result = super.use(level, player, interactionHand);
+	public static Properties properties() {
+		return new Properties().stacksTo(1);
+	}
 
 
-        //? < 1.21.9 {
-        if (!(player.level().isClientSide())) return result;
+	@Override
+	public /*? < 1.21.9 { */InteractionResultHolder<ItemStack>/*? } else { */ /*InteractionResult*//*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
+		var result = super.use(level, player, interactionHand);
 
 
-        boolean patchouliLoaded = FabricLoader.getInstance().isModLoaded("patchouli");
-        if (!patchouliLoaded) {
-            player.displayClientMessage(
-                Component.translatable("message.stellarity.missing_patchouli"), true
-            );
-
-            return result;
-        }
-
-        try {
-            PatchouliAPI.get().openBookGUI(Stellarity.id("endonomicon"));
-        } catch (Exception e) {
-            player.displayClientMessage(
-                Component.literal(e.toString()), false
-            );
-        }
-        //? } else {
-        /*// fix later to translation
-        player.displayClientMessage(Component.literal("Blame Patchouli for not supplying modern support"), true);
-        *///? }
+		//? < 1.21.9 {
+		if (!(player.level().isClientSide())) return result;
 
 
-        return result;
+		boolean patchouliLoaded = FabricLoader.getInstance().isModLoaded("patchouli");
+		if (!patchouliLoaded) {
+			player.displayClientMessage(
+				Component.translatable("message.stellarity.missing_patchouli"), true
+			);
+
+			return result;
+		}
+
+		try {
+			PatchouliAPI.get().openBookGUI(Stellarity.id("endonomicon"));
+		} catch (Exception e) {
+			player.displayClientMessage(
+				Component.literal(e.toString()), false
+			);
+		}
+		//? } else {
+		/*// fix later to translation
+		player.displayClientMessage(Component.literal("Blame Patchouli for not supplying modern support"), true);
+		*///? }
 
 
-    }
+		return result;
+
+
+	}
 }

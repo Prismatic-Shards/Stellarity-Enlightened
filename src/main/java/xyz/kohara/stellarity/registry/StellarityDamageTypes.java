@@ -9,14 +9,14 @@ import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
 
 
 public class StellarityDamageTypes {
-    //DOT
-    public static final ResourceKey<DamageType> FROSTBURN = create("dot/frostburn");
-    public static final ResourceKey<DamageType> PRISMATIC_INFERNO = create("dot/prismatic_inferno");
-    public static final ResourceKey<DamageType> BRITTLE = create("brittle");
-    public static final ResourceKey<DamageType> TAMARIS_EXECUTE = create("tamaris_execute");
-    public static final ResourceKey<DamageType> PRISMEMBER = create("prismember");
+	//DOT
+	public static final ResourceKey<DamageType> FROSTBURN = create("dot/frostburn");
+	public static final ResourceKey<DamageType> PRISMATIC_INFERNO = create("dot/prismatic_inferno");
+	public static final ResourceKey<DamageType> BRITTLE = create("brittle");
+	public static final ResourceKey<DamageType> TAMARIS_EXECUTE = create("tamaris_execute");
+	public static final ResourceKey<DamageType> PRISMEMBER = create("prismember");
 
-    private static ResourceKey<DamageType> create(String string) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, Stellarity.id(string));
-    }
+	private static ResourceKey<DamageType> create(String string) {
+		return ResourceKey.create(Registries.DAMAGE_TYPE, Stellarity.id(string));
+	}
 }

@@ -12,20 +12,20 @@ import java.util.concurrent.CompletableFuture;
 
 public class BiomeTagProvider extends FabricTagProvider<Biome> {
 
-    public BiomeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, Registries.BIOME, registriesFuture);
-    }
+	public BiomeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, Registries.BIOME, registriesFuture);
+	}
 
-    //? < 1.21.11 {
-    public FabricTagBuilder builder(
-        net.minecraft.tags.TagKey<Biome> tag
-    ) {
-        return getOrCreateTagBuilder(tag);
-    }
-    //? }
+	//? < 1.21.11 {
+	public FabricTagBuilder builder(
+		net.minecraft.tags.TagKey<Biome> tag
+	) {
+		return getOrCreateTagBuilder(tag);
+	}
+	//? }
 
-    @Override
-    protected void addTags(HolderLookup.Provider provider) {
-        builder(StellarityBiomeTags.SNOWY).add(new ResourceKey[]{});
-    }
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
+		builder(StellarityBiomeTags.SNOWY).add(new ResourceKey[]{});
+	}
 }

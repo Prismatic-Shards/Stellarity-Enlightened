@@ -17,41 +17,41 @@ import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 import java.util.concurrent.CompletableFuture;
 
 public class DamageTagProvider extends FabricTagProvider<DamageType> {
-    public DamageTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, Registries.DAMAGE_TYPE, registriesFuture);
-    }
+	public DamageTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		super(output, Registries.DAMAGE_TYPE, registriesFuture);
+	}
 
-    //? < 1.21.11 {
-    public FabricTagBuilder builder(
-        net.minecraft.tags.TagKey<DamageType> tag
-    ) {
-        return getOrCreateTagBuilder(tag);
-    }
-    //? }
+	//? < 1.21.11 {
+	public FabricTagBuilder builder(
+		net.minecraft.tags.TagKey<DamageType> tag
+	) {
+		return getOrCreateTagBuilder(tag);
+	}
+	//? }
 
 
-    @Override
-    protected void addTags(HolderLookup.Provider provider) {
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
 
-        builder(DamageTypeTags.BYPASSES_COOLDOWN).addOptional(
-            StellarityDamageTypes.BRITTLE
-        );
+		builder(DamageTypeTags.BYPASSES_COOLDOWN).addOptional(
+			StellarityDamageTypes.BRITTLE
+		);
 
-        builder(StellarityDamageTypeTags.MELEE).add(DamageTypes.PLAYER_ATTACK, DamageTypes.MOB_ATTACK, DamageTypes.MOB_ATTACK).addOptional(StellarityDamageTypes.PRISMEMBER);
+		builder(StellarityDamageTypeTags.MELEE).add(DamageTypes.PLAYER_ATTACK, DamageTypes.MOB_ATTACK, DamageTypes.MOB_ATTACK).addOptional(StellarityDamageTypes.PRISMEMBER);
 
-//        builder(DamageTypeTags.BYPASSES_ARMOR).addOptional(
-//            StellarityDamageTypes.BRITTLE
-//        );
+//		builder(DamageTypeTags.BYPASSES_ARMOR).addOptional(
+//			StellarityDamageTypes.BRITTLE
+//		);
 
-        //? > 1.20.1 {
-        /*builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
-            StellarityDamageTypes.BRITTLE
-        );
-        *///? }
+		//? > 1.20.1 {
+		/*builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
+			StellarityDamageTypes.BRITTLE
+		);
+		*///? }
 
-//        builder(DamageTypeTags.BYPASSES_ENCHANTMENTS).addOptional(
-//            StellarityDamageTypes.BRITTLE
-//        );
+//		builder(DamageTypeTags.BYPASSES_ENCHANTMENTS).addOptional(
+//			StellarityDamageTypes.BRITTLE
+//		);
 
-    }
+	}
 }

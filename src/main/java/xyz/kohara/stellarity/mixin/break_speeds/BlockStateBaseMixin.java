@@ -18,35 +18,35 @@ import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 
 
 import com.google.common.collect.ImmutableMap;
- //? } else {
+	//? } else {
 
 /*import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 
-*///? }
+ *///? }
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin extends StateHolder<Block, BlockState> {
-    @Shadow
-    public abstract Block getBlock();
+	@Shadow
+	public abstract Block getBlock();
 
-    @Shadow
-    public abstract boolean is(Block block);
+	@Shadow
+	public abstract boolean is(Block block);
 
-    //? 1.20.1 {
-    protected BlockStateBaseMixin(Block object, ImmutableMap<Property<?>, Comparable<?>> immutableMap, MapCodec<BlockState> mapCodec) {
-        super(object, immutableMap, mapCodec);
-    }
-    //? } else {
-    /*protected BlockStateBaseMixin(Block object, Reference2ObjectArrayMap<Property<?>, Comparable<?>> reference2ObjectArrayMap, MapCodec<BlockState> mapCodec) {
-        super(object, reference2ObjectArrayMap, mapCodec);
-    }
-    *///? }
+	//? 1.20.1 {
+	protected BlockStateBaseMixin(Block object, ImmutableMap<Property<?>, Comparable<?>> immutableMap, MapCodec<BlockState> mapCodec) {
+		super(object, immutableMap, mapCodec);
+	}
+	//? } else {
+	/*protected BlockStateBaseMixin(Block object, Reference2ObjectArrayMap<Property<?>, Comparable<?>> reference2ObjectArrayMap, MapCodec<BlockState> mapCodec) {
+		super(object, reference2ObjectArrayMap, mapCodec);
+	}
+	*///? }
 
-    @WrapMethod(method = "getDestroySpeed")
-    private float dynamicDestroySpeed(BlockGetter blockGetter, BlockPos blockPos, Operation<Float> original) {
-        if (is(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && getValue(AltarOfTheAccursed.PLACE_TYPE) == AltarOfTheAccursed.PlaceType.SATCHEL)
-            return 50;
+	@WrapMethod(method = "getDestroySpeed")
+	private float dynamicDestroySpeed(BlockGetter blockGetter, BlockPos blockPos, Operation<Float> original) {
+		if (is(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && getValue(AltarOfTheAccursed.PLACE_TYPE) == AltarOfTheAccursed.PlaceType.SATCHEL)
+			return 50;
 
-        return original.call(blockGetter, blockPos);
-    }
+		return original.call(blockGetter, blockPos);
+	}
 }

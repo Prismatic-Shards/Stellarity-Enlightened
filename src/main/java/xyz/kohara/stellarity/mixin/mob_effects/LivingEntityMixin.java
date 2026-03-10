@@ -34,7 +34,7 @@ import java.util.Map;
 /*import net.minecraft.tags.EntityTypeTags;
 
 import net.minecraft.core.Holder;
-    *///? }
+	*///? }
 
 //? > 1.21.10 {
 /*import net.minecraft.server.level.ServerLevel;
@@ -43,69 +43,69 @@ import net.minecraft.core.Holder;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
 
-    @Shadow
-    @Final
-    private Map</*? 1.20.1 { */MobEffect/*? } else { */ /*Holder<MobEffect> *//*? }*/, MobEffectInstance> activeEffects;
+	@Shadow
+	@Final
+	private Map</*? 1.20.1 { */MobEffect/*? } else { */ /*Holder<MobEffect> *//*? }*/, MobEffectInstance> activeEffects;
 
-    @Shadow
-        //? 1.20.1
-    public abstract boolean hasEffect(MobEffect par1);
+	@Shadow
+		//? 1.20.1
+	public abstract boolean hasEffect(MobEffect par1);
 
-    //? > 1.21
-    //public abstract boolean hasEffect(Holder<MobEffect> par1);
-
-
-    @Unique
-    private static DamageUtility damageUtility;
-
-    @Unique
-    private boolean appliedBrittle = false;
-
-    public LivingEntityMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+	//? > 1.21
+	//public abstract boolean hasEffect(Holder<MobEffect> par1);
 
 
-    @WrapMethod(method = /*? < 1.21.11 { */"hurt"/*? } else { */ /*"hurtServer" *//*?} */)
-    private boolean applyBrittleEffect(/*? if > 1.21.10 >> 'Dam' *//*ServerLevel serverLevel, */DamageSource damageSource, float f, Operation<Boolean> original) {
-        boolean hurt = original.call(/*? if > 1.21.10 >> 'dam' *//*serverLevel, */damageSource, f);
+	@Unique
+	private static DamageUtility damageUtility;
 
-        if (!activeEffects.containsKey(StellarityMobEffects.BRITTLE) || !hurt || appliedBrittle || damageSource.is(StellarityDamageTypes.BRITTLE))
-            return hurt;
+	@Unique
+	private boolean appliedBrittle = false;
 
-        int amplifier = activeEffects.get(StellarityMobEffects.BRITTLE).getAmplifier();
-
-        var sources = this.damageSources();
-
-
-        if (damageUtility == null) damageUtility = DamageUtility.builder()
-            .setDamageSource(sources.source(StellarityDamageTypes.BRITTLE))
-            .setApDamageSource(sources.source(StellarityDamageTypes.BRITTLE))
-            .setApRatio(0.4f)
-            .build();
-
-        setTicksFrozen(150);
-
-        appliedBrittle = true;
-
-        damageUtility.damageEntity((LivingEntity) (Object) this, (float) amplifier + 1);
-
-        appliedBrittle = false;
+	public LivingEntityMixin(EntityType<?> entityType, Level level) {
+		super(entityType, level);
+	}
 
 
-        return true;
-    }
+	@WrapMethod(method = /*? < 1.21.11 { */"hurt"/*? } else { */ /*"hurtServer" *//*?} */)
+	private boolean applyBrittleEffect(/*? if > 1.21.10 >> 'Dam' *//*ServerLevel serverLevel, */DamageSource damageSource, float f, Operation<Boolean> original) {
+		boolean hurt = original.call(/*? if > 1.21.10 >> 'dam' *//*serverLevel, */damageSource, f);
 
-    //? 1.20.1 {
-    @WrapOperation(method = "tickEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
-    private void addCustomEffectParticles(Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original) {
-        var contains = activeEffects.containsKey(StellarityMobEffects.CREATIVE_SHOCK);
-        var size = activeEffects.size();
+		if (!activeEffects.containsKey(StellarityMobEffects.BRITTLE) || !hurt || appliedBrittle || damageSource.is(StellarityDamageTypes.BRITTLE))
+			return hurt;
 
-        if (!contains || size != 1) original.call(instance, particleOptions, d, e, f, g, h, i);
-        if (contains) original.call(instance, StellarityParticles.CREATIVE_SHOCK, d, e, f, g, h, i);
-    }
-    //? }
+		int amplifier = activeEffects.get(StellarityMobEffects.BRITTLE).getAmplifier();
+
+		var sources = this.damageSources();
+
+
+		if (damageUtility == null) damageUtility = DamageUtility.builder()
+			.setDamageSource(sources.source(StellarityDamageTypes.BRITTLE))
+			.setApDamageSource(sources.source(StellarityDamageTypes.BRITTLE))
+			.setApRatio(0.4f)
+			.build();
+
+		setTicksFrozen(150);
+
+		appliedBrittle = true;
+
+		damageUtility.damageEntity((LivingEntity) (Object) this, (float) amplifier + 1);
+
+		appliedBrittle = false;
+
+
+		return true;
+	}
+
+	//? 1.20.1 {
+	@WrapOperation(method = "tickEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
+	private void addCustomEffectParticles(Level instance, ParticleOptions particleOptions, double d, double e, double f, double g, double h, double i, Operation<Void> original) {
+		var contains = activeEffects.containsKey(StellarityMobEffects.CREATIVE_SHOCK);
+		var size = activeEffects.size();
+
+		if (!contains || size != 1) original.call(instance, particleOptions, d, e, f, g, h, i);
+		if (contains) original.call(instance, StellarityParticles.CREATIVE_SHOCK, d, e, f, g, h, i);
+	}
+	//? }
 
 
 }

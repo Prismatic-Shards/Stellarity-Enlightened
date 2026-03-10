@@ -16,26 +16,26 @@ import java.util.concurrent.CompletableFuture;
 
 public class PlacedFeatureProvider {
 
-    public static Holder<PlacedFeature> MAIN_ISLAND_RING;
-    public static Holder<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM;
+	public static Holder<PlacedFeature> MAIN_ISLAND_RING;
+	public static Holder<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM;
 
-    public static ResourceKey<PlacedFeature> id(String name) {
-        return Stellarity.key(Registries.PLACED_FEATURE, name);
-    }
+	public static ResourceKey<PlacedFeature> id(String name) {
+		return Stellarity.key(Registries.PLACED_FEATURE, name);
+	}
 
-    public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
-        entries.addAll(provider.lookupOrThrow(Registries.PLACED_FEATURE));
-    }
+	public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
+		entries.addAll(provider.lookupOrThrow(Registries.PLACED_FEATURE));
+	}
 
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
-        MAIN_ISLAND_RING = context.register(
-            id("main_island/ring"),
-            new PlacedFeature(ConfiguredFeatureProvider.MAIN_ISLAND_RING, List.of(BiomeFilter.biome()))
-        );
+	public static void bootstrap(BootstapContext<PlacedFeature> context) {
+		MAIN_ISLAND_RING = context.register(
+			id("main_island/ring"),
+			new PlacedFeature(ConfiguredFeatureProvider.MAIN_ISLAND_RING, List.of(BiomeFilter.biome()))
+		);
 
-        MAIN_ISLAND_PORTAL_PLATFORM = context.register(
-            id("main_island/portal_platform"),
-            new PlacedFeature(ConfiguredFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM, List.of(BiomeFilter.biome()))
-        );
-    }
+		MAIN_ISLAND_PORTAL_PLATFORM = context.register(
+			id("main_island/portal_platform"),
+			new PlacedFeature(ConfiguredFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM, List.of(BiomeFilter.biome()))
+		);
+	}
 }

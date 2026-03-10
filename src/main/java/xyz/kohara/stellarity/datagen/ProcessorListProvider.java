@@ -14,19 +14,19 @@ import java.util.concurrent.CompletableFuture;
 
 public class ProcessorListProvider {
 
-    public static ResourceKey<StructureProcessorList> id(String name) {
-        return Stellarity.key(Registries.PROCESSOR_LIST, name);
-    }
+	public static ResourceKey<StructureProcessorList> id(String name) {
+		return Stellarity.key(Registries.PROCESSOR_LIST, name);
+	}
 
-    public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
-        entries.add(id("obsidian_spikes"), new StructureProcessorList(
-            List.of(new RuleProcessor(
-                List.of(new ProcessorRule(
-                    AlwaysTrueTest.INSTANCE,
-                    new RandomBlockStateMatchTest(Blocks.OBSIDIAN.defaultBlockState(), 0.076f),
-                    Blocks.CRYING_OBSIDIAN.defaultBlockState()
-                ))
-            ))
-        ));
-    }
+	public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
+		entries.add(id("obsidian_spikes"), new StructureProcessorList(
+			List.of(new RuleProcessor(
+				List.of(new ProcessorRule(
+					AlwaysTrueTest.INSTANCE,
+					new RandomBlockStateMatchTest(Blocks.OBSIDIAN.defaultBlockState(), 0.076f),
+					Blocks.CRYING_OBSIDIAN.defaultBlockState()
+				))
+			))
+		));
+	}
 }

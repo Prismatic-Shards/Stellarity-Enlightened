@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? < 1.21.9 {
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
-    //? } else {
+	//? } else {
 /*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -39,95 +39,95 @@ import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
-    @Shadow
-    @Final
-    public ServerPlayerGameMode gameMode;
+	@Shadow
+	@Final
+	public ServerPlayerGameMode gameMode;
 
 
-    @Shadow
-    public abstract boolean setGameMode(GameType gameType);
+	@Shadow
+	public abstract boolean setGameMode(GameType gameType);
 
-    @Unique
-    @Nullable
-    private GameType initialGameType = null;
+	@Unique
+	@Nullable
+	private GameType initialGameType = null;
 
-    //? < 1.21.9 {
-    public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
-        super(level, blockPos, f, gameProfile);
-    }
-    //? } else {
+	//? < 1.21.9 {
+	public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
+		super(level, blockPos, f, gameProfile);
+	}
+	//? } else {
 
-    /*public ServerPlayerMixin(Level level, GameProfile gameProfile) {
-        super(level, gameProfile);
-    }
-    *///? }
-
-
-    @Inject(method = "onEffectAdded", at = @At("HEAD"))
-    private void effectAdded(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
-        var type = gameMode.getGameModeForPlayer();
+	/*public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+		super(level, gameProfile);
+	}
+	*///? }
 
 
-        if (//? 1.20.1 {
-            !(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
-            //? } else {
-            /*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
-             *///? }
-        ) return;
+	@Inject(method = "onEffectAdded", at = @At("HEAD"))
+	private void effectAdded(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
+		var type = gameMode.getGameModeForPlayer();
 
 
-        if (!CreativeShockEffect.extremeCreativeShock() && type == GameType.CREATIVE) return;
+		if (//? 1.20.1 {
+			!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
+			//? } else {
+			/*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
+			 *///? }
+		) return;
 
-        if (initialGameType == null) initialGameType = type;
-        setGameMode(GameType.ADVENTURE);
-    }
 
-    //? < 1.21.9 {
-    @Inject(method = "onEffectRemoved", at = @At("HEAD"))
-    protected void effectRemoved(MobEffectInstance effectInstance, CallbackInfo ci)
-    //? } else {
+		if (!CreativeShockEffect.extremeCreativeShock() && type == GameType.CREATIVE) return;
 
-    /*@Inject(method = "onEffectsRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", shift = At.Shift.AFTER))
-    protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
-    *///? }
-    {
-        if (//? 1.20.1 {
-            !(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
-            //? } else {
-            /*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
-             *///? }
-        ) return;
+		if (initialGameType == null) initialGameType = type;
+		setGameMode(GameType.ADVENTURE);
+	}
 
-        if (initialGameType == null) initialGameType = GameType.SURVIVAL;
+	//? < 1.21.9 {
+	@Inject(method = "onEffectRemoved", at = @At("HEAD"))
+	protected void effectRemoved(MobEffectInstance effectInstance, CallbackInfo ci)
+	//? } else {
 
-        setGameMode(initialGameType);
-        initialGameType = null;
-    }
+	/*@Inject(method = "onEffectsRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", shift = At.Shift.AFTER))
+	protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
+	*///? }
+	{
+		if (//? 1.20.1 {
+			!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
+			//? } else {
+			/*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
+			 *///? }
+		) return;
 
-    @Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
-    public void saveData(
-        //? < 1.21.9 {
-        CompoundTag tag, CallbackInfo ci
-        //? } else {
-        /*ValueOutput tag, CallbackInfo ci
-         *///? }
-    ) {
-        if (initialGameType != null) tag.putString("stellarity:initial_gamemode", initialGameType.getName());
-    }
+		if (initialGameType == null) initialGameType = GameType.SURVIVAL;
 
-    //? > 1.21.9
-    //@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-    public void readData(
-        //? < 1.21.9 {
-        CompoundTag tag, CallbackInfo ci
-        //? } else {
-        /*ValueInput tag, CallbackInfo ci
-         *///? }
-    ) {
-        if (tag.contains("stellarity:initial_gamemode")) {
-            initialGameType = GameType.byName(tag.getString("stellarity:initial_gamemode")/*? > 1.21.9 >> ');'*//*.orElse("survival")*/);
-        }
-    }
+		setGameMode(initialGameType);
+		initialGameType = null;
+	}
+
+	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
+	public void saveData(
+		//? < 1.21.9 {
+		CompoundTag tag, CallbackInfo ci
+		//? } else {
+		/*ValueOutput tag, CallbackInfo ci
+		 *///? }
+	) {
+		if (initialGameType != null) tag.putString("stellarity:initial_gamemode", initialGameType.getName());
+	}
+
+	//? > 1.21.9
+	//@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+	public void readData(
+		//? < 1.21.9 {
+		CompoundTag tag, CallbackInfo ci
+		//? } else {
+		/*ValueInput tag, CallbackInfo ci
+		 *///? }
+	) {
+		if (tag.contains("stellarity:initial_gamemode")) {
+			initialGameType = GameType.byName(tag.getString("stellarity:initial_gamemode")/*? > 1.21.9 >> ');'*//*.orElse("survival")*/);
+		}
+	}
 
 
 }

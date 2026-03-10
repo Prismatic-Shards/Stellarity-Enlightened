@@ -18,16 +18,16 @@ import xyz.kohara.stellarity.registry.StellarityEnchantments;
 
 @Mixin(BowItem.class)
 public class BowItemMixin {
-    @Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
-    private void levitationShot(ItemStack itemStack, Level level, LivingEntity livingEntity, int i, CallbackInfo ci, @Local AbstractArrow abstractArrow) {
-        int levitationShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.LEVITATION_SHOT, itemStack);
-        boolean voidShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.VOID_SHOT, itemStack) > 0;
+	@Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+	private void levitationShot(ItemStack itemStack, Level level, LivingEntity livingEntity, int i, CallbackInfo ci, @Local AbstractArrow abstractArrow) {
+		int levitationShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.LEVITATION_SHOT, itemStack);
+		boolean voidShot = EnchantmentHelper.getItemEnchantmentLevel(StellarityEnchantments.VOID_SHOT, itemStack) > 0;
 
-        if (abstractArrow instanceof ExtAbstractArrow arrow) {
-            if (levitationShot > 0) arrow.stellarity$setLevitationShot(levitationShot);
-            if (voidShot) arrow.stellarity$setVoidShot(true);
-        }
-    }
+		if (abstractArrow instanceof ExtAbstractArrow arrow) {
+			if (levitationShot > 0) arrow.stellarity$setLevitationShot(levitationShot);
+			if (voidShot) arrow.stellarity$setVoidShot(true);
+		}
+	}
 }
 
 //? }

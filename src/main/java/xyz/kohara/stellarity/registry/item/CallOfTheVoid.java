@@ -8,17 +8,17 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 
 public class CallOfTheVoid extends BowItem {
-    public static Item.Properties properties() {
-        return new Item.Properties().fireResistant().rarity(Rarity.EPIC).stacksTo(1);
-    }
+	public static Item.Properties properties() {
+		return new Item.Properties().fireResistant().rarity(Rarity.EPIC).stacksTo(1);
+	}
 
-    public CallOfTheVoid() {
-        super(properties());
+	public CallOfTheVoid() {
+		super(properties());
 
-    }
+	}
 
-    public CallOfTheVoid(Properties properties) {
-        super(properties);
-    }
+	public CallOfTheVoid(Properties properties) {
+		super(properties);
+	}
 
 }

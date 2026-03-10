@@ -13,22 +13,22 @@ import net.minecraft.core.Registry;
 
 public class StellarityEnchantments {
 
-    public static final Enchantment LEVITATION_SHOT = register("levitation_shot", new LevitationShotEnchantment());
-    public static final Enchantment CRITICAL_STRIKE = register("critical_strike", new CriticalStrikeEnchantment());
-    public static final Enchantment AMBUSH = register("ambush", new AmbushEnchantment());
-    public static final Enchantment VOID_STRIKE = register("void_strike", new VoidStrikeEnchantment());
-    public static final Enchantment VOID_SHOT = register("void_shot", new VoidShotEnchantment());
-    public static final Enchantment PLATED = register("plated", new PlatedEnchantment());
-    public static final Enchantment SOARING = register("soaring", new SoaringEnchantment());
-    public static final Enchantment DUNE_SPEED = register("dune_speed", new DuneSpeedEnchantment());
+	public static final Enchantment LEVITATION_SHOT = register("levitation_shot", new LevitationShotEnchantment());
+	public static final Enchantment CRITICAL_STRIKE = register("critical_strike", new CriticalStrikeEnchantment());
+	public static final Enchantment AMBUSH = register("ambush", new AmbushEnchantment());
+	public static final Enchantment VOID_STRIKE = register("void_strike", new VoidStrikeEnchantment());
+	public static final Enchantment VOID_SHOT = register("void_shot", new VoidShotEnchantment());
+	public static final Enchantment PLATED = register("plated", new PlatedEnchantment());
+	public static final Enchantment SOARING = register("soaring", new SoaringEnchantment());
+	public static final Enchantment DUNE_SPEED = register("dune_speed", new DuneSpeedEnchantment());
 
-    public static Enchantment register(String name, Enchantment enchantment) {
-        return Registry.register(BuiltInRegistries.ENCHANTMENT, Stellarity.id(name), enchantment);
-    }
+	public static Enchantment register(String name, Enchantment enchantment) {
+		return Registry.register(BuiltInRegistries.ENCHANTMENT, Stellarity.id(name), enchantment);
+	}
 
-    public static void init() {
-        Stellarity.LOGGER.info("Registering Stellarity Enchantments (LEGACY)");
-    }
+	public static void init() {
+		Stellarity.LOGGER.info("Registering Stellarity Enchantments (LEGACY)");
+	}
 }
 
 //? } else {
@@ -37,22 +37,22 @@ public class StellarityEnchantments {
 /*import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 public class StellarityEnchantments {
-    public static final ResourceKey<Enchantment> AMBUSH = register("ambush");
-    public static final ResourceKey<Enchantment> CRITICAL_STRIKE = register("critical_strike");
-    public static final ResourceKey<Enchantment> DUNE_SPEED = register("dune_speed");
-    public static final ResourceKey<Enchantment> LEVITATION_SHOT = register("levitation_shot");
-    public static final ResourceKey<Enchantment> PLATED = register("plated");
-    public static final ResourceKey<Enchantment> SOARING = register("soaring");
-    public static final ResourceKey<Enchantment> VOID_SHOT = register("void_shot");
-    public static final ResourceKey<Enchantment> VOID_STRIKE = register("void_strike");
+	public static final ResourceKey<Enchantment> AMBUSH = register("ambush");
+	public static final ResourceKey<Enchantment> CRITICAL_STRIKE = register("critical_strike");
+	public static final ResourceKey<Enchantment> DUNE_SPEED = register("dune_speed");
+	public static final ResourceKey<Enchantment> LEVITATION_SHOT = register("levitation_shot");
+	public static final ResourceKey<Enchantment> PLATED = register("plated");
+	public static final ResourceKey<Enchantment> SOARING = register("soaring");
+	public static final ResourceKey<Enchantment> VOID_SHOT = register("void_shot");
+	public static final ResourceKey<Enchantment> VOID_STRIKE = register("void_strike");
 
-    private static ResourceKey<Enchantment> register(String name) {
-        return Stellarity.key(Registries.ENCHANTMENT, name);
-    }
+	private static ResourceKey<Enchantment> register(String name) {
+		return Stellarity.key(Registries.ENCHANTMENT, name);
+	}
 
-    public static void init() {
-        Stellarity.LOGGER.info("Registering Stellarity Enchantments");
-    }
+	public static void init() {
+		Stellarity.LOGGER.info("Registering Stellarity Enchantments");
+	}
 }
 
 *///? }

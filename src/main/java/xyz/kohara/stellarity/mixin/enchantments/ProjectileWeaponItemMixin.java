@@ -18,26 +18,26 @@ import xyz.kohara.stellarity.registry.StellarityEnchantments;
 @Mixin(ProjectileWeaponItem.class)
 public class ProjectileWeaponItemMixin {
 
-    @WrapOperation(method = "shoot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileWeaponItem;createProjectile(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/projectile/Projectile;"))
-    private Projectile levitationShot(ProjectileWeaponItem instance, Level level, LivingEntity livingEntity, ItemStack itemStack, ItemStack itemStack2, boolean b, Operation<Projectile> original) {
-        var projectile = original.call(instance, level, livingEntity, itemStack, itemStack2, b);
+	@WrapOperation(method = "shoot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileWeaponItem;createProjectile(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/projectile/Projectile;"))
+	private Projectile levitationShot(ProjectileWeaponItem instance, Level level, LivingEntity livingEntity, ItemStack itemStack, ItemStack itemStack2, boolean b, Operation<Projectile> original) {
+		var projectile = original.call(instance, level, livingEntity, itemStack, itemStack2, b);
 
-        if (projectile instanceof Arrow arrow) {
-            for (var entry : itemStack.getEnchantments().entrySet()) {
-                if (entry.getKey().is(StellarityEnchantments.LEVITATION_SHOT)) {
-                    var random = level.random;
-                    var enchantmentLevel = entry.getIntValue();
+		if (projectile instanceof Arrow arrow) {
+			for (var entry : itemStack.getEnchantments().entrySet()) {
+				if (entry.getKey().is(StellarityEnchantments.LEVITATION_SHOT)) {
+					var random = level.random;
+					var enchantmentLevel = entry.getIntValue();
 
-                    arrow.stellarity$setLevitationShot(enchantmentLevel);
-                }
-                if (entry.getKey().is(StellarityEnchantments.VOID_SHOT)) {
-                    arrow.stellarity$setVoidShot(true);
-                }
-            }
-        }
+					arrow.stellarity$setLevitationShot(enchantmentLevel);
+				}
+				if (entry.getKey().is(StellarityEnchantments.VOID_SHOT)) {
+					arrow.stellarity$setVoidShot(true);
+				}
+			}
+		}
 
-        return projectile;
-    }
+		return projectile;
+	}
 
 }
 *///? }

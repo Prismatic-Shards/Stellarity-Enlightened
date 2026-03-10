@@ -36,86 +36,86 @@ import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
 //? }
 
 public class AltarOfTheAccursed extends BaseEntityBlock {
-    public enum PlaceType implements StringRepresentable {
-        NORMAL,
-        CREATIVE,
-        SATCHEL;
+	public enum PlaceType implements StringRepresentable {
+		NORMAL,
+		CREATIVE,
+		SATCHEL;
 
-        @Override
+		@Override
 
-        public String getSerializedName() {
-            return switch (this) {
-                case NORMAL -> "normal";
-                case CREATIVE -> "creative";
-                case SATCHEL -> "satchel";
-            };
-        }
+		public String getSerializedName() {
+			return switch (this) {
+				case NORMAL -> "normal";
+				case CREATIVE -> "creative";
+				case SATCHEL -> "satchel";
+			};
+		}
 
-        public boolean bypassesDragon() {
-            return this == CREATIVE;
-        }
-    }
+		public boolean bypassesDragon() {
+			return this == CREATIVE;
+		}
+	}
 
-    public static final BooleanProperty LOCKED = BooleanProperty.create("locked");
-    public static final EnumProperty<PlaceType> PLACE_TYPE = EnumProperty.create("place_type", PlaceType.class);
-
-
-    public AltarOfTheAccursed(Properties properties) {
-        super(properties);
-
-        registerDefaultState(defaultBlockState().setValue(LOCKED, false).setValue(PLACE_TYPE, PlaceType.CREATIVE));
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(LOCKED).add(PLACE_TYPE);
-    }
+	public static final BooleanProperty LOCKED = BooleanProperty.create("locked");
+	public static final EnumProperty<PlaceType> PLACE_TYPE = EnumProperty.create("place_type", PlaceType.class);
 
 
-    public static final VoxelShape SHAPE = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 13.0F, 16.0F);
+	public AltarOfTheAccursed(Properties properties) {
+		super(properties);
 
-    public static Properties blockProperties() {
-        return Properties.of()
-            .mapColor(MapColor.COLOR_GREEN)
-            .instrument(NoteBlockInstrument.BASEDRUM)
-            .sound(SoundType.GLASS)
-            .lightLevel((blockStatex) -> 7)
-            .strength(-1.0F, 6700000.0F);
-    }
+		registerDefaultState(defaultBlockState().setValue(LOCKED, false).setValue(PLACE_TYPE, PlaceType.CREATIVE));
+	}
 
-
-    //? = 1.20.1
-    @SuppressWarnings("deprecation")
-    @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return SHAPE;
-    }
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(LOCKED).add(PLACE_TYPE);
+	}
 
 
-    //? > 1.21 {
+	public static final VoxelShape SHAPE = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 13.0F, 16.0F);
 
-    /*@Override
-    public MapCodec<? extends BaseEntityBlock> codec() {
-        return simpleCodec(AltarOfTheAccursed::new);
-    }
-    *///? } else {
+	public static Properties blockProperties() {
+		return Properties.of()
+			.mapColor(MapColor.COLOR_GREEN)
+			.instrument(NoteBlockInstrument.BASEDRUM)
+			.sound(SoundType.GLASS)
+			.lightLevel((blockStatex) -> 7)
+			.strength(-1.0F, 6700000.0F);
+	}
 
-    //? }
+
+	//? = 1.20.1
+	@SuppressWarnings("deprecation")
+	@Override
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		return SHAPE;
+	}
 
 
-    @Override
-    public RenderShape getRenderShape(BlockState blockState) {
-        return RenderShape.MODEL;
-    }
+	//? > 1.21 {
 
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new AltarOfTheAccursedBlockEntity(blockPos, blockState);
-    }
+	/*@Override
+	public MapCodec<? extends BaseEntityBlock> codec() {
+		return simpleCodec(AltarOfTheAccursed::new);
+	}
+	*///? } else {
 
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
-        if (type == StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED) return AltarOfTheAccursedBlockEntity::tick;
-        return null;
-    }
+	//? }
+
+
+	@Override
+	public RenderShape getRenderShape(BlockState blockState) {
+		return RenderShape.MODEL;
+	}
+
+	@Override
+	public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+		return new AltarOfTheAccursedBlockEntity(blockPos, blockState);
+	}
+
+	@Override
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
+		if (type == StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED) return AltarOfTheAccursedBlockEntity::tick;
+		return null;
+	}
 }

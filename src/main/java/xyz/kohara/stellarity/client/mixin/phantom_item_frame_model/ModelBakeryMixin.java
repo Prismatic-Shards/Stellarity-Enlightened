@@ -18,14 +18,14 @@ import static xyz.kohara.stellarity.client.registry.renderer.entity.PhantomItemF
 @MixinEnvironment("client")
 @Mixin(ModelBakery.class)
 public abstract class ModelBakeryMixin {
-    @Shadow
-    protected abstract void loadTopLevel(ModelResourceLocation par1);
+	@Shadow
+	protected abstract void loadTopLevel(ModelResourceLocation par1);
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/Map;forEach(Ljava/util/function/BiConsumer;)V", ordinal = 0))
-    private void addStellarityModels(CallbackInfo ci) {
-        FAKE_STATE_DEFINITION.getPossibleStates().forEach((blockState) -> this.loadTopLevel(BlockModelShaper.stateToModelLocation(Stellarity.id("phantom_item_frame"), blockState)));
+	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Ljava/util/Map;forEach(Ljava/util/function/BiConsumer;)V", ordinal = 0))
+	private void addStellarityModels(CallbackInfo ci) {
+		FAKE_STATE_DEFINITION.getPossibleStates().forEach((blockState) -> this.loadTopLevel(BlockModelShaper.stateToModelLocation(Stellarity.id("phantom_item_frame"), blockState)));
 
-        Stellarity.LOGGER.info("Registered Phantom Item Frame block states for model loading.");
-    }
+		Stellarity.LOGGER.info("Registered Phantom Item Frame block states for model loading.");
+	}
 }
 //? }

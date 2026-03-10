@@ -11,10 +11,10 @@ import xyz.kohara.stellarity.client.registry.renderer.entity.PhantomItemFrameRen
 @Environment(EnvType.CLIENT)
 public class StellarityEntityRenderers {
 
-    public static void init() {
-        Stellarity.LOGGER.info("Registering Stellarity Entity Renderers");
-        EntityRendererRegistry.register(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
-        EntityRendererRegistry.register(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
-    }
+	public static void init() {
+		Stellarity.LOGGER.info("Registering Stellarity Entity Renderers");
+		EntityRendererRegistry.register(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
+		EntityRendererRegistry.register(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
+	}
 
 }

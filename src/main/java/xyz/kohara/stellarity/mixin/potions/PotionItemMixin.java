@@ -16,13 +16,13 @@ import xyz.kohara.stellarity.Stellarity;
 
 @Mixin(PotionItem.class)
 public class PotionItemMixin {
-    //? 1.21.1 {
+	//? 1.21.1 {
 
-    /*@Expression(value = "? == null")
-    @WrapOperation(method = "appendHoverText", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private boolean removeRedPotionTooltip(Object left, Object right, Operation<Boolean> original, @Local PotionContents contents) {
-        return original.call(left, right) && contents.potion().map(p -> !p.is(Stellarity.id("red"))).orElse(true);
-    }
+	/*@Expression(value = "? == null")
+	@WrapOperation(method = "appendHoverText", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private boolean removeRedPotionTooltip(Object left, Object right, Operation<Boolean> original, @Local PotionContents contents) {
+		return original.call(left, right) && contents.potion().map(p -> !p.is(Stellarity.id("red"))).orElse(true);
+	}
 
-    *///? }
+	*///? }
 }

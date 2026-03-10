@@ -32,36 +32,36 @@ import net.minecraft.nbt.CompoundTag;
 public abstract class FrogMixin extends Entity {
 
 
-    public FrogMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+	public FrogMixin(EntityType<?> entityType, Level level) {
+		super(entityType, level);
+	}
 
 
-    //? 1.20.1 {
-    @Shadow
-    public abstract void setVariant(FrogVariant par1);
+	//? 1.20.1 {
+	@Shadow
+	public abstract void setVariant(FrogVariant par1);
 
-    @Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
-    private void addStellarityFrogs(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CompoundTag compoundTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
+	@Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
+	private void addStellarityFrogs(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CompoundTag compoundTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+		Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
 
-        if (holder.is(BiomeTags.IS_END)) {
-            setVariant(StellarityFrogVariants.END);
-        }
-    }
-    //? } else {
-    /*@Shadow
-    public abstract void setVariant(Holder<FrogVariant> holder);
+		if (holder.is(BiomeTags.IS_END)) {
+			setVariant(StellarityFrogVariants.END);
+		}
+	}
+	//? } else {
+	/*@Shadow
+	public abstract void setVariant(Holder<FrogVariant> holder);
 
-    @Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
-    private void addStellarityFrogs(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
+	@Inject(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/frog/FrogAi;initMemories(Lnet/minecraft/world/entity/animal/frog/Frog;Lnet/minecraft/util/RandomSource;)V"))
+	private void addStellarityFrogs(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
+		Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
 
-        if (holder.is(BiomeTags.IS_END)) {
-            setVariant(BuiltInRegistries.FROG_VARIANT.wrapAsHolder(StellarityFrogVariants.END));
-        }
-    }
-    *///? }
+		if (holder.is(BiomeTags.IS_END)) {
+			setVariant(BuiltInRegistries.FROG_VARIANT.wrapAsHolder(StellarityFrogVariants.END));
+		}
+	}
+	*///? }
 
 }
 

@@ -12,18 +12,18 @@ import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
 
 @Mixin(EndDragonFight.class)
 public abstract class EndDragonFightMixin implements ExtEndDragonFight {
-    @Shadow
-    @Nullable
-    private BlockPos portalLocation;
+	@Shadow
+	@Nullable
+	private BlockPos portalLocation;
 
-    @Redirect(method = "tryRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;relative(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/BlockPos;"))
-    private BlockPos adjustPosition(BlockPos blockPos, Direction direction, int i) {
-        return blockPos.relative(direction, 4).above(2);
-    }
+	@Redirect(method = "tryRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;relative(Lnet/minecraft/core/Direction;I)Lnet/minecraft/core/BlockPos;"))
+	private BlockPos adjustPosition(BlockPos blockPos, Direction direction, int i) {
+		return blockPos.relative(direction, 4).above(2);
+	}
 
-    @Override
-    @Nullable
-    public BlockPos stellarity$getPortalLocation() {
-        return portalLocation;
-    }
+	@Override
+	@Nullable
+	public BlockPos stellarity$getPortalLocation() {
+		return portalLocation;
+	}
 }
