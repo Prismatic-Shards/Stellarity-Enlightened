@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:end_spike",
+  "config": {
+    "crystal_invulnerable": true,
+    "spikes": [
+      {
+        "centerX": 0,
+        "centerZ": 0,
+        "guarded": false,
+        "height": 70,
+        "radius": 16,
+        "stellarity:has_altar": false
+      }
+    ]
+  }
+}
