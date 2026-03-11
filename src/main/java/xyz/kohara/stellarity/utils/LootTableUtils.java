@@ -80,6 +80,10 @@ public class LootTableUtils {
 		return SetItemCountFunction.setCount(provider);
 	}
 
+	public static LootItemConditionalFunction.Builder<?> countAdd(NumberProvider provider) {
+		return SetItemCountFunction.setCount(provider, true);
+	}
+
 	//? 1.20.1 {
 	public static LootItemConditionalFunction.Builder<?> setNbt(String string) {
 		try {

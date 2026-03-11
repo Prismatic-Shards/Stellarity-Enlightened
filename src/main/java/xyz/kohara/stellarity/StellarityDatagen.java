@@ -32,13 +32,13 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(DamageTagProvider::new);
 		pack.addProvider(EntityTagProvider::new);
 		pack.addProvider(BiomeTagProvider::new);
-
+		pack.addProvider(ChestLootTableProvider::new);
 		pack.addProvider(DynamicRegistriesProvider::new);
 
 
 		//? <= 1.21.1 {
 		pack.addProvider((fabricDataOutput, completableFuture) -> new EndonomiconBookProvider(fabricDataOutput, fabricDataGenerator, completableFuture.join(), "endonomicon"));
-		 //? }
+		//? }
 	}
 
 	@Override
