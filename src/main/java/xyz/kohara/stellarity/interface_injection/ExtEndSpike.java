@@ -27,8 +27,6 @@ public interface ExtEndSpike {
 	}
 
 	static SpikeFeature.EndSpike applyDefaults(SpikeFeature.EndSpike spike) {
-		spike.stellarity$setAltar(false);
-		spike.stellarity$setCryingObsidianTops(false);
-		return spike;
+		return apply(spike, false, false);
 	}
 }

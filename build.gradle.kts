@@ -77,6 +77,7 @@ stonecutter {
 	replacements.string(current.parsed.matches(">=1.21.11")) {
 		replace("ResourceLocation", "Identifier")
 		replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
+		replace("net/minecraft/advancements/critereon", "net/minecraft/advancements/criterion")
 		replace("projectile.Arrow", "projectile.arrow.Arrow")
 		replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
 		replace("projectile/Arrow", "projectile/arrow/Arrow")
@@ -85,6 +86,7 @@ stonecutter {
 			"net.minecraft.world.entity.boss.EnderDragonPart",
 			"net.minecraft.world.entity.boss.enderdragon.EnderDragonPart"
 		)
+
 	}
 
 	replacements.string(current.parsed.matches("> 1.21")) {

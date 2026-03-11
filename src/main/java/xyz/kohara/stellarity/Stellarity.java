@@ -55,7 +55,7 @@ public class Stellarity implements ModInitializer {
 		return ResourceKey.create(registry, mcId(path));
 	}
 
-	boolean audit = false;
+	boolean audit = true;
 
 	@Override
 	public void onInitialize() {

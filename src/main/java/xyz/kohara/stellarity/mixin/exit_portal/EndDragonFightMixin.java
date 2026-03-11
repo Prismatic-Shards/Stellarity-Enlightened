@@ -20,10 +20,4 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 	private BlockPos adjustPosition(BlockPos blockPos, Direction direction, int i) {
 		return blockPos.relative(direction, 4).above(2);
 	}
-
-	@Override
-	@Nullable
-	public BlockPos stellarity$getPortalLocation() {
-		return portalLocation;
-	}
 }
