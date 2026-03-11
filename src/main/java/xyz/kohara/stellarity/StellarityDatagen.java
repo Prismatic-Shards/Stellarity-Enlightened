@@ -12,7 +12,9 @@ import xyz.kohara.stellarity.datagen.tags.*;
 public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		Stellarity.LOGGER.info("Bootstrapping configured features");
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureProvider::bootstrap);
+		Stellarity.LOGGER.info("Bootstrapping placed features");
 		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrap);
 	}
 
@@ -36,7 +38,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 
 		//? <= 1.21.1 {
 		pack.addProvider((fabricDataOutput, completableFuture) -> new EndonomiconBookProvider(fabricDataOutput, fabricDataGenerator, completableFuture.join(), "endonomicon"));
-		//? }
+		 //? }
 	}
 
 	@Override

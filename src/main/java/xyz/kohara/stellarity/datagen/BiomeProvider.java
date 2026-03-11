@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import xyz.kohara.stellarity.Stellarity;
 //? >= 1.21.11 {
 /*import net.minecraft.world.attribute.EnvironmentAttributes;
-*///? }
+ *///? }
 
 
 public class BiomeProvider {

@@ -24,7 +24,7 @@
       {
         "centerX": 18,
         "centerZ": 59,
-        "guarded": false,
+        "guarded": true,
         "height": 94,
         "radius": 4,
         "stellarity:altar": false,
@@ -51,7 +51,7 @@
       {
         "centerX": -63,
         "centerZ": 0,
-        "guarded": false,
+        "guarded": true,
         "height": 93,
         "radius": 5,
         "stellarity:altar": false,
@@ -78,7 +78,7 @@
       {
         "centerX": 18,
         "centerZ": -60,
-        "guarded": false,
+        "guarded": true,
         "height": 87,
         "radius": 5,
         "stellarity:altar": false,
@@ -87,7 +87,7 @@
       {
         "centerX": 50,
         "centerZ": -39,
-        "guarded": false,
+        "guarded": true,
         "height": 105,
         "radius": 8,
         "stellarity:altar": true,
