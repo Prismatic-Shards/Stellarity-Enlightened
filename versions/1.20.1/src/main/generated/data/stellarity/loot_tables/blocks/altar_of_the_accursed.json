@@ -16,7 +16,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:crying_obsidian"
+          "name": "stellarity:satchel_of_voids"
         }
       ],
       "rolls": 1.0

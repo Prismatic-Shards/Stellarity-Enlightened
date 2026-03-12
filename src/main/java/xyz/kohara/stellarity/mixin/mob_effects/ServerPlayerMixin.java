@@ -2,6 +2,8 @@ package xyz.kohara.stellarity.mixin.mob_effects;
 
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -29,6 +31,7 @@ import java.util.Collection;
 *///? }
 
 
+import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
 //? 1.20.1 {
 
@@ -47,6 +50,9 @@ public abstract class ServerPlayerMixin extends Player {
 	@Shadow
 	public abstract boolean setGameMode(GameType gameType);
 
+	@Shadow
+	@Final
+	private PlayerAdvancements advancements;
 	@Unique
 	@Nullable
 	private GameType initialGameType = null;

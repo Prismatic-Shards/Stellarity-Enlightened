@@ -10,6 +10,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
+import xyz.kohara.stellarity.registry.StellarityItems;
 
 
 //? > 1.21 {
@@ -60,7 +61,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		add(StellarityBlocks.ALTAR_OF_THE_ACCURSED, lootTable()
 			.withPool(pool().add(item(Items.CRYING_OBSIDIAN)))
 			// todo: add satchel here
-			.withPool(pool().add(item(Items.CRYING_OBSIDIAN)))
+			.withPool(pool().add(item(StellarityItems.SATCHEL_OF_VOIDS)))
 		);
 
 

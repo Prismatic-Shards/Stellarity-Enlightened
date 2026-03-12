@@ -5,6 +5,12 @@
 Unless annotated, all changes are considered to be up to date with
 the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](https://modrinth.com/datapack/stellarity)
 
+## Blocks
+
+**[*] Altar of the Accursed**
+
+- Is obtainable via a satchel now
+
 ## Items
 
 **[+] Music Disc: ZUN - The Deviant's Unobstructed Light (Music Box Ver.)**
@@ -40,6 +46,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Royal Jelly**
 
 **[+] Royal Jelly II**
+
+**[+] Satchel of Voids**
+
+- No spell entity just yet.
 
 # Mob Effects
 
@@ -97,12 +107,6 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 - Added an obsidian platform to the portal
 
 - Replaced with the Stellarity end gateway
-
-## Advancements
-
-**[+] Sacrifical Ritual**
-
-- New criteria trigger `stellarity:dragon_summoned` is available for use in datapacks.
 
 # Developers Note
 

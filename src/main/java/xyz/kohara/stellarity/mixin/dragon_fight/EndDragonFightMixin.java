@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.level.dimension.end.EndDragonFight;
 import net.minecraft.world.level.levelgen.feature.SpikeFeature;
 import org.jetbrains.annotations.Nullable;
@@ -24,13 +23,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 
 import java.util.List;
 
 @Mixin(EndDragonFight.class)
-public abstract class EndDragonFightMixin implements ExtEndDragonFight {
+public abstract class EndDragonFightMixin {
 	@Shadow
 	public boolean dragonKilled;
 
@@ -76,11 +74,5 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 	private void scanStatePreventRevive(EndDragonFight instance, boolean value, Operation<Void> original) {
 		original.call(instance, true);
 		Stellarity.LOGGER.info("force overriding to prevent dragon summoning");
-	}
-
-	@WrapOperation(method = "setRespawnStage", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/critereon/SummonedEntityTrigger;trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/Entity;)V"))
-	private void summonTrigger(SummonedEntityTrigger instance, ServerPlayer serverPlayer, Entity entity, Operation<Void> original) {
-		addSummon(serverPlayer);
-		StellarityCriteriaTriggers.DRAGON_SUMMONED.trigger(serverPlayer, (EndDragonFight) (Object) this);
 	}
 }

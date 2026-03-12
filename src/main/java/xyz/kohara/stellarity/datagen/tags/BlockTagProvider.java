@@ -51,6 +51,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			Blocks.LIGHT_GRAY_CONCRETE_POWDER,
 			Blocks.BLACK_CONCRETE_POWDER
 		);
-		
+
+		getOrCreateTagBuilder(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(Blocks.BEDROCK, Blocks.CRYING_OBSIDIAN).setReplace(false);
+
 	}
 }

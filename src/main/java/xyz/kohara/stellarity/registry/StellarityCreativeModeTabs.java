@@ -103,7 +103,8 @@ public class StellarityCreativeModeTabs {
 
 	public static final ItemLike[] TRINKET_ITEMS = new ItemLike[]{
 		StellarityItems.PRISMATIC_PEARL,
-		StellarityItems.ENDONOMICON
+		StellarityItems.ENDONOMICON,
+		StellarityItems.SATCHEL_OF_VOIDS
 	};
 
 	public static final ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");

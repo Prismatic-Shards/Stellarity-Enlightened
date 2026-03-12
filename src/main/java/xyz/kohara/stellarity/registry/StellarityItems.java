@@ -7,7 +7,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -23,6 +22,7 @@ import xyz.kohara.stellarity.Stellarity;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.sounds.SoundEvents;
 
 import java.util.function.Consumer;
 
@@ -264,6 +264,8 @@ public class StellarityItems {
 		 *///? }
 	);
 
+	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.properties());
+
 
 	public static ItemStack createPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {
 		return
@@ -337,10 +339,10 @@ public class StellarityItems {
 
 
 	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties,
-												 //? >= 1.21.9 {
+	                                             //? >= 1.21.9 {
 		/*Consumable.Builder consumable,
 		 *///?}
-												 int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
+		                                           int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
 		foodProperties = foodProperties
 			.nutrition(nutrition)
 			//? < 1.21.1 {

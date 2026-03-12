@@ -21,7 +21,7 @@ import xyz.kohara.stellarity.registry.recipe.AltarRecipe;
 //? < 1.21.9 {
 
 import org.joml.Vector3f;
- //? }
+	//? }
 
 public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 	public AltarOfTheAccursedBlockEntity(BlockPos pos, BlockState state) {
@@ -60,9 +60,9 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 				//? >= 1.21.9 {
 
 				/*var purpleParticle = new DustColorTransitionOptions(12255487, 1769509, 1.4f);
-				*///?} else {
+				 *///?} else {
 				var purpleParticle = new DustColorTransitionOptions(new Vector3f(0.733f, 0.0f, 1.0f), new Vector3f(0.106f, 0.0f, 0.145f), 1.4f);
-				 //? }
+				//? }
 
 				level.addParticle(
 					purpleParticle,
@@ -127,7 +127,6 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 				if (entity.ticksPassed % 10 == 0) {
 					AltarRecipe.handleItems(serverLevel, x, y, z, locked);
 				}
-				;
 
 			}
 		}

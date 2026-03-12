@@ -1,8 +1,6 @@
 classTweaker v1 named
 
 inject-interface net/minecraft/world/entity/boss/enderdragon/EndCrystal xyz/kohara/stellarity/interface_injection/ExtEndCrystal
-inject-interface net/minecraft/world/level/dimension/end/EndDragonFight xyz/kohara/stellarity/interface_injection/ExtEndDragonFight
-inject-interface net/minecraft/world/level/dimension/end/EndDragonFight$Data xyz/kohara/stellarity/interface_injection/ExtEndDragonFightData
 inject-interface net/minecraft/world/entity/Entity xyz/kohara/stellarity/interface_injection/ExtEntity
 inject-interface net/minecraft/world/entity/projectile/FishingHook xyz/kohara/stellarity/interface_injection/ExtFishingHook
 inject-interface net/minecraft/world/entity/item/ItemEntity xyz/kohara/stellarity/interface_injection/ExtItemEntity
@@ -21,6 +19,10 @@ inject-interface net/minecraft/world/level/levelgen/feature/SpikeFeature$EndSpik
 
 #? < 1.21.9 {
 extendable method net/minecraft/client/renderer/entity/ItemFrameRenderer getFrameModelResourceLoc (Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/ModelResourceLocation;
+#? }
+
+#? > 1.21.10 {
+#accessible field net/minecraft/server/level/ServerPlayer server Lnet/minecraft/server/MinecraftServer;
 #? }
 
 #? > 1.21 {

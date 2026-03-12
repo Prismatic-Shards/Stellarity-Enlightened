@@ -2,7 +2,7 @@ package xyz.kohara.stellarity.registry;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.registry.advancement_criterion.DragonSummonedTrigger;
+import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 
 public class StellarityCriteriaTriggers {
@@ -12,10 +12,10 @@ public class StellarityCriteriaTriggers {
 		new VoidFishedTrigger()
 	);
 
-	public static final DragonSummonedTrigger DRAGON_SUMMONED = CriteriaTriggers.register(
+	public static final AdvancementCompletedTrigger ADVANCEMENT_COMPLETED = CriteriaTriggers.register(
 		//? > 1.21
-		//"stellarity:dragon_summoned",
-		new DragonSummonedTrigger()
+		//"stellarity:advancement_completed",
+		new AdvancementCompletedTrigger()
 	);
 
 	public static void init() {

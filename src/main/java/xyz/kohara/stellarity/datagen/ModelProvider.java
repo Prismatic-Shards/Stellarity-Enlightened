@@ -74,7 +74,8 @@ public class ModelProvider extends FabricModelProvider {
 		StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
 		StellarityItems.MUSIC_DISC_PRECIPICE_STEREO,
 		StellarityItems.ROYAL_JELLY,
-		StellarityItems.ROYAL_JELLY_II
+		StellarityItems.ROYAL_JELLY_II,
+		StellarityItems.SATCHEL_OF_VOIDS
 	};
 
 	@Override
