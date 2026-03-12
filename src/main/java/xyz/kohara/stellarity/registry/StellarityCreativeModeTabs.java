@@ -22,7 +22,7 @@ public class StellarityCreativeModeTabs {
 		StellarityItems.ROOTED_ENDER_DIRT,
 		StellarityItems.ENDER_DIRT_PATH,
 		StellarityItems.ALTAR_OF_THE_ACCURSED,
-		StellarityItems.PHANTOM_ITEM_FRAME
+		StellarityItems.PHANTOM_ITEM_FRAME,
 	};
 
 	public static final ItemLike[] FOOD_ITEMS = new ItemLike[]{
@@ -47,7 +47,8 @@ public class StellarityCreativeModeTabs {
 		StellarityItems.CHORUS_PIE,
 		StellarityItems.PHO,
 		StellarityItems.ROYAL_JELLY,
-		StellarityItems.ROYAL_JELLY_II
+		StellarityItems.ROYAL_JELLY_II,
+		StellarityItems.DUSKBERRY
 	};
 
 
@@ -104,7 +105,8 @@ public class StellarityCreativeModeTabs {
 	public static final ItemLike[] TRINKET_ITEMS = new ItemLike[]{
 		StellarityItems.PRISMATIC_PEARL,
 		StellarityItems.ENDONOMICON,
-		StellarityItems.SATCHEL_OF_VOIDS
+		StellarityItems.SATCHEL_OF_VOIDS,
+		StellarityItems.DUSKBERRY
 	};
 
 	public static final ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");

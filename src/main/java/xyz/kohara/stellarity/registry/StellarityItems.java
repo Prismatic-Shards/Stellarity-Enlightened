@@ -37,7 +37,7 @@ import java.util.function.Function;
 //? 1.20.1 {
 import net.minecraft.world.item.alchemy.PotionUtils;
 
-	//?} else {
+ //?} else {
 /*import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -101,13 +101,13 @@ public class StellarityItems {
 	public static final Item PHO = register("pho",
 		//? >= 1.21 {
 		/*Item::new,
-		 *///? } else {
+		*///? } else {
 		BowlFoodItem::new,
-		//? }
+		 //? }
 		foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder()
-			//? = 1.21.1 {
-			/*.usingConvertsTo(Items.BOWL)
-			 *///? } >= 1.21.9 {
+				//? = 1.21.1 {
+				/*.usingConvertsTo(Items.BOWL)
+			*///? } >= 1.21.9 {
 			/*, Consumables.defaultFood()
 			 *///? }
 			, 13, 20f, true,
@@ -176,26 +176,26 @@ public class StellarityItems {
 	public static final Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
 		//? 1.20.1 {
 		(prop) -> new RecordItem(13, StellaritySounds.DEVIANTS_LIGHT_MUSIC_BOX, prop, 350), new Item.Properties().stacksTo(1)
-		//? } else {
+		 //? } else {
 		/*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.DEVIANTS_LIGHT_MUSIC_BOX)
-		 *///? }
+		*///? }
 	);
 
 
 	public static final Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
 		//? 1.20.1 {
 		(prop) -> new RecordItem(6, StellaritySounds.FIRES_OF_HOKKAI, prop, 350), new Item.Properties().stacksTo(1)
-		//? } else {
+		 //? } else {
 		/*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
-		 *///? }
+		*///? }
 	);
 
 	public static final Item MUSIC_DISC_PRECIPICE_STEREO = register("music_disc_precipice_stereo",
 		//? 1.20.1 {
 		(prop) -> new RecordItem(10, StellaritySounds.PRECIPICE_STEREO, prop, 350), new Item.Properties().stacksTo(1)
-		//? } else {
+		 //? } else {
 		/*Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.PRECIPICE_STEREO)
-		 *///? }
+		*///? }
 	);
 
 	public static final ItemStack AMARENE_POTION = createPotion(StellarityPotions.AMARENE);
@@ -236,9 +236,9 @@ public class StellarityItems {
 
 	public static final Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new,
 		foodProperties(RoyalJelly.properties(), new FoodProperties.Builder()
-			//? = 1.21.1 {
-			/*.usingConvertsTo(Items.GLASS_BOTTLE)
-			 *///? } >= 1.21.9 {
+				//? = 1.21.1 {
+				/*.usingConvertsTo(Items.GLASS_BOTTLE)
+			*///? } >= 1.21.9 {
 			/*, Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK)
 			 *///? }
 			, 6, 3.6f, true,
@@ -251,9 +251,9 @@ public class StellarityItems {
 
 	public static final Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new,
 		foodProperties(RoyalJelly.properties(), new FoodProperties.Builder()
-			//? = 1.21.1 {
-			/*.usingConvertsTo(Items.GLASS_BOTTLE)
-			 *///? } >= 1.21.9 {
+				//? = 1.21.1 {
+				/*.usingConvertsTo(Items.GLASS_BOTTLE)
+			*///? } >= 1.21.9 {
 			/*, Consumables.defaultFood()
 			 *///? }
 			, 6, 3.6f, true,
@@ -265,15 +265,16 @@ public class StellarityItems {
 	);
 
 	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.properties());
+	public static final Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.properties());
 
 
 	public static ItemStack createPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {
 		return
 			//? 1.20.1 {
 			PotionUtils.setPotion(new ItemStack(Items.POTION), potion)
-			//?} else {
+			 //?} else {
 			/*PotionContents.createItemStack(Items.POTION, potion)
-			 *///?}
+			*///?}
 			;
 	}
 
@@ -281,7 +282,7 @@ public class StellarityItems {
 		return
 			//? 1.20.1 {
 			PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion)
-			//?} else {
+			 //?} else {
 			/*PotionContents.createItemStack(Items.SPLASH_POTION
 				, potion)
 			*///?}
@@ -292,7 +293,7 @@ public class StellarityItems {
 		return
 			//? 1.20.1 {
 			PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion)
-			//?} else {
+			 //?} else {
 			/*PotionContents.createItemStack(Items.LINGERING_POTION
 				, potion)
 			*///?}
@@ -352,14 +353,14 @@ public class StellarityItems {
 			foodProperties.effect(ec.effect, ec.chance);
 		}
 		//?} else {
-		/*.saturationModifier(saturation);
-		 *///?}
+			/*.saturationModifier(saturation);
+		*///?}
 		if (alwaysEat) {
 			foodProperties =
 				//? = 1.20.1
 				foodProperties.alwaysEat();
-			//? >= 1.21.1
-			//foodProperties.alwaysEdible();
+				//? >= 1.21.1
+				//foodProperties.alwaysEdible();
 		}
 
 		//? >= 1.21.9 {

@@ -49,7 +49,9 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Satchel of Voids**
 
-- No spell entity just yet.
+- No portable altar spell just yet.
+
+**[+] Duskberry**
 
 # Mob Effects
 

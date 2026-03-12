@@ -11,7 +11,8 @@ public class SatchelOfVoids extends Item {
 	}
 
 	public static Properties properties() {
-		return new Properties();
+		return new Properties().stacksTo(1
+		);
 	}
 
 	@Override
