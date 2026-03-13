@@ -9,7 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 //? <= 1.21.10 {
 import net.minecraft.advancements.critereon.*;
-	//? } else {
+//? } else {
 /*import net.minecraft.advancements.critereon.*;
  *///? }
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +20,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
@@ -75,7 +78,13 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			true
 		);
 	}
+
+
 	//?}
+
+	public static /*? 1.20.1 { */String[][]/*? } else {*//*AdvancementRequirements*//*? }*/ requires(String[][] array) {
+		return /*? 1.20.1 { */array/*? } else {*//*new AdvancementRequirements(Arrays.stream(array).map(List::of).toList())*//*? }*/;
+	}
 
 	@Override
 	public void generateAdvancement(
@@ -87,8 +96,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	) {
 		//? >= 1.21.1 {
 		/*final HolderLookup.RegistryLookup<Item> itemLookup = registryLookup.lookupOrThrow(Registries.ITEM);
-		 *///?}
+		final HolderLookup.RegistryLookup<EntityType<?>> entityLookup = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
+		*///?}
 		var ENTER_END_GATEWAY = dummy(Stellarity.mcId("end/enter_end_gateway"));
+		var ENTER_END = dummy(Stellarity.mcId("story/enter_the_end"));
 
 
 		var VOID_REELS = Advancement.Builder.advancement()
@@ -105,10 +116,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.addCriterion("fishing", VoidFishedTrigger.TriggerInstance.fishedItem(
 				/*? > 1.21 {*/ /*Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
 				 *//*? } else {*/ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY /*? }*/
-			)).requirements(
-				/*? > 1.21 {*/ /*new AdvancementRequirements(List.of(List.of("fishing")))
-				 *//*? } else {*/new String[][]{{"fishing"}} /*? }*/
-			)
+			)).requirements(requires(new String[][]{{"fishing"}}))
 			.build(Stellarity.id("void_fishing/void_reels"));
 
 		var TOPPED_OFF = Advancement.Builder.advancement()
@@ -127,8 +135,48 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.build(Stellarity.id("void_fishing/topped_off"));
 
 
-		consumer.accept(TOPPED_OFF);
-		consumer.accept(VOID_REELS);
+		// TODO: reparent to discover hallow after biomes are added.
+		var FIND_DUSKBERRY = Advancement.Builder.advancement()
+			.display(
+				StellarityItems.DUSKBERRY,
+				Component.translatable("advancements.stellarity.duskberry_find"),
+				Component.translatable("advancements.stellarity.duskberry_find.description"),
+				null,
+				TASK,
+				true,
+				true,
+				false
+			)
+			.parent(ENTER_END)
+			.addCriterion("get_item", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.DUSKBERRY))
+			.requirements(requires(new String[][]{{"get_item"}}))
+			.build(Stellarity.id("exploration/duskberry/find"));
+
+		var POOR_LIFE_CHOICES = Advancement.Builder.advancement()
+			.display(
+				StellarityItems.DUSKBERRY,
+				Component.translatable("advancements.stellarity.poor_life_choices"),
+				Component.translatable("advancements.stellarity.poor_life_choices.description"),
+				null,
+				CHALLENGE,
+				true,
+				true,
+				false
+			)
+			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY))
+			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY),
+
+				/*? > 1.21 >> 'Con'*//*Optional.of(*/ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*//*entityLookup, */EntityType.FOX).build()).build())
+				//? > 1.21
+				//)
+			))
+			.parent(FIND_DUSKBERRY)
+			.requirements(requires(new String[][]{{"eat"}, {"feed"}}))
+			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
+
+		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES)) {
+			consumer.accept(advancement);
+		}
 
 	}
 

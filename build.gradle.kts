@@ -75,9 +75,11 @@ dependencies {
 
 stonecutter {
 	replacements.string(current.parsed.matches(">=1.21.11")) {
-		replace("ResourceLocation", "Identifier")
+
 		replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
 		replace("net/minecraft/advancements/critereon", "net/minecraft/advancements/criterion")
+
+		replace("ResourceLocation", "Identifier")
 		replace("projectile.Arrow", "projectile.arrow.Arrow")
 		replace("projectile.AbstractArrow", "projectile.arrow.AbstractArrow")
 		replace("projectile/Arrow", "projectile/arrow/Arrow")
@@ -86,11 +88,28 @@ stonecutter {
 			"net.minecraft.world.entity.boss.EnderDragonPart",
 			"net.minecraft.world.entity.boss.enderdragon.EnderDragonPart"
 		)
+		replace("net.minecraft.world.entity.animal.Fox", "net.minecraft.world.entity.animal.fox.Fox")
+
+		replace("MobEffects.MOVEMENT_SLOWDOWN", "MobEffects.SLOWNESS")
+		replace("MobEffects.DAMAGE_BOOST", "MobEffects.STRENGTH")
+		replace("MobEffects.DAMAGE_RESISTANCE", "MobEffects.RESISTANCE")
+		replace("MobEffects.MOVEMENT_SPEED", "MobEffects.SPEED")
+		replace("MobEffects.DIG_SPEED", "MobEffects.HASTE")
+		replace("MobEffects.DIG_SLOWDOWN", "MobEffects.MINING_FATIGUE")
+		replace("MobEffects.CONFUSION", "MobEffects.NAUSEA")
+
 
 	}
 
 	replacements.string(current.parsed.matches("> 1.21")) {
 		replace("BootstapContext", "BootstrapContext")
+	}
+
+	replacements.regex(current.parsed.matches((">= 1.21.11"))) {
+		replace(
+			"MobEffects\\.HEAL(?![A-Za-z_])" to "MobEffects.INSTANT_HEALTH",
+			"MobEffects\\.INSTANT_HEALTH" to "MobEffects.HEAL"
+		)
 	}
 }
 

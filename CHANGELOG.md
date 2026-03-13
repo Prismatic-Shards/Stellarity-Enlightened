@@ -110,6 +110,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Replaced with the Stellarity end gateway
 
+## Advancements
+
+**[+] Poor Life Choices**
+
+**[+] Don't Bush Your Luck!**
+
 # Developers Note
 
 Sorry had to deal with hackergames multiloader aspirations

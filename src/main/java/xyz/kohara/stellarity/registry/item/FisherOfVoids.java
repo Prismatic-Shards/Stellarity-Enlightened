@@ -7,7 +7,5 @@ public class FisherOfVoids extends FishingRodItem {
 		super(properties);
 	}
 
-	public static Properties properties() {
-		return new Properties().stacksTo(1).durability(100);
-	}
+	public static final Properties PROPERTIES = new Properties().stacksTo(1).durability(100);
 }

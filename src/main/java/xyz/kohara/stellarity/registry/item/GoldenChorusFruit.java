@@ -8,7 +8,5 @@ public class GoldenChorusFruit extends TeleportingFood {
 		super(properties, TELEPORT_DIAMETER);
 	}
 
-	public static Properties properties() {
-		return TeleportingFood.foodProperties(6, 14.4f, true, TELEPORT_DIAMETER);
-	}
+	public static final Properties PROPERTIES = TeleportingFood.foodProperties(6, 14.4f, true, TELEPORT_DIAMETER);
 }

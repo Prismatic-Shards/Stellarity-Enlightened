@@ -10,10 +10,9 @@ public class SatchelOfVoids extends Item {
 		super(properties);
 	}
 
-	public static Properties properties() {
-		return new Properties().stacksTo(1
-		);
-	}
+	public static final Properties PROPERTIES = new Properties().stacksTo(1
+	);
+
 
 	@Override
 	public InteractionResult useOn(UseOnContext useOnContext) {

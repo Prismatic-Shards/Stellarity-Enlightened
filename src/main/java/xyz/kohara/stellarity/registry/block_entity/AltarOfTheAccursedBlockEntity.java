@@ -117,7 +117,7 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 					EndDragonFight dragonFight = end == null ? null : end.getDragonFight();
 
 
-					boolean newLocked = dragonFight != null && !(dragonFight.hasPreviouslyKilledDragon() && dragonFight.dragonKilled);
+					boolean newLocked = dragonFight != null && !dragonFight.hasPreviouslyKilledDragon();
 					if (locked != newLocked) {
 						locked = newLocked;
 						serverLevel.setBlockAndUpdate(blockPos, blockState.setValue(AltarOfTheAccursed.LOCKED, newLocked));

@@ -27,9 +27,7 @@ public class PrismaticPearlItem extends Item {
 		super(properties);
 	}
 
-	public static Properties properties() {
-		return new Item.Properties().stacksTo(1);
-	}
+	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1);
 
 
 	@Override

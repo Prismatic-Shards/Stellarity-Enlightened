@@ -24,9 +24,7 @@ public class RoyalJelly extends Item {
 		super(properties);
 	}
 
-	public static Properties properties() {
-		return new Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE);
-	}
+	public static final Properties PROPERTIES = new Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE);
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {

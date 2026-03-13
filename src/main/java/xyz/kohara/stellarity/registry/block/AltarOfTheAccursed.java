@@ -93,10 +93,11 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 
 
 	//? > 1.21 {
-
-	/*@Override
+	
+	/*public static final MapCodec<? extends BaseEntityBlock> CODEC = simpleCodec(AltarOfTheAccursed::new);
+	@Override
 	public MapCodec<? extends BaseEntityBlock> codec() {
-		return simpleCodec(AltarOfTheAccursed::new);
+		return CODEC;
 	}
 	*///? } else {
 

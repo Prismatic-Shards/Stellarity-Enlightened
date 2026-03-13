@@ -21,9 +21,7 @@ public class Endonomicon extends Item {
 		super(properties);
 	}
 
-	public static Properties properties() {
-		return new Properties().stacksTo(1);
-	}
+	public static Properties PROPERTIES = new Properties().stacksTo(1);
 
 
 	@Override

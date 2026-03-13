@@ -22,6 +22,8 @@ public class PhantomItemFrameItem extends ItemFrameItem {
 		super(entityType, properties);
 	}
 
+	public static final Properties PROPERTIES = new ItemFrameItem.Properties().stacksTo(16);
+
 	public PhantomItemFrameItem(Item.Properties properties) {
 		this(StellarityEntities.PHANTOM_ITEM_FRAME, properties);
 	}

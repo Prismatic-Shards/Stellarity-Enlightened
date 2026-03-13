@@ -52,15 +52,15 @@ public class StellarityItems {
 	public static final Item ENDER_DIRT_PATH = registerBlock("ender_dirt_path", StellarityBlocks.ENDER_DIRT_PATH);
 	public static final Item ALTAR_OF_THE_ACCURSED = registerBlock("altar_of_the_accursed", StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-	public static final Item CALL_OF_THE_VOID = register("call_of_the_void", CallOfTheVoid::new, CallOfTheVoid.properties());
-	public static final Item FISHER_OF_VOIDS = register("fisher_of_voids", FisherOfVoids::new, FisherOfVoids.properties());
+	public static final Item CALL_OF_THE_VOID = register("call_of_the_void", CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
+	public static final Item FISHER_OF_VOIDS = register("fisher_of_voids", FisherOfVoids::new, FisherOfVoids.PROPERTIES);
 
 	public static final Item SUSHI = register("sushi", Item::new, basicFood(4, 2.4f));
-	public static final Item GOLDEN_CHORUS_FRUIT = register("golden_chorus_fruit", GoldenChorusFruit::new, GoldenChorusFruit.properties());
-	public static final Item FRIED_CHORUS_FRUIT = register("fried_chorus_fruit", FriedChorusFruit::new, FriedChorusFruit.properties());
+	public static final Item GOLDEN_CHORUS_FRUIT = register("golden_chorus_fruit", GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
+	public static final Item FRIED_CHORUS_FRUIT = register("fried_chorus_fruit", FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
 	public static final Item FROZEN_CARPACCIO = register("frozen_carpaccio", Item::new, basicFood(7, 8.4f));
-	public static final Item ENDERMAN_FLESH = register("enderman_flesh", EndermanFlesh::new, EndermanFlesh.properties());
-	public static final Item CRYSTAL_HEARTFISH = register("crystal_heartfish", CrystalHeartfish::new, CrystalHeartfish.properties());
+	public static final Item ENDERMAN_FLESH = register("enderman_flesh", EndermanFlesh::new, EndermanFlesh.PROPERTIES);
+	public static final Item CRYSTAL_HEARTFISH = register("crystal_heartfish", CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
 	public static final Item GRILLED_ENDERMAN_FLESH = register("grilled_enderman_flesh", Item::new, basicFood(6, 9.6f));
 	public static final Item FLAREFIN_KOI = register("flarefin_koi", Item::new, foodProperties(4, 0.8f, new EffectChance(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20))));
 	public static final Item AMETHYST_BUDFISH = register("amethyst_budfish", Item::new, new Item.Properties());
@@ -77,12 +77,12 @@ public class StellarityItems {
 	public static final Item OVERGROWN_COD = register("overgrown_cod", Item::new,
 		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(
 			//? >= 1.21.9 {
-			/*MobEffects.SLOWNESS
+			/*MobEffects.MOVEMENT_SLOWDOWN
 			 *///?} else {
 			MobEffects.MOVEMENT_SLOWDOWN
 			//?}
 			, 3 * 20, 2))));
-	public static final Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.properties());
+	public static final Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
 	public static final Item PRISMATIC_SUSHI = register("prismatic_sushi", Item::new, foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
 	public static final Item SHEPHERDS_PIE = register("shepherds_pie", Item::new,
 		foodProperties(20, 20f, true,
@@ -96,7 +96,7 @@ public class StellarityItems {
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1))
 		));
 	public static final Item CHORUS_PIE = register("chorus_pie", Item::new, foodProperties(8, 4.8f));
-	public static final Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, new ItemFrameItem.Properties().stacksTo(16));
+	public static final Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
 
 	public static final Item PHO = register("pho",
 		//? >= 1.21 {
@@ -114,7 +114,7 @@ public class StellarityItems {
 			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
 			new EffectChance(new MobEffectInstance(
 				//? >= 1.21.9 {
-				/*MobEffects.STRENGTH
+				/*MobEffects.DAMAGE_BOOST
 				 *///? } else {
 				MobEffects.DAMAGE_BOOST
 				//?}
@@ -126,7 +126,7 @@ public class StellarityItems {
 		 *///? }
 	);
 
-	public static final Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.properties());
+	public static final Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
 
 	public static final Item CHORUS_PLATING = register("chorus_plating", Item::new, new Item.Properties());
 	public static final Item ENDERITE_SHARD = register("enderite_shard", Item::new, new Item.Properties());
@@ -170,8 +170,8 @@ public class StellarityItems {
 	public static final Item PURPUR_KEY = register("purpur_key", Item::new, new Item.Properties());
 	public static final Item WINGED_KEY = register("winged_key", Item::new, new Item.Properties());
 
-	public static final Item PRISMATIC_PEARL = register("prismatic_pearl", PrismaticPearlItem::new, PrismaticPearlItem.properties());
-	public static final Item ENDONOMICON = register("endonomicon", Endonomicon::new, Endonomicon.properties());
+	public static final Item PRISMATIC_PEARL = register("prismatic_pearl", PrismaticPearlItem::new, PrismaticPearlItem.PROPERTIES);
+	public static final Item ENDONOMICON = register("endonomicon", Endonomicon::new, Endonomicon.PROPERTIES);
 
 	public static final Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
 		//? 1.20.1 {
@@ -235,7 +235,7 @@ public class StellarityItems {
 	public static final ItemStack LUCK_POTION = createPotion(StellarityPotions.LUCK);
 
 	public static final Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new,
-		foodProperties(RoyalJelly.properties(), new FoodProperties.Builder()
+		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
 				//? = 1.21.1 {
 				/*.usingConvertsTo(Items.GLASS_BOTTLE)
 			*///? } >= 1.21.9 {
@@ -250,7 +250,7 @@ public class StellarityItems {
 	);
 
 	public static final Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new,
-		foodProperties(RoyalJelly.properties(), new FoodProperties.Builder()
+		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
 				//? = 1.21.1 {
 				/*.usingConvertsTo(Items.GLASS_BOTTLE)
 			*///? } >= 1.21.9 {
@@ -264,8 +264,8 @@ public class StellarityItems {
 		 *///? }
 	);
 
-	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.properties());
-	public static final Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.properties());
+	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
+	public static final Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.PROPERTIES);
 
 
 	public static ItemStack createPotion(/*? 1.20.1 {*/Potion/*?} else {*//*Holder<Potion>*//*?}*/ potion) {

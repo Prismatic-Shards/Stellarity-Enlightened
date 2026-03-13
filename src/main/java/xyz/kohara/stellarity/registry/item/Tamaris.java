@@ -18,7 +18,7 @@ import xyz.kohara.stellarity.registry.StellaritySounds;
 
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-	//? } else {
+//? } else {
 /*import net.minecraft.world.item.ToolMaterial;
 
 import net.minecraft.server.level.ServerLevel;
@@ -37,20 +37,18 @@ public class Tamaris extends
 	public Tamaris(Properties properties) {
 		//? 1.20.1 {
 		super(Tiers.NETHERITE, 2, -2.4f, properties);
-		//? } 1.21.1 {
+		 //? } 1.21.1 {
 		/*super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
-		 *///? } else {
+		*///? } else {
 		/*super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
 		 *///? }
 	}
 
 
-	public static Properties properties() {
-		return new Item.Properties().stacksTo(1).durability(1561);
-	}
+	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1).durability(1561);
 
 	@Override
-		//? > 1.21.9 {
+	//? > 1.21.9 {
 	/*public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		super.inventoryTick(itemStack, level, entity, equipmentSlot);
 
@@ -113,9 +111,9 @@ public class Tamaris extends
 					itemStack.hurtAndBreak(1, player,
 						//? 1.20.1 {
 						(livingEntityx) -> livingEntityx.broadcastBreakEvent(EquipmentSlot.MAINHAND)
-						//? } else {
+						 //? } else {
 						/*EquipmentSlot.MAINHAND
-						 *///? }
+						*///? }
 					);
 
 					nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);

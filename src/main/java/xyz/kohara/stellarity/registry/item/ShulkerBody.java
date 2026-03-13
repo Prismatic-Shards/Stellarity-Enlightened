@@ -18,9 +18,6 @@ public class ShulkerBody extends TeleportingFood {
 		super(properties, TELEPORT_DIAMETER);
 	}
 
-	public static Properties properties() {
-		var hunger = new MobEffectInstance(MobEffects.HUNGER, 40 * 20, 0);
+	public static final Properties PROPERTIES = TeleportingFood.foodProperties(4, 0.8f, true, TELEPORT_DIAMETER, new StellarityItems.EffectChance(new MobEffectInstance(MobEffects.HUNGER, 40 * 20, 0), 0.3f));
 
-		return TeleportingFood.foodProperties(4, 0.8f, true, TELEPORT_DIAMETER, new StellarityItems.EffectChance(new MobEffectInstance(MobEffects.HUNGER, 40 * 20, 0), 0.3f));
-	}
 }

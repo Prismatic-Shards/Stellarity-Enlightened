@@ -18,7 +18,6 @@ public class EndermanFlesh extends TeleportingFood {
 		super(properties, TELEPORT_DIAMETER);
 	}
 
-	public static Properties properties() {
-		return TeleportingFood.foodProperties(4, 0.8f, TELEPORT_DIAMETER, new StellarityItems.EffectChance(new MobEffectInstance(MobEffects.HUNGER, 40 * 20, 0), 0.8f));
-	}
+	public static Properties PROPERTIES = TeleportingFood.foodProperties(4, 0.8f, TELEPORT_DIAMETER, new StellarityItems.EffectChance(new MobEffectInstance(MobEffects.HUNGER, 40 * 20, 0), 0.8f));
+
 }

@@ -9,7 +9,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 //? > 1.21 {
 /*import net.minecraft.core.Holder;
- *//*? }*/
+	*//*? }*/
 import java.util.HashMap;
 
 public class StellarityPotions {
@@ -17,47 +17,47 @@ public class StellarityPotions {
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ BLIND_RAGE = register("blind_rage", "blind_rage",
 		new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 0),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DAMAGE_BOOST/*? } else {*//*MobEffects.STRENGTH*//*? }*/, 15 * 20, 2));
+		new MobEffectInstance(MobEffects.DAMAGE_BOOST, 15 * 20, 2));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage", new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DAMAGE_BOOST/*? } else {*//*MobEffects.STRENGTH*//*? }*/, 22 * 20, 2));
+		new MobEffectInstance(MobEffects.DAMAGE_BOOST, 22 * 20, 2));
 
-	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ ENDURANCE = register("endurance", "endurance", new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DAMAGE_RESISTANCE/*? } else {*//*MobEffects.RESISTANCE*//*?}*/, 2 * 60 * 20
+	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ ENDURANCE = register("endurance", "endurance", new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 2 * 60 * 20
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_ENDURANCE = register("long_endurance", "endurance", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.DAMAGE_RESISTANCE/*? } else {*//*MobEffects.RESISTANCE*//*? }*/, 4 * 60 * 20
+		MobEffects.DAMAGE_RESISTANCE, 4 * 60 * 20
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_ENDURANCE = register("strong_endurance", "endurance", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.DAMAGE_RESISTANCE/*? } else {*//*MobEffects.RESISTANCE*//*? }*/, 60 * 20, 1
+		MobEffects.DAMAGE_RESISTANCE, 60 * 20, 1
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ ENTANGLEMENT = register("entanglement", "entanglement", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, 11 * 20, 4
+		MobEffects.MOVEMENT_SLOWDOWN, 11 * 20, 4
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_ENTANGLEMENT = register("long_entanglement", "entanglement", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, 14 * 20, 4
+		MobEffects.MOVEMENT_SLOWDOWN, 14 * 20, 4
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_ENTANGLEMENT = register("strong_entanglement", "entanglement", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, 8 * 20, 5
+		MobEffects.MOVEMENT_SLOWDOWN, 8 * 20, 5
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ FROST_CLOUD = register("frost_cloud", "frost_cloud", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, 6, 98
+		MobEffects.MOVEMENT_SLOWDOWN, 6, 98
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ HELLFIRE_TREADER = register("hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SPEED/*? } else {*//*MobEffects.SPEED*//*? }*/, 4 * 60 * 20, 0
+		MobEffects.MOVEMENT_SPEED, 4 * 60 * 20, 0
 	), new MobEffectInstance(
 		MobEffects.FIRE_RESISTANCE
 		, 4 * 60 * 20, 0
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_HELLFIRE_TREADER = register("long_hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SPEED/*? } else {*//*MobEffects.SPEED*//*? }*/
+		MobEffects.MOVEMENT_SPEED
 		, 8 * 60 * 20, 0
 	), new MobEffectInstance(
 		MobEffects.FIRE_RESISTANCE
@@ -65,7 +65,7 @@ public class StellarityPotions {
 	));
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_HELLFIRE_TREADER = register("strong_hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		/*? < 1.21.9 { */MobEffects.MOVEMENT_SPEED/*? } else {*//*MobEffects.SPEED*//*? }*/, 2 * 60 * 20, 1
+		MobEffects.MOVEMENT_SPEED, 2 * 60 * 20, 1
 	), new MobEffectInstance(
 		MobEffects.FIRE_RESISTANCE
 		, 2 * 60 * 20, 1
@@ -73,7 +73,7 @@ public class StellarityPotions {
 
 
 	public static /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ AMARENE = register("amarene", "amarene",
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.MOVEMENT_SPEED/*? } else {*//*MobEffects.SPEED*//*? }*/, 48 * 20, 1),
+		new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 48 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 48 * 20),
 		new MobEffectInstance(MobEffects.WEAKNESS, 48 * 20),
 		new MobEffectInstance(MobEffects.SATURATION, 3, 1),
@@ -97,17 +97,17 @@ public class StellarityPotions {
 
 	public static /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ SPELUNKER = register("spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 3 * 60 * 20),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DIG_SPEED/*? } else {*//*MobEffects.HASTE*//*? }*/, 3 * 60 * 20)
+		new MobEffectInstance(MobEffects.DIG_SPEED, 3 * 60 * 20)
 	);
 
 	public static /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_SPELUNKER = register("long_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 6 * 60 * 20),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DIG_SPEED/*? } else {*//*MobEffects.HASTE*//*? }*/, 6 * 60 * 20)
+		new MobEffectInstance(MobEffects.DIG_SPEED, 6 * 60 * 20)
 	);
 
 	public static /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_SPELUNKER = register("strong_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 90 * 20),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DIG_SPEED/*? } else {*//*MobEffects.HASTE*//*? }*/, 90 * 20, 1)
+		new MobEffectInstance(MobEffects.DIG_SPEED, 90 * 20, 1)
 	);
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ POSEIDONS_NECTAR = register("poseidons_nectar", "poseidons_nectar",
@@ -118,24 +118,24 @@ public class StellarityPotions {
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ REGENERAGA = register("regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 140, 2),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+		new MobEffectInstance(MobEffects.HEAL, 1, 1)
 	);
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ LONG_REGENERAGA = register("long_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 210, 2),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+		new MobEffectInstance(MobEffects.HEAL, 1, 1)
 	);
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ STRONG_REGENERAGA = register("strong_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 70, 4),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.HEAL/*? } else {*//*MobEffects.INSTANT_HEALTH*//*? }*/, 1, 1)
+		new MobEffectInstance(MobEffects.HEAL, 1, 1)
 	);
 
 	public static final /*? 1.20.1 {*/ Potion/*?} else {*/ /*Holder<Potion>*//*? }*/ RED = register("red", "red",
 		new MobEffectInstance(MobEffects.DARKNESS, -1, 9),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.MOVEMENT_SLOWDOWN/*? } else {*//*MobEffects.SLOWNESS*//*? }*/, -1, 9),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.DIG_SLOWDOWN/*? } else {*//*MobEffects.MINING_FATIGUE*//*? }*/, -1, 9),
-		new MobEffectInstance(/*? < 1.21.9 { */MobEffects.CONFUSION/*? } else {*//*MobEffects.NAUSEA*//*? }*/, -1),
+		new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, -1, 9),
+		new MobEffectInstance(MobEffects.DIG_SLOWDOWN, -1, 9),
+		new MobEffectInstance(MobEffects.CONFUSION, -1),
 		new MobEffectInstance(MobEffects.BLINDNESS, -1),
 		new MobEffectInstance(MobEffects.HUNGER, -1, 9),
 		new MobEffectInstance(MobEffects.WEAKNESS, -1, 9),
