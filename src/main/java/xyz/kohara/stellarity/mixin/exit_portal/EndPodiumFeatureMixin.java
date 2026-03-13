@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -155,13 +156,17 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 		setBlock(level, blockPos.above(5), Blocks.BEDROCK.defaultBlockState());
 		setBlock(level, blockPos.above(6), Blocks.BEDROCK.defaultBlockState());
 
+		if (level instanceof ServerLevel serverLevel) {
+			var dragonFight = serverLevel.getDragonFight();
+			// TODO: add custom data to dragonfight
+		}
 		var chestPos = blockPos.offset(7, 1, 0);
 		setBlock(level, chestPos, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST));
 		var entity = level.getBlockEntity(chestPos);
+
 		if (entity instanceof ChestBlockEntity chestEntity) {
 			chestEntity.setLootTable(/*? 1.20.1 { */Stellarity.id("exit_portal") /*? } else {*/ /*Stellarity.key(Registries.LOOT_TABLE, "exit_portal")*//*? }*/, level.getSeed());
 		}
-
 
 		return true;
 	}
