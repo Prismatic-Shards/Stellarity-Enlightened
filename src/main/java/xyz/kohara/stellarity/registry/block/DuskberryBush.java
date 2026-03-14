@@ -8,10 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,6 +21,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import xyz.kohara.stellarity.registry.item.Duskberry;
+import xyz.kohara.stellarity.tags.StellarityBlockTags;
+//? > 1.21 {
+/*import com.mojang.serialization.MapCodec;
+ *///? }
+//? > 1.21.10 {
+/*import net.minecraft.world.entity.InsideBlockEffectApplier;
+ *///? }
 
 // whole bunch of deprecated stuff that just ends up being undeprecated later on
 //? 1.20.1
@@ -40,6 +44,23 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		registerDefaultState(defaultBlockState().setValue(AGE, 0));
 	}
 
+	//? > 1.21 {
+	/*public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
+
+	@Override
+	public MapCodec<BushBlock> codec() {
+		return CODEC;
+	}
+	*///? } else {
+
+	//? }
+
+
+	@Override
+	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(StellarityBlockTags.DIRT);
+	}
+
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(AGE);
@@ -48,8 +69,8 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean bl) {
-		return blockState.getValue(AGE) < 3;
+	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState/*? 1.20.1 >> ') {'*/, boolean bl) {
+		return blockState.getValue(AGE) < MAX_AGE;
 	}
 
 
@@ -58,12 +79,13 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		VoxelShape var10000;
 		switch (blockState.getValue(AGE)) {
 			case 0 -> var10000 = SAPLING_SHAPE;
-			case 3 -> var10000 = Shapes.block();
+			case MAX_AGE -> var10000 = Shapes.block();
 			default -> var10000 = MID_GROWTH_SHAPE;
 		}
 
 		return var10000;
 	}
+
 
 	@Override
 	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
@@ -72,7 +94,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 
 
 	@Override
-	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity) {
+	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity/*? > 1.21.10 >> ') {'*//*, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl*/) {
 		if (entity instanceof LivingEntity livingEntity) {
 			livingEntity.makeStuckInBlock(blockState, new Vec3((double) 0.8F, (double) 0.75F, (double) 0.8F));
 			for (var effect : Duskberry.debuffs(blockState.getValue(AGE))) {

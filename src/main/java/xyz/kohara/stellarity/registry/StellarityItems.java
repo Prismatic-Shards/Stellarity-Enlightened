@@ -339,22 +339,16 @@ public class StellarityItems {
 	}
 
 
-	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties,
-	                                             //? >= 1.21.9 {
-		/*Consumable.Builder consumable,
-		 *///?}
-		                                           int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
+	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties, /*? >= 1.21.9 >> 'int'*//*Consumable.Builder consumable, */int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
 		foodProperties = foodProperties
 			.nutrition(nutrition)
-			//? < 1.21.1 {
+			//? 1.20.1 {
 			.saturationMod(saturation);
-
-		for (EffectChance ec : effectChances) {
-			foodProperties.effect(ec.effect, ec.chance);
-		}
-		//?} else {
+			 //?} else {
 			/*.saturationModifier(saturation);
 		*///?}
+
+
 		if (alwaysEat) {
 			foodProperties =
 				//? = 1.20.1
@@ -369,6 +363,9 @@ public class StellarityItems {
 		}
 		return properties.food(foodProperties.build(), consumable.build());
 		*///?} else {
+		for (EffectChance ec : effectChances) {
+			foodProperties.effect(ec.effect, ec.chance);
+		}
 
 		return properties.food(foodProperties.build());
 		//?}

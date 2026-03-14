@@ -25,6 +25,17 @@
         }
       },
       "trigger": "minecraft:player_interacted_with_entity"
+    },
+    "place": {
+      "conditions": {
+        "location": [
+          {
+            "block": "stellarity:duskberry_bush",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
     }
   },
   "display": {
@@ -46,6 +57,9 @@
     ],
     [
       "feed"
+    ],
+    [
+      "place"
     ]
   ],
   "sends_telemetry_event": true

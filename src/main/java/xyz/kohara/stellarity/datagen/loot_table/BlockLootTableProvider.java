@@ -4,11 +4,11 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
+import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -31,6 +31,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	/*public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
+
 	}
 	*///? }
 
@@ -41,9 +42,12 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		StellarityBlocks.ROOTED_ENDER_DIRT
 	};
 
+	//? 1.20.1
+	public @Nullable Object registries = null;
 
 	@Override
 	public void generate() {
+
 		for (Block block : DROP_SELF) {
 			dropSelf(block);
 		}
@@ -63,6 +67,12 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 			// todo: add satchel here
 			.withPool(pool().add(item(StellarityItems.SATCHEL_OF_VOIDS)))
 		);
+
+		add(StellarityBlocks.DUSKBERRY_BUSH, lootTable().withPool(pool().add(
+			item(StellarityItems.DUSKBERRY).apply(count(range(1, 3))).apply(uniform(enchant(registries, Enchantments.BLOCK_FORTUNE), 1)).when(blockState(StellarityBlocks.DUSKBERRY_BUSH)
+				.setProperties(hasProperty(BlockStateProperties.AGE_3, 3))
+			)
+		)));
 
 
 	}

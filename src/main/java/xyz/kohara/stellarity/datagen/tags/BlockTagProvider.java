@@ -31,6 +31,8 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 		getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL).add(StellarityBlocks.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT, StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.ROOTED_ENDER_DIRT);
 
+		getOrCreateTagBuilder(StellarityBlockTags.DIRT).add(StellarityBlocks.ENDER_DIRT, StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.ROOTED_ENDER_DIRT);
+
 		getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
 		getOrCreateTagBuilder(StellarityBlockTags.DUNE_SPEED_BLOCKS).forceAddTag(BlockTags.SAND)/*? > 1.21 >> '.add'*//*.forceAddTag(BlockTags.CONCRETE_POWDER)*/.add(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL/*? 1.20.1 >> ')' */,

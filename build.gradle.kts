@@ -99,15 +99,18 @@ stonecutter {
 		replace("MobEffects.CONFUSION", "MobEffects.NAUSEA")
 		replace("MobEffects.HEALTH_BOOST", "MobEffects.HEALTH_BOOST")
 		replace("MobEffects.HEAL", "MobEffects.INSTANT_HEALTH")
+		replace("net.minecraft.data.models.", "net.minecraft.client.data.models.")
+		replace("noCollission()", "noCollision()")
 
 
 	}
 
 	replacements.string(current.parsed.matches("> 1.21")) {
 		replace("BootstapContext", "BootstrapContext")
+		replace("Enchantments.BLOCK_FORTUNE", "Enchantments.FORTUNE")
 	}
 
-	
+
 }
 
 

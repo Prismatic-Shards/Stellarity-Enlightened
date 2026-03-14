@@ -10,8 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 
 //? 1.20.1 {
 import com.google.common.collect.ImmutableMultimap;
@@ -41,7 +39,11 @@ import java.util.stream.Stream;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-public class Duskberry extends BlockItem {
+//~ if > 1.21.10 'ItemNameBlockItem' -> 'BlockItem' {
+import net.minecraft.world.item.ItemNameBlockItem;
+
+public class Duskberry extends ItemNameBlockItem {
+	//~ }
 	public Duskberry(Properties properties) {
 		super(StellarityBlocks.DUSKBERRY_BUSH, properties);
 	}

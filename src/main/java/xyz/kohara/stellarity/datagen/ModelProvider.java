@@ -1,14 +1,10 @@
 package xyz.kohara.stellarity.datagen;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -29,12 +25,12 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 //?} else {
 
 /*import net.minecraft.client.renderer.item.BlockModelWrapper;
-import net.minecraft.client.data.models.model.TexturedModel;
-import net.minecraft.client.data.models.BlockModelGenerators;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelTemplates;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.data.models.MultiVariant;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.color.item.GrassColorSource;
@@ -90,6 +86,22 @@ public class ModelProvider extends FabricModelProvider {
 		StellarityItems.DUSKBERRY
 	};
 
+	public void generateBush(BlockModelGenerators generators, Block block) {
+		//~ if > 1.21.10 'Variant.variant().with(VariantProperties.MODEL,' -> 'BlockModelGenerators.plainVariant(' {
+		//~ if > 1.21.10 'multiVariant(' -> 'dispatch('
+		generators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block)
+			//~ if > 1.21.10 'property(' -> 'initial('
+			.with(PropertyDispatch.property(BlockStateProperties.AGE_3)
+				.select(0, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(block, "_stage0", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(1, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(block, "_stage1", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(2, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(block, "_stage2", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(3, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(block, "_stage3", ModelTemplates.CROSS, TextureMapping::cross)))
+			)
+		);
+		//~ }
+
+	}
+
 
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators generators) {
@@ -98,14 +110,7 @@ public class ModelProvider extends FabricModelProvider {
 		generators.createNonTemplateModelBlock(StellarityBlocks.ENDER_DIRT_PATH);
 		generators.createNonTemplateModelBlock(StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-		generators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(StellarityBlocks.DUSKBERRY_BUSH)
-			.with(PropertyDispatch.property(BlockStateProperties.AGE_3)
-				.select(0, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage0", ModelTemplates.CROSS, TextureMapping::cross)))
-				.select(1, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage1", ModelTemplates.CROSS, TextureMapping::cross)))
-				.select(2, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage2", ModelTemplates.CROSS, TextureMapping::cross)))
-				.select(3, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage3", ModelTemplates.CROSS, TextureMapping::cross)))
-			)
-		);
+		generateBush(generators, StellarityBlocks.DUSKBERRY_BUSH);
 
 		//? <= 1.21.1 {
 		generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);
