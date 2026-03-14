@@ -86,6 +86,14 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		return /*? 1.20.1 { */array/*? } else {*//*new AdvancementRequirements(Arrays.stream(array).map(List::of).toList())*//*? }*/;
 	}
 
+	public static Advancement.Builder advancement() {
+		return Advancement.Builder.advancement();
+	}
+
+	public static Advancement.Builder recipe() {
+		return Advancement.Builder.recipeAdvancement();
+	}
+
 	@Override
 	public void generateAdvancement(
 		//? >= 1.21.1 {
@@ -104,7 +112,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var KILL_DRAGON = dummy(Stellarity.mcId("end/kill_dragon"));
 
 
-		var VOID_REELS = Advancement.Builder.advancement()
+		var VOID_REELS = advancement()
 			.display(StellarityItems.FISHER_OF_VOIDS,
 				Component.translatable("advancements.stellarity.void_reels"),
 				Component.translatable("advancements.stellarity.void_reels.description"),
@@ -121,7 +129,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			)).requirements(requires(new String[][]{{"fishing"}}))
 			.build(Stellarity.id("void_fishing/void_reels"));
 
-		var TOPPED_OFF = Advancement.Builder.advancement()
+		var TOPPED_OFF = advancement()
 			.display(
 				StellarityItems.CRYSTAL_HEARTFISH,
 				Component.translatable("advancements.stellarity.topped_off"),
@@ -138,7 +146,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 
 
 		// TODO: reparent to discover hallow after biomes are added.
-		var FIND_DUSKBERRY = Advancement.Builder.advancement()
+		var FIND_DUSKBERRY = advancement()
 			.display(
 				StellarityItems.DUSKBERRY,
 				Component.translatable("advancements.stellarity.duskberry_find"),
@@ -154,7 +162,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.requirements(requires(new String[][]{{"get_item"}}))
 			.build(Stellarity.id("exploration/duskberry/find"));
 
-		var POOR_LIFE_CHOICES = Advancement.Builder.advancement()
+		var POOR_LIFE_CHOICES = advancement()
 			.display(
 				StellarityItems.DUSKBERRY,
 				Component.translatable("advancements.stellarity.poor_life_choices"),
@@ -178,7 +186,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
 
 		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(/*? > 1.21.10 >> 'Ent'*//*entityLookup, */EntityType.ENDER_DRAGON)));
-		var SACRIFICAL_RITUAL = Advancement.Builder.advancement().display(
+		var SACRIFICAL_RITUAL = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.stellarity.sacrificial_ritual"),
 				Component.translatable("advancements.stellarity.sacrificial_ritual.description"),
@@ -193,7 +201,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				requires(new String[][]{{"summon"}})
 			).build(Stellarity.id("ender_dragon/sacrificial_ritual"));
 
-		var RESPAWN_DRAGON = Advancement.Builder.advancement().display(
+		var RESPAWN_DRAGON = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.end.respawn_dragon.title"),
 				Component.translatable("advancements.end.respawn_dragon.description"),
@@ -212,7 +220,6 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON)) {
 			consumer.accept(advancement);
 		}
-
 	}
 
 	//? < 1.21.1 {

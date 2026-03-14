@@ -130,10 +130,9 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Sacrifical Ritual**
 
-**[*] The End... Again**
+**[*] The End... Again...**
 
 - New criterion `advancement_completed` is available for use in datapacks
--
 - Modified from vanilla implementation to come after the second respawning
 
 ## Recipes
