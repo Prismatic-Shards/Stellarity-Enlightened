@@ -23,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
 //? > 1.21 {
-import net.minecraft.core.registries.Registries;
-//? }
+/*import net.minecraft.core.registries.Registries;
+*///? }
 
 
 @Mixin(EndDragonFight.class)

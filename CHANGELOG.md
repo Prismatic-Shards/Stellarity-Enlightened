@@ -55,6 +55,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Duskberry**
 
+**[+] Prismatic Pearl**
+
+- Added a new variant of a trail for `Coder2195` with a transgender flag
+
 # Mob Effects
 
 **[*] Brittle**

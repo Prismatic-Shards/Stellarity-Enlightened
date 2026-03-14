@@ -14,11 +14,6 @@ kotlin {
 	compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
 }
 
-java {
-	withSourcesJar()
-	targetCompatibility = requiredJava
-	sourceCompatibility = requiredJava
-}
 
 version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
@@ -107,6 +102,10 @@ stonecutter {
 		replace("MobEffects.HEAL", "MobEffects.INSTANT_HEALTH")
 		replace("net.minecraft.data.models.", "net.minecraft.client.data.models.")
 		replace("noCollission()", "noCollision()")
+		replace(
+			"net.minecraft.world.entity.projectile.ThrowableItemProjectile",
+			"net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile"
+		)
 
 
 	}
@@ -223,6 +222,12 @@ tasks.withType<ProcessResources> {
 	}
 }
 
+
+java {
+	withSourcesJar()
+	targetCompatibility = requiredJava
+	sourceCompatibility = requiredJava
+}
 
 tasks {
 
