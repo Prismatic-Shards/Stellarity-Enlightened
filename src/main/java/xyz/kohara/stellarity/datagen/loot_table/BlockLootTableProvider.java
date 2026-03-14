@@ -69,9 +69,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		);
 
 		add(StellarityBlocks.DUSKBERRY_BUSH, lootTable().withPool(pool().add(
-			item(StellarityItems.DUSKBERRY).apply(count(range(1, 3))).apply(uniform(enchant(registries, Enchantments.BLOCK_FORTUNE), 1)).when(blockState(StellarityBlocks.DUSKBERRY_BUSH)
-				.setProperties(hasProperty(BlockStateProperties.AGE_3, 3))
-			)
+			item(StellarityItems.DUSKBERRY).apply(count(num(1)))
 		)));
 
 

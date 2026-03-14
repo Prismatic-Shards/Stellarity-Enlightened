@@ -111,6 +111,31 @@ public class RecipeProvider extends FabricRecipeProvider {
 			}},
 			new ItemStack(StellarityItems.ENDONOMICON, 1)
 		));
+
+		altarOfTheAccursed(output, new AltarSimpleRecipe(
+			Stellarity.id("altar_of_the_accursed/satchel_of_voids"),
+			new LinkedHashMap<>() {{
+				put(Ingredient.of(Items.BUNDLE), 1);
+				put(Ingredient.of(Items.NETHER_STAR), 2);
+				put(Ingredient.of(Items.NETHERITE_INGOT), 4);
+				put(Ingredient.of(StellarityItems.ENDERITE_SHARD), 64);
+				put(Ingredient.of(StellarityItems.STARLIGHT_SOOT), 64);
+			}},
+			new ItemStack(StellarityItems.SATCHEL_OF_VOIDS, 1)
+		));
+
+		altarOfTheAccursed(output, new AltarSimpleRecipe(
+			Stellarity.id("altar_of_the_accursed/satchel_of_voids_alternative"),
+			new LinkedHashMap<>() {{
+				put(Ingredient.of(Items.LEATHER), 1);
+				put(Ingredient.of(Items.STRING), 1);
+				put(Ingredient.of(Items.NETHER_STAR), 2);
+				put(Ingredient.of(Items.NETHERITE_INGOT), 4);
+				put(Ingredient.of(StellarityItems.ENDERITE_SHARD), 64);
+				put(Ingredient.of(StellarityItems.STARLIGHT_SOOT), 64);
+			}},
+			new ItemStack(StellarityItems.SATCHEL_OF_VOIDS, 1)
+		));
 	}
 
 	@Override

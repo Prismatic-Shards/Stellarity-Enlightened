@@ -120,7 +120,19 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[*] The End... Again**
 
+- New criterion `advancement_completed` is available for use in datapacks
 - Modified from vanilla implementation to come after the second respawning
+
+## Recipes
+
+### AOTA
+
+**[+] 1 Bundle + 2 Nether Stars + 4 Netherite Ingots + 64 Enderite Shards + 64 Starlight Soot = Satchel of Voids**
+
+**[+] 1 String + 1 Leather + 2 Nether Stars + 4 Netherite Ingots + 64 Enderite Shards + 64 Starlight Soot = Satchel of
+Voids**
+
+- This is for people on older versions who may not have access to bundles yet, and just good compability in general.
 
 # Developers Note
 

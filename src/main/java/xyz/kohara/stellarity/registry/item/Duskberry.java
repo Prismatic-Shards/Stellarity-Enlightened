@@ -1,10 +1,13 @@
 package xyz.kohara.stellarity.registry.item;
 
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,12 +33,14 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 /*import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import org.jspecify.annotations.Nullable;
 *///? }
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import net.minecraft.world.level.Level;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -52,6 +57,34 @@ public class Duskberry extends ItemNameBlockItem {
 		if (level == 0) return new MobEffectInstance[0];
 		return Stream.of(MobEffects.DARKNESS, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN, MobEffects.WEAKNESS, MobEffects.CONFUSION).map((e) -> new MobEffectInstance(e, level * 12 * 20)).toArray(MobEffectInstance[]::new);
 	}
+
+	//? > 1.21.10 {
+	/*@Override
+	public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+		inventoryTick(itemStack, serverLevel, entity);
+	}
+
+	*///? } else {
+	@Override
+	public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
+		if (level instanceof ServerLevel serverLevel) inventoryTick(itemStack, serverLevel, entity);
+	}
+	//? }
+
+	public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity) {
+		if (!(entity instanceof Player player)) return;
+
+		var effect = player.getEffect(MobEffects.NIGHT_VISION);
+		if (effect != null && !effect.endsWithin(11 * 20)) return;
+
+		for (ItemStack held : new ItemStack[]{player.getMainHandItem(), player.getOffhandItem()}) {
+			if (!held.is(this)) continue;
+
+			player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 20));
+			return;
+		}
+	}
+
 
 	public static final Properties PROPERTIES = StellarityItems.foodProperties(2, 0.4f, Arrays.stream(debuffs(3)).map((e) -> new StellarityItems.EffectChance(e, 1f)).toArray(StellarityItems.EffectChance[]::new))
 		//? > 1.21 {
