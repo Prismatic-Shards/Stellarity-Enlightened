@@ -61,7 +61,7 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 
 	@WrapOperation(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/dimension/end/EndDragonFight;spawnExitPortal(Z)V"))
 	private void dontAllowEscape(EndDragonFight instance, boolean bl, Operation<Void> original) {
-		original.call(instance, hasPreviouslyKilledDragon());
+		if (hasPreviouslyKilledDragon()) original.call(instance, bl);
 	}
 
 

@@ -52,7 +52,7 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 		}
 
 		public boolean bypassesDragon() {
-			return this == CREATIVE;
+			return this != NORMAL;
 		}
 	}
 
@@ -80,7 +80,7 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 		.sound(SoundType.GLASS)
 		.lightLevel((blockStatex) -> 7)
 		.strength(-1.0F, 6700000.0F);
-	
+
 
 	//? = 1.20.1
 	@SuppressWarnings("deprecation")
