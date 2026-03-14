@@ -1,5 +1,7 @@
 # 0.4.0
 
+Pretty big update with advances into various aspects of the game.
+
 # Changes
 
 Unless annotated, all changes are considered to be up to date with
@@ -108,7 +110,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Added an obsidian platform to the portal
 
-- Replaced with the Stellarity end gateway
+- Added the Stellarity loot chest
 
 ## Advancements
 
@@ -121,6 +123,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] The End... Again**
 
 - New criterion `advancement_completed` is available for use in datapacks
+-
 - Modified from vanilla implementation to come after the second respawning
 
 ## Recipes
