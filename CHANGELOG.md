@@ -11,7 +11,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[*] Altar of the Accursed**
 
-- Is obtainable via a satchel now
+- Is obtainable via a satchel now by placing it on an item frame that is on a crying obsidian block
 
 ## Items
 
@@ -111,6 +111,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 - Added an obsidian platform to the portal
 
 - Added the Stellarity loot chest
+
+## Entities
+
+**[*] Ender Dragon**
+
+- The ender dragon must now be respawned
 
 ## Advancements
 

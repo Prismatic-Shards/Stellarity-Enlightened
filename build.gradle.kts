@@ -14,6 +14,12 @@ kotlin {
 	compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
 }
 
+java {
+	withSourcesJar()
+	targetCompatibility = requiredJava
+	sourceCompatibility = requiredJava
+}
+
 version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
 
@@ -113,6 +119,16 @@ stonecutter {
 
 }
 
+fletchingTable {
+	mixins.register("main") {
+		mixin("default", "stellarity.mixins.json") {
+			env("DEFAULT")
+		}
+		mixin("client", "stellarity.client.mixins.json") {
+			env("CLIENT")
+		}
+	}
+}
 
 
 loom {
@@ -156,10 +172,7 @@ loom {
 fabricApi {
 	configureDataGeneration {
 		client = true
-
-
 	}
-
 
 	sourceSets["main"].apply {
 		kotlin {
@@ -173,24 +186,10 @@ fabricApi {
 
 
 
-java {
-	withSourcesJar()
-	targetCompatibility = requiredJava
-	sourceCompatibility = requiredJava
-}
 
 
 
-fletchingTable {
-	mixins.register("main") {
-		mixin("default", "stellarity.mixins.json") {
-			env("DEFAULT")
-		}
-		mixin("client", "stellarity.client.mixins.json") {
-			env("CLIENT")
-		}
-	}
-}
+
 
 tasks.withType<ProcessResources> {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE

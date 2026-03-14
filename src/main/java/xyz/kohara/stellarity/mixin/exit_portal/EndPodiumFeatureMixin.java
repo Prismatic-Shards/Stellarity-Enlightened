@@ -156,18 +156,6 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 		setBlock(level, blockPos.above(5), Blocks.BEDROCK.defaultBlockState());
 		setBlock(level, blockPos.above(6), Blocks.BEDROCK.defaultBlockState());
 
-		if (level instanceof ServerLevel serverLevel) {
-			var dragonFight = serverLevel.getDragonFight();
-			// TODO: add custom data to dragonfight
-		}
-		var chestPos = blockPos.offset(7, 1, 0);
-		setBlock(level, chestPos, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST));
-		var entity = level.getBlockEntity(chestPos);
-
-		if (entity instanceof ChestBlockEntity chestEntity) {
-			chestEntity.setLootTable(/*? 1.20.1 { */Stellarity.id("exit_portal") /*? } else {*/ /*Stellarity.key(Registries.LOOT_TABLE, "exit_portal")*//*? }*/, level.getSeed());
-		}
-
 		return true;
 	}
 }
