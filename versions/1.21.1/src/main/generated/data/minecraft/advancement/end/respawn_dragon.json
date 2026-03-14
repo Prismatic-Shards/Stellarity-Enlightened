@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:end/kill_dragon",
+  "criteria": {
+    "require_kill": {
+      "conditions": {
+        "advancement": "minecraft:end/kill_dragon",
+        "is_prerequisite": true
+      },
+      "trigger": "stellarity:advancement_completed"
+    },
+    "summon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ender_dragon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:summoned_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.end.respawn_dragon.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:end_crystal"
+    },
+    "title": {
+      "translate": "advancements.end.respawn_dragon.title"
+    }
+  },
+  "requirements": [
+    [
+      "summon"
+    ],
+    [
+      "require_kill"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

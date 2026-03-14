@@ -97,6 +97,8 @@ stonecutter {
 		replace("MobEffects.DIG_SPEED", "MobEffects.HASTE")
 		replace("MobEffects.DIG_SLOWDOWN", "MobEffects.MINING_FATIGUE")
 		replace("MobEffects.CONFUSION", "MobEffects.NAUSEA")
+		replace("MobEffects.HEALTH_BOOST", "MobEffects.HEALTH_BOOST")
+		replace("MobEffects.HEAL", "MobEffects.INSTANT_HEALTH")
 
 
 	}
@@ -105,12 +107,7 @@ stonecutter {
 		replace("BootstapContext", "BootstrapContext")
 	}
 
-	replacements.regex(current.parsed.matches((">= 1.21.11"))) {
-		replace(
-			"MobEffects\\.HEAL(?![A-Za-z_])" to "MobEffects.INSTANT_HEALTH",
-			"MobEffects\\.INSTANT_HEALTH" to "MobEffects.HEAL"
-		)
-	}
+	
 }
 
 

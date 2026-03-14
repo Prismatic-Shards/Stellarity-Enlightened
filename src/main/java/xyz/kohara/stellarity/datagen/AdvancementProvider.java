@@ -9,9 +9,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 //? <= 1.21.10 {
 import net.minecraft.advancements.critereon.*;
-//? } else {
+ //? } else {
 /*import net.minecraft.advancements.critereon.*;
- *///? }
+	*///? }
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
@@ -90,9 +90,9 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	public void generateAdvancement(
 		//? >= 1.21.1 {
 		/*HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer
-		 *///?} else {
+		*///?} else {
 		Consumer<Advancement> consumer
-		//?}
+		 //?}
 	) {
 		//? >= 1.21.1 {
 		/*final HolderLookup.RegistryLookup<Item> itemLookup = registryLookup.lookupOrThrow(Registries.ITEM);
@@ -100,6 +100,8 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		*///?}
 		var ENTER_END_GATEWAY = dummy(Stellarity.mcId("end/enter_end_gateway"));
 		var ENTER_END = dummy(Stellarity.mcId("story/enter_the_end"));
+		var END_ROOT = dummy(Stellarity.mcId("end/root"));
+		var KILL_DRAGON = dummy(Stellarity.mcId("end/kill_dragon"));
 
 
 		var VOID_REELS = Advancement.Builder.advancement()
@@ -115,7 +117,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.parent(ENTER_END_GATEWAY)
 			.addCriterion("fishing", VoidFishedTrigger.TriggerInstance.fishedItem(
 				/*? > 1.21 {*/ /*Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
-				 *//*? } else {*/ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY /*? }*/
+				*//*? } else {*/ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY /*? }*/
 			)).requirements(requires(new String[][]{{"fishing"}}))
 			.build(Stellarity.id("void_fishing/void_reels"));
 
@@ -167,14 +169,46 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY),
 
 				/*? > 1.21 >> 'Con'*//*Optional.of(*/ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*//*entityLookup, */EntityType.FOX).build()).build())
-				//? > 1.21
+					//? > 1.21
 				//)
 			))
 			.parent(FIND_DUSKBERRY)
 			.requirements(requires(new String[][]{{"eat"}, {"feed"}}))
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
 
-		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES)) {
+		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(/*? > 1.21.10 >> 'Ent'*//*entityLookup, */EntityType.ENDER_DRAGON)));
+		var SACRIFICAL_RITUAL = Advancement.Builder.advancement().display(
+				Items.END_CRYSTAL,
+				Component.translatable("advancements.stellarity.sacrificial_ritual"),
+				Component.translatable("advancements.stellarity.sacrificial_ritual.description"),
+				null,
+				GOAL,
+				true,
+				true,
+				false
+			).parent(END_ROOT)
+			.addCriterion("summon", summonDragon)
+			.requirements(
+				requires(new String[][]{{"summon"}})
+			).build(Stellarity.id("ender_dragon/sacrificial_ritual"));
+
+		var RESPAWN_DRAGON = Advancement.Builder.advancement().display(
+				Items.END_CRYSTAL,
+				Component.translatable("advancements.end.respawn_dragon.title"),
+				Component.translatable("advancements.end.respawn_dragon.description"),
+				null,
+				TASK,
+				true,
+				true,
+				false
+			).parent(KILL_DRAGON)
+			.addCriterion("require_kill", AdvancementCompletedTrigger.TriggerInstance.triggerInstance(Stellarity.mcId("end/kill_dragon"), true))
+			.addCriterion("summon", summonDragon)
+			.requirements(
+				requires(new String[][]{{"summon"}, {"require_kill"}})
+			).build(Stellarity.mcId("end/respawn_dragon"));
+
+		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON)) {
 			consumer.accept(advancement);
 		}
 

@@ -28,7 +28,7 @@ public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<Advancem
 
 
 	public void trigger(ServerPlayer serverPlayer, ResourceLocation location) {
-		this.trigger(serverPlayer, (triggerInstance) -> triggerInstance.location == location);
+		this.trigger(serverPlayer, (triggerInstance) -> triggerInstance.location.equals(location));
 	}
 
 	//? 1.20.1 {
@@ -42,38 +42,47 @@ public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<Advancem
 
 
 	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-		private final ResourceLocation location;
+		public final ResourceLocation location;
+		public final boolean isPrerequisite = true;
 
-		public TriggerInstance(ContextAwarePredicate contextAwarePredicate, ResourceLocation location) {
+		// this means like you cannot start any other advancement triggers until all prerequiste advancementcompleted trigger has been fulfilled
+		public boolean isPrerequisite() {
+			return isPrerequisite;
+		}
+
+		public TriggerInstance(ContextAwarePredicate contextAwarePredicate, ResourceLocation location, boolean isPrerequisite) {
 			super(ID, contextAwarePredicate);
 			this.location = location;
 		}
 
 
-		public static TriggerInstance triggerInstance(ResourceLocation location) {
-			return new TriggerInstance(ContextAwarePredicate.ANY, location);
+		public static TriggerInstance triggerInstance(ResourceLocation location, boolean isPrerequisite) {
+			return new TriggerInstance(ContextAwarePredicate.ANY, location, isPrerequisite);
 		}
 
 		@Override
 		public JsonObject serializeToJson(SerializationContext serializationContext) {
 			JsonObject jsonObject = super.serializeToJson(serializationContext);
 			jsonObject.addProperty("advancement", location.toString());
+			jsonObject.addProperty("is_prerequisite", isPrerequisite);
+
 			return jsonObject;
 		}
 	}
 
 	@Override
 	public TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate contextAwarePredicate, DeserializationContext deserializationContext) {
-		return new TriggerInstance(contextAwarePredicate, ResourceLocation.tryParse(jsonObject.get("advancement").getAsString()));
+		return new TriggerInstance(contextAwarePredicate, ResourceLocation.tryParse(jsonObject.get("advancement").getAsString()), !jsonObject.has("is_prerequisite") || jsonObject.get("is_prerequisite").getAsBoolean());
 	}
 
 	//? } else {
 
-	/*public record TriggerInstance(ResourceLocation location) implements SimpleCriterionTrigger.SimpleInstance {
-		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create((instance) -> instance.group(ResourceLocation.CODEC.fieldOf("advancement").forGetter(TriggerInstance::location)).apply(instance, TriggerInstance::new));
+	/*public record TriggerInstance(ResourceLocation location,
+	                              boolean isPrerequisite) implements SimpleCriterionTrigger.SimpleInstance {
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create((instance) -> instance.group(ResourceLocation.CODEC.fieldOf("advancement").forGetter(TriggerInstance::location), Codec.BOOL.fieldOf("is_prerequisite").forGetter(TriggerInstance::isPrerequisite)).apply(instance, TriggerInstance::new));
 
-		public static Criterion<TriggerInstance> triggerInstance(ResourceLocation count) {
-			return StellarityCriteriaTriggers.ADVANCEMENT_COMPLETED.createCriterion(new TriggerInstance(count));
+		public static Criterion<TriggerInstance> triggerInstance(ResourceLocation count, boolean isPrerequisite) {
+			return StellarityCriteriaTriggers.ADVANCEMENT_COMPLETED.createCriterion(new TriggerInstance(count, isPrerequisite));
 		}
 
 

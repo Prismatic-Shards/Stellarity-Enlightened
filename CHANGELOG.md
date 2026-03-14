@@ -116,6 +116,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Don't Bush Your Luck!**
 
+**[+] Sacrifical Ritual**
+
+**[*] The End... Again**
+
+- Modified from vanilla implementation to come after the second respawning
+
 # Developers Note
 
 Sorry had to deal with hackergames multiloader aspirations
