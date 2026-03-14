@@ -1,8 +1,19 @@
 package xyz.kohara.stellarity.datagen;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
+import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
+import net.minecraft.data.models.model.TextureMapping;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 //? <= 1.21.1 {
@@ -79,12 +90,22 @@ public class ModelProvider extends FabricModelProvider {
 		StellarityItems.DUSKBERRY
 	};
 
+
 	@Override
 	public void generateBlockStateModels(BlockModelGenerators generators) {
 		generators.createTrivialCube(StellarityBlocks.ENDER_DIRT);
 		generators.createTrivialCube(StellarityBlocks.ROOTED_ENDER_DIRT);
 		generators.createNonTemplateModelBlock(StellarityBlocks.ENDER_DIRT_PATH);
 		generators.createNonTemplateModelBlock(StellarityBlocks.ALTAR_OF_THE_ACCURSED);
+
+		generators.blockStateOutput.accept(MultiVariantGenerator.multiVariant(StellarityBlocks.DUSKBERRY_BUSH)
+			.with(PropertyDispatch.property(BlockStateProperties.AGE_3)
+				.select(0, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage0", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(1, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage1", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(2, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage2", ModelTemplates.CROSS, TextureMapping::cross)))
+				.select(3, Variant.variant().with(VariantProperties.MODEL, generators.createSuffixedVariant(StellarityBlocks.DUSKBERRY_BUSH, "_stage3", ModelTemplates.CROSS, TextureMapping::cross)))
+			)
+		);
 
 		//? <= 1.21.1 {
 		generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);

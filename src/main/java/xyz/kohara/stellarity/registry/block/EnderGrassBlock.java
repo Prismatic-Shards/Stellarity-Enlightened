@@ -16,21 +16,15 @@ import net.minecraft.world.level.material.MapColor;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 public class EnderGrassBlock extends GrassBlock {
-	public EnderGrassBlock() {
-		super(blockProperties());
-	}
-
 	public EnderGrassBlock(Properties properties) {
 		super(properties);
 	}
 
-	public static Properties blockProperties() {
-		return Properties.of()
-			.mapColor(MapColor.GRASS)
-			.randomTicks()
-			.strength(0.6F)
-			.sound(SoundType.GRASS);
-	}
+	public static final Properties PROPERTIES = Properties.of()
+		.mapColor(MapColor.GRASS)
+		.randomTicks()
+		.strength(0.6F)
+		.sound(SoundType.GRASS);
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {

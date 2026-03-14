@@ -26,14 +26,13 @@ public class EnderDirtPath extends DirtPathBlock {
 		super(properties);
 	}
 
-	public static Properties blockProperties() {
-		return Properties.of()
-			.mapColor(MapColor.DIRT)
-			.strength(0.65F)
-			.sound(SoundType.GRASS)
-			.isViewBlocking((a, b, c) -> true)
-			.isSuffocating((a, b, c) -> true).forceSolidOn();
-	}
+	public static final Properties PROPERTIES = Properties.of()
+		.mapColor(MapColor.DIRT)
+		.strength(0.65F)
+		.sound(SoundType.GRASS)
+		.isViewBlocking((a, b, c) -> true)
+		.isSuffocating((a, b, c) -> true).forceSolidOn();
+	
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {

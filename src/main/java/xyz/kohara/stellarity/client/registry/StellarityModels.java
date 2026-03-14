@@ -4,21 +4,27 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FishingRodItem;
-import net.minecraft.world.item.Item;
+
+import net.minecraft.world.level.block.Block;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
-import xyz.kohara.stellarity.registry.StellarityItems;
 
 //? <= 1.21.1 {
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.world.item.Item;
+
+import xyz.kohara.stellarity.registry.StellarityItems;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FishingRodItem;
+
 //?} else {
 /*import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 *///?}
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class StellarityModels {
@@ -82,11 +88,13 @@ public class StellarityModels {
 			return 0x91BD59;
 		}, StellarityBlocks.ENDER_GRASS_BLOCK);
 
-		//? <= 1.21.1 {
-		BlockRenderLayerMap.INSTANCE.putBlock(StellarityBlocks.ENDER_GRASS_BLOCK, RenderType.cutout());
-		//?} else {
-		/*BlockRenderLayerMap.putBlock(StellarityBlocks.ENDER_GRASS_BLOCK, ChunkSectionLayer.CUTOUT);
-		 *///?}
+		for (Block block : List.of(StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.DUSKBERRY_BUSH)) {
+			//~ if > 1.21.10 'BlockRenderLayerMap.INSTANCE.p' -> 'BlockRenderLayerMap.p' {
+			//~ if > 1.21.10 'RenderType.cutout()' -> 'ChunkSectionLayer.CUTOUT'  {
+			BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
+			//~}
+			//~}
+		}
 
 		Stellarity.LOGGER.info("Initialized Block Model Colors");
 	}

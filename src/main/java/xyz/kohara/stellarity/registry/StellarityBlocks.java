@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
+import xyz.kohara.stellarity.registry.block.DuskberryBush;
 import xyz.kohara.stellarity.registry.block.EnderDirtPath;
 import net.minecraft.core.registries.BuiltInRegistries;
 import xyz.kohara.stellarity.registry.block.EnderGrassBlock;
@@ -31,7 +32,7 @@ public class StellarityBlocks {
 		.mapColor(MapColor.DIRT)
 		.strength(0.5F)
 		.sound(SoundType.ROOTED_DIRT));
-	public static final Block ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.blockProperties());
+	public static final Block ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.PROPERTIES);
 	public static final Block ASHEN_FROGLIGHT = register("ashen_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
 		.mapColor(MapColor.SAND)
 		.strength(0.3F)
@@ -41,8 +42,9 @@ public class StellarityBlocks {
 		.mapColor(MapColor.DIRT)
 		.strength(0.5F)
 		.sound(SoundType.ROOTED_DIRT));
-	public static final Block ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.blockProperties());
-	public static final Block ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.blockProperties());
+	public static final Block ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.PROPERTIES);
+	public static final Block ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.PROPERTIES);
+	public static final Block DUSKBERRY_BUSH = register("duskberry_bush", DuskberryBush::new, DuskberryBush.PROPERTIES);
 
 
 	public static Block register(String id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings) {

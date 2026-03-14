@@ -74,15 +74,13 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 
 	public static final VoxelShape SHAPE = Block.box(0.0F, 0.0F, 0.0F, 16.0F, 13.0F, 16.0F);
 
-	public static Properties blockProperties() {
-		return Properties.of()
-			.mapColor(MapColor.COLOR_GREEN)
-			.instrument(NoteBlockInstrument.BASEDRUM)
-			.sound(SoundType.GLASS)
-			.lightLevel((blockStatex) -> 7)
-			.strength(-1.0F, 6700000.0F);
-	}
-
+	public static final Properties PROPERTIES = Properties.of()
+		.mapColor(MapColor.COLOR_GREEN)
+		.instrument(NoteBlockInstrument.BASEDRUM)
+		.sound(SoundType.GLASS)
+		.lightLevel((blockStatex) -> 7)
+		.strength(-1.0F, 6700000.0F);
+	
 
 	//? = 1.20.1
 	@SuppressWarnings("deprecation")

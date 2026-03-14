@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
 //? 1.20.1 {
@@ -37,18 +38,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-public class Duskberry extends Item {
+public class Duskberry extends BlockItem {
 	public Duskberry(Properties properties) {
-		super(properties);
+		super(StellarityBlocks.DUSKBERRY_BUSH, properties);
 	}
 
-	public static MobEffectInstance[] debuffs() {
-		return Stream.of(MobEffects.DARKNESS, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN, MobEffects.WEAKNESS, MobEffects.CONFUSION).map((e) -> new MobEffectInstance(e, 36 * 20)).toArray(MobEffectInstance[]::new);
+	public static MobEffectInstance[] debuffs(int level) {
+		if (level == 0) return new MobEffectInstance[0];
+		return Stream.of(MobEffects.DARKNESS, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.DIG_SLOWDOWN, MobEffects.WEAKNESS, MobEffects.CONFUSION).map((e) -> new MobEffectInstance(e, level * 12 * 20)).toArray(MobEffectInstance[]::new);
 	}
 
-	public static final Properties PROPERTIES = StellarityItems.foodProperties(2, 0.4f, Arrays.stream(debuffs()).map((e) -> new StellarityItems.EffectChance(e, 1f)).toArray(StellarityItems.EffectChance[]::new))
+	public static final Properties PROPERTIES = StellarityItems.foodProperties(2, 0.4f, Arrays.stream(debuffs(3)).map((e) -> new StellarityItems.EffectChance(e, 1f)).toArray(StellarityItems.EffectChance[]::new))
 		//? > 1.21 {
 		/*.attributes(new ItemAttributeModifiers(List.of(
 			new ItemAttributeModifiers.Entry(
