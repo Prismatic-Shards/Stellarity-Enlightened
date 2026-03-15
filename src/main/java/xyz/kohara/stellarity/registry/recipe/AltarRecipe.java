@@ -1,6 +1,7 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
+import com.google.gson.JsonParseException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -61,6 +62,24 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 	ItemStack result();
 
 	ResourceLocation id();
+
+	static HashMap<Ingredient, Integer> ingredientsFromJson(JsonArray jsonArray) {
+		if (jsonArray.isEmpty()) {
+			throw new JsonParseException("No ingredients for altar recipe");
+		}
+		HashMap<Ingredient, Integer> ingredients = new HashMap<>();
+
+		for (int i = 0; i < jsonArray.size(); ++i) {
+			JsonObject entry = jsonArray.get(i).getAsJsonObject();
+
+			int count = 1;
+			if (entry.has("count")) count = entry.get("count").getAsInt();
+			Ingredient ingredient = Ingredient.fromJson(entry.get("ingredient"));
+			ingredients.put(ingredient, count);
+		}
+
+		return ingredients;
+	}
 
 	//? 1.20.1 {
 	default void toJson(JsonObject jsonObject) {
@@ -126,7 +145,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 	@Override
 	default ItemStack assemble(Input container, RegistryAccess registryAccess) {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -206,7 +225,6 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 
 		AltarRecipe.Output output = null;
-		AltarRecipe hitRecipe = null;
 
 
 		if (itemMode == ExtItemEntity.ItemMode.CRAFTING) {
@@ -224,7 +242,6 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 				output = recipe.craft(itemStacks);
 				if (output != null) {
-					hitRecipe = recipe;
 					break;
 				}
 			}
@@ -232,8 +249,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 		if (output == null) return;
 
-		for (
-			var entity : itemEntities) {
+		for (var entity : itemEntities) {
 			entity.stellarity$updateResults(output.remainders());
 		}
 

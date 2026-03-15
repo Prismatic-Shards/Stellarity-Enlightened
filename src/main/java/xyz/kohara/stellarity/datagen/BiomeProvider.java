@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -11,10 +12,11 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import xyz.kohara.stellarity.Stellarity;
 //? >= 1.21.11 {
 /*import net.minecraft.world.attribute.EnvironmentAttributes;
- *///? }
+	*///? }
 
 
 public class BiomeProvider {
@@ -26,6 +28,10 @@ public class BiomeProvider {
 			/*? >= 1.21.11 {*/ /*weight, *//*?} */
 			new MobSpawnSettings.SpawnerData(entityType,/*? < 1.21.11 {*/ weight, /*?} */ min, max)
 		);
+	}
+
+	public static ResourceKey<PlacedFeature> feature(String id) {
+		return Stellarity.mcKey(Registries.PLACED_FEATURE, id);
 	}
 
 	public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
@@ -59,8 +65,10 @@ public class BiomeProvider {
 				provider.lookupOrThrow(Registries.PLACED_FEATURE),
 				provider.lookupOrThrow(Registries.CONFIGURED_CARVER)
 			)
-				.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, PlacedFeatureProvider.MAIN_ISLAND_RING)
-				.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, PlacedFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_RING)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM)
+				//? > 1.21
+				//.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, feature("end_platform"))
 				.build())
 			.build());
 	}

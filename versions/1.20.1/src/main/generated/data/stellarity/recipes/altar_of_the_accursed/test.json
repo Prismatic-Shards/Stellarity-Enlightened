@@ -1,0 +1,17 @@
+{
+  "type": "stellarity:altar_of_the_accursed_upgrade",
+  "equipment": {
+    "item": "minecraft:diamond_helmet"
+  },
+  "ingredients": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "minecraft:netherite_ingot"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:netherite_helmet"
+  }
+}

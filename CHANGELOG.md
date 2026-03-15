@@ -1,153 +1,20 @@
-# 0.4.0
-
-Pretty big update with advances into various aspects of the game.
+# 0.5.0
 
 # Changes
 
 Unless annotated, all changes are considered to be up to date with
 the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](https://modrinth.com/datapack/stellarity)
 
-## Blocks
-
-**[*] Altar of the Accursed**
-
-- Is obtainable via a satchel now by placing it on an item frame that is on a crying obsidian block
-
-## Items
-
-**[+] Music Disc: ZUN - The Deviant's Unobstructed Light (Music Box Ver.)**
-
-**[+] Music Disc: ZUN - Fires of Hokkai**
-
-**[+] Music Disc: Aaron Cherof - Precipice (Stereo Ver.)**
-
-**[+] Amarene**
-
-**[+] Blind Rage Potion**
-
-**[+] Endurance Potion**
-
-**[+] Entanglement Potion**
-
-**[+] Frost Cloud Potion**
-
-**[+] Hellfire Treader Potion**
-
-**[+] Lifeforce Potion**
-
-**[+] Spelunker Potion**
-
-**[+] Poseidon's Nectar**
-
-**[+] Red Potion**
-
-**[+] Regeneraga**
-
-**[+] Luck Potion**
-
-**[+] Royal Jelly**
-
-**[+] Royal Jelly II**
-
-**[+] Satchel of Voids**
-
-- No portable altar spell just yet.
-
-**[+] Duskberry**
-
-**[+] Prismatic Pearl**
-
-- Added a new variant of a trail for `Coder2195` with a transgender flag
-
-# Mob Effects
-
-**[*] Brittle**
-
-- Refactored to be more efficent instead of checking every tick.
-
-**[*] Prismatic Inferno**
-
-- Uses Minecraft's fire damage instead of prismatic inferno custom damage, may be subject to change in the future.
-
-**[*] Creative Shock**
-
-- Patched a `NullPointerException` that occured when loading up a new world and previous effect being `null`
-
-## Enchantments
-
-**[+] Ambush**
-
-- Note: Minecraft handles definition of "targetting" a litle strangely and differently, across versions, so therefore
-  the enchantment may not be consistent across versions.
-
-**[+] Critical Strike**
-
-**[+] Dune Speed**
-
-**[+] Levitation Shot**
-
-**[+] Plated**
-
-**[+] Soaring**
-
-**[+] Void Shot**
-
-**[+] Void Strike**
-
-## Particles
-
-**[+] Critical Strike**
-
-**[+] Creative Shock**
-
 ## Structures
-
-**[*] End Gateway**
-
-- Changed to Stellarity end gateway
-
-**[*] Crystal Towers**
-
-- Moved towers out to Stellarity's set locations
 
 **[*] Exit Portal**
 
-- Added an obsidian platform to the portal
+- Patches a bug resulting in end crystal being stuck inside
 
-- Added the Stellarity loot chest
+**[*] End Platform**
 
-## Entities
-
-**[*] Ender Dragon**
-
-- The ender dragon must now be respawned
-
-## Advancements
-
-**[+] Poor Life Choices**
-
-**[+] Don't Bush Your Luck!**
-
-**[+] Sacrifical Ritual**
-
-**[*] The End... Again...**
-
-- New criterion `advancement_completed` is available for use in datapacks
-- Modified from vanilla implementation to come after the second respawning
-
-## Recipes
-
-### AOTA
-
-**[+] 1 Bundle + 2 Nether Stars + 4 Netherite Ingots + 64 Enderite Shards + 64 Starlight Soot = Satchel of Voids**
-
-**[+] 1 String + 1 Leather + 2 Nether Stars + 4 Netherite Ingots + 64 Enderite Shards + 64 Starlight Soot = Satchel of
-Voids**
-
-- This is for people on older versions who may not have access to bundles yet, and just good compability in general.
+- Should generate properly now
 
 # Developers Note
 
 Sorry had to deal with hackergames multiloader aspirations
-
-

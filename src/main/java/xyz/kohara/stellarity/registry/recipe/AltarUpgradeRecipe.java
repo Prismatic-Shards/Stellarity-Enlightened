@@ -1,45 +1,38 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityRecipeSerializers;
 
-import java.util.*;
-
-
-//? < 1.21 {
-import com.google.gson.JsonObject;
-import net.minecraft.util.GsonHelper;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParseException;
-import net.minecraft.network.FriendlyByteBuf;
-//? } else {
-/*import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.core.HolderLookup;
-*///? }
-
-//? < 1.21.9 {
-import net.minecraft.world.item.Item;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 //? }
 
-public record AltarSimpleRecipe(@Nullable ResourceLocation id,
-                                HashMap<Ingredient, Integer> ingredients,
-                                ItemStack result) implements AltarRecipe {
+public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equipment,
+                                 HashMap<Ingredient, Integer> ingredients,
+                                 ItemStack result) implements AltarRecipe {
 
-	public AltarSimpleRecipe(@Nullable ResourceLocation id, HashMap<Ingredient, Integer> ingredients,
-	                         ItemStack result) {
+	public AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equipment, HashMap<Ingredient, Integer> ingredients,
+	                          ItemStack result) {
 		this.id = id;
 		this.ingredients = ingredients;
 		this.result = result;
+		this.equipment = equipment;
 
 		//? < 1.21.9 {
 		HashSet<Item> items = new HashSet<>();
@@ -58,6 +51,26 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
 		HashMap<Ingredient, Integer> required = new HashMap<>(ingredients);
 		HashMap<ItemStack, Integer> available = new HashMap<>();
+
+		ItemStack availableEquipment = null;
+		List<ItemStack> temp = new ArrayList<>(itemStacks.size());
+		for (int i = 0; i < itemStacks.size(); i++) {
+			ItemStack stack = itemStacks.get(i);
+
+			if (availableEquipment == null && equipment.test(stack)) {
+				availableEquipment = stack;
+				int count = availableEquipment.getCount();
+				if (count > 1) available.put(availableEquipment, count - 1);
+				continue;
+			}
+
+			temp.add(stack);
+
+		}
+
+		if (availableEquipment == null) return null;
+
+		itemStacks = temp;
 
 		for (var itemStack : itemStacks) {
 			int availableCount = itemStack.getCount();
@@ -96,28 +109,44 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 			if (counts > 0) return null;
 		}
 
-		return new Output(available, result.copy());
+		var returning = result.copy();
+		returning.setTag(availableEquipment.getTag());
+
+		return new Output(available, returning);
 
 	}
 
 
 	@Override
 	public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
-		return StellarityRecipeSerializers.ALTAR_SIMPLE;
+		return StellarityRecipeSerializers.ALTAR_UPGRADE;
 	}
 
-	public static class Serializer implements RecipeSerializer<AltarSimpleRecipe> {
-		//? < 1.21 {
+	//? 1.20.1 {
+
+
+	@Override
+	public void toJson(JsonObject jsonObject) {
+		AltarRecipe.super.toJson(jsonObject);
+		jsonObject.add("equipment", equipment.toJson());
+	}
+
+	//? }
+
+	public static class Serializer implements RecipeSerializer<AltarUpgradeRecipe> {
+		//? 1.20.1 {
 		@Override
-		public AltarSimpleRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
+		public AltarUpgradeRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
 			HashMap<Ingredient, Integer> ingredients = AltarRecipe.ingredientsFromJson(GsonHelper.getAsJsonArray(jsonObject, "ingredients"));
 			ItemStack itemStack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(jsonObject, "result"));
+			Ingredient equipment = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "equipment"));
 
-			return new AltarSimpleRecipe(resourceLocation, ingredients, itemStack);
+			return new AltarUpgradeRecipe(resourceLocation, equipment, ingredients, itemStack);
 		}
 
+
 		@Override
-		public AltarSimpleRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf buf) {
+		public AltarUpgradeRecipe fromNetwork(ResourceLocation resourceLocation, FriendlyByteBuf buf) {
 			int size = buf.readInt();
 			HashMap<Ingredient, Integer> ingredients = new HashMap<>();
 			for (int i = 0; i < size; i++) {
@@ -125,19 +154,20 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 				int count = buf.readInt();
 				ingredients.put(ingredient, count);
 			}
+			Ingredient equipment = Ingredient.fromNetwork(buf);
 			ItemStack itemStack = buf.readItem();
 
-			return new AltarSimpleRecipe(resourceLocation, ingredients, itemStack);
+			return new AltarUpgradeRecipe(resourceLocation, equipment, ingredients, itemStack);
 		}
 
 		@Override
-		public void toNetwork(FriendlyByteBuf buf, AltarSimpleRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buf, AltarUpgradeRecipe recipe) {
 			buf.writeInt(recipe.ingredients.size());
 			for (var entry : recipe.ingredients.entrySet()) {
 				entry.getKey().toNetwork(buf);
 				buf.writeInt(entry.getValue());
 			}
-
+			recipe.equipment.toNetwork(buf);
 			buf.writeItem(recipe.result);
 		}
 

@@ -59,10 +59,9 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 			}
 		}
 
-		for (EndCrystal crystal : level.getEntitiesOfClass(EndCrystal.class, new AABB(blockPos.offset(-1, 0, -1).getCenter(), blockPos.offset(1, 3, 1).getCenter()))) {
+		for (EndCrystal crystal : level.getEntitiesOfClass(EndCrystal.class, new AABB(blockPos.getCenter().add(-2, 1, -2), blockPos.getCenter().add(2, 5, 2)))) {
 			crystal.discard();
 		}
-
 
 		int p = active ? 4 : 0;
 		printRow(level, new BlockState[]{

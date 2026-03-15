@@ -16,9 +16,16 @@
     [],
     [],
     [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
     [
       "stellarity:main_island/ring",
-      "stellarity:main_island/portal_platform"
+      "stellarity:main_island/portal_platform",
+      "minecraft:end_platform"
     ]
   ],
   "has_precipitation": false,

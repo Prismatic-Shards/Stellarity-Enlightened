@@ -16,6 +16,7 @@ import java.util.LinkedHashMap;
 
 //? 1.20.1 {
 import net.minecraft.data.recipes.FinishedRecipe;
+import xyz.kohara.stellarity.registry.recipe.AltarUpgradeRecipe;
 
 import java.util.function.Consumer;
 //? } else {
@@ -135,6 +136,15 @@ public class RecipeProvider extends FabricRecipeProvider {
 				put(Ingredient.of(StellarityItems.STARLIGHT_SOOT), 64);
 			}},
 			new ItemStack(StellarityItems.SATCHEL_OF_VOIDS, 1)
+		));
+
+		altarOfTheAccursed(output, new AltarUpgradeRecipe(
+			Stellarity.id("altar_of_the_accursed/test"),
+			Ingredient.of(Items.DIAMOND_HELMET),
+			new LinkedHashMap<>() {{
+				put(Ingredient.of(Items.NETHERITE_INGOT), 2);
+			}},
+			new ItemStack(Items.NETHERITE_HELMET)
 		));
 	}
 
