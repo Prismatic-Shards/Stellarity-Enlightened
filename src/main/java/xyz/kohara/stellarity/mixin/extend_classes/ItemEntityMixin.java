@@ -27,6 +27,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 *///? }
 
 import java.util.HashMap;
+import java.util.List;
 
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 
@@ -114,11 +115,24 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V", shift = At.Shift.AFTER))
 	public void movedOffRecipeBlock(CallbackInfo ci) {
+		if (itemMode != ItemMode.CRAFTING) return;
 		if (level() instanceof ServerLevel level) {
-			var blockstate = level.getBlockState(BlockPos.containing(this.position().add(0, -0.5, 0)));
-			if (blockstate.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && !blockstate.getValue(AltarOfTheAccursed.LOCKED))
-				return;
-			if (itemMode == ItemMode.CRAFTING) stellarity$setItemMode(ItemMode.PICKUP);
+			var position = this.position();
+			for (var corner : List.of(
+				position.add(0, -0.75, 0),
+				position.add(0.5, -0.75, 0.5),
+				position.add(0.5, -0.75, -0.5),
+				position.add(-0.5, -0.75, -0.5),
+				position.add(-0.5, -0.75, 0.5)
+
+			)) {
+				var blockstate = level.getBlockState(BlockPos.containing(corner));
+
+				if (blockstate.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && !blockstate.getValue(AltarOfTheAccursed.LOCKED))
+					return;
+			}
+
+			stellarity$setItemMode(ItemMode.PICKUP);
 		}
 	}
 }

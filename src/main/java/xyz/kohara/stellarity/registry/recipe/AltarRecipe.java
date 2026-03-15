@@ -1,7 +1,6 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
-import com.google.gson.JsonParseException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -22,6 +21,8 @@ import xyz.kohara.stellarity.registry.StellarityRecipeTypes;
 //? 1.20.1 {
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParseException;
 //? }
 
 import java.util.HashMap;
@@ -29,10 +30,10 @@ import java.util.List;
 
 //? > 1.21 {
 /*import net.minecraft.core.HolderLookup;
- *///? } else {
+	*///? } else {
 import net.minecraft.data.recipes.FinishedRecipe;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
+
 //? }
 
 //? > 1.21.9 {
@@ -42,8 +43,8 @@ import com.google.gson.JsonArray;
 public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 	class Input extends SimpleContainer
 		//? < 1.21 {
-	{
-		//? } else {
+		{
+		 //? } else {
 		/*implements RecipeInput {
 		@Override
 			*///? }
@@ -63,6 +64,8 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 	ResourceLocation id();
 
+	//? 1.20.1 {
+
 	static HashMap<Ingredient, Integer> ingredientsFromJson(JsonArray jsonArray) {
 		if (jsonArray.isEmpty()) {
 			throw new JsonParseException("No ingredients for altar recipe");
@@ -81,7 +84,6 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		return ingredients;
 	}
 
-	//? 1.20.1 {
 	default void toJson(JsonObject jsonObject) {
 		var entrySet = this.ingredients().entrySet();
 		JsonArray ingredientsArray = new JsonArray();
@@ -218,7 +220,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		ExtItemEntity.ItemMode itemMode = player != null && player.isCrouching() ? ExtItemEntity.ItemMode.PICKUP : ExtItemEntity.ItemMode.CRAFTING;
 
 		for (var entity : itemEntities) {
-			entity.stellarity$setItemMode(itemMode);
+			if (!entity.stellarity$getItemMode().equals(itemMode)) entity.stellarity$setItemMode(itemMode);
 		}
 
 		if (itemEntities.isEmpty()) return;
@@ -230,12 +232,12 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		if (itemMode == ExtItemEntity.ItemMode.CRAFTING) {
 			//? = 1.21.1 {
 			/*var allRecipes = serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE);
-			 *///? } > 1.21.9 {
+			*///? } > 1.21.9 {
 			/*var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_RECIPE);
 			 *///? }
 			//? = 1.20.1 {
 			for (var recipe : serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE)) {
-				//? } else {
+			 //? } else {
 			/*for (var recipeHolder : allRecipes) {
 				var recipe = recipeHolder.value();
 				*///? }

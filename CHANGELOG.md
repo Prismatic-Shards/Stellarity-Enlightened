@@ -11,6 +11,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Supports `stellarity:altar_of_the_accused_upgrade` recipe for upgrading equipment
 - Patches a bug where you could potentially use less items than required by separating items out into individual stacks
+- Fixed a bug where Altar crafting items would randomly be picked back up through your inventory
 
 ## Structures
 
@@ -21,6 +22,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] End Platform**
 
 - Should generate properly now
+
+## Recipes
+
+### AOTA
 
 # Developers Note
 
