@@ -55,6 +55,7 @@ public abstract class ServerEntityMixin {
 		if (trackedDataValues == null) return;
 		for (var serverPlayer : level.players()) {
 			var packet = new S2CSetStellarityEntityDataPacket(entity.getId(), list);
+
 			ServerPlayNetworking.send(
 				serverPlayer,
 				//? 1.20.1 {

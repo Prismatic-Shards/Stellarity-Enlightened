@@ -19,9 +19,9 @@ accessible field net/minecraft/world/level/dimension/end/EndDragonFight dragonKi
 accessible field net/minecraft/world/level/dimension/end/EndDragonFight portalLocation Lnet/minecraft/core/BlockPos;
 
 
-
 #? < 1.21.9 {
 extendable method net/minecraft/client/renderer/entity/ItemFrameRenderer getFrameModelResourceLoc (Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/ModelResourceLocation;
+extendable method net/minecraft/client/gui/components/AbstractSliderButton setValue (D)V
 #? }
 
 #? > 1.21.10 {

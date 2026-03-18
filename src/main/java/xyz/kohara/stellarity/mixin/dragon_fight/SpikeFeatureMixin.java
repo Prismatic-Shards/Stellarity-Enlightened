@@ -9,6 +9,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomSequence;
+import net.minecraft.world.level.LevelWriter;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -51,7 +52,19 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 				return Blocks.CRYING_OBSIDIAN.defaultBlockState();
 		}
 
+
 		return original.call(instance);
+
+	}
+
+	@Definition(id = "setBlock", method = "Lnet/minecraft/world/level/levelgen/feature/SpikeFeature;setBlock(Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V")
+	@Definition(id = "blockPos", local = @Local(type = BlockPos.class))
+	@Expression("?.setBlock(?,blockPos,?)")
+	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private void hollowForAltar(SpikeFeature instance, LevelWriter levelWriter, BlockPos blockPos, BlockState blockState, Operation<Void> original, @Local(argsOnly = true) SpikeFeature.EndSpike spike) {
+		int y = blockPos.getY();
+		if (spike.stellarity$hasAltar() && y < spike.getHeight() - 4 && y > spike.getHeight() - 30) return;
+		original.call(instance, levelWriter, blockPos, blockState);
 
 	}
 
@@ -59,11 +72,10 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 	private void placeAltar(SpikeFeature instance, ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, SpikeConfiguration spikeConfiguration, SpikeFeature.EndSpike endSpike, Operation<Void> original) {
 		try {
 			var altarPos = new BlockPos(endSpike.getCenterX(), endSpike.getHeight() - 20, endSpike.getCenterZ());
-			var originalAltar = serverLevelAccessor.getBlockState(altarPos);
-
+			var altar = serverLevelAccessor.getBlockState(altarPos);
 
 			original.call(instance, serverLevelAccessor, randomSource, spikeConfiguration, endSpike);
-			if (!endSpike.stellarity$hasAltar()) return;
+			if (!endSpike.stellarity$hasAltar() || altar.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED)) return;
 
 			var placePos = altarPos.offset(-8, -9, -9);
 
@@ -74,9 +86,6 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 			} else {
 				Stellarity.LOGGER.info("failed to create the altar");
 			}
-
-			if (originalAltar.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED))
-				serverLevelAccessor.setBlock(altarPos, originalAltar, Block.UPDATE_CLIENTS);
 
 		} catch (Exception e) {
 

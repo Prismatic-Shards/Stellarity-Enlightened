@@ -590,7 +590,7 @@
     "stellarity.config.default": "Default: %s",
     "stellarity.config.disabled": "Disabled",
     "stellarity.config.dragon_health.description": "Changes maximum health of the Ender Dragon. Max: 1024",
-    "stellarity.config.dragon_health.title": "Dragon Max Health",
+    "stellarity.config.dragon_health.title": "Dragon Max Health: %s",
     "stellarity.config.empress_of_light_health.description": "Changes maximum health of the Empress of Light. Max: 1024",
     "stellarity.config.empress_of_light_health.title": "Empress of Light Max Health",
     "stellarity.config.enable_creative_shock.description": "Makes Crystals in End Cities apply Creative Shock, which prevents placing and destroying blocks until all of them are destroyed. Keep in mind that End Cities are balanced around this option being enabled!",

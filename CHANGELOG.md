@@ -23,6 +23,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Should generate properly now
 
+**[*] Crystal Towers**
+
+- The altar space will no longer regenerate unless the altar is gone
+
 ## Recipes
 
 ### AOTA

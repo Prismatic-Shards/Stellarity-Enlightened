@@ -1,5 +1,6 @@
 package xyz.kohara.stellarity.networking;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import xyz.kohara.stellarity.Stellarity;
@@ -19,11 +20,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.util.List;
 
-public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.DataValue<?>> list)
-//? > 1.21 {
-	/*implements CustomPacketPayload
-	 *///? }
-{
+public record S2CSetStellarityEntityDataPacket(int id,
+                                               List<SynchedEntityData.DataValue<?>> list) /*? > 1.21 >> '{' */ /*implements CustomPacketPayload  */{
 	public static final ResourceLocation ID = Stellarity.id("set_entity_data");
 
 	//? 1.20.1 {
