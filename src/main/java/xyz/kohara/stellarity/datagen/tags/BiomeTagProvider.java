@@ -26,6 +26,6 @@ public class BiomeTagProvider extends FabricTagProvider<Biome> {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		builder(StellarityBiomeTags.SNOWY).add(new ResourceKey[]{});
+		builder(StellarityBiomeTags.SNOWY).add(new ResourceKey[0]);
 	}
 }

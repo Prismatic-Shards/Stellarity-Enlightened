@@ -1,5 +1,4 @@
-//? > 1.21 {
-/*package xyz.kohara.stellarity.mixin.enchantments;
+package xyz.kohara.stellarity.mixin.enchantments;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -38,6 +37,4 @@ public class ProjectileWeaponItemMixin {
 
 		return projectile;
 	}
-
 }
-*///? }

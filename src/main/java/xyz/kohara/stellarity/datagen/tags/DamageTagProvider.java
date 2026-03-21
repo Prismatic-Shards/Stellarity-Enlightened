@@ -39,19 +39,9 @@ public class DamageTagProvider extends FabricTagProvider<DamageType> {
 
 		builder(StellarityDamageTypeTags.MELEE).add(DamageTypes.PLAYER_ATTACK, DamageTypes.MOB_ATTACK, DamageTypes.MOB_ATTACK).addOptional(StellarityDamageTypes.PRISMEMBER);
 
-//		builder(DamageTypeTags.BYPASSES_ARMOR).addOptional(
-//			StellarityDamageTypes.BRITTLE
-//		);
-
-		//? > 1.20.1 {
-		/*builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
+		builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
 			StellarityDamageTypes.BRITTLE
 		);
-		*///? }
-
-//		builder(DamageTypeTags.BYPASSES_ENCHANTMENTS).addOptional(
-//			StellarityDamageTypes.BRITTLE
-//		);
-
+		
 	}
 }

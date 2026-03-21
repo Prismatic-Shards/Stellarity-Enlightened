@@ -9,7 +9,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.particles.SimpleParticleType;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 
 import net.minecraft.client.particle.*;
 	//? } else {
@@ -23,7 +23,7 @@ import net.minecraft.client.particle.SpriteSet;
 *///? }
 
 @Environment(EnvType.CLIENT)
-public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle/*? } else {*//*SingleQuadParticle*//*? }*/ {
+public class CriticalStrikeParticle extends /*? 1.21.1 {*/TextureSheetParticle/*? } else {*//*SingleQuadParticle*//*? }*/ {
 	private float scale = 1f;
 
 	public CriticalStrikeParticle(ClientLevel clientLevel, double d, double e, double f/*? > 1.21.9 >> ') {'*//*, TextureAtlasSprite textureAtlasSprite*/) {
@@ -52,7 +52,7 @@ public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle
 		return 240;
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	@Override
 	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -82,7 +82,7 @@ public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle
 		@Override
 		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? > 1.21.9 >> ') {'*//*, RandomSource randomSource*/) {
 			var particle = new CriticalStrikeParticle(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, this.sprite.get(randomSource)*/);
-			//? < 1.21.9 {
+			//? 1.21.1 {
 			particle.pickSprite(this.sprite);
 			//? }
 			return particle;

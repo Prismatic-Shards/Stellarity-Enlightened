@@ -1,4 +1,4 @@
-//? <= 1.21.1 {
+//? 1.21.1 {
 package xyz.kohara.stellarity.client.mixin.void_fishing;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -15,11 +15,8 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 @MixinEnvironment("client")
 @Mixin(FishingHookRenderer.class)
 public class FishingHookRendererMixin {
-	//? = 1.20.1
-	@WrapOperation(method = "render(Lnet/minecraft/world/entity/projectile/FishingHook;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-		/**/
-		//? = 1.21.1
-		//@WrapOperation(method = "getPlayerHandPos",
+
+	@WrapOperation(method = "getPlayerHandPos",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
 	private boolean addFisherOfVoids(ItemStack instance, Item item, Operation<Boolean> original) {
 		return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, item);

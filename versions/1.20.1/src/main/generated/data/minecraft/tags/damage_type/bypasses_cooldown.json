@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "stellarity:brittle",
-      "required": false
-    }
-  ]
-}

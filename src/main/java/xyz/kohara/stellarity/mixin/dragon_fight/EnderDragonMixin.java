@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 	//? } else {
 /*import net.minecraft.world.entity.boss.EnderDragonPart;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +38,7 @@ public abstract class EnderDragonMixin extends Mob implements Enemy {
 		super(entityType, level);
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	@WrapOperation(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;hurt(Lnet/minecraft/world/entity/boss/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
 	private boolean blockDamage(EnderDragon instance, EnderDragonPart enderDragonPart, DamageSource damageSource, float f, Operation<Boolean> original) {
 		//? } else {
@@ -50,7 +50,7 @@ public abstract class EnderDragonMixin extends Mob implements Enemy {
 
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	@Inject(method = "hurt(Lnet/minecraft/world/entity/boss/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z", at = @At("HEAD"), cancellable = true)
 	private void invulnerable(EnderDragonPart enderDragonPart, DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
 		//? } else {

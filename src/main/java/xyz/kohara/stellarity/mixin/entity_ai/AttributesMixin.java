@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Attributes.class)
 public class AttributesMixin {
 
-	@Definition(id = "MAX_HEALTH", field = /*? 1.20.1 {*/" Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/world/entity/ai/attributes/Attribute;"/*? } else {*//*"Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;"*//*? } */)
+	@Definition(id = "MAX_HEALTH", field = "Lnet/minecraft/world/entity/ai/attributes/Attributes;MAX_HEALTH:Lnet/minecraft/core/Holder;")
 	@Expression("MAX_HEALTH = ?(?, new ?(?,?,?,@(1024.0)).?(?))")
 	@ModifyExpressionValue(method = "<clinit>", at = @At("MIXINEXTRAS:EXPRESSION"))
 	private static double alterMaxHealth(double original) {

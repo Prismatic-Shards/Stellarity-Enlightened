@@ -22,16 +22,11 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import xyz.kohara.stellarity.registry.item.Duskberry;
 import xyz.kohara.stellarity.tags.StellarityBlockTags;
-//? > 1.21 {
-/*import com.mojang.serialization.MapCodec;
- *///? }
+import com.mojang.serialization.MapCodec;
 //? > 1.21.10 {
 /*import net.minecraft.world.entity.InsideBlockEffectApplier;
  *///? }
 
-// whole bunch of deprecated stuff that just ends up being undeprecated later on
-//? 1.20.1
-@SuppressWarnings("deprecation")
 public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -44,17 +39,13 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		registerDefaultState(defaultBlockState().setValue(AGE, 0));
 	}
 
-	//? > 1.21 {
-	/*public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
+
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
 
 	@Override
 	public MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
-	*///? } else {
-
-	//? }
-
 
 	@Override
 	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
@@ -69,7 +60,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState/*? 1.20.1 >> ') {'*/, boolean bl) {
+	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
 		return blockState.getValue(AGE) < MAX_AGE;
 	}
 

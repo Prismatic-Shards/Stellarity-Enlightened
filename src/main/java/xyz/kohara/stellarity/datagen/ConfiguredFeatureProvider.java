@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -30,7 +30,7 @@ public class ConfiguredFeatureProvider {
 		entries.add(lookup, MAIN_ISLAND_PORTAL_PLATFORM);
 	}
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		context.register(MAIN_ISLAND_RING,
 			new ConfiguredFeature<>(
 				Feature.END_SPIKE,

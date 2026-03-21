@@ -84,9 +84,7 @@ public class ConfigScreen extends Screen {
 		}
 
 		super.render(guiGraphics, i, j, f);
-		//? 1.20.1
-		this.renderBackground(guiGraphics);
-
+		
 		layout.visitWidgets(widget -> widget.render(guiGraphics, i, j, f));
 	}
 

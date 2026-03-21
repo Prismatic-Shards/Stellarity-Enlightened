@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 import xyz.kohara.stellarity.registry.recipe.AltarRecipe;
-//? < 1.21.9 {
+//? 1.21.1 {
 
 import org.joml.Vector3f;
 	//? }

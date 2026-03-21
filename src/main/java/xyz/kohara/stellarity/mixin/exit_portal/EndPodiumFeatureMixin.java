@@ -5,13 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.EndPodiumFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -22,11 +19,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import xyz.kohara.stellarity.Stellarity;
-
-//? > 1.20.1 {
-/*import net.minecraft.core.registries.Registries;
- *///? }
 
 @Mixin(EndPodiumFeature.class)
 public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfiguration> {

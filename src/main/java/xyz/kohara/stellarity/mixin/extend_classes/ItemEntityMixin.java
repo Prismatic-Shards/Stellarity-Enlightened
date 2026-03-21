@@ -19,7 +19,7 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 import net.minecraft.nbt.CompoundTag;
 //? } else {
 /*import net.minecraft.world.level.storage.ValueInput;
@@ -79,7 +79,7 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void saveData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueOutput tag, CallbackInfo ci
@@ -93,7 +93,7 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 	//@SuppressWarnings("OptionalGetWithoutIsPresent")
 	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
 	public void readData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueInput tag, CallbackInfo ci

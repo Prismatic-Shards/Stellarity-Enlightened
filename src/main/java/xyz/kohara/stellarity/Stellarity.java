@@ -19,32 +19,18 @@ public class Stellarity implements ModInitializer {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final String VERSION = /*$ mod_version*/ "0.5.0";
-	public static final String MINECRAFT = /*$ minecraft*/ "1.20.1";
+	public static final String MINECRAFT = /*$ minecraft*/ "1.21.1";
 
 	public static ResourceLocation id(String path) {
-		//? if = 1.20.1 {
-		return new ResourceLocation(MOD_ID, path);
-		//?} else {
-		/*return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-		 *///?}
-
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
 	}
 
 	public static ResourceLocation id(String namespace, String path) {
-		//? if = 1.20.1 {
-		return new ResourceLocation(namespace, path);
-		//?} else {
-		/*return ResourceLocation.fromNamespaceAndPath(namespace, path);
-		 *///?}
-
+		return ResourceLocation.fromNamespaceAndPath(namespace, path);
 	}
 
 	public static ResourceLocation mcId(String path) {
-		//? if = 1.20.1 {
-		return new ResourceLocation(path);
-		//?} else {
-		/*return ResourceLocation.withDefaultNamespace(path);
-		 *///?}
+		return ResourceLocation.withDefaultNamespace(path);
 	}
 
 	public static <T extends Registry<U>, U> ResourceKey<U> key(ResourceKey<T> registry, String path) {
@@ -76,7 +62,6 @@ public class Stellarity implements ModInitializer {
 		StellarityCriteriaTriggers.init();
 		StellarityRecipeTypes.init();
 		StellarityRecipeSerializers.init();
-		StellarityPaintings.init();
 		StellarityMobEffects.init();
 		StellaritySounds.init();
 

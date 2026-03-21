@@ -3,9 +3,6 @@ package xyz.kohara.stellarity.registry.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -15,25 +12,18 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity;
 import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
-
-//? > 1.21 {
-/*import com.mojang.serialization.MapCodec;
- *///? } else {
-
-//? }
+import com.mojang.serialization.MapCodec;
 
 public class AltarOfTheAccursed extends BaseEntityBlock {
 	public enum PlaceType implements StringRepresentable {
@@ -81,26 +71,17 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 		.lightLevel((blockStatex) -> 7)
 		.strength(-1.0F, 6700000.0F);
 
-
-	//? = 1.20.1
-	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		return SHAPE;
 	}
 
+	public static final MapCodec<? extends BaseEntityBlock> CODEC = simpleCodec(AltarOfTheAccursed::new);
 
-	//? > 1.21 {
-	
-	/*public static final MapCodec<? extends BaseEntityBlock> CODEC = simpleCodec(AltarOfTheAccursed::new);
 	@Override
 	public MapCodec<? extends BaseEntityBlock> codec() {
 		return CODEC;
 	}
-	*///? } else {
-
-	//? }
-
 
 	@Override
 	public RenderShape getRenderShape(BlockState blockState) {

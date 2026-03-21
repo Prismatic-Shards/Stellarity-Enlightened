@@ -30,7 +30,7 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 import net.minecraft.world.level.storage.ValueOutput;
 *///? } else {
 import net.minecraft.nbt.CompoundTag;
- //? }
+	//? }
 
 import java.util.Set;
 import java.util.function.IntFunction;
@@ -45,7 +45,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	public ThrownPrismaticPearl(Level level, LivingEntity livingEntity, ItemStack itemStack) {
 		//? > 1.21.9 {
 		/*super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level, itemStack);
-		*///? } else {
+		 *///? } else {
 		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
 		setItem(itemStack);
 
@@ -149,7 +149,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		stellarity$entityData().set(DATA_TRAIL_TYPE, mode.id());
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	@Override
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
@@ -282,7 +282,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		super.onHitEntity(entityHitResult);
 		var level = level();
 		if (level.isClientSide()) return;
-		entityHitResult.getEntity()./*? < 1.21.9 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level(), *//*? } */this.damageSources().thrown(this, this.getOwner()), 0.0F);
+		entityHitResult.getEntity()./*? 1.21.1 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level(), *//*? } */this.damageSources().thrown(this, this.getOwner()), 0.0F);
 	}
 
 

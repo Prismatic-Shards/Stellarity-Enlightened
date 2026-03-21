@@ -1,5 +1,4 @@
-//? > 1.21 {
-/*package xyz.kohara.stellarity.mixin.enchantments;
+package xyz.kohara.stellarity.mixin.enchantments;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -31,12 +30,12 @@ public class EnchantmentHelperMixin {
 	private static final RandomSource random = RandomSource.create();
 
 
-	@WrapMethod(method = /^? 1.21.1 {^//^"method_60620"^//^? } else {^/"method_63017"/^? } ^/)
+	@WrapMethod(method = /*? 1.21.1 {*/"method_60620"/*? } else {*//*"method_63017"*//*? } */)
 	private static void stellarityPostEnchantments(ServerLevel serverLevel, Entity entity, DamageSource damageSource, Holder<Enchantment> holder, int i, EnchantedItemInUse enchantedItemInUse, Operation<Void> original) {
 
 
 		if (holder.is(StellarityEnchantments.CRITICAL_STRIKE) && entity instanceof LivingEntity target && target.level() instanceof ServerLevel level && random.nextFloat() < i * 0.1f && target.getLastDamageSource() != null) {
-			target./^? 1.21.11 {^//^hurtServer(serverLevel,^//^? } else {^/hurt(/^? } ^/target.getLastDamageSource(), target.lastHurt * 2);
+			target./*? 1.21.11 {*//*hurtServer(serverLevel,*//*? } else {*/hurt(/*? } */target.getLastDamageSource(), target.lastHurt * 2);
 			target.playSound(StellaritySounds.CRITICAL_STRIKE);
 			float height = target.getBbHeight() * 0.7f;
 			float width = target.getBbWidth() * 0.7f;
@@ -47,4 +46,3 @@ public class EnchantmentHelperMixin {
 		original.call(serverLevel, entity, damageSource, holder, i, enchantedItemInUse);
 	}
 }
-*///? }

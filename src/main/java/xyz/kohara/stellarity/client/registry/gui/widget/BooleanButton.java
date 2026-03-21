@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 //? > 1.21.9 {
 /*import net.minecraft.client.input.MouseButtonEvent;
-*///? }
+ *///? }
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -48,7 +48,7 @@ public class BooleanButton extends Button implements Renderable {
 	}
 
 	@Override
-	public void onClick(/*? < 1.21.9 {*/double a, double b/*? } else {*//*MouseButtonEvent a, boolean b*//*? }*/) {
+	public void onClick(/*? 1.21.1 {*/double a, double b/*? } else {*//*MouseButtonEvent a, boolean b*//*? }*/) {
 		setValue(!value);
 		super.onClick(a, b);
 		setTooltip(tooltipFunction.apply(value));

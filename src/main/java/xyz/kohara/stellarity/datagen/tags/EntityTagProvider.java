@@ -2,7 +2,7 @@ package xyz.kohara.stellarity.datagen.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention./*? 1.20.1 {*/v1/*? } else { *//*v2*//*? }*/.ConventionalEntityTypeTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;

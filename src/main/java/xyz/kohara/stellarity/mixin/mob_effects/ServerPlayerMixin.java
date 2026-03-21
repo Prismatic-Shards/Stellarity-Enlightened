@@ -3,7 +3,6 @@ package xyz.kohara.stellarity.mixin.mob_effects;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.server.PlayerAdvancements;
-import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,7 +18,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//? < 1.21.9 {
+//? 1.21.1 {
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
 	//? } else {
@@ -30,14 +29,9 @@ import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Collection;
 *///? }
 
-
-import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
-//? 1.20.1 {
 
-//? } else {
-/*import xyz.kohara.stellarity.registry.StellarityMobEffects;
- *///? }
+import xyz.kohara.stellarity.registry.StellarityMobEffects;
 
 
 @Mixin(ServerPlayer.class)
@@ -57,7 +51,7 @@ public abstract class ServerPlayerMixin extends Player {
 	@Nullable
 	private GameType initialGameType = null;
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
 		super(level, blockPos, f, gameProfile);
 	}
@@ -74,12 +68,7 @@ public abstract class ServerPlayerMixin extends Player {
 		var type = gameMode.getGameModeForPlayer();
 
 
-		if (//? 1.20.1 {
-			!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
-			//? } else {
-			/*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
-			 *///? }
-		) return;
+		if (!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
 
 
 		if (!CreativeShockEffect.extremeCreativeShock() && type == GameType.CREATIVE) return;
@@ -88,7 +77,7 @@ public abstract class ServerPlayerMixin extends Player {
 		setGameMode(GameType.ADVENTURE);
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 	@Inject(method = "onEffectRemoved", at = @At("HEAD"))
 	protected void effectRemoved(MobEffectInstance effectInstance, CallbackInfo ci)
 	//? } else {
@@ -97,12 +86,7 @@ public abstract class ServerPlayerMixin extends Player {
 	protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
 	*///? }
 	{
-		if (//? 1.20.1 {
-			!(effectInstance.getEffect()/*? > 1.21 {*//*.value()*//*? } */ instanceof CreativeShockEffect effect)
-			//? } else {
-			/*!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)
-			 *///? }
-		) return;
+		if (!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
 
 		if (initialGameType == null) initialGameType = GameType.SURVIVAL;
 
@@ -112,7 +96,7 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void saveData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueOutput tag, CallbackInfo ci
@@ -121,10 +105,9 @@ public abstract class ServerPlayerMixin extends Player {
 		if (initialGameType != null) tag.putString("stellarity:initial_gamemode", initialGameType.getName());
 	}
 
-	//? > 1.21.9
-	//@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
+	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
 	public void readData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueInput tag, CallbackInfo ci

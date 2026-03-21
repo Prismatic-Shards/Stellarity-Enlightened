@@ -1,12 +1,6 @@
 package xyz.kohara.stellarity.registry.effect;
 
-//? > 1.21 {
-
-/*import net.minecraft.tags.EntityTypeTags;
- *///?} else {
-
-import net.minecraft.world.entity.MobType;
-	//?}
+import net.minecraft.tags.EntityTypeTags;
 //? > 1.21.9 {
 /*import net.minecraft.server.level.ServerLevel;
  *///? }
@@ -14,7 +8,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
 public class PrismaticInfernoEffect extends MobEffect {
 	public PrismaticInfernoEffect() {
@@ -24,30 +17,26 @@ public class PrismaticInfernoEffect extends MobEffect {
 
 	@Override
 
-	public /*? > 1.21 {*/ /*boolean *//*? } else { */ void /*? } */ applyEffectTick(/*? > 1.21.9 {*/ /*ServerLevel serverLevel,  *//*? } */LivingEntity livingEntity, int amplifier) {
+	public boolean applyEffectTick(/*? > 1.21.9 >> ' Li'*/ /*ServerLevel serverLevel,*/ LivingEntity livingEntity, int amplifier) {
 
 		Level level = livingEntity.level();
-		if (level.isClientSide()) return /*? if > 1.21 {*//*false *//*?}*/;
+		if (level.isClientSide()) return false;
 		boolean isInDaylight = level.canSeeSky(livingEntity.blockPosition()) &&
 			level.dimension() == Level.OVERWORLD &&
-			(!level.isRaining() && !level.isThundering() && level./*? < 1.21.9 {*/ isDay() /*? } else { */ /*isBrightOutside() *//*? } */);
-		//? if < 1.21.1 {
-		boolean isUndead = livingEntity.getMobType() == MobType.UNDEAD;
-		//?} else {
-		/*boolean isUndead = livingEntity.getType().is(EntityTypeTags.UNDEAD);
-		 *///?}
+			(!level.isRaining() && !level.isThundering() && level./*? 1.21.1 {*/ isDay() /*? } else { */ /*isBrightOutside() *//*? } */);
+
+		boolean isUndead = livingEntity.getType().is(EntityTypeTags.UNDEAD);
 		float damage = 1f;
 		if (isUndead) damage *= 2;
 		if (isInDaylight) damage *= 2;
 
-		livingEntity./*? < 1.21.9 {*/ hurt( /*? } else { */ /*hurtServer(serverLevel, *//*? }*/livingEntity.damageSources().inFire(), damage);
+		livingEntity./*? 1.21.1 {*/ hurt( /*? } else { */ /*hurtServer(serverLevel, *//*? }*/livingEntity.damageSources().inFire(), damage);
 		livingEntity.setRemainingFireTicks(25);
-		/*? if >= 1.21.1 {*/
-		/*return true; *//*?}*/
+		return true;
 	}
 
 	@Override
-	public boolean /*? 1.20.1 {*/isDurationEffectTick/*? } else { */ /*shouldApplyEffectTickThisTick *//*? } */(int duration, int amplifier) {
+	public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
 		return duration % 20 == 0;
 	}
 }

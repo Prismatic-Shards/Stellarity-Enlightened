@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.item.ItemStack;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -25,11 +25,11 @@ public class Endonomicon extends Item {
 
 
 	@Override
-	public /*? < 1.21.9 { */InteractionResultHolder<ItemStack>/*? } else { */ /*InteractionResult*//*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
+	public /*? 1.21.1 { */InteractionResultHolder<ItemStack>/*? } else { */ /*InteractionResult*//*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
 		var result = super.use(level, player, interactionHand);
 
 
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		if (!(player.level().isClientSide())) return result;
 
 

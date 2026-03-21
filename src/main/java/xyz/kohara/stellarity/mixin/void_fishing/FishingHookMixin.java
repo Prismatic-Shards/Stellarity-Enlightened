@@ -43,14 +43,9 @@ import xyz.kohara.stellarity.interface_injection.ExtFishingHook;
 
 //? >= 1.21.10 {
 /*import net.minecraft.core.particles.PowerParticleOption;
- *///?} else {
+ *///?}
 
-//?}
-
-//? >= 1.21 {
-
-/*import net.minecraft.core.registries.Registries;
- *///? }
+import net.minecraft.core.registries.Registries;
 
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile implements ExtFishingHook {
@@ -94,11 +89,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 
 	@Unique
 	private boolean isEnd() {
-		//? <= 1.20.1 {
-		return this.level().dimensionTypeId() == BuiltinDimensionTypes.END;
-		//?} else {
-		/*return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
-		 *///?}
+		return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
 	}
 
 	@Unique
@@ -115,6 +106,8 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 
 	@Unique
 	private boolean canBob() {
+		var owner = this.getOwner();
+		if (owner == null) return false;
 		double y = getY();
 
 		if (y < 0 && !warned) {
@@ -128,7 +121,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 			warned = false;
 		}
 
-		return !warned && isEndMidAir() && (this.currentState == FishingHook.FishHookState.BOBBING || this.distanceTo(this.getPlayerOwner()) > 20.0);
+		return !warned && isEndMidAir() && (this.currentState == FishingHook.FishHookState.BOBBING || this.distanceTo(owner) > 20.0);
 	}
 
 	@ModifyVariable(method = "tick()V", at = @At(value = "STORE"), ordinal = 0)
@@ -222,11 +215,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 			return lure;
 		}
 
-		//? < 1.21 {
-		return lure + 2;
-		//? } else {
-		/*return lure + 200;
-		 *///? }
+		return lure + 200;
 	}
 
 	@Unique
@@ -237,11 +226,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	@WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
 	private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> original, @Local Player player, @Local(argsOnly = true) ItemStack itemStack) {
 		if (isVoidFishing && level() instanceof ServerLevel level) {
-			//? 1.20.1 {
-			instance = level.getServer().getLootData().getLootTable(Stellarity.id("void_fishing/event"));
-			//? } else {
-			/*instance = level.getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
-			 *///? }
+			instance = level.getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
 		}
 		ObjectArrayList<ItemStack> list = original.call(instance, lootParams);
 		if (isVoidFishing) {

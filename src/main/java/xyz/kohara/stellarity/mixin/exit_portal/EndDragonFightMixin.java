@@ -1,6 +1,5 @@
 package xyz.kohara.stellarity.mixin.exit_portal;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
@@ -22,10 +21,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
-//? > 1.21 {
-/*import net.minecraft.core.registries.Registries;
-*///? }
-
+import net.minecraft.core.registries.Registries;
 
 @Mixin(EndDragonFight.class)
 public abstract class EndDragonFightMixin implements ExtEndDragonFight {
@@ -53,7 +49,7 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 		var entity = level.getBlockEntity(chestPos);
 
 		if (entity instanceof ChestBlockEntity chestEntity) {
-			chestEntity.setLootTable(/*? 1.20.1 { */Stellarity.id("exit_portal") /*? } else {*/ /*Stellarity.key(Registries.LOOT_TABLE, "exit_portal")*//*? }*/, level.getSeed());
+			chestEntity.setLootTable(Stellarity.key(Registries.LOOT_TABLE, "exit_portal"), level.getSeed());
 
 			stellarity$setPortalChestGenerated(true);
 		}

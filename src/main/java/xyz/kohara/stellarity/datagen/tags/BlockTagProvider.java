@@ -35,24 +35,7 @@ public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE).add(StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-		getOrCreateTagBuilder(StellarityBlockTags.DUNE_SPEED_BLOCKS).forceAddTag(BlockTags.SAND)/*? > 1.21 >> '.add'*//*.forceAddTag(BlockTags.CONCRETE_POWDER)*/.add(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL/*? 1.20.1 >> ')' */,
-			Blocks.RED_CONCRETE_POWDER,
-			Blocks.ORANGE_CONCRETE_POWDER,
-			Blocks.YELLOW_CONCRETE_POWDER,
-			Blocks.LIME_CONCRETE_POWDER,
-			Blocks.GREEN_CONCRETE_POWDER,
-			Blocks.LIGHT_BLUE_CONCRETE_POWDER,
-			Blocks.CYAN_CONCRETE_POWDER,
-			Blocks.BLUE_CONCRETE_POWDER,
-			Blocks.MAGENTA_CONCRETE_POWDER,
-			Blocks.PINK_CONCRETE_POWDER,
-			Blocks.PURPLE_CONCRETE_POWDER,
-			Blocks.BROWN_CONCRETE_POWDER,
-			Blocks.WHITE_CONCRETE_POWDER,
-			Blocks.GRAY_CONCRETE_POWDER,
-			Blocks.LIGHT_GRAY_CONCRETE_POWDER,
-			Blocks.BLACK_CONCRETE_POWDER
-		);
+		getOrCreateTagBuilder(StellarityBlockTags.DUNE_SPEED_BLOCKS).forceAddTag(BlockTags.SAND).forceAddTag(BlockTags.CONCRETE_POWDER).add(Blocks.GRAVEL, Blocks.SUSPICIOUS_GRAVEL);
 
 		getOrCreateTagBuilder(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(Blocks.BEDROCK, Blocks.CRYING_OBSIDIAN).setReplace(false);
 

@@ -17,7 +17,7 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtAbstractArrow;
 import xyz.kohara.stellarity.registry.StellarityMobEffects;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 import net.minecraft.nbt.CompoundTag;
 	//? } else {
 /*import net.minecraft.world.level.storage.ValueOutput;
@@ -59,7 +59,7 @@ public abstract class AbstractArrowMixin extends Projectile implements ExtAbstra
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void saveData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueOutput tag, CallbackInfo ci
@@ -73,7 +73,7 @@ public abstract class AbstractArrowMixin extends Projectile implements ExtAbstra
 	//@SuppressWarnings("OptionalGetWithoutIsPresent")
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void readData(
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		CompoundTag tag, CallbackInfo ci
 		//? } else {
 		/*ValueInput tag, CallbackInfo ci

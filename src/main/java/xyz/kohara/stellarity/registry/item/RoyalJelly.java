@@ -4,13 +4,12 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-//? < 1.21.9 {
+//? 1.21.1 {
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -38,7 +37,7 @@ public class RoyalJelly extends Item {
 			var effects = livingEntity.getActiveEffects().stream().toList();
 
 			for (var effect : effects) {
-				if (effect.getEffect()/*? > 1.21 >> '.get' *//*.value()*/.getCategory() == MobEffectCategory.HARMFUL) {
+				if (effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
 					livingEntity.removeEffect(effect.getEffect());
 				}
 			}
@@ -59,11 +58,11 @@ public class RoyalJelly extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack itemStack/*? > 1.21 >> ') {'*//*, LivingEntity livingEntity*/) {
+	public int getUseDuration(ItemStack itemStack, LivingEntity livingEntity) {
 		return 40;
 	}
 
-	//? < 1.21.9 {
+	//? 1.21.1 {
 
 	@Override
 	public UseAnim getUseAnimation(ItemStack itemStack) {

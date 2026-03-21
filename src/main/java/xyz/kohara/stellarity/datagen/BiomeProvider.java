@@ -16,7 +16,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import xyz.kohara.stellarity.Stellarity;
 //? >= 1.21.11 {
 /*import net.minecraft.world.attribute.EnvironmentAttributes;
-	*///? }
+ *///? }
 
 
 public class BiomeProvider {
@@ -67,8 +67,7 @@ public class BiomeProvider {
 			)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_RING)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM)
-				//? > 1.21
-				//.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, feature("end_platform"))
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, feature("end_platform"))
 				.build())
 			.build());
 	}

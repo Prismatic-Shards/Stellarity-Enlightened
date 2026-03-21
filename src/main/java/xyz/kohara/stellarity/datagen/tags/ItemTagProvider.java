@@ -49,24 +49,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
 		getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
-		//? 1.20.1 {
+
 		getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
-			.add(Items.BOW, Items.CROSSBOW, StellarityItems.CALL_OF_THE_VOID);
-		//? } else {
-		/*getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
 			.forceAddTag(ItemTags.BOW_ENCHANTABLE)
 			.forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
-		*///? }
-
-		//? 1.20.1 {
-		getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(
-			StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
-			StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-			StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
-		);
-
-		//? }
-
-
 	}
 }

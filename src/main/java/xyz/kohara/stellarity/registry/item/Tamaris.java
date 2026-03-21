@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 
 import xyz.kohara.stellarity.registry.StellaritySounds;
-//? < 1.21.9 {
+//? 1.21.1 {
 
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -27,19 +27,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 
-public class Tamaris extends
-	//? < 1.21.9 {
-	SwordItem
-	//? } else {
-	/*Item
-	 *///? }
-{
+public class Tamaris extends /*? 1.21.1 { */SwordItem/*? } else {*//*Item*//*? }*/ {
 	public Tamaris(Properties properties) {
-		//? 1.20.1 {
-		super(Tiers.NETHERITE, 2, -2.4f, properties);
-		 //? } 1.21.1 {
-		/*super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
-		*///? } else {
+		//? 1.21.1 {
+		super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
+		//? } else {
 		/*super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
 		 *///? }
 	}
@@ -48,7 +40,7 @@ public class Tamaris extends
 	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1).durability(1561);
 
 	@Override
-	//? > 1.21.9 {
+		//? > 1.21.9 {
 	/*public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		super.inventoryTick(itemStack, level, entity, equipmentSlot);
 
@@ -57,23 +49,17 @@ public class Tamaris extends
 	*///? }
 
 	public void inventoryTick(
-		//? < 1.21.9 {
-		ItemStack itemStack, Level level, Entity entity, int i, boolean bl
-		//? } else {
-		/*ItemStack itemStack, Level level, Entity entity, @Nullable EquipmentSlot equipmentSlot
-		 *///? }
+		ItemStack itemStack, Level level, Entity entity, /*? 1.21.1 {*/int i, boolean bl/*? } else {*//*@Nullable EquipmentSlot equipmentSlot*//*? }*/
 	) {
-		//? < 1.21.9 {
+		//? 1.21.1 {
 		super.inventoryTick(itemStack, level, entity, i, bl);
-		//? } else {
-
 		//? }
 
 		boolean isClient = level.isClientSide();
 		Vec3 position = entity.position();
 
 		if (entity instanceof Player player) {
-			if (player.getCooldowns().isOnCooldown(itemStack/*? < 1.21.9 {*/.getItem() /*?}*/) || !player.isHolding(itemStack::equals))
+			if (player.getCooldowns().isOnCooldown(itemStack/*? 1.21.1 {*/.getItem() /*?}*/) || !player.isHolding(itemStack::equals))
 				return;
 
 			var nearbyEntities = level.getEntitiesOfClass(
@@ -101,25 +87,19 @@ public class Tamaris extends
 						}
 					}
 
-					if (!nearby./*? < 1.21.9 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level, *//*? } */ nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
+					if (!nearby./*? 1.21.1 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level, *//*? } */ nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
 						continue;
 
 
 					var nearestPos = nearby.position();
 
 					player.teleportTo(nearestPos.x, nearestPos.y, nearestPos.z);
-					itemStack.hurtAndBreak(1, player,
-						//? 1.20.1 {
-						(livingEntityx) -> livingEntityx.broadcastBreakEvent(EquipmentSlot.MAINHAND)
-						 //? } else {
-						/*EquipmentSlot.MAINHAND
-						*///? }
-					);
+					itemStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 
 					nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);
 
 					if (failed) {
-						player.getCooldowns().addCooldown(/*? < 1.21.10 { */StellarityItems.TAMARIS /*? } else { */ /*itemStack *//*? } */, 11 * 20);
+						player.getCooldowns().addCooldown(/*? 1.21.1 { */StellarityItems.TAMARIS /*? } else { */ /*itemStack *//*? } */, 11 * 20);
 					}
 
 					break;

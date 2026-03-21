@@ -58,11 +58,11 @@ class SpotlightPage private constructor(
 
 
                             //? 1.21.1 {
-                            /*val components = itemStack.componentsPatch
+                            val components = itemStack.componentsPatch
                             if (!components.isEmpty) {
                                 sb.append(Util.getComponentPatchString(components, registries))
                             }
-                            *///? }
+                            //? }
                         }
 
                         is TripleEither.Third -> {

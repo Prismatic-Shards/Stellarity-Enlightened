@@ -14,15 +14,11 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import xyz.kohara.stellarity.Stellarity;
 
-//? 1.20.1 {
-import com.google.gson.JsonObject;
- //? } else {
-/*import java.util.Optional;
+import java.util.Optional;
 
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.Codec;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
-*///? }
 
 public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.TriggerInstance> {
 	static final ResourceLocation ID = Stellarity.id("void_fished");
@@ -37,77 +33,7 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 		this.trigger(serverPlayer, (triggerInstance) -> triggerInstance.matches(itemStack, lootContext, collection));
 	}
 
-	//? 1.20.1 {
-
-
-	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
-		private final ItemPredicate rod;
-		private final ContextAwarePredicate entity;
-		private final ItemPredicate item;
-
-		public TriggerInstance(ContextAwarePredicate contextAwarePredicate, ItemPredicate itemPredicate, ContextAwarePredicate contextAwarePredicate2, ItemPredicate itemPredicate2) {
-			super(ID, contextAwarePredicate);
-			this.rod = itemPredicate;
-			this.entity = contextAwarePredicate2;
-			this.item = itemPredicate2;
-		}
-
-
-		public static TriggerInstance fishedItem(ItemPredicate itemPredicate, EntityPredicate entityPredicate, ItemPredicate itemPredicate2) {
-			return new TriggerInstance(ContextAwarePredicate.ANY, itemPredicate, EntityPredicate.wrap(entityPredicate), itemPredicate2);
-		}
-
-
-		public boolean matches(ItemStack itemStack, LootContext lootContext, Collection<ItemStack> collection) {
-			if (!this.rod.matches(itemStack)) {
-				return false;
-			} else if (!this.entity.matches(lootContext)) {
-				return false;
-			} else {
-				if (this.item != ItemPredicate.ANY) {
-					boolean bl = false;
-					Entity entity = (Entity) lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
-					if (entity instanceof ItemEntity itemEntity) {
-						if (this.item.matches(itemEntity.getItem())) {
-							bl = true;
-						}
-					}
-
-					for (ItemStack itemStack2 : collection) {
-						if (this.item.matches(itemStack2)) {
-							bl = true;
-							break;
-						}
-					}
-
-					return bl;
-				}
-
-				return true;
-			}
-		}
-
-		@Override
-		public JsonObject serializeToJson(SerializationContext serializationContext) {
-			JsonObject jsonObject = super.serializeToJson(serializationContext);
-			jsonObject.add("rod", this.rod.serializeToJson());
-			jsonObject.add("entity", this.entity.toJson(serializationContext));
-			jsonObject.add("item", this.item.serializeToJson());
-			return jsonObject;
-		}
-	}
-
-	@Override
-	public TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate contextAwarePredicate, DeserializationContext deserializationContext) {
-		ItemPredicate itemPredicate = ItemPredicate.fromJson(jsonObject.get("rod"));
-		ContextAwarePredicate contextAwarePredicate2 = EntityPredicate.fromJson(jsonObject, "entity", deserializationContext);
-		ItemPredicate itemPredicate2 = ItemPredicate.fromJson(jsonObject.get("item"));
-		return new TriggerInstance(contextAwarePredicate, itemPredicate, contextAwarePredicate2, itemPredicate2);
-	}
-
-	//? } else {
-
-	/*public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> rod,
+	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> rod,
 	                              Optional<ContextAwarePredicate> entity,
 	                              Optional<ItemPredicate> item) implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create((instance) -> instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), ItemPredicate.CODEC.optionalFieldOf("rod").forGetter(TriggerInstance::rod), EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("entity").forGetter(TriggerInstance::entity), ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggerInstance::item)).apply(instance, TriggerInstance::new));
@@ -125,10 +51,7 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 			} else {
 				if (this.item.isPresent()) {
 					boolean bl = false;
-					//? < 1.21.9
-					Entity entity = lootContext.getParamOrNull(LootContextParams.THIS_ENTITY);
-					//? >= 1.21.9
-					//Entity entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
+					Entity entity = lootContext./*? 1.21.1 {*/getParamOrNull/*?} else { *//*getOptionalParameter*//*? } */(LootContextParams.THIS_ENTITY);
 
 					if (entity instanceof ItemEntity itemEntity) {
 						if (this.item.get().test(itemEntity.getItem())) {
@@ -159,5 +82,4 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
-	*///? }
 }

@@ -25,28 +25,21 @@ import java.util.function.Consumer;
 
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
-//? >= 1.21.1 {
-/*import net.minecraft.core.HolderLookup;
+
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.Item;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.List;
 import java.util.Optional;
 import java.util.Arrays;
 
 import net.minecraft.core.registries.Registries;
-*///?} else {
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.CriterionTriggerInstance;
-
-import java.util.HashMap;
-//?}
 
 
 public class AdvancementProvider extends FabricAdvancementProvider {
 
-	//? >= 1.21.1 {
-	/*public final AdvancementType TASK = AdvancementType.TASK;
+
+	public final AdvancementType TASK = AdvancementType.TASK;
 	public final AdvancementType GOAL = AdvancementType.GOAL;
 	public final AdvancementType CHALLENGE = AdvancementType.CHALLENGE;
 
@@ -58,32 +51,8 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		return new AdvancementHolder(id, null);
 	}
 
-	*///?} else {
-
-	public final FrameType TASK = FrameType.TASK;
-	public final FrameType GOAL = FrameType.GOAL;
-	public final FrameType CHALLENGE = FrameType.CHALLENGE;
-
-	public AdvancementProvider(FabricDataOutput output) {
-		super(output);
-	}
-
-	public static Advancement dummy(ResourceLocation id) {
-		return new Advancement(id,
-			null,
-			null,
-			null,
-			new HashMap<>(),
-			null,
-			true
-		);
-	}
-
-
-	//?}
-
-	public static /*? 1.20.1 { */String[][]/*? } else {*//*AdvancementRequirements*//*? }*/ requires(String[][] array) {
-		return /*? 1.20.1 { */array/*? } else {*//*new AdvancementRequirements(Arrays.stream(array).map(List::of).toList())*//*? }*/;
+	public static AdvancementRequirements requires(String[][] array) {
+		return new AdvancementRequirements(Arrays.stream(array).map(List::of).toList());
 	}
 
 	public static Advancement.Builder advancement() {
@@ -95,17 +64,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	public void generateAdvancement(
-		//? >= 1.21.1 {
-		/*HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer
-		 *///?} else {
-		Consumer<Advancement> consumer
-		//?}
-	) {
-		//? >= 1.21.1 {
-		/*final HolderLookup.RegistryLookup<Item> itemLookup = registryLookup.lookupOrThrow(Registries.ITEM);
+	public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
+		final HolderLookup.RegistryLookup<Item> itemLookup = registryLookup.lookupOrThrow(Registries.ITEM);
 		final HolderLookup.RegistryLookup<EntityType<?>> entityLookup = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
-		*///?}
+
 		var ENTER_END_GATEWAY = dummy(Stellarity.mcId("end/enter_end_gateway"));
 		var ENTER_END = dummy(Stellarity.mcId("story/enter_the_end"));
 		var END_ROOT = dummy(Stellarity.mcId("end/root"));
@@ -124,8 +86,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			)
 			.parent(ENTER_END_GATEWAY)
 			.addCriterion("fishing", VoidFishedTrigger.TriggerInstance.fishedItem(
-				/*? > 1.21 {*/ /*Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
-				 *//*? } else {*/ItemPredicate.ANY, EntityPredicate.ANY, ItemPredicate.ANY /*? }*/
+				Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()
 			)).requirements(requires(new String[][]{{"fishing"}}))
 			.build(Stellarity.id("void_fishing/void_reels"));
 
@@ -176,9 +137,8 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY))
 			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY),
 
-				/*? > 1.21 >> 'Con'*//*Optional.of(*/ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*//*entityLookup, */EntityType.FOX).build()).build())
-				//? > 1.21
-				//)
+				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*//*entityLookup, */EntityType.FOX).build()).build())
+				)
 			))
 			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(StellarityBlocks.DUSKBERRY_BUSH))
 			.parent(FIND_DUSKBERRY)
@@ -222,14 +182,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		}
 	}
 
-	//? < 1.21.1 {
-	private CriterionTriggerInstance impossible() {
-		return new ImpossibleTrigger.TriggerInstance();
-	}
-
-	//?} else {
-	/*private Criterion<ImpossibleTrigger.TriggerInstance> impossible() {
+	private Criterion<ImpossibleTrigger.TriggerInstance> impossible() {
 		return CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance());
 	}
-	*///?}
 }

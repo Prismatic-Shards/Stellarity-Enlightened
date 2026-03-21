@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 import net.minecraft.world.item.ItemStack;
-//? < 1.21.9 {
+//? 1.21.1 {
 
 import net.minecraft.world.InteractionResultHolder;
 import xyz.kohara.stellarity.registry.entity.ThrownPrismaticPearl;
@@ -31,11 +31,11 @@ public class PrismaticPearlItem extends Item {
 
 
 	@Override
-	public /*? < 1.21.9 {*/InteractionResultHolder<ItemStack>/*? } else {*//*InteractionResult*//*? } */ use(Level level, Player player, InteractionHand interactionHand) {
+	public /*? 1.21.1 {*/InteractionResultHolder<ItemStack>/*? } else {*//*InteractionResult*//*? } */ use(Level level, Player player, InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 
 		if (level instanceof ServerLevel serverLevel) {
-			player.getCooldowns().addCooldown(itemStack/*? < 1.21.9 {*/.getItem()/*? } */, 5 * 20);
+			player.getCooldowns().addCooldown(itemStack/*? 1.21.1 {*/.getItem()/*? } */, 5 * 20);
 
 			var pearl = new ThrownPrismaticPearl(level, player);
 			pearl.setItem(itemStack);
@@ -45,7 +45,7 @@ public class PrismaticPearlItem extends Item {
 			serverLevel.playSound(null, player.blockPosition(), StellaritySounds.PRISMATIC_PEARL_THROW, SoundSource.NEUTRAL);
 		}
 
-		//? < 1.21.9 {
+		//? 1.21.1 {
 
 		return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
 		//? } else {
