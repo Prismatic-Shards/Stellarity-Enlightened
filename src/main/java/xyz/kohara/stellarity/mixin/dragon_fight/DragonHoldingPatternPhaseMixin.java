@@ -21,6 +21,6 @@ public abstract class DragonHoldingPatternPhaseMixin extends AbstractDragonPhase
 	@Expression("this.dragon.getRandom().?(?) == 0")
 	@ModifyExpressionValue(method = "findNewTarget", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 0))
 	private boolean landWhenCrystalsGone(boolean original, @Local int i) {
-		return i == 0;
+		return i == 0 && original;
 	}
 }
