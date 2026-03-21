@@ -26,7 +26,7 @@ public class BiomeProvider {
 	public static MobSpawnSettings.Builder addSpawn(MobSpawnSettings.Builder builder, MobCategory category, EntityType<?> entityType, int weight, int min, int max) {
 		return builder.addSpawn(category,
 			/*? >= 1.21.11 {*/ /*weight, *//*?} */
-			new MobSpawnSettings.SpawnerData(entityType,/*? < 1.21.11 {*/ weight, /*?} */ min, max)
+			new MobSpawnSettings.SpawnerData(entityType,/*? 1.21.1 {*/ weight, /*?} */ min, max)
 		);
 	}
 
@@ -46,7 +46,7 @@ public class BiomeProvider {
 				.grassColorOverride(0xdedede)
 				.foliageColorOverride(0xc2c2c2)
 				.waterColor(0x62529e)
-				//? < 1.21.11 {
+				//? 1.21.1 {
 				.skyColor(skyColor)
 				.fogColor(fogColor)
 				.waterFogColor(waterFogColor)

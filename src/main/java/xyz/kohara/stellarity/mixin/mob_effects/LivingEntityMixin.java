@@ -32,7 +32,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Shadow
 	@Final
 	private Map<Holder<MobEffect>, MobEffectInstance> activeEffects;
-	
+
 	@Unique
 	private static DamageUtility damageUtility;
 
@@ -44,7 +44,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 
-	@WrapMethod(method = /*? < 1.21.11 { */"hurt"/*? } else { */ /*"hurtServer" *//*?} */)
+	@WrapMethod(method = /*? 1.21.1 { */"hurt"/*? } else { */ /*"hurtServer" *//*?} */)
 	private boolean applyBrittleEffect(/*? if > 1.21.10 >> 'Dam' *//*ServerLevel serverLevel, */DamageSource damageSource, float f, Operation<Boolean> original) {
 		boolean hurt = original.call(/*? if > 1.21.10 >> 'dam' *//*serverLevel, */damageSource, f);
 

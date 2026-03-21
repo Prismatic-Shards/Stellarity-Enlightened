@@ -15,7 +15,7 @@ import xyz.kohara.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity
 public class StellarityBlockEntityTypes {
 	public static final BlockEntityType<AltarOfTheAccursedBlockEntity> ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursedBlockEntity::new, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-	//? <= 1.21.1 {
+	//? 1.21.1{
 	public static <T extends BlockEntity> BlockEntityType<T> register(String path, BlockEntityType.BlockEntitySupplier<T> factory, Block... blocks) {
 		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Stellarity.id(path).toString(), BlockEntityType.Builder.of(factory, blocks).build(null));
 	}

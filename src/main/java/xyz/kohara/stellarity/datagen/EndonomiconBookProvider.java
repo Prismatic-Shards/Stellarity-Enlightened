@@ -1,5 +1,5 @@
 
-//? <= 1.21.1 {
+//? 1.21.1{
 package xyz.kohara.stellarity.datagen;
 
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook;

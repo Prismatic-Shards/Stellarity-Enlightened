@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
-//? <= 1.21.1 {
+//? 1.21.1{
 import net.minecraft.data.models.BlockModelGenerators;
 
 import net.minecraft.data.models.ItemModelGenerators;
@@ -112,7 +112,7 @@ public class ModelProvider extends FabricModelProvider {
 
 		generateBush(generators, StellarityBlocks.DUSKBERRY_BUSH);
 
-		//? <= 1.21.1 {
+		//? 1.21.1{
 		generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);
 		generators.createGrassLikeBlock(StellarityBlocks.ENDER_GRASS_BLOCK, Stellarity.id("block/ender_grass_block"), new Variant().with(VariantProperties.MODEL, Stellarity.id("block/ender_grass_block_snowy")));
 		//?} else {

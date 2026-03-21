@@ -1,6 +1,6 @@
 package xyz.kohara.stellarity.registry.entity.variants;
 
-//? < 1.21.5 {
+//? 1.21.1 {
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,7 +12,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 
 public class StellarityFrogVariants {
-	//? < 1.21.5 {
+	//? 1.21.1 {
 	public static final FrogVariant END = register("end", "textures/entity/frog/ender_frog.png");
 	public static final ResourceKey<FrogVariant> END_KEY = Stellarity.key(Registries.FROG_VARIANT, "end");
 

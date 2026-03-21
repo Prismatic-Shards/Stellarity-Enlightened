@@ -71,7 +71,7 @@ public abstract class TeleportingFood extends Item {
 		);
 	}
 
-	//? <= 1.21.1 {
+	//? 1.21.1{
 	public static Properties foodProperties(int nutrition, float saturation, boolean alwaysEat, int teleportDiameter, StellarityItems.EffectChance... effectChances) {
 		return StellarityItems.foodProperties(
 			new Item.Properties(),

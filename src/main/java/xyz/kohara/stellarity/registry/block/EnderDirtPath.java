@@ -32,7 +32,7 @@ public class EnderDirtPath extends DirtPathBlock {
 		.sound(SoundType.GRASS)
 		.isViewBlocking((a, b, c) -> true)
 		.isSuffocating((a, b, c) -> true).forceSolidOn();
-	
+
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -42,7 +42,7 @@ public class EnderDirtPath extends DirtPathBlock {
 				super.getStateForPlacement(context);
 	}
 
-	//? <= 1.21.1 {
+	//? 1.21.1{
 	@Override
 	public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
 		if (direction == Direction.UP && !blockState.canSurvive(levelAccessor, blockPos)) {

@@ -98,7 +98,7 @@ public class StellarityModels {
 	}
 
 	public static void initItemColors() {
-		//? <= 1.21.1 {
+		//? 1.21.1{
 		ColorProviderRegistry.ITEM.register((itemStack, i) -> 0x91BD59, StellarityItems.ENDER_GRASS_BLOCK);
 		//?}
 

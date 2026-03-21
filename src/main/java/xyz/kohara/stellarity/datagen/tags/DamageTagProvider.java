@@ -11,7 +11,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import xyz.kohara.stellarity.tags.StellarityDamageTypeTags;
 import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
-//? < 1.21.11 {
+//? 1.21.1 {
 //? }
 
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +21,7 @@ public class DamageTagProvider extends FabricTagProvider<DamageType> {
 		super(output, Registries.DAMAGE_TYPE, registriesFuture);
 	}
 
-	//? < 1.21.11 {
+	//? 1.21.1 {
 	public FabricTagBuilder builder(
 		net.minecraft.tags.TagKey<DamageType> tag
 	) {
@@ -42,6 +42,6 @@ public class DamageTagProvider extends FabricTagProvider<DamageType> {
 		builder(DamageTypeTags.NO_KNOCKBACK).addOptional(
 			StellarityDamageTypes.BRITTLE
 		);
-		
+
 	}
 }

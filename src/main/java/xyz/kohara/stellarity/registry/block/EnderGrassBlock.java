@@ -58,7 +58,7 @@ public class EnderGrassBlock extends GrassBlock {
 		} else if (blockState.getFluidState().getAmount() == 8) {
 			return false;
 		} else {
-			//? <= 1.21.1 {
+			//? 1.21.1{
 			int i = LightEngine.getLightBlockInto(levelReader, state, pos, blockState, blockPos, Direction.UP, blockState.getLightBlock(levelReader, blockPos));
 			return i < levelReader.getMaxLightLevel();
 			//?} else {

@@ -51,7 +51,7 @@ public class LootTableUtils {
 	}
 
 	public static EntityTypePredicate entityType(EntityType<?> type) {
-		//? <= 1.21.1 {
+		//? 1.21.1{
 		return EntityTypePredicate.of(type);
 		//? } else {
 		/*return EntityTypePredicate.of(BuiltInRegistries.ENTITY_TYPE, type);

@@ -16,7 +16,7 @@ public class BiomeTagProvider extends FabricTagProvider<Biome> {
 		super(output, Registries.BIOME, registriesFuture);
 	}
 
-	//? < 1.21.11 {
+	//? 1.21.1 {
 	public FabricTagBuilder builder(
 		net.minecraft.tags.TagKey<Biome> tag
 	) {

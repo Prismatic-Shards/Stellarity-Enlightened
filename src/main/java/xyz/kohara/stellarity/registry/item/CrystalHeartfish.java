@@ -27,7 +27,7 @@ public class CrystalHeartfish extends Item {
 		super(properties);
 	}
 
-	//? <= 1.21.1 {
+	//? 1.21.1{
 	@Override
 	public int getUseDuration(ItemStack itemStack /*? 1.21.1 >> ') {' */, LivingEntity livingEntity) {
 		return 100;
