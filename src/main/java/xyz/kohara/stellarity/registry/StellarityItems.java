@@ -18,7 +18,7 @@ import xyz.kohara.stellarity.registry.item.*;
 import net.minecraft.world.level.block.Block;
 import xyz.kohara.stellarity.Stellarity;
 //? >= 1.21.9 {
-/*import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -26,7 +26,7 @@ import net.minecraft.sounds.SoundEvents;
 
 import java.util.function.Consumer;
 
-*///?}
+//?}
 
 
 import java.util.List;
@@ -69,10 +69,10 @@ public class StellarityItems {
 	public static final Item OVERGROWN_COD = register("overgrown_cod", Item::new,
 		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(
 			//? >= 1.21.9 {
-			/*MobEffects.MOVEMENT_SLOWDOWN
-			 *///?} else {
-			MobEffects.MOVEMENT_SLOWDOWN
-			//?}
+			MobEffects.SLOWNESS
+			 //?} else {
+			/*MobEffects.SLOWNESS
+			*///?}
 			, 3 * 20, 2))));
 	public static final Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
 	public static final Item PRISMATIC_SUSHI = register("prismatic_sushi", Item::new, foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
@@ -80,10 +80,10 @@ public class StellarityItems {
 		foodProperties(20, 20f, true,
 			new EffectChance(new MobEffectInstance(
 				//? >= 1.21.9 {
-				/*MobEffects.HEALTH_BOOST
-				 *///? } else {
-				MobEffects.HEAL
-				//?}
+				MobEffects.HEALTH_BOOST
+				 //? } else {
+				/*MobEffects.INSTANT_HEALTH
+				*///?}
 				, 20, 2)),
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1))
 		));
@@ -94,16 +94,16 @@ public class StellarityItems {
 		Item::new,
 		foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder()
 				//? 1.21.1 {
-				.usingConvertsTo(Items.BOWL)
-			//? } else {
-			/*, Consumables.defaultFood()
-			 *///? }
+				/*.usingConvertsTo(Items.BOWL)
+			*///? } else {
+			, Consumables.defaultFood()
+			 //? }
 			, 13, 20f, true,
 			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
-			new EffectChance(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 150 * 20)),
+			new EffectChance(new MobEffectInstance(MobEffects.STRENGTH, 150 * 20)),
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 32 * 20))
 		)
-		/*? > 1.21.9 >> ');'*//*.usingConvertsTo(Items.BOWL)*/);
+		/*? > 1.21.9 >> ');'*/.usingConvertsTo(Items.BOWL));
 
 	public static final Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
 
@@ -115,23 +115,23 @@ public class StellarityItems {
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.upgrade").withStyle(ChatFormatting.GRAY),
 		Component.empty(),
 		//? 1.21.1
-		Component.empty(),
+		//Component.empty(),
 		List.of(),
 		List.of()
 		//? >= 1.21.9
-		//, properties
+		, properties
 	) {
 		//? 1.21.1 {
-		@Override
+		/*@Override
 		public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
 			super.appendHoverText(itemStack, context, list, tooltipFlag);
 			list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.chorus_plating")).withStyle(ChatFormatting.BLUE)));
 			list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.minecraft.shulker_shell")).withStyle(ChatFormatting.BLUE)));
 			list.add(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
 		}
-		//? } else {
+		*///? } else {
 
-		/*@Override
+		@Override
 		public void appendHoverText(ItemStack itemStack, TooltipContext tooltipContext, TooltipDisplay tooltipDisplay, Consumer<Component> consumer, TooltipFlag tooltipFlag) {
 			super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
 			consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.chorus_plating")).withStyle(ChatFormatting.BLUE)));
@@ -139,7 +139,7 @@ public class StellarityItems {
 			consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
 		}
 
-		*///? }
+		//? }
 	}, new Item.Properties());
 
 	public static final Item HALLOWED_INGOT = register("hallowed_ingot", Item::new, new Item.Properties());
@@ -204,31 +204,31 @@ public class StellarityItems {
 	public static final Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new,
 		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
 				//? = 1.21.1 {
-				.usingConvertsTo(Items.GLASS_BOTTLE)
-			//? } >= 1.21.9 {
-			/*, Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK)
-			 *///? }
+				/*.usingConvertsTo(Items.GLASS_BOTTLE)
+			*///? } >= 1.21.9 {
+			, Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK)
+			 //? }
 			, 6, 3.6f, true,
 			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20))
 		)
 		//? >= 1.21.9 {
-		/*.usingConvertsTo(Items.GLASS_BOTTLE)
-		 *///? }
+		.usingConvertsTo(Items.GLASS_BOTTLE)
+		 //? }
 	);
 
 	public static final Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new,
 		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
 				//? = 1.21.1 {
-				.usingConvertsTo(Items.GLASS_BOTTLE)
-			//? } >= 1.21.9 {
-			/*, Consumables.defaultFood()
-			 *///? }
+				/*.usingConvertsTo(Items.GLASS_BOTTLE)
+			*///? } >= 1.21.9 {
+			, Consumables.defaultFood()
+			 //? }
 			, 6, 3.6f, true,
 			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2))
 		)
 		//? >= 1.21.9 {
-		/*.usingConvertsTo(Items.GLASS_BOTTLE)
-		 *///? }
+		.usingConvertsTo(Items.GLASS_BOTTLE)
+		 //? }
 	);
 
 	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
@@ -254,8 +254,8 @@ public class StellarityItems {
 	public static Item registerBlock(String name, Block block, Item.Properties settings) {
 		ResourceKey<Item> itemKey = Stellarity.key(Registries.ITEM, name);
 		//? if >= 1.21.9 {
-		/*settings = settings.useBlockDescriptionPrefix().setId(itemKey);
-		 *///?}
+		settings = settings.useBlockDescriptionPrefix().setId(itemKey);
+		 //?}
 		Item item = new BlockItem(block, settings);
 
 		Registry.register(BuiltInRegistries.ITEM, itemKey, item);
@@ -270,8 +270,8 @@ public class StellarityItems {
 	public static Item register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
 		ResourceKey<Item> itemKey = Stellarity.key(Registries.ITEM, name);
 		//? >= 1.21.10 {
-		/*settings.setId(itemKey);
-		 *///?}
+		settings.setId(itemKey);
+		 //?}
 
 		Item item = itemFactory.apply(settings);
 		Registry.register(BuiltInRegistries.ITEM, itemKey, item);
@@ -286,7 +286,7 @@ public class StellarityItems {
 	}
 
 
-	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties, /*? >= 1.21.9 >> 'int'*//*Consumable.Builder consumable, */int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
+	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties, /*? >= 1.21.9 >> 'int'*/Consumable.Builder consumable, int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
 		foodProperties = foodProperties
 			.nutrition(nutrition)
 			.saturationModifier(saturation);
@@ -297,26 +297,26 @@ public class StellarityItems {
 		}
 
 		//? >= 1.21.9 {
-		/*for (EffectChance ec : effectChances) {
+		for (EffectChance ec : effectChances) {
 			consumable = consumable.onConsume(new ApplyStatusEffectsConsumeEffect(ec.effect, ec.chance));
 		}
 		return properties.food(foodProperties.build(), consumable.build());
-		*///?} else {
-		for (EffectChance ec : effectChances) {
+		//?} else {
+		/*for (EffectChance ec : effectChances) {
 			foodProperties.effect(ec.effect, ec.chance);
 		}
 
 		return properties.food(foodProperties.build());
-		//?}
+		*///?}
 
 	}
 
 	//? >= 1.21.9 {
-	/*public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties,
+	public static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties,
 												 int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
 		return foodProperties(properties, foodProperties, Consumables.defaultFood(), nutrition, saturation, alwaysEat, effectChances);
 	}
-	*///?}
+	//?}
 
 	public static Item.Properties foodProperties(int nutrition, float saturation, boolean alwaysEat, EffectChance... effectChances) {
 		return foodProperties(new Item.Properties(), new FoodProperties.Builder(), nutrition, saturation, alwaysEat, effectChances);

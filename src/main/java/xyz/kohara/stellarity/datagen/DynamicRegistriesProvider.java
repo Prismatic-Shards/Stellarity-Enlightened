@@ -1,13 +1,13 @@
 package xyz.kohara.stellarity.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
 
 public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
-	public DynamicRegistriesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public DynamicRegistriesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 

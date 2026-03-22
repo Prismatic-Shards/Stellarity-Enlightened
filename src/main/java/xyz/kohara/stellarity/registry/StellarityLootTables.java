@@ -12,11 +12,11 @@ public class StellarityLootTables {
 	public static void init() {
 		LootTableEvents.MODIFY.register((key, builder, source, provider) -> {
 			//? 1.21.1 {
-			var id = key.location();
+			/*var id = key.location();
 
-			//? } else {
-			/*var id = key.identifier();
-			 *///? }
+			*///? } else {
+			var id = key.identifier();
+			 //? }
 
 			if (id.equals(Stellarity.mcId("entities/magma_cube"))) {
 				Stellarity.LOGGER.info("Modifying Magma Cube Loot Table");

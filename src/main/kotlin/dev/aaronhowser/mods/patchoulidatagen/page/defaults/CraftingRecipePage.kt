@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addProperty
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.ItemLike
 
 /**
@@ -15,11 +15,11 @@ import net.minecraft.world.level.ItemLike
  * See [Default Page Types - Crafting Recipe Pages](https://vazkiimods.github.io/Patchouli/docs/patchouli-basics/page-types/#crafting-recipe-pages)
  */
 class CraftingRecipePage private constructor(
-	private val recipeOne: ResourceLocation,
-	private val recipeTwo: ResourceLocation?,
+	private val recipeOne: Identifier,
+	private val recipeTwo: Identifier?,
 	private val title: String?,
 	private val text: String?,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {
@@ -43,40 +43,40 @@ class CraftingRecipePage private constructor(
 	}
 
 	class Builder private constructor() : AbstractPage.Builder<CraftingRecipePage, Builder>() {
-		private var recipeOne: ResourceLocation? = null
-		private var recipeTwo: ResourceLocation? = null
+		private var recipeOne: Identifier? = null
+		private var recipeTwo: Identifier? = null
 		private var title: String? = null
 		private var text: String? = null
 
 		fun mainRecipe(recipeOutput: ItemLike): Builder {
 			val itemName = recipeOutput.asItem().toString()
-			this.recipeOne = ResourceLocation.tryParse(itemName)
+			this.recipeOne = Identifier.tryParse(itemName)
 			return this
 		}
 
-		fun mainRecipe(recipeId: ResourceLocation): Builder {
+		fun mainRecipe(recipeId: Identifier): Builder {
 			this.recipeOne = recipeId
 			return this
 		}
 
 		fun mainRecipe(recipeId: String): Builder {
-			this.recipeOne = ResourceLocation.tryParse(recipeId)
+			this.recipeOne = Identifier.tryParse(recipeId)
 			return this
 		}
 
 		fun secondaryRecipe(recipeOutput: ItemLike): Builder {
 			val itemName = recipeOutput.asItem().toString()
-			this.recipeTwo = ResourceLocation.tryParse(itemName)
+			this.recipeTwo = Identifier.tryParse(itemName)
 			return this
 		}
 
-		fun secondaryRecipe(recipeId: ResourceLocation): Builder {
+		fun secondaryRecipe(recipeId: Identifier): Builder {
 			this.recipeTwo = recipeId
 			return this
 		}
 
 		fun secondaryRecipe(recipeId: String): Builder {
-			this.recipeTwo = ResourceLocation.tryParse(recipeId)
+			this.recipeTwo = Identifier.tryParse(recipeId)
 			return this
 		}
 

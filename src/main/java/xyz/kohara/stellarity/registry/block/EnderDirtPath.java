@@ -14,11 +14,11 @@ import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.NotNull;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 //? > 1.21.9 {
-/*import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.util.RandomSource;
-*///? } else {
-import net.minecraft.world.level.LevelAccessor;
-	//? }
+//? } else {
+/*import net.minecraft.world.level.LevelAccessor;
+	*///? }
 
 
 public class EnderDirtPath extends DirtPathBlock {
@@ -43,7 +43,7 @@ public class EnderDirtPath extends DirtPathBlock {
 	}
 
 	//? 1.21.1{
-	@Override
+	/*@Override
 	public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
 		if (direction == Direction.UP && !blockState.canSurvive(levelAccessor, blockPos)) {
 			return StellarityBlocks.ENDER_DIRT.defaultBlockState();
@@ -51,9 +51,9 @@ public class EnderDirtPath extends DirtPathBlock {
 
 		return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
 	}
-	//? } else {
+	*///? } else {
 
-	/*@Override
+	@Override
 	protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
 		if (direction == Direction.UP && !blockState.canSurvive(levelReader, blockPos)) {
 			return StellarityBlocks.ENDER_DIRT.defaultBlockState();
@@ -63,7 +63,7 @@ public class EnderDirtPath extends DirtPathBlock {
 	}
 
 
-	*///? }
+	//? }
 
 	@SuppressWarnings("deprecation")
 	@Override

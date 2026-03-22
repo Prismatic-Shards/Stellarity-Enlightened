@@ -1,5 +1,5 @@
 //? > 1.21.9 {
-/*package xyz.kohara.stellarity.client.mixin.phantom_item_frame_model;
+package xyz.kohara.stellarity.client.mixin.phantom_item_frame_model;
 
 
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
@@ -25,4 +25,4 @@ public class ItemFrameRendererMixin {
 		return blockState;
 	}
 }
-*///? }
+//? }

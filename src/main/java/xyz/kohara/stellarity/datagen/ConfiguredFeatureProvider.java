@@ -9,7 +9,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.SpikeFeature;
+import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.SpikeConfiguration;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.utils.Constants;
@@ -38,7 +38,7 @@ public class ConfiguredFeatureProvider {
 			));
 		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new ConfiguredFeature<>(
 			Feature.END_SPIKE,
-			new SpikeConfiguration(true, List.of(new SpikeFeature.EndSpike(
+			new SpikeConfiguration(true, List.of(new EndSpikeFeature.EndSpike(
 				0, 0, 16, 70, false
 			)), null)
 		));

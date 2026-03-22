@@ -5,7 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,18 +19,18 @@ public class Stellarity implements ModInitializer {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final String VERSION = /*$ mod_version*/ "0.5.0";
-	public static final String MINECRAFT = /*$ minecraft*/ "1.21.1";
+	public static final String MINECRAFT = /*$ minecraft*/ "26.1-rc-2";
 
-	public static ResourceLocation id(String path) {
-		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 
-	public static ResourceLocation id(String namespace, String path) {
-		return ResourceLocation.fromNamespaceAndPath(namespace, path);
+	public static Identifier id(String namespace, String path) {
+		return Identifier.fromNamespaceAndPath(namespace, path);
 	}
 
-	public static ResourceLocation mcId(String path) {
-		return ResourceLocation.withDefaultNamespace(path);
+	public static Identifier mcId(String path) {
+		return Identifier.withDefaultNamespace(path);
 	}
 
 	public static <T extends Registry<U>, U> ResourceKey<U> key(ResourceKey<T> registry, String path) {

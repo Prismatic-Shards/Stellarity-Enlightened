@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
@@ -10,21 +10,21 @@ import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 import java.util.concurrent.CompletableFuture;
 //? >= 1.21.9 {
-/*import net.minecraft.data.tags.TagAppender;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-*///? }
+//? }
 
-public class BlockTagProvider extends FabricTagProvider.BlockTagProvider {
-	public BlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+	public BlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
 	//? >= 1.21.9 {
-	/*public TagAppender<Block, Block> getOrCreateTagBuilder(TagKey<Block> tagKey) {
+	public TagAppender<Block, Block> getOrCreateTagBuilder(TagKey<Block> tagKey) {
 		return this.valueLookupBuilder(tagKey);
 	}
-	*///?}
+	//?}
 
 
 	@Override

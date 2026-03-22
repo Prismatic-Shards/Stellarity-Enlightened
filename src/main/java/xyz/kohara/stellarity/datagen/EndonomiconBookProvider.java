@@ -1,11 +1,11 @@
 
 //? 1.21.1{
-package xyz.kohara.stellarity.datagen;
+/*package xyz.kohara.stellarity.datagen;
 
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook;
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory;
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookElement;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 
 public class EndonomiconBookProvider extends PatchouliBookProvider {
 
-	public EndonomiconBookProvider(FabricDataOutput fabricDataOutput, DataGenerator generator, HolderLookup.Provider registries, String bookName) {
+	public EndonomiconBookProvider(FabricPackOutput fabricDataOutput, DataGenerator generator, HolderLookup.Provider registries, String bookName) {
 		super(generator, registries, bookName, fabricDataOutput);
 	}
 
@@ -40,4 +40,4 @@ public class EndonomiconBookProvider extends PatchouliBookProvider {
 	}
 
 }
-//?}
+*///?}

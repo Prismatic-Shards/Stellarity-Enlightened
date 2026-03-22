@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -10,19 +10,19 @@ import xyz.kohara.stellarity.tags.StellarityBiomeTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BiomeTagProvider extends FabricTagProvider<Biome> {
+public class BiomeTagProvider extends FabricTagsProvider<Biome> {
 
-	public BiomeTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public BiomeTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.BIOME, registriesFuture);
 	}
 
 	//? 1.21.1 {
-	public FabricTagBuilder builder(
+	/*public FabricTagBuilder builder(
 		net.minecraft.tags.TagKey<Biome> tag
 	) {
 		return getOrCreateTagBuilder(tag);
 	}
-	//? }
+	*///? }
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {

@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.patchoulidatagen.page.AbstractPage
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * This is an empty page with no text
@@ -17,7 +17,7 @@ class RelationsPage private constructor(
 	private val entries: Array<String>,
 	private val title: String?,
 	private val text: String?,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {

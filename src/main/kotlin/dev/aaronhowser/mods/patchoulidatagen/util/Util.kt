@@ -3,11 +3,11 @@ package dev.aaronhowser.mods.patchoulidatagen.util
 import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 
 //? 1.21.1 {
-import net.minecraft.network.chat.ComponentSerialization
+/*import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.core.component.DataComponentPatch
 
 import com.mojang.serialization.JsonOps
@@ -18,13 +18,13 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.NbtOps
 import net.minecraft.resources.RegistryOps
 
-//? }
+*///? }
 
 
 object Util {
 
     @JvmStatic
-    fun JsonObject.addProperty(key: String, value: ResourceLocation) {
+    fun JsonObject.addProperty(key: String, value: Identifier) {
         this.addProperty(key, value.toString())
     }
 
@@ -50,7 +50,7 @@ object Util {
     }
 
     @JvmStatic
-    fun JsonObject.addIfNotNull(key: String, value: ResourceLocation?) {
+    fun JsonObject.addIfNotNull(key: String, value: Identifier?) {
         if (value != null) {
             this.addProperty(key, value.toString())
         }
@@ -79,7 +79,7 @@ object Util {
     }
 
     //? 1.21.1 {
-    fun getComponentPatchString(
+    /*fun getComponentPatchString(
         componentPatch: DataComponentPatch,
         registries: HolderLookup.Provider
     ): String {
@@ -118,6 +118,6 @@ object Util {
         sb.append("]")
         return sb.toString()
     }
-    //? }
+    *///? }
 
 }

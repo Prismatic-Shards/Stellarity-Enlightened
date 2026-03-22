@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import java.util.function.Consumer
 
@@ -14,7 +14,7 @@ class PatchouliBook private constructor(
 	private val bookModId: String,
 	private val name: String,
 	private val landingText: String,
-	private val bookTexture: ResourceLocation?,
+	private val bookTexture: Identifier?,
 	private val fillerTexture: String?,
 	private val craftingTexture: String?,
 	private val textColor: Int?,
@@ -24,8 +24,8 @@ class PatchouliBook private constructor(
 	private val linkHoverColor: Int?,
 	private val progressBarColor: Int?,
 	private val progressBarBackground: Int?,
-	private val openSound: ResourceLocation?,
-	private val flipSound: ResourceLocation?,
+	private val openSound: Identifier?,
+	private val flipSound: Identifier?,
 	private val showProgress: Boolean?,
 	private val version: String?,
 	private val subtitle: String?,
@@ -37,7 +37,7 @@ class PatchouliBook private constructor(
 	private val useBlockyFont: Boolean?,
 	private val i18n: Boolean?,
 	private val pauseGame: Boolean?,
-	private val icon: ResourceLocation?
+	private val icon: Identifier?
 ) : PatchouliBookElement {
 
 	override fun getSaveName(): String = "book"
@@ -95,7 +95,7 @@ class PatchouliBook private constructor(
 		private var nameText: String? = null
 		private var landingTextText: String? = null
 
-		private var bookTexture: ResourceLocation? = null
+		private var bookTexture: Identifier? = null
 		private var fillerTexture: String? = null
 		private var craftingTexture: String? = null
 		private var textColor: Int? = null
@@ -105,8 +105,8 @@ class PatchouliBook private constructor(
 		private var linkHoverColor: Int? = null
 		private var progressBarColor: Int? = null
 		private var progressBarBackground: Int? = null
-		private var openSound: ResourceLocation? = null
-		private var flipSound: ResourceLocation? = null
+		private var openSound: Identifier? = null
+		private var flipSound: Identifier? = null
 		private var showProgress: Boolean? = null
 		private var version: String? = null
 		private var subtitle: String? = null
@@ -118,7 +118,7 @@ class PatchouliBook private constructor(
 		private var useBlockyFont: Boolean? = null
 		private var i18n: Boolean? = null
 		private var pauseGame: Boolean? = null
-		private var icon: ResourceLocation? = null
+		private var icon: Identifier? = null
 		private var bookModId: String? = null
 
 		/** Use if it's translatable */
@@ -155,7 +155,7 @@ class PatchouliBook private constructor(
 			return this
 		}
 
-		fun bookTexture(bookTexture: ResourceLocation): Builder {
+		fun bookTexture(bookTexture: Identifier): Builder {
 			this.bookTexture = bookTexture
 			return this
 		}
@@ -201,12 +201,12 @@ class PatchouliBook private constructor(
 			return this
 		}
 
-		fun openSound(openSound: ResourceLocation): Builder {
+		fun openSound(openSound: Identifier): Builder {
 			this.openSound = openSound
 			return this
 		}
 
-		fun flipSound(flipSound: ResourceLocation): Builder {
+		fun flipSound(flipSound: Identifier): Builder {
 			this.flipSound = flipSound
 			return this
 		}

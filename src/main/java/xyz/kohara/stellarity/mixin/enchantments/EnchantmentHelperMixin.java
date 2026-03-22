@@ -30,7 +30,7 @@ public class EnchantmentHelperMixin {
 	private static final RandomSource random = RandomSource.create();
 
 
-	@WrapMethod(method = /*? 1.21.1 {*/"method_60620"/*? } else {*//*"method_63017"*//*? } */)
+	@WrapMethod(method = /*? 1.21.1 {*//*"method_60620"*//*? } else {*/"method_63017"/*? } */)
 	private static void stellarityPostEnchantments(ServerLevel serverLevel, Entity entity, DamageSource damageSource, Holder<Enchantment> holder, int i, EnchantedItemInUse enchantedItemInUse, Operation<Void> original) {
 
 

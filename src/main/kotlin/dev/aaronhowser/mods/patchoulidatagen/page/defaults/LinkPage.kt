@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import dev.aaronhowser.mods.patchoulidatagen.page.AbstractPage
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * This is an empty page with no text
@@ -16,7 +16,7 @@ class LinkPage(
 	private val title: String?,
 	private val url: String,
 	private val linkText: String,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {

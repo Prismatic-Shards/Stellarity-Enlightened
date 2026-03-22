@@ -1,5 +1,5 @@
 //? 1.21.1 {
-package xyz.kohara.stellarity.mixin.entity_variants;
+/*package xyz.kohara.stellarity.mixin.entity_variants;
 
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
@@ -22,11 +22,11 @@ import xyz.kohara.stellarity.registry.entity.variants.StellarityFrogVariants;
 
 //? 1.21.1 {
 
-import net.minecraft.core.registries.BuiltInRegistries;
-//? } else {
+/^import net.minecraft.core.registries.BuiltInRegistries;
+^///? } else {
 
-/*import net.minecraft.nbt.CompoundTag;
- *///? }
+import net.minecraft.nbt.CompoundTag;
+ //? }
 
 @Mixin(Frog.class)
 public abstract class FrogMixin extends Entity {
@@ -49,4 +49,4 @@ public abstract class FrogMixin extends Entity {
 	}
 }
 
-//? }
+*///? }

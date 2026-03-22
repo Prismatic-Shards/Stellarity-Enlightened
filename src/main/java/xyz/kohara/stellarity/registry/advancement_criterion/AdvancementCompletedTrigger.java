@@ -1,8 +1,8 @@
 package xyz.kohara.stellarity.registry.advancement_criterion;
 
 
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.advancements.criterion.*;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import xyz.kohara.stellarity.Stellarity;
@@ -13,31 +13,42 @@ import net.minecraft.advancements.Criterion;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.Codec;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
+//? > 1.21.1 {
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
+//? }
 
 public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<AdvancementCompletedTrigger.TriggerInstance> {
-	static final ResourceLocation ID = Stellarity.id("advancement_completed");
+	static final Identifier ID = Stellarity.id("advancement_completed");
 
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return ID;
 	}
 
 
-	public void trigger(ServerPlayer serverPlayer, ResourceLocation location) {
+	public void trigger(ServerPlayer serverPlayer, Identifier location) {
 		this.trigger(serverPlayer, (triggerInstance) -> triggerInstance.location.equals(location));
 	}
 
-	public record TriggerInstance(ResourceLocation location,
+	public record TriggerInstance(Identifier location,
 	                              boolean isPrerequisite) implements SimpleCriterionTrigger.SimpleInstance {
-		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create((instance) -> instance.group(ResourceLocation.CODEC.fieldOf("advancement").forGetter(TriggerInstance::location), Codec.BOOL.fieldOf("is_prerequisite").forGetter(TriggerInstance::isPrerequisite)).apply(instance, TriggerInstance::new));
+		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create((instance) -> instance.group(Identifier.CODEC.fieldOf("advancement").forGetter(TriggerInstance::location), Codec.BOOL.fieldOf("is_prerequisite").forGetter(TriggerInstance::isPrerequisite)).apply(instance, TriggerInstance::new));
 
-		public static Criterion<TriggerInstance> triggerInstance(ResourceLocation count, boolean isPrerequisite) {
+		public static Criterion<TriggerInstance> triggerInstance(Identifier count, boolean isPrerequisite) {
 			return StellarityCriteriaTriggers.ADVANCEMENT_COMPLETED.createCriterion(new TriggerInstance(count, isPrerequisite));
 		}
 
 
-		public void validate(CriterionValidator criterionValidator) {
+		//? 1.21.1 {
+		/*@Override
+		public void validate(CriterionValidator validator) {
 
 		}
+
+		*///? } else {
+		@Override
+		public void validate(final ValidationContextSource validator) {
+		}
+		//? }
 
 		@Override
 		public Optional<ContextAwarePredicate> player() {

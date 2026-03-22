@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.loot_table;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 
 import net.minecraft.world.item.Items;
 
@@ -22,10 +22,10 @@ import java.util.HashMap;
 
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 
-public class ChestLootTableProvider extends SimpleFabricLootTableProvider {
+public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
-	public ChestLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public ChestLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup, LootContextParamSets.CHEST);
 		this.registryLookup = registryLookup;
 

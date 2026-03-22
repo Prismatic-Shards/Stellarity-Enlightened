@@ -34,10 +34,10 @@ public abstract class ServerEntityMixin {
 
 	@Inject(method = "<init>", at = @At("TAIL"))
 		//? 1.21.1 {
-	private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, Consumer<?> consumer, CallbackInfo ci) {
-		//? } else {
-		/*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
-		 *///? }
+	/*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, Consumer<?> consumer, CallbackInfo ci) {
+		*///? } else {
+		private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
+		 //? }
 		trackedDataValues = entity.stellarity$entityData().getNonDefaultValues();
 	}
 

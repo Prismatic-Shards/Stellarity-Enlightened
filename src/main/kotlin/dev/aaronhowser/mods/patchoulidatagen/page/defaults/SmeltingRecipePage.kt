@@ -7,15 +7,15 @@ import dev.aaronhowser.mods.patchoulidatagen.util.Util.addProperty
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.ItemLike
 
 class SmeltingRecipePage private constructor(
-	private val recipeOne: ResourceLocation,
-	private val recipeTwo: ResourceLocation?,
+	private val recipeOne: Identifier,
+	private val recipeTwo: Identifier?,
 	private val title: String?,
 	private val text: String?,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {
@@ -39,12 +39,12 @@ class SmeltingRecipePage private constructor(
 	}
 
 	class Builder private constructor() : AbstractPage.Builder<SmeltingRecipePage, Builder>() {
-		private var recipeOne: ResourceLocation? = null
-		private var recipeTwo: ResourceLocation? = null
+		private var recipeOne: Identifier? = null
+		private var recipeTwo: Identifier? = null
 		private var title: String? = null
 		private var text: String? = null
 
-		fun mainRecipe(recipeId: ResourceLocation): Builder {
+		fun mainRecipe(recipeId: Identifier): Builder {
 			this.recipeOne = recipeId
 			return this
 		}
@@ -55,7 +55,7 @@ class SmeltingRecipePage private constructor(
 			return this
 		}
 
-		fun secondaryRecipe(recipeId: ResourceLocation): Builder {
+		fun secondaryRecipe(recipeId: Identifier): Builder {
 			this.recipeTwo = recipeId
 			return this
 		}

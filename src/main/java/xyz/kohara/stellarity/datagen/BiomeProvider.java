@@ -15,8 +15,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import xyz.kohara.stellarity.Stellarity;
 //? >= 1.21.11 {
-/*import net.minecraft.world.attribute.EnvironmentAttributes;
- *///? }
+import net.minecraft.world.attribute.EnvironmentAttributes;
+ //? }
 
 
 public class BiomeProvider {
@@ -25,8 +25,8 @@ public class BiomeProvider {
 
 	public static MobSpawnSettings.Builder addSpawn(MobSpawnSettings.Builder builder, MobCategory category, EntityType<?> entityType, int weight, int min, int max) {
 		return builder.addSpawn(category,
-			/*? >= 1.21.11 {*/ /*weight, *//*?} */
-			new MobSpawnSettings.SpawnerData(entityType,/*? 1.21.1 {*/ weight, /*?} */ min, max)
+			/*? >= 1.21.11 {*/ weight, /*?} */
+			new MobSpawnSettings.SpawnerData(entityType,/*? 1.21.1 {*/ /*weight, *//*?} */ min, max)
 		);
 	}
 
@@ -47,17 +47,17 @@ public class BiomeProvider {
 				.foliageColorOverride(0xc2c2c2)
 				.waterColor(0x62529e)
 				//? 1.21.1 {
-				.skyColor(skyColor)
+				/*.skyColor(skyColor)
 				.fogColor(fogColor)
 				.waterFogColor(waterFogColor)
-				//? }
+				*///? }
 				.build())
 
 			//? > 1.21.10 {
-			/*.setAttribute(EnvironmentAttributes.SKY_COLOR, skyColor)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, skyColor)
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, fogColor)
 			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, fogColor)
-			*///? }
+			//? }
 			.mobSpawnSettings(addSpawn(new MobSpawnSettings.Builder(), MobCategory.MONSTER, EntityType.ENDERMAN, 10, 4, 4)
 				.addMobCharge(EntityType.ENDERMAN, 0.75, 1)
 				.build())

@@ -1,6 +1,8 @@
-package xyz.kohara.stellarity.interface_injection;
+//? 1.21.1 {
 
-import net.minecraft.world.level.dimension.end.EndDragonFight;
+/*package xyz.kohara.stellarity.interface_injection;
+
+import net.minecraft.world.level.dimension.end.EnderDragonFight;
 
 public interface ExtEndDragonFightData {
 	default boolean stellarity$portalChestGenerated() {
@@ -11,12 +13,14 @@ public interface ExtEndDragonFightData {
 		throw new AssertionError("Not transformed!");
 	}
 
-	static EndDragonFight.Data apply(EndDragonFight.Data original, boolean generated) {
+	static EnderDragonFight.Data apply(EnderDragonFight.Data original, boolean generated) {
 		original.stellarity$setPortalChestGenerated(generated);
 		return original;
 	}
 
-	static EndDragonFight.Data applyDefaults(EndDragonFight.Data original) {
+	static EnderDragonFight.Data applyDefaults(EnderDragonFight.Data original) {
 		return apply(original, false);
 	}
 }
+
+*///? }

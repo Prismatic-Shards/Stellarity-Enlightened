@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
@@ -19,21 +19,21 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.core.HolderLookup;
 
 //? 1.21.1 {
-import net.minecraft.world.item.Item;
-//? }
+/*import net.minecraft.world.item.Item;
+ *///? }
 
-public record AltarSimpleRecipe(@Nullable ResourceLocation id,
+public record AltarSimpleRecipe(@Nullable Identifier id,
                                 HashMap<Ingredient, Integer> ingredients,
                                 ItemStack result) implements AltarRecipe {
 
-	public AltarSimpleRecipe(@Nullable ResourceLocation id, HashMap<Ingredient, Integer> ingredients,
+	public AltarSimpleRecipe(@Nullable Identifier id, HashMap<Ingredient, Integer> ingredients,
 	                         ItemStack result) {
 		this.id = id;
 		this.ingredients = ingredients;
 		this.result = result;
 
 		//? 1.21.1 {
-		HashSet<Item> items = new HashSet<>();
+		/*HashSet<Item> items = new HashSet<>();
 		for (var entry : ingredients.keySet()) {
 			for (ItemStack stack : entry.getItems()) {
 				if (!items.add(stack.getItem())) {
@@ -41,9 +41,9 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 				}
 			}
 		}
-		//? } else {
-		/*Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
-		 *///? }
+		*///? } else {
+		Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
+		//? }
 	}
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
@@ -97,34 +97,49 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 		return StellarityRecipeSerializers.ALTAR_SIMPLE;
 	}
 
-	public static class Serializer implements RecipeSerializer<AltarSimpleRecipe> {
-		private static final MapCodec<Map.Entry<Ingredient, Integer>> INGREDIENT_CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-				Ingredient.CODEC.fieldOf("ingredient").forGetter(Map.Entry::getKey),
-				Codec.INT.optionalFieldOf("count", 1).forGetter(Map.Entry::getValue)
-			).apply(instance, Map::entry)
-		);
+	public static final StreamCodec<RegistryFriendlyByteBuf, AltarSimpleRecipe> STREAM_CODEC = StreamCodec.of(AltarSimpleRecipe::toNetwork, AltarSimpleRecipe::fromNetwork);
+	public static final MapCodec<AltarSimpleRecipe> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+			INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
+				recipe.ingredients.entrySet().stream().toList()
+			),
+			ItemStack.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
 
-		public static final StreamCodec<RegistryFriendlyByteBuf, AltarSimpleRecipe> STREAM_CODEC = StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
+		).apply(instance, (ingredients, result) -> {
+			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
 
-		public static final MapCodec<AltarSimpleRecipe> CODEC = RecordCodecBuilder.mapCodec(
+			for (var ingredient : ingredients) {
+				ingredientMap.put(ingredient.getKey(), ingredient.getValue());
+			}
+			return new AltarSimpleRecipe(null, ingredientMap, result);
+		}));
 
-			instance -> instance.group(
-				INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
-					recipe.ingredients.entrySet().stream().toList()
-				),
-				ItemStack.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
+	public static AltarSimpleRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
+		int size = buf.readInt();
+		HashMap<Ingredient, Integer> ingredients = new HashMap<>();
+		for (int i = 0; i < size; i++) {
+			Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+			int count = buf.readInt();
+			ingredients.put(ingredient, count);
+		}
 
-			).apply(instance, (ingredients, result) -> {
-				HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
+		ItemStack itemStack = ItemStack.STREAM_CODEC.decode(buf);
+		return new AltarSimpleRecipe(null, ingredients, itemStack);
+	}
 
-				for (var ingredient : ingredients) {
-					ingredientMap.put(ingredient.getKey(), ingredient.getValue());
-				}
-				return new AltarSimpleRecipe(null, ingredientMap, result);
-			}));
+	public static void toNetwork(RegistryFriendlyByteBuf buf, AltarSimpleRecipe recipe) {
+		buf.writeInt(recipe.ingredients.size());
+		for (var entry : recipe.ingredients.entrySet()) {
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buf, entry.getKey());
+			buf.writeInt(entry.getValue());
+		}
+
+		ItemStack.STREAM_CODEC.encode(buf, recipe.result);
+	}
 
 
+	//? 1.21.1 {
+	/*public static class Serializer implements RecipeSerializer<AltarSimpleRecipe> {
 		@Override
 		public MapCodec<AltarSimpleRecipe> codec() {
 			return CODEC;
@@ -134,33 +149,8 @@ public record AltarSimpleRecipe(@Nullable ResourceLocation id,
 		public StreamCodec<RegistryFriendlyByteBuf, AltarSimpleRecipe> streamCodec() {
 			return STREAM_CODEC;
 		}
-
-		private static AltarSimpleRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
-			int size = buf.readInt();
-			HashMap<Ingredient, Integer> ingredients = new HashMap<>();
-			for (int i = 0; i < size; i++) {
-				Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-				int count = buf.readInt();
-				ingredients.put(ingredient, count);
-			}
-
-			ItemStack itemStack = ItemStack.STREAM_CODEC.decode(buf);
-			return new AltarSimpleRecipe(null, ingredients, itemStack);
-		}
-
-		private static void toNetwork(RegistryFriendlyByteBuf buf, AltarSimpleRecipe recipe) {
-			buf.writeInt(recipe.ingredients.size());
-			for (var entry : recipe.ingredients.entrySet()) {
-				Ingredient.CONTENTS_STREAM_CODEC.encode(buf, entry.getKey());
-				buf.writeInt(entry.getValue());
-			}
-
-			ItemStack.STREAM_CODEC.encode(buf, recipe.result);
-		}
 	}
+	*///? }
 
-	@Override
-	public ItemStack assemble(Input recipeInput, HolderLookup.Provider provider) {
-		return getResultItem(provider);
-	}
+
 }

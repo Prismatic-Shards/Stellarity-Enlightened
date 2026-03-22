@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.patchoulidatagen.util.Util.addProperty
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.ItemLike
 import xyz.kohara.stellarity.Stellarity
 import java.util.function.Consumer
@@ -42,7 +42,7 @@ class PatchouliBookCategory private constructor(
         return json
     }
 
-    fun getCategoryId(): ResourceLocation {
+    fun getCategoryId(): Identifier {
         return Stellarity.id(patchouliBook.getBookModId(), this.getSaveName())
     }
 

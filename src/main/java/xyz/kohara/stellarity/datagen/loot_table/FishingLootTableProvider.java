@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.loot_table;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 
 import net.minecraft.world.item.Items;
 
@@ -27,12 +27,12 @@ import java.util.HashMap;
 
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 
-public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
+public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;
 
-	public FishingLootTableProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public FishingLootTableProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup, LootContextParamSets.FISHING);
 		this.registryLookup = registryLookup;
 
@@ -41,6 +41,7 @@ public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
 
 	public static final HashMap<String, LootTable.Builder> LOOT_TABLES = new HashMap<>();
 
+	//~ if > 1.21.1 'fromOptions' -> 'withOptions' {
 	public static void define(HolderLookup.Provider lookup) {
 		LOOT_TABLES.put("void_fishing/fish", lootTable().withPool(pool()
 			.add(item(StellarityItems.ENDER_KOI).setWeight(15).apply(count(range(2, 4))))
@@ -83,9 +84,9 @@ public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
 			.add(item(Items.END_CRYSTAL).setWeight(3).apply(count(range(2, 3))))
 			.add(item(StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE).setWeight(11))
 			.add(item(StellarityItems.WINGED_KEY).setWeight(11))
-			.add(item(Items.BOOK).setWeight(2).apply(enchantLevels(lookup, 30, 40).fromOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
+			.add(item(Items.BOOK).setWeight(2).apply(enchantLevels(lookup, 30, 40).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
 			))
-			.add(item(Items.BOOK).setWeight(5).apply(enchantLevels(lookup, 17, 29).fromOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
+			.add(item(Items.BOOK).setWeight(5).apply(enchantLevels(lookup, 17, 29).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
 			))
 		));
 
@@ -99,6 +100,7 @@ public class FishingLootTableProvider extends SimpleFabricLootTableProvider {
 			.add(lootTable(Stellarity.id("void_fishing/fish")).setWeight(70).setQuality(-1))
 		));
 	}
+	//~ }
 
 
 	@Override

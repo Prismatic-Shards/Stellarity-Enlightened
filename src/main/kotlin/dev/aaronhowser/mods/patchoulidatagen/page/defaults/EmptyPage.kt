@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.patchoulidatagen.page.defaults
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.patchoulidatagen.page.AbstractPage
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * This is an empty page with no text
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation
  */
 class EmptyPage private constructor(
 	private val drawFiller: Boolean,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {

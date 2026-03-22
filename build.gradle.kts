@@ -61,6 +61,12 @@ dependencies {
 
 stonecutter {
 	replacements.string(current.parsed.matches(">1.21.11")) {
+		replace("GuiGraphics.", "GuiGraphicsExtractor.")
+		replace("GuiGraphics ", "GuiGraphicsExtractor ")
+		replace("GuiGraphics;", "GuiGraphicsExtractor;")
+		replace("net.fabricmc.fabric.api.itemgroup", "net.fabricmc.fabric.api.creativetab")
+		replace("ItemGroupEvents", "CreativeModeTabEvents")
+		replace("FabricItemGroup", "FabricCreativeModeTab")
 		replace("FabricTagProvider.EntityTypeTagProvider", "FabricTagsProvider.EntityTypeTagsProvider")
 		replace("FabricTagProvider.BlockTagProvider", "FabricTagsProvider.BlockTagsProvider")
 		replace("FabricTagProvider.ItemTagProvider", "FabricTagsProvider.ItemTagsProvider")
@@ -92,9 +98,6 @@ stonecutter {
 		replace("FabricBlockLootTableProvider", "FabricBlockLootSubProvider")
 		replace("SimpleFabricLootTableProvider", "SimpleFabricLootTableSubProvider")
 		replace("net.minecraft.client.renderer.item.BlockModel", "net.minecraft.client.renderer.block.model.BlockModel")
-	}
-
-	replacements.string(current.parsed.matches(">=1.21.11")) {
 
 		replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
 		replace("net/minecraft/advancements/critereon", "net/minecraft/advancements/criterion")
@@ -125,15 +128,7 @@ stonecutter {
 			"net.minecraft.world.entity.projectile.ThrowableItemProjectile",
 			"net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile"
 		)
-
-
 	}
-
-	replacements.string(current.parsed.matches("> 1.21")) {
-		replace("BootstapContext", "BootstrapContext")
-		replace("Enchantments.BLOCK_FORTUNE", "Enchantments.FORTUNE")
-	}
-
 
 }
 

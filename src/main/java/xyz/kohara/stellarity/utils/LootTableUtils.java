@@ -1,6 +1,6 @@
 package xyz.kohara.stellarity.utils;
 
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
@@ -27,11 +27,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 //? > 1.21.10 {
-/*import net.minecraft.core.registries.BuiltInRegistries;
- *///? }
+import net.minecraft.core.registries.BuiltInRegistries;
+ //? }
 
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class LootTableUtils {
 	public static LootPool.Builder pool() {
@@ -52,10 +52,10 @@ public class LootTableUtils {
 
 	public static EntityTypePredicate entityType(EntityType<?> type) {
 		//? 1.21.1{
-		return EntityTypePredicate.of(type);
-		//? } else {
-		/*return EntityTypePredicate.of(BuiltInRegistries.ENTITY_TYPE, type);
-		 *///? }
+		/*return EntityTypePredicate.of(type);
+		*///? } else {
+		return EntityTypePredicate.of(BuiltInRegistries.ENTITY_TYPE, type);
+		 //? }
 	}
 
 
@@ -103,7 +103,7 @@ public class LootTableUtils {
 	}
 
 
-	public static LootPoolSingletonContainer.Builder<?> lootTable(ResourceLocation location) {
+	public static LootPoolSingletonContainer.Builder<?> lootTable(Identifier location) {
 
 		return NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, location));
 	}

@@ -2,7 +2,6 @@ package xyz.kohara.stellarity.mixin.break_speeds;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -14,19 +13,35 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
+
+//? 1.21.1 {
+
+/*import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
+
+*///? } else {
+
+//? }
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin extends StateHolder<Block, BlockState> {
+
+
 	@Shadow
 	public abstract Block getBlock();
 
 	@Shadow
 	public abstract boolean is(Block block);
 
-	protected BlockStateBaseMixin(Block object, Reference2ObjectArrayMap<Property<?>, Comparable<?>> reference2ObjectArrayMap, MapCodec<BlockState> mapCodec) {
+	//? 1.21.1 {
+	/*protected BlockStateBaseMixin(Block object, Reference2ObjectArrayMap<Property<?>, Comparable<?>> reference2ObjectArrayMap, MapCodec<BlockState> mapCodec) {
 		super(object, reference2ObjectArrayMap, mapCodec);
 	}
+	*///? } else {
+	protected BlockStateBaseMixin(Block owner, Property<?>[] propertyKeys, Comparable<?>[] propertyValues) {
+		super(owner, propertyKeys, propertyValues);
+	}
+	//? }
 
 	@WrapMethod(method = "getDestroySpeed")
 	private float dynamicDestroySpeed(BlockGetter blockGetter, BlockPos blockPos, Operation<Float> original) {

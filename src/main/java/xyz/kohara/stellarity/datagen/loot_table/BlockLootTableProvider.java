@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.loot_table;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -16,9 +16,9 @@ import java.util.concurrent.CompletableFuture;
 
 import static xyz.kohara.stellarity.utils.LootTableUtils.*;
 
-public class BlockLootTableProvider extends FabricBlockLootTableProvider {
+public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
-	public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public BlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
 
 	}

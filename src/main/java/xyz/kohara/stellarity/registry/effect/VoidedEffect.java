@@ -7,8 +7,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import xyz.kohara.stellarity.Stellarity;
 //? > 1.21.10 {
-/*import net.minecraft.server.level.ServerLevel;
- *///? }
+import net.minecraft.server.level.ServerLevel;
+ //? }
 
 public class VoidedEffect extends MobEffect {
 	public VoidedEffect() {
@@ -24,13 +24,13 @@ public class VoidedEffect extends MobEffect {
 
 
 	@Override
-	public boolean applyEffectTick(/*? > 1.21.10 >> ' Li'*/ /*ServerLevel level,*/ LivingEntity livingEntity, int i) {
+	public boolean applyEffectTick(/*? > 1.21.10 >> ' Li'*/ ServerLevel level, LivingEntity livingEntity, int i) {
 		if (livingEntity.getHealth() > livingEntity.getMaxHealth()) {
 			livingEntity.setHealth(livingEntity.getMaxHealth());
 		}
 
 
-		return super.applyEffectTick(/*? > 1.21.10 >> ' li' */ /*level,*/ livingEntity, i);
+		return super.applyEffectTick(/*? > 1.21.10 >> ' li' */ level, livingEntity, i);
 	}
 
 }

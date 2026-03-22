@@ -1,17 +1,17 @@
 package xyz.kohara.stellarity.datagen;
 
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.advancements.*;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 
 import net.minecraft.network.chat.Component;
 //? <= 1.21.10 {
-import net.minecraft.advancements.critereon.*;
-	//? } else {
-/*import net.minecraft.advancements.critereon.*;
- *///? }
-import net.minecraft.resources.ResourceLocation;
+/*import net.minecraft.advancements.criterion.*;
+	*///? } else {
+import net.minecraft.advancements.criterion.*;
+ //? }
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -43,11 +43,11 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	public final AdvancementType GOAL = AdvancementType.GOAL;
 	public final AdvancementType CHALLENGE = AdvancementType.CHALLENGE;
 
-	public AdvancementProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+	public AdvancementProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(output, registryLookup);
 	}
 
-	public static AdvancementHolder dummy(ResourceLocation id) {
+	public static AdvancementHolder dummy(Identifier id) {
 		return new AdvancementHolder(id, null);
 	}
 
@@ -134,10 +134,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY))
-			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*//*itemLookup, */StellarityItems.DUSKBERRY),
+			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(/*? > 1.21.10 >> 'St'*/itemLookup, StellarityItems.DUSKBERRY))
+			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*/itemLookup, StellarityItems.DUSKBERRY),
 
-				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*//*entityLookup, */EntityType.FOX).build()).build())
+				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*/entityLookup, EntityType.FOX).build()).build())
 				)
 			))
 			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(StellarityBlocks.DUSKBERRY_BUSH))
@@ -145,7 +145,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.requirements(requires(new String[][]{{"eat"}, {"feed"}, {"place"}}))
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
 
-		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(/*? > 1.21.10 >> 'Ent'*//*entityLookup, */EntityType.ENDER_DRAGON)));
+		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(/*? > 1.21.10 >> 'Ent'*/entityLookup, EntityType.ENDER_DRAGON)));
 		var SACRIFICAL_RITUAL = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.stellarity.sacrificial_ritual"),

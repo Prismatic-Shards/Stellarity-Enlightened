@@ -16,24 +16,24 @@ import net.minecraft.world.level.Level;
 import xyz.kohara.stellarity.registry.StellaritySounds;
 //? 1.21.1 {
 
-import xyz.kohara.stellarity.registry.StellarityItems;
+/*import xyz.kohara.stellarity.registry.StellarityItems;
 
-//? } else {
-/*import net.minecraft.world.item.ToolMaterial;
+*///? } else {
+import net.minecraft.world.item.ToolMaterial;
 
 import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
-*///? }
+//? }
 
 import java.util.Comparator;
 
-public class Tamaris extends /*? 1.21.1 { */SwordItem/*? } else {*//*Item*//*? }*/ {
+public class Tamaris extends /*? 1.21.1 { *//*SwordItem*//*? } else {*/Item/*? }*/ {
 	public Tamaris(Properties properties) {
 		//? 1.21.1 {
-		super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
-		//? } else {
-		/*super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
-		 *///? }
+		/*super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
+		*///? } else {
+		super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
+		 //? }
 	}
 
 
@@ -41,25 +41,25 @@ public class Tamaris extends /*? 1.21.1 { */SwordItem/*? } else {*//*Item*//*? }
 
 	@Override
 		//? > 1.21.9 {
-	/*public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+	public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		super.inventoryTick(itemStack, level, entity, equipmentSlot);
 
 		inventoryTick(itemStack, (Level) level, entity, equipmentSlot);
 	}
-	*///? }
+	//? }
 
 	public void inventoryTick(
-		ItemStack itemStack, Level level, Entity entity, /*? 1.21.1 {*/int i, boolean bl/*? } else {*//*@Nullable EquipmentSlot equipmentSlot*//*? }*/
+		ItemStack itemStack, Level level, Entity entity, /*? 1.21.1 {*//*int i, boolean bl*//*? } else {*/@Nullable EquipmentSlot equipmentSlot/*? }*/
 	) {
 		//? 1.21.1 {
-		super.inventoryTick(itemStack, level, entity, i, bl);
-		//? }
+		/*super.inventoryTick(itemStack, level, entity, i, bl);
+		*///? }
 
 		boolean isClient = level.isClientSide();
 		Vec3 position = entity.position();
 
 		if (entity instanceof Player player) {
-			if (player.getCooldowns().isOnCooldown(itemStack/*? 1.21.1 {*/.getItem() /*?}*/) || !player.isHolding(itemStack::equals))
+			if (player.getCooldowns().isOnCooldown(itemStack/*? 1.21.1 {*//*.getItem() *//*?}*/) || !player.isHolding(itemStack::equals))
 				return;
 
 			var nearbyEntities = level.getEntitiesOfClass(
@@ -87,7 +87,7 @@ public class Tamaris extends /*? 1.21.1 { */SwordItem/*? } else {*//*Item*//*? }
 						}
 					}
 
-					if (!nearby./*? 1.21.1 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level, *//*? } */ nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
+					if (!nearby./*? 1.21.1 {*//*hurt(*//*? } else {*/hurtServer((ServerLevel) level, /*? } */ nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
 						continue;
 
 
@@ -99,7 +99,7 @@ public class Tamaris extends /*? 1.21.1 { */SwordItem/*? } else {*//*Item*//*? }
 					nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);
 
 					if (failed) {
-						player.getCooldowns().addCooldown(/*? 1.21.1 { */StellarityItems.TAMARIS /*? } else { */ /*itemStack *//*? } */, 11 * 20);
+						player.getCooldowns().addCooldown(/*? 1.21.1 { *//*StellarityItems.TAMARIS *//*? } else { */ itemStack /*? } */, 11 * 20);
 					}
 
 					break;

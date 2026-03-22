@@ -10,8 +10,8 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
-import net.minecraft.world.level.dimension.end.EndDragonFight;
-import net.minecraft.world.level.levelgen.feature.SpikeFeature;
+import net.minecraft.world.level.dimension.end.EnderDragonFight;
+import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 import java.util.List;
 
-@Mixin(EndDragonFight.class)
+@Mixin(EnderDragonFight.class)
 public abstract class EndDragonFightMixin {
 	@Shadow
 	public boolean dragonKilled;
@@ -51,7 +51,7 @@ public abstract class EndDragonFightMixin {
 	private void tick(CallbackInfo ci) {
 		crystalsRemaining.setVisible(!dragonKilled);
 		if (!dragonKilled) {
-			crystalsRemaining.setProgress(Math.min((float) crystalsAlive / SpikeFeature.NUMBER_OF_SPIKES, 1.0f));
+			crystalsRemaining.setProgress(Math.min((float) crystalsAlive / EndSpikeFeature.NUMBER_OF_SPIKES, 1.0f));
 			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE));
 		}
 	}
@@ -67,8 +67,8 @@ public abstract class EndDragonFightMixin {
 		crystalsRemaining.removePlayer(player);
 	}
 
-	@WrapOperation(method = "scanState", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/end/EndDragonFight;dragonKilled:Z", opcode = Opcodes.PUTFIELD))
-	private void scanStatePreventRevive(EndDragonFight instance, boolean value, Operation<Void> original) {
+	@WrapOperation(method = "scanState", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;dragonKilled:Z", opcode = Opcodes.PUTFIELD))
+	private void scanStatePreventRevive(EnderDragonFight instance, boolean value, Operation<Void> original) {
 		original.call(instance, true);
 		Stellarity.LOGGER.info("force overriding to prevent dragon summoning");
 	}

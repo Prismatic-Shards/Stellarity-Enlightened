@@ -11,9 +11,9 @@ import xyz.kohara.stellarity.registry.entity.ThrownPrismaticPearl;
 import xyz.kohara.stellarity.registry.entity.variants.StellarityFrogVariants;
 
 //? > 1.21.9 {
-/*import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
-*///? }
+//? }
 
 public class StellarityEntities {
 
@@ -25,10 +25,10 @@ public class StellarityEntities {
 		var location = Stellarity.id(id);
 		return Registry.register(BuiltInRegistries.ENTITY_TYPE, location, builder.build(
 			//? 1.21.1{
-			location.toString()
-			//? } else {
-			/*Stellarity.key(Registries.ENTITY_TYPE, id)
-			 *///? }
+			/*location.toString()
+			*///? } else {
+			Stellarity.key(Registries.ENTITY_TYPE, id)
+			 //? }
 		));
 	}
 

@@ -8,13 +8,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
 //? 1.21.1 {
-import net.minecraft.world.InteractionResultHolder;
+/*import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.item.ItemStack;
 import vazkii.patchouli.api.PatchouliAPI;
 import xyz.kohara.stellarity.Stellarity;
-//? } else {
-/*import net.minecraft.world.InteractionResult;
- *///? }
+*///? } else {
+import net.minecraft.world.InteractionResult;
+	//? }
 
 public class Endonomicon extends Item {
 	public Endonomicon(Properties properties) {
@@ -25,12 +25,12 @@ public class Endonomicon extends Item {
 
 
 	@Override
-	public /*? 1.21.1 { */InteractionResultHolder<ItemStack>/*? } else { */ /*InteractionResult*//*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
+	public /*? 1.21.1 { *//*InteractionResultHolder<ItemStack>*//*? } else { */ InteractionResult/*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
 		var result = super.use(level, player, interactionHand);
 
 
 		//? 1.21.1 {
-		if (!(player.level().isClientSide())) return result;
+		/*if (!(player.level().isClientSide())) return result;
 
 
 		boolean patchouliLoaded = FabricLoader.getInstance().isModLoaded("patchouli");
@@ -49,10 +49,10 @@ public class Endonomicon extends Item {
 				Component.literal(e.toString()), false
 			);
 		}
-		//? } else {
-		/*// fix later to translation
-		player.displayClientMessage(Component.literal("Blame Patchouli for not supplying modern support"), true);
-		*///? }
+		*///? } else {
+		// fix later to translation
+		player.sendOverlayMessage(Component.literal("Blame Patchouli for not supplying modern support"));
+		//? }
 
 
 		return result;

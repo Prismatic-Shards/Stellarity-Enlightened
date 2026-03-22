@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 
@@ -20,17 +20,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 
 //? 1.21.1 {
-import net.minecraft.world.item.Item;
-	//? }
+/*import net.minecraft.world.item.Item;
+ *///? }
 
 
 import java.util.*;
 
-public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equipment,
+public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
                                  HashMap<Ingredient, Integer> ingredients,
                                  ItemStack result) implements AltarRecipe {
 
-	public AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equipment, HashMap<Ingredient, Integer> ingredients,
+	public AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment, HashMap<Ingredient, Integer> ingredients,
 	                          ItemStack result) {
 		this.id = id;
 		this.ingredients = ingredients;
@@ -38,7 +38,7 @@ public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equip
 		this.equipment = equipment;
 
 		//? 1.21.1 {
-		HashSet<Item> items = new HashSet<>();
+		/*HashSet<Item> items = new HashSet<>();
 		for (var entry : ingredients.keySet()) {
 			for (ItemStack stack : entry.getItems()) {
 				if (!items.add(stack.getItem())) {
@@ -46,9 +46,9 @@ public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equip
 				}
 			}
 		}
-		//? } else {
-		/*Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
-		 *///? }
+		*///? } else {
+		Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
+		//? }
 	}
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
@@ -131,35 +131,50 @@ public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equip
 		return StellarityRecipeSerializers.ALTAR_UPGRADE;
 	}
 
-	public static class Serializer implements RecipeSerializer<AltarUpgradeRecipe> {
+	public static final StreamCodec<RegistryFriendlyByteBuf, AltarUpgradeRecipe> STREAM_CODEC = StreamCodec.of(AltarUpgradeRecipe::toNetwork, AltarUpgradeRecipe::fromNetwork);
 
-		private static final MapCodec<Map.Entry<Ingredient, Integer>> INGREDIENT_CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-				Ingredient.CODEC.fieldOf("ingredient").forGetter(Map.Entry::getKey),
-				Codec.INT.optionalFieldOf("count", 1).forGetter(Map.Entry::getValue)
-			).apply(instance, Map::entry)
-		);
+	public static final MapCodec<AltarUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(
 
-		public static final StreamCodec<RegistryFriendlyByteBuf, AltarUpgradeRecipe> STREAM_CODEC = StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
+		instance -> instance.group(
+			INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
+				recipe.ingredients.entrySet().stream().toList()
+			),
+			Ingredient.CODEC.fieldOf("equipment").forGetter(AltarUpgradeRecipe::equipment),
+			ItemStack.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
+		).apply(instance, (ingredients, equipment, result) -> {
+			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
 
-		public static final MapCodec<AltarUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(
+			for (var ingredient : ingredients) {
+				ingredientMap.put(ingredient.getKey(), ingredient.getValue());
+			}
+			return new AltarUpgradeRecipe(null, equipment, ingredientMap, result);
+		}));
 
-			instance -> instance.group(
-				INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
-					recipe.ingredients.entrySet().stream().toList()
-				),
-				Ingredient.CODEC.fieldOf("equipment").forGetter(AltarUpgradeRecipe::equipment),
-				ItemStack.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
-			).apply(instance, (ingredients, equipment, result) -> {
-				HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
+	public static AltarUpgradeRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
+		int size = buf.readInt();
+		HashMap<Ingredient, Integer> ingredients = new HashMap<>();
+		for (int i = 0; i < size; i++) {
+			Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+			int count = buf.readInt();
+			ingredients.put(ingredient, count);
+		}
+		Ingredient equipment = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+		ItemStack itemStack = ItemStack.STREAM_CODEC.decode(buf);
+		return new AltarUpgradeRecipe(null, equipment, ingredients, itemStack);
+	}
 
-				for (var ingredient : ingredients) {
-					ingredientMap.put(ingredient.getKey(), ingredient.getValue());
-				}
-				return new AltarUpgradeRecipe(null, equipment, ingredientMap, result);
-			}));
+	public static void toNetwork(RegistryFriendlyByteBuf buf, AltarUpgradeRecipe recipe) {
+		buf.writeInt(recipe.ingredients.size());
+		for (var entry : recipe.ingredients.entrySet()) {
+			Ingredient.CONTENTS_STREAM_CODEC.encode(buf, entry.getKey());
+			buf.writeInt(entry.getValue());
+		}
+		Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.equipment);
+		ItemStack.STREAM_CODEC.encode(buf, recipe.result);
+	}
 
-
+	//? 1.21.1 {
+	/*public static class Serializer implements RecipeSerializer<AltarUpgradeRecipe> {
 		@Override
 		public MapCodec<AltarUpgradeRecipe> codec() {
 			return CODEC;
@@ -169,34 +184,7 @@ public record AltarUpgradeRecipe(@Nullable ResourceLocation id, Ingredient equip
 		public StreamCodec<RegistryFriendlyByteBuf, AltarUpgradeRecipe> streamCodec() {
 			return STREAM_CODEC;
 		}
-
-		private static AltarUpgradeRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
-			int size = buf.readInt();
-			HashMap<Ingredient, Integer> ingredients = new HashMap<>();
-			for (int i = 0; i < size; i++) {
-				Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-				int count = buf.readInt();
-				ingredients.put(ingredient, count);
-			}
-			Ingredient equipment = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-			ItemStack itemStack = ItemStack.STREAM_CODEC.decode(buf);
-			return new AltarUpgradeRecipe(null, equipment, ingredients, itemStack);
-		}
-
-		private static void toNetwork(RegistryFriendlyByteBuf buf, AltarUpgradeRecipe recipe) {
-			buf.writeInt(recipe.ingredients.size());
-			for (var entry : recipe.ingredients.entrySet()) {
-				Ingredient.CONTENTS_STREAM_CODEC.encode(buf, entry.getKey());
-				buf.writeInt(entry.getValue());
-			}
-			Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.equipment);
-			ItemStack.STREAM_CODEC.encode(buf, recipe.result);
-		}
 	}
-
-	@Override
-	public ItemStack assemble(Input recipeInput, HolderLookup.Provider provider) {
-		return getResultItem(provider);
-	}
+	*///? }
 
 }

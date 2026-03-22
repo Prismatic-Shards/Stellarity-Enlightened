@@ -24,8 +24,8 @@ import xyz.kohara.stellarity.registry.item.Duskberry;
 import xyz.kohara.stellarity.tags.StellarityBlockTags;
 import com.mojang.serialization.MapCodec;
 //? > 1.21.10 {
-/*import net.minecraft.world.entity.InsideBlockEffectApplier;
- *///? }
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+ //? }
 
 public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final int MAX_AGE = 3;
@@ -57,7 +57,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		builder.add(AGE);
 	}
 
-	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
+	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
 
 	@Override
 	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
@@ -85,7 +85,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 
 
 	@Override
-	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity/*? > 1.21.10 >> ') {'*//*, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl*/) {
+	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity/*? > 1.21.10 >> ') {'*/, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
 		if (entity instanceof LivingEntity livingEntity) {
 			livingEntity.makeStuckInBlock(blockState, new Vec3((double) 0.8F, (double) 0.75F, (double) 0.8F));
 			for (var effect : Duskberry.debuffs(blockState.getValue(AGE))) {

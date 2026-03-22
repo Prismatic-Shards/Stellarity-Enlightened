@@ -5,7 +5,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,11 +18,11 @@ import xyz.kohara.stellarity.interface_injection.ExtAbstractArrow;
 import xyz.kohara.stellarity.registry.StellarityMobEffects;
 
 //? 1.21.1 {
-import net.minecraft.nbt.CompoundTag;
-	//? } else {
-/*import net.minecraft.world.level.storage.ValueOutput;
+/*import net.minecraft.nbt.CompoundTag;
+	*///? } else {
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
-*///? }
+//? }
 
 
 @Mixin(AbstractArrow.class)
@@ -60,30 +60,30 @@ public abstract class AbstractArrowMixin extends Projectile implements ExtAbstra
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void saveData(
 		//? 1.21.1 {
-		CompoundTag tag, CallbackInfo ci
-		//? } else {
-		/*ValueOutput tag, CallbackInfo ci
-		 *///? }
+		/*CompoundTag tag, CallbackInfo ci
+		*///? } else {
+		ValueOutput tag, CallbackInfo ci
+		 //? }
 	) {
 		tag.putInt("stellarity:levitation_shot", levitationShot);
 		tag.putBoolean("stellarity:void_shot", voidShot);
 	}
 
 	//? > 1.21.9
-	//@SuppressWarnings("OptionalGetWithoutIsPresent")
+	@SuppressWarnings("OptionalGetWithoutIsPresent")
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void readData(
 		//? 1.21.1 {
-		CompoundTag tag, CallbackInfo ci
-		//? } else {
-		/*ValueInput tag, CallbackInfo ci
-		 *///? }
+		/*CompoundTag tag, CallbackInfo ci
+		*///? } else {
+		ValueInput tag, CallbackInfo ci
+		 //? }
 	) {
 		if (tag.contains("stellarity:levitation_shot")) try {
 			levitationShot = tag.getInt("stellarity:levitation_shot")
 				//? > 1.21.9 {
-			/*.get()
-			 *///? }
+			.get()
+			 //? }
 			;
 		} catch (Exception e) {
 			Stellarity.LOGGER.info("Detected invalid levitation shot, ignoring");
@@ -91,10 +91,10 @@ public abstract class AbstractArrowMixin extends Projectile implements ExtAbstra
 		if (tag.contains("stellarity:void_shot")) try {
 			voidShot = tag.
 				//? > 1.21.9 {
-				/*getBooleanOr("stellarity:void_shot", false)
-				 *///? } else {
-					getBoolean("stellarity:void_shot")
-				//? }
+				getBooleanOr("stellarity:void_shot", false)
+				 //? } else {
+					/*getBoolean("stellarity:void_shot")
+				*///? }
 			;
 		} catch (Exception e) {
 			Stellarity.LOGGER.info("Detected invalid voidshot, ignoring");

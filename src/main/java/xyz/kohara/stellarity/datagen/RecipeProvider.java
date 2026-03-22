@@ -1,6 +1,6 @@
 package xyz.kohara.stellarity.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 
@@ -19,27 +19,27 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.data.recipes.RecipeOutput;
 //? > 1.21.9 {
-/*import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-*///? }
+//? }
 
 public class RecipeProvider extends FabricRecipeProvider {
 
-	public RecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public RecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
 	public static void altarOfTheAccursed(RecipeOutput output, AltarRecipe recipe) {
 		output.accept(
 			//? 1.21.1
-			recipe.id(),
+			//recipe.id(),
 			//? > 1.21.9
-			//ResourceKey.create(Registries.RECIPE, recipe.id()),
+			ResourceKey.create(Registries.RECIPE, recipe.id()),
 			recipe, null);
 	}
 
 	//? > 1.21.9 {
-	/*@Override
+	@Override
 	public net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
 		return new net.minecraft.data.recipes.RecipeProvider(provider, recipeOutput) {
 			@Override
@@ -48,11 +48,11 @@ public class RecipeProvider extends FabricRecipeProvider {
 			}
 		};
 	}
-	*///? }
+	//? }
 
 	//? 1.21.1
-	@Override
-	public void buildRecipes(/*? > 1.21.9 >> ' R'*//*HolderLookup.Provider provider,*/ RecipeOutput output) {
+	//@Override
+	public void buildRecipes(/*? > 1.21.9 >> ' R'*/HolderLookup.Provider provider, RecipeOutput output) {
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
 			Stellarity.id("altar_of_the_accursed/lapis_to_amethyst"),
 			new LinkedHashMap<>() {{

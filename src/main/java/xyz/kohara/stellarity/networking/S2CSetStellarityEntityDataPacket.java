@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.networking;
 
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.DataValue<?>> list)
 	implements CustomPacketPayload {
 	
-	public static final ResourceLocation ID = Stellarity.id("set_entity_data");
+	public static final Identifier ID = Stellarity.id("set_entity_data");
 
 	public static final Type<S2CSetStellarityEntityDataPacket> TYPE = new Type<>(ID);
 

@@ -14,7 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,11 +26,11 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityEntities;
 import xyz.kohara.stellarity.registry.StellarityItems;
 //? > 1.21.9 {
-/*import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-*///? } else {
-import net.minecraft.nbt.CompoundTag;
-	//? }
+//? } else {
+/*import net.minecraft.nbt.CompoundTag;
+	*///? }
 
 import java.util.Set;
 import java.util.function.IntFunction;
@@ -44,13 +44,13 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 
 	public ThrownPrismaticPearl(Level level, LivingEntity livingEntity, ItemStack itemStack) {
 		//? > 1.21.9 {
-		/*super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level, itemStack);
-		 *///? } else {
-		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
+		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level, itemStack);
+		 //? } else {
+		/*super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level);
 		setItem(itemStack);
 
 
-		//? }
+		*///? }
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 
 		if (!level().isClientSide() && entity instanceof Player player) {
 			//~ if > 1.21.9 'getName()' -> 'name()'
-			String name = player.getGameProfile().getName();
+			String name = player.getGameProfile().name();
 			if (name.equalsIgnoreCase("bush_moss")) setTrailType(TrailType.BISEXUAL);
 			else if (name.equalsIgnoreCase("coder2195")) setTrailType(TrailType.TRANSGENDER);
 		}
@@ -150,7 +150,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	//? 1.21.1 {
-	@Override
+	/*@Override
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 		if (compoundTag.contains("stellarity:trail_type")) {
@@ -169,9 +169,9 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		super.addAdditionalSaveData(compoundTag);
 		compoundTag.putString("stellarity:trail_type", getTrailType().toString());
 	}
-	//? } else {
+	*///? } else {
 
-	/*@Override
+	@Override
 	protected void readAdditionalSaveData(ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		TrailType trailType = TrailType.NORMAL;
@@ -189,7 +189,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		valueOutput.putString("stellarity:trail_type", getTrailType().toString());
 	}
 
-	*///? }
+	//? }
 
 	private int colorIndex = 0;
 
@@ -228,7 +228,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 			var color = colors[colorIndex];
 
 			stellarity$setGlowColor(color);
-			level.addParticle(new DustParticleOptions(/*? > 1.21.9 { *//*color*//*? } else { */Vec3.fromRGB24(color).toVector3f()/*? }*/, 1.5f), x + i * xStep, y + i * yStep, z + i * zStep, 0, 0, 0);
+			level.addParticle(new DustParticleOptions(/*? > 1.21.9 { */color/*? } else { *//*Vec3.fromRGB24(color).toVector3f()*//*? }*/, 1.5f), x + i * xStep, y + i * yStep, z + i * zStep, 0, 0, 0);
 		}
 
 		colorIndex++;
@@ -238,7 +238,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	public ThrownPrismaticPearl(Level level, LivingEntity livingEntity) {
-		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level /*? > 1.21.9 {*//*, new ItemStack(StellarityItems.PRISMATIC_PEARL)*//*? } */);
+		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level /*? > 1.21.9 {*/, new ItemStack(StellarityItems.PRISMATIC_PEARL)/*? } */);
 	}
 
 	@Override
@@ -260,7 +260,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		if (level instanceof ServerLevel serverLevel && !isRemoved()) {
 			var owner = getOwner();
 			if (owner != null) {
-				owner.teleportTo(serverLevel, position.x, position.y, position.z, Set.of(), owner.getYHeadRot(), owner.getXRot() /*? > 1.21.9 {*//*, true *//*? }*/);
+				owner.teleportTo(serverLevel, position.x, position.y, position.z, Set.of(), owner.getYHeadRot(), owner.getXRot() /*? > 1.21.9 {*/, true /*? }*/);
 				level.playSound(null, owner.blockPosition(), SoundEvents.ENDER_EYE_DEATH, SoundSource.NEUTRAL);
 			}
 
@@ -269,7 +269,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		}
 
 		for (int color : LAND_COLORS) {
-			level.addParticle(new DustParticleOptions(/*? > 1.21.9 { *//*color*//*? } else { */Vec3.fromRGB24(color).toVector3f()/*? }*/, 1.5f), position.x + random.nextDouble() * 2 - 1, position.y, position.z + random.nextDouble() * 2 - 1, 0, 0, 0);
+			level.addParticle(new DustParticleOptions(/*? > 1.21.9 { */color/*? } else { *//*Vec3.fromRGB24(color).toVector3f()*//*? }*/, 1.5f), position.x + random.nextDouble() * 2 - 1, position.y, position.z + random.nextDouble() * 2 - 1, 0, 0, 0);
 		}
 	}
 
@@ -282,7 +282,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		super.onHitEntity(entityHitResult);
 		var level = level();
 		if (level.isClientSide()) return;
-		entityHitResult.getEntity()./*? 1.21.1 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level(), *//*? } */this.damageSources().thrown(this, this.getOwner()), 0.0F);
+		entityHitResult.getEntity()./*? 1.21.1 {*//*hurt(*//*? } else {*/hurtServer((ServerLevel) level(), /*? } */this.damageSources().thrown(this, this.getOwner()), 0.0F);
 	}
 
 

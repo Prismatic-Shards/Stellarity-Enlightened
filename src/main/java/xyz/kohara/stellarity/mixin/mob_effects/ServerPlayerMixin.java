@@ -19,15 +19,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? 1.21.1 {
-import net.minecraft.nbt.CompoundTag;
+/*import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
-	//? } else {
-/*import net.minecraft.world.level.storage.ValueInput;
+	*///? } else {
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import java.util.Collection;
-*///? }
+//? }
 
 import xyz.kohara.stellarity.registry.effect.CreativeShockEffect;
 
@@ -52,15 +52,15 @@ public abstract class ServerPlayerMixin extends Player {
 	private GameType initialGameType = null;
 
 	//? 1.21.1 {
-	public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
+	/*public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
 		super(level, blockPos, f, gameProfile);
 	}
-	//? } else {
+	*///? } else {
 
-	/*public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+	public ServerPlayerMixin(Level level, GameProfile gameProfile) {
 		super(level, gameProfile);
 	}
-	*///? }
+	//? }
 
 
 	@Inject(method = "onEffectAdded", at = @At("HEAD"))
@@ -78,13 +78,13 @@ public abstract class ServerPlayerMixin extends Player {
 	}
 
 	//? 1.21.1 {
-	@Inject(method = "onEffectRemoved", at = @At("HEAD"))
+	/*@Inject(method = "onEffectRemoved", at = @At("HEAD"))
 	protected void effectRemoved(MobEffectInstance effectInstance, CallbackInfo ci)
-	//? } else {
+	*///? } else {
 
-	/*@Inject(method = "onEffectsRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", shift = At.Shift.AFTER))
+	@Inject(method = "onEffectsRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", shift = At.Shift.AFTER))
 	protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local MobEffectInstance effectInstance)
-	*///? }
+	//? }
 	{
 		if (!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
 
@@ -97,10 +97,10 @@ public abstract class ServerPlayerMixin extends Player {
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void saveData(
 		//? 1.21.1 {
-		CompoundTag tag, CallbackInfo ci
-		//? } else {
-		/*ValueOutput tag, CallbackInfo ci
-		 *///? }
+		/*CompoundTag tag, CallbackInfo ci
+		*///? } else {
+		ValueOutput tag, CallbackInfo ci
+		 //? }
 	) {
 		if (initialGameType != null) tag.putString("stellarity:initial_gamemode", initialGameType.getName());
 	}
@@ -108,13 +108,13 @@ public abstract class ServerPlayerMixin extends Player {
 	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
 	public void readData(
 		//? 1.21.1 {
-		CompoundTag tag, CallbackInfo ci
-		//? } else {
-		/*ValueInput tag, CallbackInfo ci
-		 *///? }
+		/*CompoundTag tag, CallbackInfo ci
+		*///? } else {
+		ValueInput tag, CallbackInfo ci
+		 //? }
 	) {
 		if (tag.contains("stellarity:initial_gamemode")) {
-			initialGameType = GameType.byName(tag.getString("stellarity:initial_gamemode")/*? > 1.21.9 >> ');'*//*.orElse("survival")*/);
+			initialGameType = GameType.byName(tag.getString("stellarity:initial_gamemode")/*? > 1.21.9 >> ');'*/.orElse("survival"));
 		}
 	}
 

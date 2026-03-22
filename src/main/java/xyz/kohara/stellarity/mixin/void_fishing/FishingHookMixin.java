@@ -42,8 +42,8 @@ import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 import xyz.kohara.stellarity.interface_injection.ExtFishingHook;
 
 //? >= 1.21.10 {
-/*import net.minecraft.core.particles.PowerParticleOption;
- *///?}
+import net.minecraft.core.particles.PowerParticleOption;
+ //?}
 
 import net.minecraft.core.registries.Registries;
 
@@ -52,10 +52,10 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	@Unique
 	private static final ParticleOptions DRAGON_BREATH =
 		//? >= 1.21.9 {
-		/*PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
-		 *///?} else {
-		ParticleTypes.DRAGON_BREATH;
-	//?}
+		PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
+		 //?} else {
+		/*ParticleTypes.DRAGON_BREATH;
+	*///?}
 
 	@Unique
 	private boolean buffVoidFishing = false;

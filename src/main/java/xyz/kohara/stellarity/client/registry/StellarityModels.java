@@ -2,15 +2,15 @@ package xyz.kohara.stellarity.client.registry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.renderer.BiomeColors;
 
 import net.minecraft.world.level.block.Block;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
+
 //? 1.21.1 {
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+/*import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.Item;
@@ -19,17 +19,21 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
 
-//?} else {
-/*import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
-*///?}
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+
+
+*///?} else {
+import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
+
+import net.minecraft.client.color.block.BlockTintSources;
+//?}
 
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class StellarityModels {
 	//? <= 1.21.4 {
-	private static void registerBowModel(Item bow) {
+	/*private static void registerBowModel(Item bow) {
 		ItemProperties.register(bow, Stellarity.mcId("pull"), (itemStack, clientWorld, entity, seed) -> {
 			if (entity == null) {
 				return 0.0F;
@@ -65,20 +69,21 @@ public class StellarityModels {
 
 	}
 
-	//?}
+	*///?}
 
 	public static void initModelPredicates() {
 		//? <= 1.21.4 {
-		registerBowModel(StellarityItems.CALL_OF_THE_VOID);
+		/*registerBowModel(StellarityItems.CALL_OF_THE_VOID);
 		registerFishingRodModel(StellarityItems.FISHER_OF_VOIDS);
 		Stellarity.LOGGER.info("Stellarity Model Predicates Initialized!");
-		//?}
+		*///?}
 
 	}
 
 	public static void initBlockColors() {
 
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+		//? 1.21.1 {
+		/*ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
 			if (world != null && pos != null) {
 				return BiomeColors.getAverageGrassColor(world, pos);
 			}
@@ -87,20 +92,20 @@ public class StellarityModels {
 		}, StellarityBlocks.ENDER_GRASS_BLOCK);
 
 		for (Block block : List.of(StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.DUSKBERRY_BUSH)) {
-			//~ if > 1.21.10 'BlockRenderLayerMap.INSTANCE.p' -> 'BlockRenderLayerMap.p' {
-			//~ if > 1.21.10 'RenderType.cutout()' -> 'ChunkSectionLayer.CUTOUT'  {
 			BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout());
-			//~}
-			//~}
 		}
+		*///? } else {
+		BlockColorRegistry.register(List.of(BlockTintSources.grassBlock()));
+		 //? }
+
 
 		Stellarity.LOGGER.info("Initialized Block Model Colors");
 	}
 
 	public static void initItemColors() {
 		//? 1.21.1{
-		ColorProviderRegistry.ITEM.register((itemStack, i) -> 0x91BD59, StellarityItems.ENDER_GRASS_BLOCK);
-		//?}
+		/*ColorProviderRegistry.ITEM.register((itemStack, i) -> 0x91BD59, StellarityItems.ENDER_GRASS_BLOCK);
+		*///?}
 
 		Stellarity.LOGGER.info("Initialized Item Model Colors");
 

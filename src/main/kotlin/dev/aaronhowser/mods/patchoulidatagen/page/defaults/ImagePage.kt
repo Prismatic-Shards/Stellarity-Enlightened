@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.patchoulidatagen.page.AbstractPage
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 /**
  * This is an empty page with no text
@@ -14,11 +14,11 @@ import net.minecraft.resources.ResourceLocation
  * See [Page Types - Image Pages](https://vazkiimods.github.io/Patchouli/docs/patchouli-basics/page-types/#image-pages)
  */
 class ImagePage private constructor(
-	private val images: Array<ResourceLocation>,
+	private val images: Array<Identifier>,
 	private val title: String?,
 	private val border: String?,
 	private val text: String?,
-	advancement: ResourceLocation?,
+	advancement: Identifier?,
 	flag: String?,
 	anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {
@@ -48,12 +48,12 @@ class ImagePage private constructor(
 	}
 
 	class Builder private constructor() : AbstractPage.Builder<ImagePage, Builder>() {
-		private val images = mutableListOf<ResourceLocation>()
+		private val images = mutableListOf<Identifier>()
 		private var title: String? = null
 		private var border: String? = null
 		private var text: String? = null
 
-		fun addImage(vararg images: ResourceLocation): Builder {
+		fun addImage(vararg images: Identifier): Builder {
 			this.images.addAll(images)
 			return this
 		}

@@ -26,7 +26,7 @@ stonecutter {
 		match("1.21.1")
 		match("26.1-rc-2", "latest")
 
-		vcsVersion = "1.21.1"
+		vcsVersion = "latest"
 	}
 }
 

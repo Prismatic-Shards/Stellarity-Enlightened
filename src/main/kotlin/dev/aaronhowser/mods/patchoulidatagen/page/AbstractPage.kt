@@ -3,11 +3,11 @@ package dev.aaronhowser.mods.patchoulidatagen.page
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import xyz.kohara.stellarity.Stellarity
 
 abstract class AbstractPage(
-    protected val advancement: ResourceLocation?,
+    protected val advancement: Identifier?,
     protected val flag: String?,
     protected val anchor: String?
 ) {
@@ -25,7 +25,7 @@ abstract class AbstractPage(
     /**
      * Overwrite this if you have a custom page type
      */
-    open fun getPageTypeLocation(): ResourceLocation {
+    open fun getPageTypeLocation(): Identifier {
         return Stellarity.id("patchouli", getPageType())
     }
 
@@ -34,11 +34,11 @@ abstract class AbstractPage(
     @Suppress("UNCHECKED_CAST")
     abstract class Builder<T : AbstractPage, S : Builder<T, S>>
     protected constructor() {
-        protected var advancement: ResourceLocation? = null
+        protected var advancement: Identifier? = null
         protected var flag: String? = null
         protected var anchor: String? = null
 
-        fun advancement(advancement: ResourceLocation): S {
+        fun advancement(advancement: Identifier): S {
             this.advancement = advancement
             return this as S
         }

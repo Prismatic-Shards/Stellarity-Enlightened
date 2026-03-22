@@ -76,7 +76,16 @@ dependencies {
 
 stonecutter {
 	replacements.string(current.parsed.matches(">1.21.11")) {
-		replace("FabricTagsProvider.EntityTypeTagProvider", "FabricTagsProvider.EntityTypeTagsProvider")
+
+		replace("GuiGraphics.", "GuiGraphicsExtractor.")
+		replace("GuiGraphics ", "GuiGraphicsExtractor ")
+		replace("GuiGraphics;", "GuiGraphicsExtractor;")
+		replace("net.fabricmc.fabric.api.itemgroup", "net.fabricmc.fabric.api.creativetab")
+		replace("ItemGroupEvents", "CreativeModeTabEvents")
+		replace("FabricItemGroup", "FabricCreativeModeTab")
+		replace("FabricTagProvider.EntityTypeTagProvider", "FabricTagsProvider.EntityTypeTagsProvider")
+		replace("FabricTagProvider.BlockTagProvider", "FabricTagsProvider.BlockTagsProvider")
+		replace("FabricTagProvider.ItemTagProvider", "FabricTagsProvider.ItemTagsProvider")
 		replace("FabricTagProvider", "FabricTagsProvider")
 		replace("classTweaker v1 named", "classTweaker v1 official")
 		replace("ExtEndDragonFight", "ExtEndDragonFight")
@@ -135,13 +144,6 @@ stonecutter {
 			"net.minecraft.world.entity.projectile.ThrowableItemProjectile",
 			"net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile"
 		)
-
-
-	}
-
-	replacements.string(current.parsed.matches("> 1.21")) {
-		replace("BootstapContext", "BootstrapContext")
-		replace("Enchantments.BLOCK_FORTUNE", "Enchantments.FORTUNE")
 	}
 
 

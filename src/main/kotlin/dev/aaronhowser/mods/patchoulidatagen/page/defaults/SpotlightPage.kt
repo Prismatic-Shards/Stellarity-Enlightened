@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.patchoulidatagen.util.Util
 import dev.aaronhowser.mods.patchoulidatagen.util.Util.addIfNotNull
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -22,7 +22,7 @@ class SpotlightPage private constructor(
     private val linkRecipe: Boolean?,
     private val title: String?,
     private val text: String?,
-    advancement: ResourceLocation?,
+    advancement: Identifier?,
     flag: String?,
     anchor: String?
 ) : AbstractPage(advancement, flag, anchor) {
@@ -58,11 +58,11 @@ class SpotlightPage private constructor(
 
 
                             //? 1.21.1 {
-                            val components = itemStack.componentsPatch
+                            /*val components = itemStack.componentsPatch
                             if (!components.isEmpty) {
                                 sb.append(Util.getComponentPatchString(components, registries))
                             }
-                            //? }
+                            *///? }
                         }
 
                         is TripleEither.Third -> {

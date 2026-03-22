@@ -64,8 +64,8 @@ public final class DamageUtility {
 		PreDamage.EVENT.invoker().preDamage(entity, actualNonAPDamage, apDamage, clone);
 		//the actual damaging part
 		if (apDamage.getArg() != 0)
-			entity./*? 1.21.1 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/apDamageSource, apDamage.getArg());
-		entity./*? 1.21.1 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/damageSource, actualNonAPDamage.getArg());
+			entity./*? 1.21.1 { *//*hurt(*//*? } else { */ hurtServer(serverLevel, /*? }*/apDamageSource, apDamage.getArg());
+		entity./*? 1.21.1 { *//*hurt(*//*? } else { */ hurtServer(serverLevel, /*? }*/damageSource, actualNonAPDamage.getArg());
 		PostDamage.EVENT.invoker().postDamage(entity, actualNonAPDamage.getArg(), apDamage.getArg(), clone);
 	}
 

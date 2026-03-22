@@ -1,5 +1,5 @@
 //? > 1.21.9
-//@org.jspecify.annotations.NullMarked
+@org.jspecify.annotations.NullMarked
 //? 1.21.1
-@net.minecraft.MethodsReturnNonnullByDefault
+//@net.minecraft.MethodsReturnNonnullByDefault
 package xyz.kohara.stellarity.mixin.end_crystal;

@@ -16,8 +16,8 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 import net.minecraft.advancements.AdvancementHolder;
 
 //? >= 1.21.9 {
-/*import net.minecraft.world.item.component.Consumables;
- *///?}
+import net.minecraft.world.item.component.Consumables;
+ //?}
 
 import java.util.List;
 import java.util.Objects;
@@ -28,15 +28,15 @@ public class CrystalHeartfish extends Item {
 	}
 
 	//? 1.21.1{
-	@Override
-	public int getUseDuration(ItemStack itemStack /*? 1.21.1 >> ') {' */, LivingEntity livingEntity) {
+	/*@Override
+	public int getUseDuration(ItemStack itemStack /^? 1.21.1 >> ') {' ^//^, LivingEntity livingEntity^/) {
 		return 100;
 	}
-	//?}
+	*///?}
 
 	public static final Properties PROPERTIES = StellarityItems.foodProperties(new Properties(), new FoodProperties.Builder(),
 		//? >= 1.21.9
-		//Consumables.defaultFood().consumeSeconds(5f),
+		Consumables.defaultFood().consumeSeconds(5f),
 		0, 0.0f, true
 	);
 
@@ -62,7 +62,7 @@ public class CrystalHeartfish extends Item {
 				MinecraftServer server = Objects.requireNonNull(player.level().getServer());
 				var location = Stellarity.id("void_fishing/topped_off");
 				AdvancementHolder advancement = Objects.requireNonNull(server.getAdvancements().get(location));
-				AdvancementCommands.Action.GRANT.perform(player, List.of(advancement)/*? > 1.21.9 >> ')'*/ /*, true*/);
+				AdvancementCommands.Action.GRANT.perform(player, List.of(advancement)/*? > 1.21.9 >> ')'*/ , true);
 			}
 
 			if (amount >= 10) return;

@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.datagen.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -16,18 +16,18 @@ import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DamageTagProvider extends FabricTagProvider<DamageType> {
-	public DamageTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class DamageTagProvider extends FabricTagsProvider<DamageType> {
+	public DamageTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.DAMAGE_TYPE, registriesFuture);
 	}
 
 	//? 1.21.1 {
-	public FabricTagBuilder builder(
+	/*public FabricTagBuilder builder(
 		net.minecraft.tags.TagKey<DamageType> tag
 	) {
 		return getOrCreateTagBuilder(tag);
 	}
-	//? }
+	*///? }
 
 
 	@Override

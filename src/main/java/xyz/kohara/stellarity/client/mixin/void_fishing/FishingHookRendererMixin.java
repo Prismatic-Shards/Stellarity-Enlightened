@@ -1,5 +1,5 @@
 //? 1.21.1 {
-package xyz.kohara.stellarity.client.mixin.void_fishing;
+/*package xyz.kohara.stellarity.client.mixin.void_fishing;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -22,4 +22,4 @@ public class FishingHookRendererMixin {
 		return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, item);
 	}
 }
-//?}
+*///?}

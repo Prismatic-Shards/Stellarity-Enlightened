@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -24,7 +24,7 @@ public class ProjectileWeaponItemMixin {
 		if (projectile instanceof Arrow arrow) {
 			for (var entry : itemStack.getEnchantments().entrySet()) {
 				if (entry.getKey().is(StellarityEnchantments.LEVITATION_SHOT)) {
-					var random = level.random;
+					var random = level.getRandom();
 					var enchantmentLevel = entry.getIntValue();
 
 					arrow.stellarity$setLevitationShot(enchantmentLevel);

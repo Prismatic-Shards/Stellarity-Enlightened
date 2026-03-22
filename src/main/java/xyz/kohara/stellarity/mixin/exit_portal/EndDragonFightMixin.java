@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
-import net.minecraft.world.level.dimension.end.EndDragonFight;
+import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
 import net.minecraft.core.registries.Registries;
 
-@Mixin(EndDragonFight.class)
+@Mixin(EnderDragonFight.class)
 public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 	@Shadow
 	@Nullable
@@ -55,8 +55,8 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 		}
 	}
 
-	@WrapOperation(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/dimension/end/EndDragonFight;spawnExitPortal(Z)V"))
-	private void dontAllowEscape(EndDragonFight instance, boolean bl, Operation<Void> original) {
+	@WrapOperation(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;spawnExitPortal(Z)V"))
+	private void dontAllowEscape(EnderDragonFight instance, boolean bl, Operation<Void> original) {
 		if (hasPreviouslyKilledDragon()) original.call(instance, bl);
 	}
 

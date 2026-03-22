@@ -2,7 +2,7 @@
 
 
 //? 1.21.1{
-package xyz.kohara.stellarity.datagen;
+/*package xyz.kohara.stellarity.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,7 +15,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.nio.file.Path;
@@ -60,7 +60,7 @@ public abstract class PatchouliBookProvider implements DataProvider {
 		Consumer<PatchouliBookElement> elementConsumer = element -> {
 			boolean addedSuccessfully = bookLocations.add(element.getSaveName());
 			if (!addedSuccessfully) {
-				ResourceLocation rl = Stellarity.id(element.getSaveName());
+				Identifier rl = Stellarity.id(element.getSaveName());
 				throw new IllegalStateException("Duplicate book element [" + rl + "]");
 			}
 
@@ -174,4 +174,4 @@ public abstract class PatchouliBookProvider implements DataProvider {
 	}
 }
 
-//?}
+*///?}
