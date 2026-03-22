@@ -16,7 +16,16 @@ plugins {
 stonecutter {
 	create(rootProject) {
 		// See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
-		versions("1.21.1", "1.21.11")
+		fun match(version: String, name: String = version) =
+			if (stonecutter.eval(version, "> 1.21.11"))
+				version("$name", version).buildscript = "build.gradle.kts"
+			else
+				version("$name", version).buildscript = "build-obf.gradle.kts"
+
+
+		match("1.21.1")
+		match("26.1-rc-2", "latest")
+
 		vcsVersion = "1.21.1"
 	}
 }

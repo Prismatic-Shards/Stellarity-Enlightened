@@ -2,8 +2,8 @@ package xyz.kohara.stellarity.registry.effect;
 
 //? if >= 1.21.9 {
 
-import net.minecraft.server.level.ServerLevel;
-	//?}
+/*import net.minecraft.server.level.ServerLevel;
+	*///?}
 
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffect;

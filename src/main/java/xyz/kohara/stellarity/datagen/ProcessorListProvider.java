@@ -1,6 +1,5 @@
 package xyz.kohara.stellarity.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -10,7 +9,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class ProcessorListProvider {
 

@@ -13,10 +13,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 //? 1.21.1{
-import net.minecraft.data.models.BlockModelGenerators;
 
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelTemplates;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.blockstates.Variant;
@@ -24,20 +21,23 @@ import net.minecraft.data.models.model.TexturedModel;
 import xyz.kohara.stellarity.registry.StellarityItems;
 //?} else {
 
-/*import net.minecraft.client.renderer.item.BlockModelWrapper;
+/*
+import net.minecraft.client.renderer.block.model.SpecialBlockModelWrapper;
 import net.minecraft.data.models.model.TexturedModel;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelTemplates;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.MultiVariant;
 import net.minecraft.util.random.WeightedList;
-import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.client.color.item.GrassColorSource;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
 import java.util.List;
 *///?}
+
+
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.BlockModelGenerators;
 
 
 public class ModelProvider extends FabricModelProvider {
@@ -133,7 +133,7 @@ public class ModelProvider extends FabricModelProvider {
 	public void generateItemModels(ItemModelGenerators generators) {
 		//? >= 1.21.4 {
 		/*generators.generateBow(StellarityItems.CALL_OF_THE_VOID);
-		generators.itemModelOutput.accept(StellarityItems.SHULKER_BODY, new BlockModelWrapper.Unbaked(Stellarity.id("item/shulker_body"), List.of()));
+		generators.itemModelOutput.accept(StellarityItems.SHULKER_BODY, new SpecialBlockModelWrapper.Unbaked(Stellarity.id("item/shulker_body"), List.of()));
 		generators.generateFishingRod(StellarityItems.FISHER_OF_VOIDS);
 		*///?} else {
 		generators.generateFlatItem(StellarityItems.FISHER_OF_VOIDS, "_cast", ModelTemplates.FLAT_HANDHELD_ROD_ITEM);

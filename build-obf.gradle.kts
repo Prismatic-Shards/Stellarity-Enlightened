@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-	id("net.fabricmc.fabric-loom")
+	id("fabric-loom")
 	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.22"
 	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 
@@ -50,20 +50,33 @@ dependencies {
 	 * @see <a href="https://github.com/FabricMC/fabric">List of Fabric API modules</a>
 	 */
 	fun fapi(vararg modules: String) {
-		for (it in modules) implementation(fabricApi.module(it, property("deps.fabric_api") as String))
+		for (it in modules) modImplementation(fabricApi.module(it, property("deps.fabric_api") as String))
 	}
 
 	minecraft("com.mojang:minecraft:${stonecutter.current.version}")
-	implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
-	implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
+	mappings(loom.officialMojangMappings())
+	modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
+
+
+	// begin mod dependencies
+
+	// patchouli datagen
+
+	// those with eval blocks mean dependency is only added for certain MC versions
+	// for non required dependencies, use modCompileOnly. This means ur mod will not be present in the runClient. To use, add to version/<version>/run/mods/
+	// for required dependencies, use modImplementation
+	if (stonecutter.eval(stonecutter.current.version, "<= 1.21.1")) {
+		// be sure to declare deps.patchouli (or similar) in version/<version>/run/mods/gradle.properties where the mod applies
+		modImplementation("vazkii.patchouli:Patchouli:${property("deps.patchouli")}")
+		implementation("dev.aaronhowser.mods:aaron-1.21.1:1.5.0-build.107")
+	}
 }
 
 
 stonecutter {
 	replacements.string(current.parsed.matches(">1.21.11")) {
-		replace("FabricTagProvider.EntityTypeTagProvider", "FabricTagsProvider.EntityTypeTagsProvider")
-		replace("FabricTagProvider.BlockTagProvider", "FabricTagsProvider.BlockTagsProvider")
-		replace("FabricTagProvider.ItemTagProvider", "FabricTagsProvider.ItemTagsProvider")
+		replace("FabricTagsProvider.EntityTypeTagProvider", "FabricTagsProvider.EntityTypeTagsProvider")
 		replace("FabricTagProvider", "FabricTagsProvider")
 		replace("classTweaker v1 named", "classTweaker v1 official")
 		replace("ExtEndDragonFight", "ExtEndDragonFight")
@@ -92,9 +105,6 @@ stonecutter {
 		replace("FabricBlockLootTableProvider", "FabricBlockLootSubProvider")
 		replace("SimpleFabricLootTableProvider", "SimpleFabricLootTableSubProvider")
 		replace("net.minecraft.client.renderer.item.BlockModel", "net.minecraft.client.renderer.block.model.BlockModel")
-	}
-
-	replacements.string(current.parsed.matches(">=1.21.11")) {
 
 		replace("net.minecraft.advancements.critereon", "net.minecraft.advancements.criterion")
 		replace("net/minecraft/advancements/critereon", "net/minecraft/advancements/criterion")
@@ -253,7 +263,7 @@ tasks {
 	// Builds the version into a shared folder in `build/libs/${mod version}/`
 	register<Copy>("buildAndCollect") {
 		group = "build"
-		from(jar.map { it.archiveFile }, jar.map { it.archiveFile })
+		from(remapJar.map { it.archiveFile }, remapSourcesJar.map { it.archiveFile })
 		into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
 		dependsOn("build")
 	}
@@ -273,7 +283,7 @@ tasks {
 // Publishes builds to Modrinth and Curseforge with changelog from the CHANGELOG.md file
 // Publishing using publishMods task
 publishMods {
-	file = tasks.jar.map { it.archiveFile.get() }
+	file = tasks.remapJar.map { it.archiveFile.get() }
 	displayName = "${property("mod.name")} ${property("mod.version")} for ${property("mod.mc_title")}"
 	version = property("mod.version") as String
 	changelog = rootProject.file("CHANGELOG.md").readText()
