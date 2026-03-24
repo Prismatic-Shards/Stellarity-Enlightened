@@ -1,14 +1,14 @@
 package xyz.kohara.stellarity.mixin.extend_classes;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,18 +16,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
-
-
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-
+import xyz.kohara.stellarity.registry.StellarityBlocks;
+import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 
 import java.util.HashMap;
 import java.util.List;
-
-import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {

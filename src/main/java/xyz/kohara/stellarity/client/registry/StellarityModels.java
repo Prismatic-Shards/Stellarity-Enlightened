@@ -2,17 +2,9 @@ package xyz.kohara.stellarity.client.registry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.BiomeColors;
-
-import net.minecraft.world.level.block.Block;
-import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.registry.StellarityBlocks;
-
-
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
-
 import net.minecraft.client.color.block.BlockTintSources;
-
+import xyz.kohara.stellarity.Stellarity;
 
 import java.util.List;
 
