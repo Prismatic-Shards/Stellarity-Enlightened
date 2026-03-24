@@ -19,15 +19,14 @@ import xyz.kohara.stellarity.registry.StellarityPotions;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-//? 1.21.1 {
-/*import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.Inject;
-*///? } else {
+
+
 import java.util.OptionalInt;
+
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
-//? }
+
 
 @Mixin(PotionContents.class)
 public abstract class PotionContentsMixin {
@@ -37,32 +36,6 @@ public abstract class PotionContentsMixin {
 	@Final
 	private Optional<Holder<Potion>> potion;
 
-	//? 1.21.1 {
-	/*@Shadow
-	public static int getColor(Iterable<MobEffectInstance> iterable) {
-		return 0;
-	}
-
-	@Inject(method = "getColor(Lnet/minecraft/core/Holder;)I", at = @At("HEAD"), cancellable = true)
-	private static void getColorPotion(Holder<Potion> holder, CallbackInfoReturnable<Integer> cir) {
-		Integer color = StellarityPotions.COLORS.get(holder);
-		if (color == null) return;
-
-		cir.setReturnValue(color);
-		cir.cancel();
-	}
-
-	@WrapOperation(method = "getColor()I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/alchemy/PotionContents;getColor(Ljava/lang/Iterable;)I"))
-	private int getColorThis(Iterable<MobEffectInstance> iterable, Operation<Integer> original) {
-		if (potion.isPresent()) {
-			Integer color = StellarityPotions.COLORS.get(potion.get());
-			if (color != null) return color;
-		}
-
-		return original.call(iterable);
-	}
-
-	*///? } else {
 
 	@WrapOperation(method = "getColorOr", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/alchemy/PotionContents;getColorOptional(Ljava/lang/Iterable;)Ljava/util/OptionalInt;"))
 	private OptionalInt getColorThis(Iterable<MobEffectInstance> iterable, Operation<OptionalInt> original) {
@@ -74,27 +47,13 @@ public abstract class PotionContentsMixin {
 		return original.call(iterable);
 	}
 
-	//? }
 
-
-	//? > 1.21.9 {
 	@WrapMethod(method = "addToTooltip")
 	private void removeRedTooltip(Item.TooltipContext tooltipContext, Consumer<Component> consumer, TooltipFlag tooltipFlag, DataComponentGetter dataComponentGetter, Operation<Void> original) {
 		if (potion.map((p) -> p.is(Stellarity.id("red"))).orElse(false)) return;
 
 		original.call(tooltipContext, consumer, tooltipFlag, dataComponentGetter);
 	}
-	//? } else {
-
-
-	/*@WrapMethod(method = "addPotionTooltip(Ljava/util/function/Consumer;FF)V")
-	private void removeRedTooltip(Consumer<Component> consumer, float f, float g, Operation<Void> original) {
-		if (potion.map((p) -> p.is(Stellarity.id("red"))).orElse(false)) return;
-
-		original.call(consumer, f, g);
-	}
-
-	*///? }
 
 
 }

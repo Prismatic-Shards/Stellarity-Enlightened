@@ -6,19 +6,13 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.ExtraCodecs;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-/**
- * Helper class for creating extending codec functionality
- * <p>
- * you probably don't want to copy this class, but use it as an example
- * </p>
- */
+
 public class CodecExtensionHelper {
 
 	static <A> Codec<A> recursive(final String name, final Function<Codec<A>, Codec<A>> wrapped) {
@@ -104,13 +98,7 @@ public class CodecExtensionHelper {
 		};
 	}
 
-	/**
-	 * @param original               the codec to extend
-	 * @param builder                the builder function to create the new codec
-	 * @param defaultValueApplicator a function applying default values to the vanilla object after decoding
-	 * @param <T>                    type of the object the codec is for
-	 * @return a wrapper codec that first tries to use the new codec, and if that fails, falls back to the original codec applying default values
-	 */
+
 	public static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder, Function<T, T> defaultValueApplicator) {
 		return deferUntilUsed(
 			() -> withAlternative(
@@ -125,23 +113,12 @@ public class CodecExtensionHelper {
 		);
 	}
 
-	/**
-	 * @param original the codec to extend
-	 * @param builder  the builder function to create the new codec
-	 * @param <T>      type of the object the codec is for
-	 * @return a wrapper codec that first tries to use the new codec, and if that fails, falls back to the original codec
-	 */
+
 	public static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder) {
 		return buildExtensionCodec(original, builder, Function.identity());
 	}
 
-	/**
-	 * delays the construction of a codec until it is actually used
-	 *
-	 * @param delegate supplier for the codec
-	 * @param <T>      type of the object the codec is for
-	 * @return a codec that delegates to the codec returned by the supplier
-	 */
+
 	public static <T> Codec<T> deferUntilUsed(Supplier<Codec<T>> delegate) {
 		return lazyInitialized(delegate);
 	}

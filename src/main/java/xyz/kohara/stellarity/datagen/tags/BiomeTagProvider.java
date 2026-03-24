@@ -16,13 +16,6 @@ public class BiomeTagProvider extends FabricTagsProvider<Biome> {
 		super(output, Registries.BIOME, registriesFuture);
 	}
 
-	//? 1.21.1 {
-	/*public FabricTagBuilder builder(
-		net.minecraft.tags.TagKey<Biome> tag
-	) {
-		return getOrCreateTagBuilder(tag);
-	}
-	*///? }
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {

@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.networking.S2CSetStellarityEntityDataPacket;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(ServerEntity.class)
 public abstract class ServerEntityMixin {
@@ -33,11 +32,10 @@ public abstract class ServerEntityMixin {
 	private List<SynchedEntityData.DataValue<?>> trackedDataValues;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-		//? 1.21.1 {
-	/*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, Consumer<?> consumer, CallbackInfo ci) {
-		*///? } else {
-		private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
-		 //? }
+
+
+	private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
+
 		trackedDataValues = entity.stellarity$entityData().getNonDefaultValues();
 	}
 

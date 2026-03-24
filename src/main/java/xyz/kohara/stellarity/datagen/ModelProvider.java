@@ -1,41 +1,24 @@
 package xyz.kohara.stellarity.datagen;
 
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-
+import net.minecraft.client.color.item.GrassColorSource;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
-//? 1.21.1{
-
-/*import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.client.data.models.blockstates.VariantProperties;
-import net.minecraft.client.data.models.blockstates.Variant;
-import net.minecraft.client.data.models.model.TexturedModel;
 import xyz.kohara.stellarity.registry.StellarityItems;
-*///?} else {
-
-
-import net.minecraft.client.renderer.block.model.SpecialBlockModelWrapper;
-import net.minecraft.client.data.models.model.TexturedModel;
-import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.util.random.WeightedList;
-import net.minecraft.client.renderer.block.dispatch.Variant;
-import net.minecraft.client.color.item.GrassColorSource;
-import xyz.kohara.stellarity.registry.StellarityItems;
-
-import java.util.List;
-//?}
-
-
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.BlockModelGenerators;
 
 
 public class ModelProvider extends FabricModelProvider {
@@ -85,10 +68,10 @@ public class ModelProvider extends FabricModelProvider {
 	};
 
 	public void generateBush(BlockModelGenerators generators, Block block) {
-		//~ if > 1.21.10 'Variant.variant().with(VariantProperties.MODEL,' -> 'BlockModelGenerators.plainVariant(' {
-		//~ if > 1.21.10 'multiVariant(' -> 'dispatch('
+
+
 		generators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
-			//~ if > 1.21.10 'property(' -> 'initial('
+
 			.with(PropertyDispatch.initial(BlockStateProperties.AGE_3)
 				.select(0, BlockModelGenerators.plainVariant(generators.createSuffixedVariant(block, "_stage0", ModelTemplates.CROSS, TextureMapping::cross)))
 				.select(1, BlockModelGenerators.plainVariant(generators.createSuffixedVariant(block, "_stage1", ModelTemplates.CROSS, TextureMapping::cross)))
@@ -96,7 +79,7 @@ public class ModelProvider extends FabricModelProvider {
 				.select(3, BlockModelGenerators.plainVariant(generators.createSuffixedVariant(block, "_stage3", ModelTemplates.CROSS, TextureMapping::cross)))
 			)
 		);
-		//~ }
+
 
 	}
 
@@ -110,10 +93,7 @@ public class ModelProvider extends FabricModelProvider {
 
 		generateBush(generators, StellarityBlocks.DUSKBERRY_BUSH);
 
-		//? 1.21.1{
-		/*generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);
-		generators.createGrassLikeBlock(StellarityBlocks.ENDER_GRASS_BLOCK, Stellarity.id("block/ender_grass_block"), new Variant().with(VariantProperties.MODEL, Stellarity.id("block/ender_grass_block_snowy")));
-		*///?} else {
+
 		generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);
 		generators.registerSimpleItemModel(StellarityBlocks.ASHEN_FROGLIGHT, Stellarity.id("block/ashen_froglight"));
 		generators.createGrassLikeBlock(StellarityBlocks.ENDER_GRASS_BLOCK, new MultiVariant(WeightedList.<Variant>builder()
@@ -123,19 +103,16 @@ public class ModelProvider extends FabricModelProvider {
 			.add(new Variant(Stellarity.id("block/ender_grass_block")), 270)
 			.build()), new MultiVariant(WeightedList.<Variant>builder().add(new Variant(Stellarity.id("block/ender_grass_block_snowy"))).build()));
 		generators.registerSimpleTintedItemModel(StellarityBlocks.ENDER_GRASS_BLOCK, Stellarity.id("block/ender_grass_block"), new GrassColorSource(1.0f, 0.5f));
-		//?}
+
 
 	}
 
 	@Override
 	public void generateItemModels(ItemModelGenerators generators) {
-		//? >= 1.21.4 {
+
 		generators.generateBow(StellarityItems.CALL_OF_THE_VOID);
 		generators.declareCustomModelItem(StellarityItems.SHULKER_BODY);
 		generators.generateFishingRod(StellarityItems.FISHER_OF_VOIDS);
-		//?} else {
-		/*generators.generateFlatItem(StellarityItems.FISHER_OF_VOIDS, "_cast", ModelTemplates.FLAT_HANDHELD_ROD_ITEM);
-		 *///?}
 
 
 		generators.generateFlatItem(StellarityItems.TAMARIS, ModelTemplates.FLAT_HANDHELD_ITEM);

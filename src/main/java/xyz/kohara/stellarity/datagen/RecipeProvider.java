@@ -1,12 +1,14 @@
 package xyz.kohara.stellarity.datagen;
 
+import com.mojang.serialization.Lifecycle;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 import xyz.kohara.stellarity.registry.recipe.*;
@@ -18,10 +20,10 @@ import net.minecraft.core.HolderLookup;
 import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.data.recipes.RecipeOutput;
-//? > 1.21.9 {
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-//? }
+
 
 public class RecipeProvider extends FabricRecipeProvider {
 
@@ -31,35 +33,34 @@ public class RecipeProvider extends FabricRecipeProvider {
 
 	public static void altarOfTheAccursed(RecipeOutput output, AltarRecipe recipe) {
 		output.accept(
-			//? 1.21.1
-			//recipe.id(),
-			//? > 1.21.9
+
+
 			ResourceKey.create(Registries.RECIPE, recipe.id()),
 			recipe, null);
 	}
 
-	//? > 1.21.9 {
+
 	@Override
-	public net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+	public net.minecraft.data.recipes.@NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider provider, @NonNull RecipeOutput recipeOutput) {
 		return new net.minecraft.data.recipes.RecipeProvider(provider, recipeOutput) {
 			@Override
 			public void buildRecipes() {
+
+				provider.allRegistriesLifecycle().add(Lifecycle.stable());
 				RecipeProvider.this.buildRecipes(provider, output);
 			}
 		};
 	}
-	//? }
 
-	//? 1.21.1
-	//@Override
-	public void buildRecipes(/*? > 1.21.9 >> ' R'*/HolderLookup.Provider provider, RecipeOutput output) {
+
+	public void buildRecipes(HolderLookup.Provider provider, RecipeOutput output) {
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
 			Stellarity.id("altar_of_the_accursed/lapis_to_amethyst"),
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(Items.DIAMOND), 1);
 				put(Ingredient.of(Items.LAPIS_LAZULI), 1);
 			}},
-			new ItemStack(Items.AMETHYST_SHARD)
+			new ItemStackTemplate(Items.AMETHYST_SHARD)
 		));
 
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
@@ -68,7 +69,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 				put(Ingredient.of(Items.IRON_INGOT), 1);
 				put(Ingredient.of(Items.POPPED_CHORUS_FRUIT), 2);
 			}},
-			new ItemStack(StellarityItems.CHORUS_PLATING)
+			new ItemStackTemplate(StellarityItems.CHORUS_PLATING)
 		));
 
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
@@ -78,7 +79,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 				put(Ingredient.of(StellarityItems.ENDERITE_SHARD), 5);
 				put(Ingredient.of(Items.PURPUR_BLOCK), 9);
 			}},
-			new ItemStack(StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE, 2)
+			new ItemStackTemplate(StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE, 2)
 		));
 
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
@@ -86,7 +87,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(Items.ENCHANTED_BOOK), 1);
 			}},
-			new ItemStack(StellarityItems.ENDONOMICON, 1)
+			new ItemStackTemplate(StellarityItems.ENDONOMICON, 1)
 		));
 
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
@@ -98,7 +99,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 				put(Ingredient.of(StellarityItems.ENDERITE_SHARD), 64);
 				put(Ingredient.of(StellarityItems.STARLIGHT_SOOT), 64);
 			}},
-			new ItemStack(StellarityItems.SATCHEL_OF_VOIDS, 1)
+			new ItemStackTemplate(StellarityItems.SATCHEL_OF_VOIDS, 1)
 		));
 
 		altarOfTheAccursed(output, new AltarSimpleRecipe(
@@ -111,7 +112,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 				put(Ingredient.of(StellarityItems.ENDERITE_SHARD), 64);
 				put(Ingredient.of(StellarityItems.STARLIGHT_SOOT), 64);
 			}},
-			new ItemStack(StellarityItems.SATCHEL_OF_VOIDS, 1)
+			new ItemStackTemplate(StellarityItems.SATCHEL_OF_VOIDS, 1)
 		));
 
 		altarOfTheAccursed(output, new AltarUpgradeRecipe(
@@ -120,7 +121,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(Items.NETHERITE_INGOT), 2);
 			}},
-			new ItemStack(Items.NETHERITE_HELMET)
+			new ItemStackTemplate(Items.NETHERITE_HELMET)
 		));
 	}
 

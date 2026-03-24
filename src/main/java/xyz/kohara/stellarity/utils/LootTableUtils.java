@@ -26,12 +26,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
-//? > 1.21.10 {
+
 import net.minecraft.core.registries.BuiltInRegistries;
- //? }
 
 
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class LootTableUtils {
 	public static LootPool.Builder pool() {
@@ -51,11 +51,10 @@ public class LootTableUtils {
 	}
 
 	public static EntityTypePredicate entityType(EntityType<?> type) {
-		//? 1.21.1{
-		/*return EntityTypePredicate.of(type);
-		*///? } else {
+
+
 		return EntityTypePredicate.of(BuiltInRegistries.ENTITY_TYPE, type);
-		 //? }
+
 	}
 
 
@@ -116,7 +115,7 @@ public class LootTableUtils {
 		return new LootItemBlockStatePropertyCondition.Builder(block);
 	}
 
-	public static <T extends Comparable<T> & StringRepresentable> StatePropertiesPredicate.Builder hasProperty(Property<T> property, T value) {
+	public static <T extends Comparable<T> & StringRepresentable> StatePropertiesPredicate.Builder hasProperty(Property<@NonNull T> property, T value) {
 		return StatePropertiesPredicate.Builder.properties().hasProperty(property, value);
 	}
 

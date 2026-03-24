@@ -41,7 +41,7 @@ public abstract class EndGatewayMixin extends Feature<EndGatewayConfiguration> {
 		var ptSlab = Blocks.PURPUR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.TOP);
 		var pbSlab = Blocks.PURPUR_SLAB.defaultBlockState();
 
-		// north-west chunk
+
 		for (int i = -1; i <= 1; i += 2) {
 			for (Rotation rot : Rotation.values()) {
 

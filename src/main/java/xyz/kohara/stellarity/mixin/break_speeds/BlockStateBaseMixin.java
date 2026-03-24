@@ -14,38 +14,22 @@ import org.spongepowered.asm.mixin.Shadow;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 
-//? 1.21.1 {
-
-/*import com.mojang.serialization.MapCodec;
-import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
-
-*///? } else {
-
-//? }
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin extends StateHolder<Block, BlockState> {
 
 
-	@Shadow
-	public abstract Block getBlock();
-
-	@Shadow
-	public abstract boolean is(Block block);
-
-	//? 1.21.1 {
-	/*protected BlockStateBaseMixin(Block object, Reference2ObjectArrayMap<Property<?>, Comparable<?>> reference2ObjectArrayMap, MapCodec<BlockState> mapCodec) {
-		super(object, reference2ObjectArrayMap, mapCodec);
-	}
-	*///? } else {
 	protected BlockStateBaseMixin(Block owner, Property<?>[] propertyKeys, Comparable<?>[] propertyValues) {
 		super(owner, propertyKeys, propertyValues);
 	}
-	//? }
+
+	@Shadow
+	public abstract Block getBlock();
+
 
 	@WrapMethod(method = "getDestroySpeed")
 	private float dynamicDestroySpeed(BlockGetter blockGetter, BlockPos blockPos, Operation<Float> original) {
-		if (is(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && getValue(AltarOfTheAccursed.PLACE_TYPE) == AltarOfTheAccursed.PlaceType.SATCHEL)
+		if (getBlock().equals(StellarityBlocks.ALTAR_OF_THE_ACCURSED) && getValue(AltarOfTheAccursed.PLACE_TYPE) == AltarOfTheAccursed.PlaceType.SATCHEL)
 			return 50;
 
 		return original.call(blockGetter, blockPos);

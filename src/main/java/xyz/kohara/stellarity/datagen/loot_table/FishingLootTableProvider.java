@@ -41,7 +41,7 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 	public static final HashMap<String, LootTable.Builder> LOOT_TABLES = new HashMap<>();
 
-	//~ if > 1.21.1 'fromOptions' -> 'withOptions' {
+
 	public static void define(HolderLookup.Provider lookup) {
 		LOOT_TABLES.put("void_fishing/fish", lootTable().withPool(pool()
 			.add(item(StellarityItems.ENDER_KOI).setWeight(15).apply(count(range(2, 4))))
@@ -100,7 +100,6 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.add(lootTable(Stellarity.id("void_fishing/fish")).setWeight(70).setQuality(-1))
 		));
 	}
-	//~ }
 
 
 	@Override

@@ -1,4 +1,4 @@
-//? > 1.21 {
+
 package xyz.kohara.stellarity.datagen.provider;
 
 import com.mojang.datafixers.util.Either;
@@ -54,17 +54,17 @@ public class EnchantmentProvider extends FabricDynamicRegistryProvider {
         register(entries, StellarityEnchantments.LEVITATION_SHOT, new Enchantment.Builder(
                 Enchantment.definition(
                     entries.getLookup(Registries.ITEM).getOrThrow(ItemTags.BOW_ENCHANTABLE),
-                    // this is the "weight" or probability of our enchantment showing up in the table
+
                     10,
-                    // the maximum level of the enchantment
+
                     5,
-                    // base cost for level 1 of the enchantment, and min levels required for something higher
+
                     Enchantment.dynamicCost(29, 4),
-                    // same fields as above but for max cost
+
                     Enchantment.dynamicCost(50, 10),
-                    // anvil cost
+
                     4,
-                    // valid slots
+
                     EquipmentSlotGroup.HAND
                 )
             )
@@ -142,4 +142,4 @@ public class EnchantmentProvider extends FabricDynamicRegistryProvider {
         );
     }
 }
-//? }
+

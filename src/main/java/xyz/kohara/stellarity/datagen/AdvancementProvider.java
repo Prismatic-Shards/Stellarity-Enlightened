@@ -2,38 +2,29 @@ package xyz.kohara.stellarity.datagen;
 
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.minecraft.advancements.*;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-
-import net.minecraft.network.chat.Component;
-//? <= 1.21.10 {
-/*import net.minecraft.advancements.criterion.*;
-	*///? } else {
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.criterion.*;
- //? }
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
-
-import java.util.List;
-import java.util.function.Consumer;
-
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.world.item.Item;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.Optional;
 import java.util.Arrays;
-
-import net.minecraft.core.registries.Registries;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 
 public class AdvancementProvider extends FabricAdvancementProvider {
@@ -48,6 +39,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	public static AdvancementHolder dummy(Identifier id) {
+		//noinspection DataFlowIssue
 		return new AdvancementHolder(id, null);
 	}
 
@@ -106,7 +98,6 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.build(Stellarity.id("void_fishing/topped_off"));
 
 
-		// TODO: reparent to discover hallow after biomes are added.
 		var FIND_DUSKBERRY = advancement()
 			.display(
 				StellarityItems.DUSKBERRY,
@@ -134,10 +125,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(/*? > 1.21.10 >> 'St'*/itemLookup, StellarityItems.DUSKBERRY))
-			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(/*? > 1.21.10 >> 'St'*/itemLookup, StellarityItems.DUSKBERRY),
+			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(itemLookup, StellarityItems.DUSKBERRY))
+			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(itemLookup, StellarityItems.DUSKBERRY),
 
-				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(/*? > 1.21.10 >> 'En'*/entityLookup, EntityType.FOX).build()).build())
+				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityLookup, EntityType.FOX).build()).build())
 				)
 			))
 			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(StellarityBlocks.DUSKBERRY_BUSH))
@@ -145,7 +136,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.requirements(requires(new String[][]{{"eat"}, {"feed"}, {"place"}}))
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
 
-		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(/*? > 1.21.10 >> 'Ent'*/entityLookup, EntityType.ENDER_DRAGON)));
+		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON)));
 		var SACRIFICAL_RITUAL = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.stellarity.sacrificial_ritual"),

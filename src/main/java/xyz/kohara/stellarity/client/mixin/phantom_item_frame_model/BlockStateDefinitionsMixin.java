@@ -1,9 +1,9 @@
-//? > 1.21.9 {
+
 package xyz.kohara.stellarity.client.mixin.phantom_item_frame_model;
 
 import com.llamalad7.mixinextras.sugar.Local;
-
-import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.model.BlockStateDefinitions;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -15,13 +15,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.kohara.stellarity.Stellarity;
 
-import static xyz.kohara.stellarity.client.registry.renderer.entity.PhantomItemFrameRenderer.FAKE_STATE_DEFINITION;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@MixinEnvironment("client")
+import static xyz.kohara.stellarity.client.registry.renderer.entity.PhantomItemFrameRenderer.FAKE_STATE_DEFINITION;
+
+@Environment(EnvType.CLIENT)
 @Mixin(BlockStateDefinitions.class)
 public class BlockStateDefinitionsMixin {
 	@Inject(method = "definitionLocationToBlockStateMapper", at = @At(value = "INVOKE", target = "Ljava/util/Objects;requireNonNull(Ljava/lang/Object;)Ljava/lang/Object;"))
@@ -29,4 +28,3 @@ public class BlockStateDefinitionsMixin {
 		map.put(Stellarity.id("phantom_item_frame"), FAKE_STATE_DEFINITION);
 	}
 }
-//? }

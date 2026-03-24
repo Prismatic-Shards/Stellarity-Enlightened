@@ -1,5 +1,6 @@
 package xyz.kohara.stellarity.mixin.dragon_fight;
 
+
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -16,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.SpikeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.EndSpikeConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,9 +28,9 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 @Mixin(EndSpikeFeature.class)
-public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
+public abstract class SpikeFeatureMixin extends Feature<EndSpikeConfiguration> {
 
-	public SpikeFeatureMixin(Codec<SpikeConfiguration> codec) {
+	public SpikeFeatureMixin(Codec<EndSpikeConfiguration> codec) {
 		super(codec);
 	}
 
@@ -37,14 +38,14 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 	private RandomSource random;
 
 	@Inject(method = "placeSpike", at = @At("HEAD"))
-	private void stellaritySpikeInit(ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, SpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, CallbackInfo ci) {
+	private void stellaritySpikeInit(ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, EndSpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, CallbackInfo ci) {
 		random = new RandomSequence((long) (endSpike.getCenterX()) << 32 & endSpike.getCenterX(), Stellarity.id("obsidian_splatter")).random();
 	}
 
 	@Definition(id = "OBSIDIAN", field = "Lnet/minecraft/world/level/block/Blocks;OBSIDIAN:Lnet/minecraft/world/level/block/Block;")
 	@Expression("OBSIDIAN.?()")
 	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local BlockPos blockPos, @Local(argsOnly = true) EndSpikeFeature.EndSpike spike) {
+	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local(name = "pos") BlockPos blockPos, @Local(argsOnly = true) EndSpikeFeature.EndSpike spike) {
 		if (spike.stellarity$hasCryingObsidianTops()) {
 			int distance = spike.getHeight() - blockPos.getY();
 
@@ -68,8 +69,8 @@ public abstract class SpikeFeatureMixin extends Feature<SpikeConfiguration> {
 
 	}
 
-	@WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/EndSpikeFeature;placeSpike(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/configurations/SpikeConfiguration;Lnet/minecraft/world/level/levelgen/feature/EndSpikeFeature$EndSpike;)V"))
-	private void placeAltar(EndSpikeFeature instance, ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, SpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, Operation<Void> original) {
+	@WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/EndSpikeFeature;placeSpike(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/util/RandomSource;Lnet/minecraft/world/level/levelgen/feature/configurations/EndSpikeConfiguration;Lnet/minecraft/world/level/levelgen/feature/EndSpikeFeature$EndSpike;)V"))
+	private void placeAltar(EndSpikeFeature instance, ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, EndSpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, Operation<Void> original) {
 		try {
 			var altarPos = new BlockPos(endSpike.getCenterX(), endSpike.getHeight() - 20, endSpike.getCenterZ());
 			var altar = serverLevelAccessor.getBlockState(altarPos);

@@ -20,12 +20,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.item.Duskberry;
 import xyz.kohara.stellarity.tags.StellarityBlockTags;
 import com.mojang.serialization.MapCodec;
-//? > 1.21.10 {
+
 import net.minecraft.world.entity.InsideBlockEffectApplier;
- //? }
+
 
 public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final int MAX_AGE = 3;
@@ -43,7 +44,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
 
 	@Override
-	public MapCodec<BushBlock> codec() {
+	public @NonNull MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
 
@@ -85,7 +86,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 
 
 	@Override
-	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity/*? > 1.21.10 >> ') {'*/, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
+	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
 		if (entity instanceof LivingEntity livingEntity) {
 			livingEntity.makeStuckInBlock(blockState, new Vec3((double) 0.8F, (double) 0.75F, (double) 0.8F));
 			for (var effect : Duskberry.debuffs(blockState.getValue(AGE))) {
@@ -101,7 +102,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+	public void randomTick(BlockState blockState, @NonNull ServerLevel serverLevel, @NonNull BlockPos blockPos, @NonNull RandomSource randomSource) {
 		int i = blockState.getValue(AGE);
 		if (i < 3 && randomSource.nextInt(8) == 0) {
 			BlockState growState = blockState.setValue(AGE, i + 1);

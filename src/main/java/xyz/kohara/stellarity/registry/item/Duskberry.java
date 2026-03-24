@@ -18,13 +18,13 @@ import xyz.kohara.stellarity.Stellarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 
-//? > 1.21.10 {
+
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import org.jspecify.annotations.Nullable;
 import net.minecraft.world.entity.EquipmentSlot;
-//? }
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,11 +34,11 @@ import net.minecraft.world.level.Level;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-//~ if > 1.21.10 'ItemNameBlockItem' -> 'BlockItem' {
+
 import net.minecraft.world.item.BlockItem;
 
 public class Duskberry extends BlockItem {
-	//~ }
+
 	public Duskberry(Properties properties) {
 		super(StellarityBlocks.DUSKBERRY_BUSH, properties);
 	}
@@ -48,18 +48,12 @@ public class Duskberry extends BlockItem {
 		return Stream.of(MobEffects.DARKNESS, MobEffects.SLOWNESS, MobEffects.MINING_FATIGUE, MobEffects.WEAKNESS, MobEffects.NAUSEA).map((e) -> new MobEffectInstance(e, level * 12 * 20)).toArray(MobEffectInstance[]::new);
 	}
 
-	//? > 1.21.10 {
+
 	@Override
 	public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		inventoryTick(itemStack, serverLevel, entity);
 	}
 
-	//? } else {
-	/*@Override
-	public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
-		if (level instanceof ServerLevel serverLevel) inventoryTick(itemStack, serverLevel, entity);
-	}
-	*///? }
 
 	public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity) {
 		if (!(entity instanceof Player player)) return;
@@ -93,8 +87,8 @@ public class Duskberry extends BlockItem {
 			new ItemAttributeModifiers.Entry(
 				Attributes.MOVEMENT_EFFICIENCY, new AttributeModifier(Stellarity.id("duskberry_movement_efficiency"), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), EquipmentSlotGroup.HAND
 			)
-		)/*? 1.21.1 >> ')'*//*, false*/))
-		/*? > 1.21.10 {*/.component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.ATTRIBUTE_MODIFIERS, true))/*? }*/;
+		)))
+		.component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.ATTRIBUTE_MODIFIERS, true));
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {

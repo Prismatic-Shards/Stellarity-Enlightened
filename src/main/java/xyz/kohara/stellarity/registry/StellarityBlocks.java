@@ -19,10 +19,9 @@ import xyz.kohara.stellarity.registry.block.DuskberryBush;
 import xyz.kohara.stellarity.registry.block.EnderDirtPath;
 import net.minecraft.core.registries.BuiltInRegistries;
 import xyz.kohara.stellarity.registry.block.EnderGrassBlock;
-//? > 1.21.9 {
+
 import net.minecraft.core.registries.Registries;
- //? } else {
-//? }
+
 
 import java.util.function.Function;
 
@@ -49,12 +48,9 @@ public class StellarityBlocks {
 
 	public static Block register(String id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings) {
 
-		//? >= 1.21.9 {
+
 		var location = Stellarity.key(Registries.BLOCK, id);
 		settings = settings.setId(location);
-		//?} else {
-		/*var location = Stellarity.id(id);
-		*///? }
 
 
 		Block block = blockFactory.apply(settings);

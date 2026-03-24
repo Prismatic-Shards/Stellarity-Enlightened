@@ -20,10 +20,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.Codec;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 
-//? > 1.21.1 {
+
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.Validatable;
-//? }
+
 
 public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.TriggerInstance> {
 	static final Identifier ID = Stellarity.id("void_fished");
@@ -56,7 +56,7 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 			} else {
 				if (this.item.isPresent()) {
 					boolean bl = false;
-					Entity entity = lootContext./*? 1.21.1 {*//*getParamOrNull*//*?} else { */getOptionalParameter/*? } */(LootContextParams.THIS_ENTITY);
+					Entity entity = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
 
 					if (entity instanceof ItemEntity itemEntity) {
 						if (this.item.get().test(itemEntity.getItem())) {
@@ -78,20 +78,13 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 			}
 		}
 
-		//? 1.21.1 {
-		/*@Override
-		public void validate(CriterionValidator validator) {
-			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
-			validator.validateEntity(this.entity, "entity");
-		}
 
-		*///? } else {
 		@Override
 		public void validate(final ValidationContextSource validator) {
 			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
 			Validatable.validate(validator.entityContext(), "entity", this.entity);
 		}
-		//? }
+
 	}
 
 	public Codec<TriggerInstance> codec() {

@@ -1,54 +1,39 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityRecipeSerializers;
 
-import java.util.*;
-
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentType;
-
-//? 1.21.1 {
-/*import net.minecraft.world.item.Item;
- *///? }
-
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
                                  HashMap<Ingredient, Integer> ingredients,
-                                 ItemStack result) implements AltarRecipe {
+                                 ItemStackTemplate result) implements AltarRecipe {
 
 	public AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment, HashMap<Ingredient, Integer> ingredients,
-	                          ItemStack result) {
+	                          ItemStackTemplate result) {
 		this.id = id;
 		this.ingredients = ingredients;
 		this.result = result;
 		this.equipment = equipment;
 
-		//? 1.21.1 {
-		/*HashSet<Item> items = new HashSet<>();
-		for (var entry : ingredients.keySet()) {
-			for (ItemStack stack : entry.getItems()) {
-				if (!items.add(stack.getItem())) {
-					Stellarity.LOGGER.error("Ingredients are overlapping and may not work correctly. Altar Recipe ID: {}", id);
-				}
-			}
-		}
-		*///? } else {
+
 		Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
-		//? }
+
 	}
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
@@ -112,12 +97,12 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 			if (counts > 0) return null;
 		}
 
-		var returning = result.copy();
+		var returning = result.create();
 		var patched = availableEquipment.getComponentsPatch();
 		for (var component : patched.entrySet()) {
 			var value = component.getValue();
 			if (value.isEmpty()) continue;
-			//noinspection unchecked
+
 			returning.set((DataComponentType<Object>) component.getKey(), component.getValue().get());
 		}
 
@@ -140,7 +125,7 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 				recipe.ingredients.entrySet().stream().toList()
 			),
 			Ingredient.CODEC.fieldOf("equipment").forGetter(AltarUpgradeRecipe::equipment),
-			ItemStack.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
+			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
 		).apply(instance, (ingredients, equipment, result) -> {
 			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
 
@@ -159,7 +144,7 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 			ingredients.put(ingredient, count);
 		}
 		Ingredient equipment = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-		ItemStack itemStack = ItemStack.STREAM_CODEC.decode(buf);
+		ItemStackTemplate itemStack = ItemStackTemplate.STREAM_CODEC.decode(buf);
 		return new AltarUpgradeRecipe(null, equipment, ingredients, itemStack);
 	}
 
@@ -170,21 +155,8 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 			buf.writeInt(entry.getValue());
 		}
 		Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.equipment);
-		ItemStack.STREAM_CODEC.encode(buf, recipe.result);
+		ItemStackTemplate.STREAM_CODEC.encode(buf, recipe.result);
 	}
 
-	//? 1.21.1 {
-	/*public static class Serializer implements RecipeSerializer<AltarUpgradeRecipe> {
-		@Override
-		public MapCodec<AltarUpgradeRecipe> codec() {
-			return CODEC;
-		}
-
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, AltarUpgradeRecipe> streamCodec() {
-			return STREAM_CODEC;
-		}
-	}
-	*///? }
 
 }

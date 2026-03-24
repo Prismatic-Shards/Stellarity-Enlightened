@@ -1,4 +1,4 @@
-//? > 1.21.10 {
+
 package xyz.kohara.stellarity.mixin.extend_classes;
 
 import net.minecraft.world.entity.Entity;
@@ -28,4 +28,3 @@ public abstract class ItemStackMixin {
 	}
 }
 
-//? }

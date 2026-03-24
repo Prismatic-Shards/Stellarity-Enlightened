@@ -23,6 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.util.List;
+import java.util.UUID;
+
 
 @Mixin(EnderDragonFight.class)
 public abstract class EndDragonFightMixin {
@@ -32,18 +34,19 @@ public abstract class EndDragonFightMixin {
 	@Shadow
 	@Nullable
 	private List<EndCrystal> respawnCrystals;
+
 	@Shadow
-	private int crystalsAlive;
+	private int aliveCrystals;
 
 	@Unique
-	private final ServerBossEvent crystalsRemaining = new ServerBossEvent(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
+	private final ServerBossEvent crystalsRemaining = new ServerBossEvent(UUID.fromString("d4a16717-72f2-4a42-8813-78e50b18f181"), Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
 
 	@Inject(method = "resetSpikeCrystals", at = @At("HEAD"))
 	private void resetRespawnCrystals(CallbackInfo ci) {
 		if (respawnCrystals == null) return;
 		for (EndCrystal endCrystal : respawnCrystals) {
 			endCrystal.setInvulnerable(false);
-			endCrystal.setBeamTarget((BlockPos) null);
+			endCrystal.setBeamTarget(null);
 		}
 	}
 
@@ -51,19 +54,19 @@ public abstract class EndDragonFightMixin {
 	private void tick(CallbackInfo ci) {
 		crystalsRemaining.setVisible(!dragonKilled);
 		if (!dragonKilled) {
-			crystalsRemaining.setProgress(Math.min((float) crystalsAlive / EndSpikeFeature.NUMBER_OF_SPIKES, 1.0f));
-			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", crystalsAlive).withStyle(ChatFormatting.DARK_PURPLE));
+			crystalsRemaining.setProgress(Math.min((float) aliveCrystals / EndSpikeFeature.NUMBER_OF_SPIKES, 1.0f));
+			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(ChatFormatting.DARK_PURPLE));
 		}
 	}
 
 
 	@Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;addPlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-	private void addPlayerBossBar(CallbackInfo ci, @Local ServerPlayer player) {
+	private void addPlayerBossBar(CallbackInfo ci, @Local(name = "player") ServerPlayer player) {
 		crystalsRemaining.addPlayer(player);
 	}
 
 	@Inject(method = "updatePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerBossEvent;removePlayer(Lnet/minecraft/server/level/ServerPlayer;)V"))
-	private void removePlayerBossBar(CallbackInfo ci, @Local ServerPlayer player) {
+	private void removePlayerBossBar(CallbackInfo ci, @Local(name = "player") ServerPlayer player) {
 		crystalsRemaining.removePlayer(player);
 	}
 

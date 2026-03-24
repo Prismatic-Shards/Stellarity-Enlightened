@@ -34,12 +34,10 @@ public final class DamageUtility {
 		apDamageSource = other.apDamageSource;
 		apRatio = other.apRatio;
 		damageBoostEfficiency = other.damageBoostEfficiency;
-		noop = true;//cloned
+		noop = true;
 	}
 
-	/**
-	 * convenience method
-	 */
+
 	public static void damageEntity(LivingEntity entity, float damage, float apRatio, float damageBoostEfficiency, DamageSource damageSource, @Nullable DamageSource apDamageSource) {
 		DamageUtility.builder()
 			.setApDamageSource(apDamageSource)
@@ -60,12 +58,12 @@ public final class DamageUtility {
 			apDamage.setArg(damageWithBonus - actualNonAPDamage.getArg());
 			Thread.onSpinWait();
 		}
-		DamageUtility clone = makeNoOpClone();//stackoverflow protection
+		DamageUtility clone = makeNoOpClone();
 		PreDamage.EVENT.invoker().preDamage(entity, actualNonAPDamage, apDamage, clone);
-		//the actual damaging part
-		if (apDamage.getArg() != 0)
-			entity./*? 1.21.1 { *//*hurt(*//*? } else { */ hurtServer(serverLevel, /*? }*/apDamageSource, apDamage.getArg());
-		entity./*? 1.21.1 { *//*hurt(*//*? } else { */ hurtServer(serverLevel, /*? }*/damageSource, actualNonAPDamage.getArg());
+
+		if (apDamage.getArg() != 0 && apDamageSource != null)
+			entity.hurtServer(serverLevel, apDamageSource, apDamage.getArg());
+		entity.hurtServer(serverLevel, damageSource, actualNonAPDamage.getArg());
 		PostDamage.EVENT.invoker().postDamage(entity, actualNonAPDamage.getArg(), apDamage.getArg(), clone);
 	}
 

@@ -1,62 +1,28 @@
 package xyz.kohara.stellarity.registry.item;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
-//? 1.21.1 {
-/*import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.item.ItemStack;
-import vazkii.patchouli.api.PatchouliAPI;
-import xyz.kohara.stellarity.Stellarity;
-*///? } else {
-import net.minecraft.world.InteractionResult;
-	//? }
 
 public class Endonomicon extends Item {
 	public Endonomicon(Properties properties) {
 		super(properties);
 	}
 
-	public static Properties PROPERTIES = new Properties().stacksTo(1);
+	public static final Properties PROPERTIES = new Properties().stacksTo(1);
 
 
 	@Override
-	public /*? 1.21.1 { *//*InteractionResultHolder<ItemStack>*//*? } else { */ InteractionResult/*? }*/ use(Level level, Player player, InteractionHand interactionHand) {
+	public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player player, @NonNull InteractionHand interactionHand) {
 		var result = super.use(level, player, interactionHand);
-
-
-		//? 1.21.1 {
-		/*if (!(player.level().isClientSide())) return result;
-
-
-		boolean patchouliLoaded = FabricLoader.getInstance().isModLoaded("patchouli");
-		if (!patchouliLoaded) {
-			player.displayClientMessage(
-				Component.translatable("message.stellarity.missing_patchouli"), true
-			);
-
-			return result;
-		}
-
-		try {
-			PatchouliAPI.get().openBookGUI(Stellarity.id("endonomicon"));
-		} catch (Exception e) {
-			player.displayClientMessage(
-				Component.literal(e.toString()), false
-			);
-		}
-		*///? } else {
-		// fix later to translation
+		
 		player.sendOverlayMessage(Component.literal("Blame Patchouli for not supplying modern support"));
-		//? }
-
 
 		return result;
-
-
 	}
 }

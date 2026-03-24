@@ -18,10 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
 import xyz.kohara.stellarity.registry.recipe.AltarRecipe;
-//? 1.21.1 {
 
-/*import org.joml.Vector3f;
-	*///? }
 
 public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 	public AltarOfTheAccursedBlockEntity(BlockPos pos, BlockState state) {
@@ -57,12 +54,9 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 				double dx = Mth.cos(angle);
 				double dz = Mth.sin(angle);
 
-				//? >= 1.21.9 {
 
 				var purpleParticle = new DustColorTransitionOptions(12255487, 1769509, 1.4f);
-				 //?} else {
-				/*var purpleParticle = new DustColorTransitionOptions(new Vector3f(0.733f, 0.0f, 1.0f), new Vector3f(0.106f, 0.0f, 0.145f), 1.4f);
-				*///? }
+
 
 				level.addParticle(
 					purpleParticle,

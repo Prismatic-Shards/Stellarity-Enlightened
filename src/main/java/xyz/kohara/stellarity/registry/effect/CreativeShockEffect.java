@@ -7,7 +7,7 @@ import xyz.kohara.stellarity.registry.StellarityParticles;
 
 
 public class CreativeShockEffect extends MobEffect {
-	//TODO maybe use a config for it or something
+
 	public static boolean extremeCreativeShock() {
 		return true;
 	}

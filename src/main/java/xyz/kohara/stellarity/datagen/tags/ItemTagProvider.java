@@ -13,11 +13,11 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.tags.ItemTags;
 
-//? >= 1.21.9 {
+
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-//?}
+
 
 public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 	public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
@@ -28,11 +28,10 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		super(output, completableFuture);
 	}
 
-	//? >= 1.21.9 {
+
 	public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
 		return this.valueLookupBuilder(tagKey);
 	}
-	//?}
 
 
 	@Override

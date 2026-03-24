@@ -19,12 +19,10 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
 
-//? 1.21.1 {
-/*import net.minecraft.nbt.CompoundTag;
-*///? } else {
+
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? }
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +57,7 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 		this.itemMode = mode;
 		boolean crafting = mode == ItemMode.CRAFTING;
 		setGlowingTag(crafting);
-		this.stellarity$setGlowColor(crafting ? ChatFormatting.DARK_PURPLE.getColor() : -1);
+		this.stellarity$setGlowColor(crafting ? 11141290 : -1);
 		setPickUpDelay(crafting ? Short.MAX_VALUE : 0);
 	}
 
@@ -79,32 +77,30 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void saveData(
-		//? 1.21.1 {
-		/*CompoundTag tag, CallbackInfo ci
-		*///? } else {
+
+
 		ValueOutput tag, CallbackInfo ci
-		 //? }
+
 	) {
 
 		tag.putString("stellarity:mode", itemMode.toString());
 	}
 
-	//? > 1.21.9
+
 	@SuppressWarnings("OptionalGetWithoutIsPresent")
 	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
 	public void readData(
-		//? 1.21.1 {
-		/*CompoundTag tag, CallbackInfo ci
-		*///? } else {
+
+
 		ValueInput tag, CallbackInfo ci
-		 //? }
+
 	) {
 		if (tag.contains("stellarity:mode")) {
 			try {
 				stellarity$setItemMode(ItemMode.valueOf(tag.getString("stellarity:mode")
-					//? > 1.21.9 {
+
 					.get()
-					 //? }
+
 				));
 			} catch (Exception e) {
 				Stellarity.LOGGER.info("Detected invalid itemmode, ignoring");

@@ -1,9 +1,9 @@
 package xyz.kohara.stellarity.registry.effect;
 
 import net.minecraft.tags.EntityTypeTags;
-//? > 1.21.9 {
+
 import net.minecraft.server.level.ServerLevel;
-	//? }
+
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,21 +17,21 @@ public class PrismaticInfernoEffect extends MobEffect {
 
 	@Override
 
-	public boolean applyEffectTick(/*? > 1.21.9 >> ' Li'*/ ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
+	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
 
 		Level level = livingEntity.level();
 		if (level.isClientSide()) return false;
 		boolean isInDaylight = level.canSeeSky(livingEntity.blockPosition()) &&
 			level.dimension() == Level.OVERWORLD &&
-			(!level.isRaining() && !level.isThundering() && level./*? 1.21.1 {*/ /*isDay() *//*? } else { */ isBrightOutside() /*? } */);
+			(!level.isRaining() && !level.isThundering() && level.isBrightOutside());
 
-		boolean isUndead = livingEntity./*? 1.21.1 >> 'is'*//*getType().*/is(EntityTypeTags.UNDEAD);
+		boolean isUndead = livingEntity.is(EntityTypeTags.UNDEAD);
 
 		float damage = 1f;
 		if (isUndead) damage *= 2;
 		if (isInDaylight) damage *= 2;
 
-		livingEntity./*? 1.21.1 {*/ /*hurt( *//*? } else { */ hurtServer(serverLevel, /*? }*/livingEntity.damageSources().inFire(), damage);
+		livingEntity.hurtServer(serverLevel, livingEntity.damageSources().inFire(), damage);
 		livingEntity.setRemainingFireTicks(25);
 		return true;
 	}

@@ -11,8 +11,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import xyz.kohara.stellarity.tags.StellarityDamageTypeTags;
 import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 
-//? 1.21.1 {
-//? }
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,14 +18,6 @@ public class DamageTagProvider extends FabricTagsProvider<DamageType> {
 	public DamageTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, Registries.DAMAGE_TYPE, registriesFuture);
 	}
-
-	//? 1.21.1 {
-	/*public FabricTagBuilder builder(
-		net.minecraft.tags.TagKey<DamageType> tag
-	) {
-		return getOrCreateTagBuilder(tag);
-	}
-	*///? }
 
 
 	@Override

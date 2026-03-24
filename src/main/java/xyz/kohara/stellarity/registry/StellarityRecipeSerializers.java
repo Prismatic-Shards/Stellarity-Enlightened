@@ -9,8 +9,8 @@ import xyz.kohara.stellarity.registry.recipe.AltarSimpleRecipe;
 import xyz.kohara.stellarity.registry.recipe.AltarUpgradeRecipe;
 
 public class StellarityRecipeSerializers {
-	public static final RecipeSerializer<AltarSimpleRecipe> ALTAR_SIMPLE = registerSerializer("altar_of_the_accursed_simple", /*? 1.21.1 {*//*new AltarSimpleRecipe.Serializer()*//*? } else {*/ new RecipeSerializer<>(AltarSimpleRecipe.CODEC, AltarSimpleRecipe.STREAM_CODEC)/*? }*/);
-	public static final RecipeSerializer<AltarUpgradeRecipe> ALTAR_UPGRADE = registerSerializer("altar_of_the_accursed_upgrade", /*? 1.21.1 {*//*new AltarUpgradeRecipe.Serializer()*//*? } else {*/ new RecipeSerializer<>(AltarUpgradeRecipe.CODEC, AltarUpgradeRecipe.STREAM_CODEC)/*? }*/);
+	public static final RecipeSerializer<AltarSimpleRecipe> ALTAR_SIMPLE = registerSerializer("altar_of_the_accursed_simple", new RecipeSerializer<>(AltarSimpleRecipe.CODEC, AltarSimpleRecipe.STREAM_CODEC));
+	public static final RecipeSerializer<AltarUpgradeRecipe> ALTAR_UPGRADE = registerSerializer("altar_of_the_accursed_upgrade", new RecipeSerializer<>(AltarUpgradeRecipe.CODEC, AltarUpgradeRecipe.STREAM_CODEC));
 
 	private static <T extends Recipe<?>> RecipeSerializer<T> registerSerializer(final String id, RecipeSerializer<T> serializer) {
 		return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Stellarity.id(id), serializer);

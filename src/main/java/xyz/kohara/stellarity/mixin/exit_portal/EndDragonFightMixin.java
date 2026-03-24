@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,14 +22,14 @@ import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
 import net.minecraft.core.registries.Registries;
 
+
 @Mixin(EnderDragonFight.class)
 public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 	@Shadow
 	@Nullable
-	public BlockPos portalLocation;
+	public BlockPos exitPortalLocation;
 
 	@Shadow
-	@Final
 	private ServerLevel level;
 
 	@Shadow
@@ -43,8 +42,8 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 
 	@Inject(method = "spawnExitPortal", at = @At("TAIL"))
 	private void placeChest(boolean bl, CallbackInfo ci) {
-		if (stellarity$portalChestGenerated() || portalLocation == null) return;
-		var chestPos = portalLocation.offset(7, 1, 0);
+		if (stellarity$portalChestGenerated() || exitPortalLocation == null) return;
+		var chestPos = exitPortalLocation.offset(7, 1, 0);
 		level.setBlock(chestPos, Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.EAST), Block.UPDATE_CLIENTS);
 		var entity = level.getBlockEntity(chestPos);
 
@@ -55,10 +54,10 @@ public abstract class EndDragonFightMixin implements ExtEndDragonFight {
 		}
 	}
 
-	@WrapOperation(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;spawnExitPortal(Z)V"))
+	@WrapOperation(method = "abortRespawnSequence", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;spawnExitPortal(Z)V"))
 	private void dontAllowEscape(EnderDragonFight instance, boolean bl, Operation<Void> original) {
 		if (hasPreviouslyKilledDragon()) original.call(instance, bl);
 	}
 
-
 }
+

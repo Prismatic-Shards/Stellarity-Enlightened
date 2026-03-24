@@ -71,7 +71,7 @@ public class StellarityPotions {
 	));
 
 
-	public static Holder<Potion> AMARENE = register("amarene", "amarene",
+	public static final Holder<Potion> AMARENE = register("amarene", "amarene",
 		new MobEffectInstance(MobEffects.SPEED, 48 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 48 * 20),
 		new MobEffectInstance(MobEffects.WEAKNESS, 48 * 20),
@@ -79,27 +79,27 @@ public class StellarityPotions {
 		new MobEffectInstance(MobEffects.LUCK, 4800)
 	);
 
-	public static Holder<Potion> LIFEFORCE = register("lifeforce", "lifeforce",
+	public static final Holder<Potion> LIFEFORCE = register("lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 3 * 60 * 20)
 	);
 
-	public static Holder<Potion> LONG_LIFEFORCE = register("long_lifeforce", "lifeforce",
+	public static final Holder<Potion> LONG_LIFEFORCE = register("long_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 6 * 60 * 20)
 	);
 
-	public static Holder<Potion> STRONG_LIFEFORCE = register("strong_lifeforce", "lifeforce",
+	public static final Holder<Potion> STRONG_LIFEFORCE = register("strong_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 90 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 90 * 20, 1)
 	);
 
-	public static Holder<Potion> SPELUNKER = register("spelunker", "spelunker",
+	public static final Holder<Potion> SPELUNKER = register("spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 3 * 60 * 20)
 	);
 
-	public static Holder<Potion> LONG_SPELUNKER = register("long_spelunker", "spelunker",
+	public static final Holder<Potion> LONG_SPELUNKER = register("long_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 6 * 60 * 20)
 	);
@@ -149,7 +149,7 @@ public class StellarityPotions {
 		new MobEffectInstance(MobEffects.LUCK)
 	);
 
-	// id because there can be potions with _ext and _long but they share same translation
+
 	private static Holder<Potion> register(String id, String name, MobEffectInstance... effects) {
 		return Registry.registerForHolder(BuiltInRegistries.POTION, Stellarity.id(id), new Potion("stellarity." + name, effects));
 	}

@@ -9,14 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 
-//? 1.21.1 {
-
-/*import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-
-*///? }
 
 public class RoyalJelly extends Item {
 	public RoyalJelly(Properties properties) {
@@ -62,26 +54,5 @@ public class RoyalJelly extends Item {
 		return 40;
 	}
 
-	//? 1.21.1 {
 
-	/*@Override
-	public UseAnim getUseAnimation(ItemStack itemStack) {
-		return UseAnim.DRINK;
-	}
-
-	@Override
-	public SoundEvent getDrinkingSound() {
-		return SoundEvents.HONEY_DRINK;
-	}
-
-	@Override
-	public SoundEvent getEatingSound() {
-		return SoundEvents.HONEY_DRINK;
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-		return ItemUtils.startUsingInstantly(level, player, interactionHand);
-	}
-	*///? }
 }

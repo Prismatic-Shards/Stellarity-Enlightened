@@ -1,14 +1,44 @@
 {
-    "required": true,
-    "package": "xyz.kohara.stellarity.mixin",
-    "compatibilityLevel": "${java}",
-    "mixins": [],
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "client": [
-    ],
-    "mixinextras": {
-        "minVersion": "0.5.0"
-    }
+	"required": true,
+	"package": "xyz.kohara.stellarity.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"advancement_triggers.PlayerAdvancementsMixin",
+		"break_speeds.BlockStateBaseMixin",
+		"death_messages.DamageSourceMixin",
+		"dragon_fight.DragonHoldingPatternPhaseMixin",
+		"dragon_fight.EndDragonFightMixin",
+		"dragon_fight.EnderDragonMixin",
+		"dragon_fight.SpikeCacheLoaderMixin",
+		"dragon_fight.SpikeFeatureMixin",
+		"enchantments.EnchantmentHelperMixin",
+		"enchantments.ProjectileWeaponItemMixin",
+		"end_crystal.EndCrystalMixin",
+		"end_gateway.EndGatewayMixin",
+		"entity_ai.AttributesMixin",
+		"exit_portal.EndDragonFightMixin",
+		"exit_portal.EndPodiumFeatureMixin",
+		"extend_classes.AbstractArrowMixin",
+		"extend_classes.EndDragonFightMixin",
+		"extend_classes.EndSpikeMixin",
+		"extend_classes.EntityMixin",
+		"extend_classes.ItemEntityMixin",
+		"extend_classes.ItemStackMixin",
+		"extend_classes.ServerEntityMixin",
+		"mob_effects.LivingEntityMixin",
+		"mob_effects.ServerPlayerMixin",
+		"potions.CreativeModeTabsMixin",
+		"potions.PotionContentsMixin",
+		"satchel_of_voids.ItemFrameMixin",
+		"void_fishing.FishingHookMixin",
+		"void_fishing.FishingRodItemMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+	],
+	"mixinextras": {
+		"minVersion": "0.5.0"
+	}
 }

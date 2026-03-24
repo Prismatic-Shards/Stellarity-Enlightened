@@ -38,6 +38,7 @@ public abstract class EntityMixin implements ExtEntity, SyncedDataHolder {
 	}
 
 	@Unique
+	final
 	ArrayList<SynchedEntityData.DataItem<?>> dataItems = new ArrayList<>();
 
 	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V", ordinal = 0, shift = At.Shift.AFTER))

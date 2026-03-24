@@ -22,9 +22,9 @@ import java.util.Map;
 
 import net.minecraft.core.Holder;
 
-//? > 1.21.10 {
+
 import net.minecraft.server.level.ServerLevel;
- //?}
+
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -44,9 +44,9 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 
-	@WrapMethod(method = /*? 1.21.1 { *//*"hurt"*//*? } else { */ "hurtServer" /*?} */)
-	private boolean applyBrittleEffect(/*? if > 1.21.10 >> 'Dam' */ServerLevel serverLevel, DamageSource damageSource, float f, Operation<Boolean> original) {
-		boolean hurt = original.call(/*? if > 1.21.10 >> 'dam' */serverLevel, damageSource, f);
+	@WrapMethod(method = "hurtServer")
+	private boolean applyBrittleEffect(ServerLevel serverLevel, DamageSource damageSource, float f, Operation<Boolean> original) {
+		boolean hurt = original.call(serverLevel, damageSource, f);
 
 		if (!activeEffects.containsKey(StellarityMobEffects.BRITTLE) || !hurt || appliedBrittle || damageSource.is(StellarityDamageTypes.BRITTLE))
 			return hurt;

@@ -13,9 +13,9 @@ import net.minecraft.advancements.Criterion;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mojang.serialization.Codec;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
-//? > 1.21.1 {
+
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
-//? }
+
 
 public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<AdvancementCompletedTrigger.TriggerInstance> {
 	static final Identifier ID = Stellarity.id("advancement_completed");
@@ -38,17 +38,10 @@ public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<Advancem
 		}
 
 
-		//? 1.21.1 {
-		/*@Override
-		public void validate(CriterionValidator validator) {
-
-		}
-
-		*///? } else {
 		@Override
 		public void validate(final ValidationContextSource validator) {
 		}
-		//? }
+
 
 		@Override
 		public Optional<ContextAwarePredicate> player() {

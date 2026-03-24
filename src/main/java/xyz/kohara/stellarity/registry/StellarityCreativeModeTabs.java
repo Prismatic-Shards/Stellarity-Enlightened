@@ -12,6 +12,8 @@ import net.minecraft.world.level.ItemLike;
 import xyz.kohara.stellarity.Stellarity;
 
 
+import java.util.function.Supplier;
+
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
 
 public class StellarityCreativeModeTabs {
@@ -52,7 +54,7 @@ public class StellarityCreativeModeTabs {
 	};
 
 
-	public static final ItemStack[] FOOD_ITEMSTACKS = new ItemStack[]{
+	public static final Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
 		StellarityItems.AMARENE_POTION,
 		StellarityItems.BLIND_RAGE_POTION,
 		StellarityItems.LONG_BLIND_RAGE_POTION,
@@ -149,22 +151,24 @@ public class StellarityCreativeModeTabs {
 
 	}
 
-	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, ItemStack[] stacks) {
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
-		//~ if > 1.21.1 'modifyEntriesEvent' -> 'modifyOutputEvent'
+	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, Supplier<ItemStack>[] stacks) {
+		var creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
+
 		CreativeModeTabEvents.modifyOutputEvent(key).register(itemGroup -> {
 			for (ItemLike item : items) {
 				itemGroup.accept(item);
 			}
 
-			for (ItemStack stack : stacks) {
-				itemGroup.accept(stack.copy());
+			for (Supplier<ItemStack> stack : stacks) {
+				itemGroup.accept(stack.get());
 			}
 		});
+
+
 	}
 
 	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items) {
-		register(key, tab, items, new ItemStack[]{});
+		register(key, tab, items, new Supplier[0]);
 	}
 
 }

@@ -21,11 +21,10 @@ public class SatchelOfVoids extends Item {
 		if (player == null || !player.level().isClientSide()) return prev;
 
 		Component msg = Component.literal("Not implemented yet! Thanks for finding this :3");
-		//? 1.21.1 {
-		/*player.displayClientMessage(msg, true);
-		 *///? } else {
+
+
 		player.sendOverlayMessage(msg);
-		//? }
+
 		return InteractionResult.SUCCESS;
 	}
 }

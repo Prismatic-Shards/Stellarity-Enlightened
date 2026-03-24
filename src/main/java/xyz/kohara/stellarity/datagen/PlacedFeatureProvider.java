@@ -1,7 +1,6 @@
 package xyz.kohara.stellarity.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -16,8 +15,8 @@ import java.util.List;
 
 public class PlacedFeatureProvider {
 
-	public static ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
-	public static ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
+	public static final ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
+	public static final ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
 
 	public static ResourceKey<PlacedFeature> id(String name) {
 		return Stellarity.key(Registries.PLACED_FEATURE, name);

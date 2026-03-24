@@ -81,13 +81,6 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 		);
 
 
-		/*
-		North <-
-		South ->
-		West ^
-		East v
-		Make sure the directions on the stairs are opposites because mc views the stairs as the way u walk towards
-		 */
 		printRow(level, new BlockState[]{
 				Blocks.AIR.defaultBlockState(),
 				Blocks.BEDROCK.defaultBlockState(),
