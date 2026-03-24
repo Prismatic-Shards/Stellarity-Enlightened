@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityRecipeSerializers;
 
@@ -81,7 +82,7 @@ public record AltarSimpleRecipe(@Nullable Identifier id,
 
 
 	@Override
-	public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
+	public @NonNull RecipeSerializer<? extends Recipe<Input>> getSerializer() {
 		return StellarityRecipeSerializers.ALTAR_SIMPLE;
 	}
 

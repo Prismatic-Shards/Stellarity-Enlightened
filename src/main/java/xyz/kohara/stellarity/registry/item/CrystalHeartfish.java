@@ -11,6 +11,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 import net.minecraft.advancements.AdvancementHolder;
@@ -35,7 +36,7 @@ public class CrystalHeartfish extends Item {
 	);
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
+	public @NonNull ItemStack finishUsingItem(@NonNull ItemStack itemStack, Level level, @NonNull LivingEntity livingEntity) {
 		if (!level.isClientSide()) {
 			this.addHealth(livingEntity);
 		}

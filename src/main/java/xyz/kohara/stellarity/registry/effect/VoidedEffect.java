@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +25,7 @@ public class VoidedEffect extends MobEffect {
 
 
 	@Override
-	public boolean applyEffectTick(ServerLevel level, LivingEntity livingEntity, int i) {
+	public boolean applyEffectTick(@NonNull ServerLevel level, LivingEntity livingEntity, int i) {
 		if (livingEntity.getHealth() > livingEntity.getMaxHealth()) {
 			livingEntity.setHealth(livingEntity.getMaxHealth());
 		}

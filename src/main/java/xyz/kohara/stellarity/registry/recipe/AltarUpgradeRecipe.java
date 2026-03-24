@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityRecipeSerializers;
 
@@ -42,9 +43,7 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 
 		ItemStack availableEquipment = null;
 		List<ItemStack> temp = new ArrayList<>(itemStacks.size());
-		for (int i = 0; i < itemStacks.size(); i++) {
-			ItemStack stack = itemStacks.get(i);
-
+		for (ItemStack stack : itemStacks) {
 			if (availableEquipment == null && equipment.test(stack)) {
 				availableEquipment = stack;
 				int count = availableEquipment.getCount();
@@ -112,7 +111,7 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 
 
 	@Override
-	public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
+	public @NonNull RecipeSerializer<? extends Recipe<Input>> getSerializer() {
 		return StellarityRecipeSerializers.ALTAR_UPGRADE;
 	}
 

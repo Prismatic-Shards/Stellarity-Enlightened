@@ -1,26 +1,23 @@
 package xyz.kohara.stellarity.registry.item;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
-
-import xyz.kohara.stellarity.registry.StellaritySounds;
-
-
-import net.minecraft.world.item.ToolMaterial;
-
-import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
-
+import org.jspecify.annotations.NonNull;
+import xyz.kohara.stellarity.registry.StellarityDamageTypes;
+import xyz.kohara.stellarity.registry.StellaritySounds;
 
 import java.util.Comparator;
 
@@ -37,7 +34,7 @@ public class Tamaris extends Item {
 
 	@Override
 
-	public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+	public void inventoryTick(@NonNull ItemStack itemStack, @NonNull ServerLevel level, @NonNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		super.inventoryTick(itemStack, level, entity, equipmentSlot);
 
 		inventoryTick(itemStack, (Level) level, entity, equipmentSlot);

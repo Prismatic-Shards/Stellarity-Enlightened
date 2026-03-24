@@ -1,41 +1,33 @@
 package xyz.kohara.stellarity.registry.item;
 
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.entity.player.Player;
-
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import xyz.kohara.stellarity.Stellarity;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.entity.EquipmentSlotGroup;
-
-
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.entity.EquipmentSlot;
-
+import xyz.kohara.stellarity.Stellarity;
+import xyz.kohara.stellarity.registry.StellarityBlocks;
+import xyz.kohara.stellarity.registry.StellarityItems;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
-
-import net.minecraft.world.level.Level;
-import xyz.kohara.stellarity.registry.StellarityBlocks;
-import xyz.kohara.stellarity.registry.StellarityItems;
-
-
-import net.minecraft.world.item.BlockItem;
 
 public class Duskberry extends BlockItem {
 
@@ -50,7 +42,7 @@ public class Duskberry extends BlockItem {
 
 
 	@Override
-	public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+	public void inventoryTick(@NonNull ItemStack itemStack, @NonNull ServerLevel serverLevel, @NonNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		inventoryTick(itemStack, serverLevel, entity);
 	}
 
@@ -91,7 +83,7 @@ public class Duskberry extends BlockItem {
 		.component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.ATTRIBUTE_MODIFIERS, true));
 
 	@Override
-	public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
+	public @NonNull InteractionResult interactLivingEntity(@NonNull ItemStack itemStack, @NonNull Player player, @NonNull LivingEntity livingEntity, @NonNull InteractionHand interactionHand) {
 		if (livingEntity instanceof Fox fox) {
 			fox.addEffect(new MobEffectInstance(MobEffects.POISON, 20 * 20), player);
 			return InteractionResult.SUCCESS;

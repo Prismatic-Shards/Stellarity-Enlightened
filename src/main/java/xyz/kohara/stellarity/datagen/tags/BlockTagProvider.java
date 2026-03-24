@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.tags.StellarityBlockTags;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
@@ -27,7 +28,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
 
 	@Override
-	protected void addTags(HolderLookup.Provider provider) {
+	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL).add(StellarityBlocks.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT, StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.ROOTED_ENDER_DIRT);
 
 		getOrCreateTagBuilder(StellarityBlockTags.DIRT).add(StellarityBlocks.ENDER_DIRT, StellarityBlocks.ENDER_GRASS_BLOCK, StellarityBlocks.ROOTED_ENDER_DIRT);

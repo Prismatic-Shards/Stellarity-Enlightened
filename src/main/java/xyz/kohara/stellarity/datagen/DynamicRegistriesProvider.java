@@ -3,6 +3,7 @@ package xyz.kohara.stellarity.datagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -13,7 +14,7 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 
 
 	@Override
-	public void configure(HolderLookup.Provider provider, Entries entries) {
+	public void configure(HolderLookup.@NonNull Provider provider, @NonNull Entries entries) {
 		ProcessorListProvider.configure(provider, entries);
 		ConfiguredFeatureProvider.configure(provider, entries);
 		PlacedFeatureProvider.configure(provider, entries);
@@ -21,7 +22,7 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 	}
 
 	@Override
-	public String getName() {
+	public @NonNull String getName() {
 		return "All Dynamic Registries Provider";
 	}
 }

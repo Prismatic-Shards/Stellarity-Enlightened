@@ -8,6 +8,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -103,7 +104,7 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 
 	@Override
-	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 		define(registryLookup.join());
 		for (var entry : LOOT_TABLES.entrySet()) {
 			consumer.accept(Stellarity.key(Registries.LOOT_TABLE, entry.getKey()), entry.getValue());

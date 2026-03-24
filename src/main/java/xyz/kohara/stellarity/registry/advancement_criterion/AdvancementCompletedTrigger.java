@@ -5,6 +5,7 @@ import net.minecraft.advancements.criterion.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.util.Optional;
@@ -39,17 +40,17 @@ public class AdvancementCompletedTrigger extends SimpleCriterionTrigger<Advancem
 
 
 		@Override
-		public void validate(final ValidationContextSource validator) {
+		public void validate(final @NonNull ValidationContextSource validator) {
 		}
 
 
 		@Override
-		public Optional<ContextAwarePredicate> player() {
+		public @NonNull Optional<ContextAwarePredicate> player() {
 			return Optional.empty();
 		}
 	}
 
-	public Codec<TriggerInstance> codec() {
+	public @NonNull Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 }

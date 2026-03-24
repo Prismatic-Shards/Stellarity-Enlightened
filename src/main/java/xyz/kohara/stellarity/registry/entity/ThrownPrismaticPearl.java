@@ -22,6 +22,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityEntities;
 import xyz.kohara.stellarity.registry.StellarityItems;
@@ -48,7 +49,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	public void shootFromRotation(Entity entity, float f, float g, float h, float i, float j) {
+	public void shootFromRotation(@NonNull Entity entity, float f, float g, float h, float i, float j) {
 		super.shootFromRotation(entity, f, g, h, i, j);
 
 		if (!level().isClientSide() && entity instanceof Player player) {
@@ -145,7 +146,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 
 
 	@Override
-	protected void readAdditionalSaveData(ValueInput valueInput) {
+	protected void readAdditionalSaveData(@NonNull ValueInput valueInput) {
 		super.readAdditionalSaveData(valueInput);
 		TrailType trailType = TrailType.NORMAL;
 		try {
@@ -157,7 +158,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(ValueOutput valueOutput) {
+	protected void addAdditionalSaveData(@NonNull ValueOutput valueOutput) {
 		super.addAdditionalSaveData(valueOutput);
 		valueOutput.putString("stellarity:trail_type", getTrailType().toString());
 	}
@@ -214,7 +215,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected Item getDefaultItem() {
+	protected @NonNull Item getDefaultItem() {
 		return StellarityItems.PRISMATIC_PEARL;
 	}
 
@@ -223,7 +224,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	};
 
 	@Override
-	protected void onHit(HitResult hitResult) {
+	protected void onHit(@NonNull HitResult hitResult) {
 		super.onHit(hitResult);
 
 		var level = level();
@@ -250,7 +251,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		super.syncPacketPositionCodec(d, e, f);
 	}
 
-	protected void onHitEntity(EntityHitResult entityHitResult) {
+	protected void onHitEntity(@NonNull EntityHitResult entityHitResult) {
 		super.onHitEntity(entityHitResult);
 		var level = level();
 		if (level.isClientSide()) return;

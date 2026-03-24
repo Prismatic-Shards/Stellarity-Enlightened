@@ -4,6 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
+import org.jspecify.annotations.NonNull;
 
 public class SatchelOfVoids extends Item {
 	public SatchelOfVoids(Properties properties) {
@@ -15,7 +16,7 @@ public class SatchelOfVoids extends Item {
 
 
 	@Override
-	public InteractionResult useOn(UseOnContext useOnContext) {
+	public @NonNull InteractionResult useOn(@NonNull UseOnContext useOnContext) {
 		var prev = super.useOn(useOnContext);
 		var player = useOnContext.getPlayer();
 		if (player == null || !player.level().isClientSide()) return prev;

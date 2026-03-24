@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 
 import net.minecraft.world.InteractionResult;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.entity.ThrownPrismaticPearl;
 
 
@@ -27,7 +28,7 @@ public class PrismaticPearlItem extends Item {
 
 
 	@Override
-	public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
+	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 
 		if (level instanceof ServerLevel serverLevel) {

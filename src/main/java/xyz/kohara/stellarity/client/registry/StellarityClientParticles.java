@@ -3,7 +3,6 @@ package xyz.kohara.stellarity.client.registry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
-import net.minecraft.client.particle.CritParticle;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.client.registry.particle.CriticalStrikeParticle;
 import xyz.kohara.stellarity.registry.StellarityParticles;

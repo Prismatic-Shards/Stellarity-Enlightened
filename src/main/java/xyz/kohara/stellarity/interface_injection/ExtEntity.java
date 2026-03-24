@@ -3,9 +3,6 @@ package xyz.kohara.stellarity.interface_injection;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.Entity;
-
-import java.util.ArrayList;
 
 public interface ExtEntity {
 
@@ -25,9 +22,6 @@ public interface ExtEntity {
 	default void stellarity$defineSynchedData() {
 		throw new AssertionError("Not transformed!");
 	}
-
-	;
-
 
 	default <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
 		throw new AssertionError("Not transformed!");

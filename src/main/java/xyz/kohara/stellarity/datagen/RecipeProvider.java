@@ -126,7 +126,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
+	public @NonNull String getName() {
 		return Stellarity.MOD_ID;
 	}
 

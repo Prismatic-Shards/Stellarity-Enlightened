@@ -49,7 +49,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+	protected boolean mayPlaceOn(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos) {
 		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(StellarityBlockTags.DIRT);
 	}
 
@@ -61,13 +61,13 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
+	public boolean isValidBonemealTarget(@NonNull LevelReader levelReader, @NonNull BlockPos blockPos, BlockState blockState) {
 		return blockState.getValue(AGE) < MAX_AGE;
 	}
 
 
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	public @NonNull VoxelShape getShape(BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {
 		VoxelShape var10000;
 		switch (blockState.getValue(AGE)) {
 			case 0 -> var10000 = SAPLING_SHAPE;
@@ -80,15 +80,15 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, @NonNull BlockState blockState) {
 		return true;
 	}
 
 
 	@Override
-	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
+	public void entityInside(@NonNull BlockState blockState, @NonNull Level level, @NonNull BlockPos blockPos, @NonNull Entity entity, @NonNull InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
 		if (entity instanceof LivingEntity livingEntity) {
-			livingEntity.makeStuckInBlock(blockState, new Vec3((double) 0.8F, (double) 0.75F, (double) 0.8F));
+			livingEntity.makeStuckInBlock(blockState, new Vec3(0.8F, 0.75F, 0.8F));
 			for (var effect : Duskberry.debuffs(blockState.getValue(AGE))) {
 				livingEntity.addEffect(effect);
 			}
@@ -96,7 +96,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public void performBonemeal(ServerLevel serverLevel, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, BlockState blockState) {
 		int i = Math.min(3, blockState.getValue(AGE) + 1);
 		serverLevel.setBlock(blockPos, blockState.setValue(AGE, i), 2);
 	}

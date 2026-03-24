@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.tags.StellarityItemTags;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -35,7 +36,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
 
 	@Override
-	public void addTags(HolderLookup.Provider provider) {
+	public void addTags(HolderLookup.@NonNull Provider provider) {
 		getOrCreateTagBuilder(StellarityItemTags.FISHES).add(
 			StellarityItems.AMETHYST_BUDFISH,
 			StellarityItems.BUBBLEFISH,

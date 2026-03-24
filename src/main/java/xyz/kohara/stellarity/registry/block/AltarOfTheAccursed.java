@@ -21,6 +21,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity;
 import xyz.kohara.stellarity.registry.StellarityBlockEntityTypes;
 import com.mojang.serialization.MapCodec;
@@ -33,7 +34,7 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 
 		@Override
 
-		public String getSerializedName() {
+		public @NonNull String getSerializedName() {
 			return switch (this) {
 				case NORMAL -> "normal";
 				case CREATIVE -> "creative";
@@ -68,33 +69,33 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 		.mapColor(MapColor.COLOR_GREEN)
 		.instrument(NoteBlockInstrument.BASEDRUM)
 		.sound(SoundType.GLASS)
-		.lightLevel((blockStatex) -> 7)
+		.lightLevel((_) -> 7)
 		.strength(-1.0F, 6700000.0F);
 
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	public @NonNull VoxelShape getShape(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {
 		return SHAPE;
 	}
 
 	public static final MapCodec<? extends BaseEntityBlock> CODEC = simpleCodec(AltarOfTheAccursed::new);
 
 	@Override
-	public MapCodec<? extends BaseEntityBlock> codec() {
+	public @NonNull MapCodec<? extends BaseEntityBlock> codec() {
 		return CODEC;
 	}
 
 	@Override
-	public RenderShape getRenderShape(BlockState blockState) {
+	public @NonNull RenderShape getRenderShape(@NonNull BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+	public @Nullable BlockEntity newBlockEntity(@NonNull BlockPos blockPos, @NonNull BlockState blockState) {
 		return new AltarOfTheAccursedBlockEntity(blockPos, blockState);
 	}
 
 	@Override
-	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NonNull Level level, @NonNull BlockState blockState, @NonNull BlockEntityType<T> type) {
 		if (type == StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED) return AltarOfTheAccursedBlockEntity::tick;
 		return null;
 	}

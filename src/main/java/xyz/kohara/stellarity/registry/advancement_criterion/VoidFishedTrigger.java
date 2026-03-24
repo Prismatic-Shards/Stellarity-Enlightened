@@ -1,9 +1,12 @@
 package xyz.kohara.stellarity.registry.advancement_criterion;
 
-import java.util.Collection;
-
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -11,18 +14,15 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.Validatable;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
-
-import java.util.Optional;
-
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.mojang.serialization.Codec;
 import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 
-
-import net.minecraft.world.level.storage.loot.ValidationContextSource;
-import net.minecraft.world.level.storage.loot.Validatable;
+import java.util.Collection;
+import java.util.Optional;
 
 
 public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.TriggerInstance> {
@@ -80,14 +80,14 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 
 
 		@Override
-		public void validate(final ValidationContextSource validator) {
+		public void validate(final @NonNull ValidationContextSource validator) {
 			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
 			Validatable.validate(validator.entityContext(), "entity", this.entity);
 		}
 
 	}
 
-	public Codec<TriggerInstance> codec() {
+	public @NonNull Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 }
