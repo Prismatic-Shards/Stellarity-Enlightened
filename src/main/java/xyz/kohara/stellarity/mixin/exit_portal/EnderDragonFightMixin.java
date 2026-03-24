@@ -19,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
+import xyz.kohara.stellarity.interface_injection.ExtEnderDragonFight;
 import net.minecraft.core.registries.Registries;
 
 
 @Mixin(EnderDragonFight.class)
-public abstract class EndDragonFightMixin implements ExtEndDragonFight {
+public abstract class EnderDragonFightMixin implements ExtEnderDragonFight {
 	@Shadow
 	@Nullable
 	public BlockPos exitPortalLocation;

@@ -44,8 +44,6 @@ public class Tamaris extends Item {
 	public void inventoryTick(
 		ItemStack itemStack, Level level, Entity entity, @Nullable EquipmentSlot equipmentSlot
 	) {
-
-
 		boolean isClient = level.isClientSide();
 		Vec3 position = entity.position();
 

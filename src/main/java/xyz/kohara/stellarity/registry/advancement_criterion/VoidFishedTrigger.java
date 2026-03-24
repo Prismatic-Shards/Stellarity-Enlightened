@@ -34,7 +34,7 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 
 
 	public void trigger(ServerPlayer serverPlayer, ItemStack itemStack, FishingHook fishingHook, Collection<ItemStack> collection) {
-		LootContext lootContext = EntityPredicate.createContext(serverPlayer, (Entity) (fishingHook.getHookedIn() != null ? fishingHook.getHookedIn() : fishingHook));
+		LootContext lootContext = EntityPredicate.createContext(serverPlayer, fishingHook.getHookedIn() != null ? fishingHook.getHookedIn() : fishingHook);
 		this.trigger(serverPlayer, (triggerInstance) -> triggerInstance.matches(itemStack, lootContext, collection));
 	}
 

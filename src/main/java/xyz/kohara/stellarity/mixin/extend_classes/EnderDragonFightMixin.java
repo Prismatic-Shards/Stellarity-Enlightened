@@ -4,10 +4,10 @@ package xyz.kohara.stellarity.mixin.extend_classes;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import xyz.kohara.stellarity.interface_injection.ExtEndDragonFight;
+import xyz.kohara.stellarity.interface_injection.ExtEnderDragonFight;
 
 @Mixin(EnderDragonFight.class)
-public class EndDragonFightMixin implements ExtEndDragonFight {
+public class EnderDragonFightMixin implements ExtEnderDragonFight {
 	@Unique
 	private boolean portalChestGenerated;
 

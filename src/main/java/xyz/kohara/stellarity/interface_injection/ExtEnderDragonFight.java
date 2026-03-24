@@ -1,6 +1,6 @@
 package xyz.kohara.stellarity.interface_injection;
 
-public interface ExtEndDragonFight {
+public interface ExtEnderDragonFight {
 
 	default boolean stellarity$portalChestGenerated() {
 		throw new AssertionError("Not transformed!");

@@ -26,7 +26,7 @@ import java.util.UUID;
 
 
 @Mixin(EnderDragonFight.class)
-public abstract class EndDragonFightMixin {
+public abstract class EnderDragonFightMixin {
 	@Shadow
 	public boolean dragonKilled;
 
