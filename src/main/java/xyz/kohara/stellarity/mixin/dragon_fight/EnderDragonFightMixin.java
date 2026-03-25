@@ -6,8 +6,10 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
@@ -31,23 +33,11 @@ public abstract class EnderDragonFightMixin {
 	public boolean dragonKilled;
 
 	@Shadow
-	@Nullable
-	private List<EndCrystal> respawnCrystals;
-
-	@Shadow
 	private int aliveCrystals;
 
 	@Unique
 	private final ServerBossEvent crystalsRemaining = new ServerBossEvent(UUID.fromString("d4a16717-72f2-4a42-8813-78e50b18f181"), Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
 
-	@Inject(method = "resetSpikeCrystals", at = @At("HEAD"))
-	private void resetRespawnCrystals(CallbackInfo ci) {
-		if (respawnCrystals == null) return;
-		for (EndCrystal endCrystal : respawnCrystals) {
-			endCrystal.setInvulnerable(false);
-			endCrystal.setBeamTarget(null);
-		}
-	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void tick(CallbackInfo ci) {
@@ -68,6 +58,7 @@ public abstract class EnderDragonFightMixin {
 	private void removePlayerBossBar(CallbackInfo ci, @Local(name = "player") ServerPlayer player) {
 		crystalsRemaining.removePlayer(player);
 	}
+
 
 	@WrapOperation(method = "scanState", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;dragonKilled:Z", opcode = Opcodes.PUTFIELD))
 	private void scanStatePreventRevive(EnderDragonFight instance, boolean value, Operation<Void> original) {

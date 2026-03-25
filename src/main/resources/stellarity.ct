@@ -6,7 +6,7 @@ inject-interface net/minecraft/world/entity/projectile/FishingHook xyz/kohara/st
 inject-interface net/minecraft/world/entity/item/ItemEntity xyz/kohara/stellarity/interface_injection/ExtItemEntity
 inject-interface net/minecraft/world/entity/projectile/arrow/AbstractArrow xyz/kohara/stellarity/interface_injection/ExtAbstractArrow
 inject-interface net/minecraft/world/level/levelgen/feature/EndSpikeFeature$EndSpike xyz/kohara/stellarity/interface_injection/ExtEndSpike
-inject-interface net/minecraft/world/level/dimension/end/EnderDragonFight xyz/kohara/stellarity/interface_injection/ExtEndDragonFight
+inject-interface net/minecraft/world/level/dimension/end/EnderDragonFight xyz/kohara/stellarity/interface_injection/ExtEnderDragonFight
 
 extendable method net/minecraft/world/entity/decoration/ItemFrame onItemChanged (Lnet/minecraft/world/item/ItemStack;)V
 accessible class net/minecraft/server/commands/AdvancementCommands$Action

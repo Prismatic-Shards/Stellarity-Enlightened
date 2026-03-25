@@ -21,6 +21,19 @@ repositories {
 }
 loom {
 	accessWidenerPath = project.file("src/main/resources/${project.property("mod.id")}.ct")
+
+	decompilerOptions.named("vineflower") {
+		options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
+	}
+
+	runConfigs["client"].apply {
+		programArgs("--username=StellarityDev")
+	}
+
+	runConfigs.all {
+		ideConfigGenerated(true)
+		vmArgs("-Dmixin.debug.export=true -XX:+AllowEnhancedClassRedefinition")
+	}
 }
 
 fabricApi {
@@ -42,7 +55,7 @@ dependencies {
 
 tasks.processResources {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
-	
+
 	inputs.property("id", project.property("mod.id"))
 	inputs.property("name", project.property("mod.name"))
 	inputs.property("version", project.property("mod.version"))

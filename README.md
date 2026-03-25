@@ -9,6 +9,18 @@
 [![Code Size](https://img.shields.io/github/languages/code-size/koharas-Basement/stellarity-fabric?style=for-the-badge&color=purple&logoColor=white)](https://github.com/koharas-Basement/stellarity-fabric)
 [![Repo Size](https://img.shields.io/github/repo-size/koharas-Basement/stellarity-fabric?logo=dropbox&style=for-the-badge&color=red)](https://github.com/koharas-Basement/stellarity-fabric)
 
+> [!IMPORTANT]
+> This project is no longer multiversion due to factors such as
+> - Minecraft completely rewriting ItemStacks
+> - Yarn to deobfuscated fabric api
+> - Upcoming vulkan update
+> - Mojang AI slop bugs with a bug report response: "Does it affect vanilla"
+> - Impossible to build GUIs across 1.20.1 - 26.1+
+> - Less incompat with structure blocks
+> - Certain Fabric API's nonexistant with older versions
+>
+> As per a vote in our Discord server, the results prioritize latest version, as consistent with our download counts.
+
 Stellarity Enlightened is a mod version of the total rehaul of The End including biome and structure overhauls, new
 items, weapons, mechanics, mobs and more.
 
