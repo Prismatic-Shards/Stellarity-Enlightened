@@ -5,11 +5,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-//? >= 1.21.9 {
-/*import net.minecraft.world.item.component.Consumables;
-import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
-
-*///?}
 
 public class ShulkerBody extends TeleportingFood {
 	private static final int TELEPORT_DIAMETER = 16;

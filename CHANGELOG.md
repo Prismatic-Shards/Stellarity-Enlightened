@@ -29,6 +29,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 ## Recipes
 
+## Versions
+
+**[-] 1.20.1**
+
+- As per poll and download counts, the 1.20.1 version is simply not worth maintaining.
+
+**[*] 1.21.11 -> 26.1**
+
 ### AOTA
 
 # Developers Note

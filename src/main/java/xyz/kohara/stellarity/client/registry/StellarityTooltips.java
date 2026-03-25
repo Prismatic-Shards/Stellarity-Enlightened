@@ -9,12 +9,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.alchemy.PotionContents;
 import xyz.kohara.stellarity.Stellarity;
-//? 1.20.1 {
-import net.minecraft.world.item.alchemy.PotionUtils;
-	//? } else{
-/*import net.minecraft.core.component.DataComponents;
- *///? }
+import net.minecraft.core.component.DataComponents;
+
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class StellarityTooltips {
@@ -26,19 +25,12 @@ public class StellarityTooltips {
 		Stellarity.LOGGER.info("Registering Stellarity Tooltips");
 
 		ItemTooltipCallback.EVENT.register((
-			//? 1.20.1 {
-			itemStack, unused, list
-			//? } else {
-			/*itemStack, unused, unused2, list
-			 *///? }
+			itemStack, unused, unused2, list
 		) -> {
 			Item item = itemStack.getItem();
 			boolean isStellarityPotion = item instanceof PotionItem &&
-				//? 1.20.1 {
-				BuiltInRegistries.POTION.getKey(PotionUtils.getPotion(itemStack)).getNamespace().equals(Stellarity.MOD_ID);
-			//?} else {
-			/*itemStack.get(DataComponents.POTION_CONTENTS).potion().map(holder -> BuiltInRegistries.POTION.getKey(holder.value()).getNamespace().equals(Stellarity.MOD_ID)).orElse(false);
-			 *///? }
+				Optional.ofNullable(itemStack.get(DataComponents.POTION_CONTENTS)).flatMap(PotionContents::potion).map(holder -> BuiltInRegistries.POTION.getKey(holder.value())).map((location) -> location.getNamespace().equals(Stellarity.MOD_ID)).orElse(false);
+
 			if (!(BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(Stellarity.MOD_ID) || isStellarityPotion)) {
 				return;
 			}

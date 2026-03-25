@@ -1,79 +1,54 @@
 package xyz.kohara.stellarity.registry.item;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import xyz.kohara.stellarity.registry.StellarityDamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
-
-import xyz.kohara.stellarity.registry.StellaritySounds;
-//? < 1.21.9 {
-
-import xyz.kohara.stellarity.registry.StellarityItems;
-
-//? } else {
-/*import net.minecraft.world.item.ToolMaterial;
-
-import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.Nullable;
-*///? }
+import org.jspecify.annotations.NonNull;
+import xyz.kohara.stellarity.registry.StellarityDamageTypes;
+import xyz.kohara.stellarity.registry.StellaritySounds;
 
 import java.util.Comparator;
 
-public class Tamaris extends
-	//? < 1.21.9 {
-	SwordItem
-	//? } else {
-	/*Item
-	 *///? }
-{
+public class Tamaris extends Item {
 	public Tamaris(Properties properties) {
-		//? 1.20.1 {
-		super(Tiers.NETHERITE, 2, -2.4f, properties);
-		 //? } 1.21.1 {
-		/*super(Tiers.NETHERITE, properties.attributes(SwordItem.createAttributes(Tiers.NETHERITE, 2, -2.4F)));
-		*///? } else {
-		/*super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
-		 *///? }
+
+
+		super(properties.sword(ToolMaterial.NETHERITE, 2, -2.4F));
+
 	}
 
 
 	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1).durability(1561);
 
 	@Override
-	//? > 1.21.9 {
-	/*public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+
+	public void inventoryTick(@NonNull ItemStack itemStack, @NonNull ServerLevel level, @NonNull Entity entity, @Nullable EquipmentSlot equipmentSlot) {
 		super.inventoryTick(itemStack, level, entity, equipmentSlot);
 
 		inventoryTick(itemStack, (Level) level, entity, equipmentSlot);
 	}
-	*///? }
+
 
 	public void inventoryTick(
-		//? < 1.21.9 {
-		ItemStack itemStack, Level level, Entity entity, int i, boolean bl
-		//? } else {
-		/*ItemStack itemStack, Level level, Entity entity, @Nullable EquipmentSlot equipmentSlot
-		 *///? }
+		ItemStack itemStack, Level level, Entity entity, @Nullable EquipmentSlot equipmentSlot
 	) {
-		//? < 1.21.9 {
-		super.inventoryTick(itemStack, level, entity, i, bl);
-		//? } else {
-
-		//? }
-
 		boolean isClient = level.isClientSide();
 		Vec3 position = entity.position();
 
 		if (entity instanceof Player player) {
-			if (player.getCooldowns().isOnCooldown(itemStack/*? < 1.21.9 {*/.getItem() /*?}*/) || !player.isHolding(itemStack::equals))
+			if (player.getCooldowns().isOnCooldown(itemStack) || !player.isHolding(itemStack::equals))
 				return;
 
 			var nearbyEntities = level.getEntitiesOfClass(
@@ -101,25 +76,19 @@ public class Tamaris extends
 						}
 					}
 
-					if (!nearby./*? < 1.21.9 {*/hurt(/*? } else {*//*hurtServer((ServerLevel) level, *//*? } */ nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
+					if (!nearby.hurtServer((ServerLevel) level, nearby.damageSources().source(StellarityDamageTypes.TAMARIS_EXECUTE, player), 999f))
 						continue;
 
 
 					var nearestPos = nearby.position();
 
 					player.teleportTo(nearestPos.x, nearestPos.y, nearestPos.z);
-					itemStack.hurtAndBreak(1, player,
-						//? 1.20.1 {
-						(livingEntityx) -> livingEntityx.broadcastBreakEvent(EquipmentSlot.MAINHAND)
-						 //? } else {
-						/*EquipmentSlot.MAINHAND
-						*///? }
-					);
+					itemStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 
 					nearby.playSound(StellaritySounds.TAMARIS_EXECUTE);
 
 					if (failed) {
-						player.getCooldowns().addCooldown(/*? < 1.21.10 { */StellarityItems.TAMARIS /*? } else { */ /*itemStack *//*? } */, 11 * 20);
+						player.getCooldowns().addCooldown(itemStack, 11 * 20);
 					}
 
 					break;

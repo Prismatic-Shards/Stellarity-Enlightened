@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.networking.S2CSetStellarityEntityDataPacket;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 @Mixin(ServerEntity.class)
 public abstract class ServerEntityMixin {
@@ -33,11 +32,10 @@ public abstract class ServerEntityMixin {
 	private List<SynchedEntityData.DataValue<?>> trackedDataValues;
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-		//? < 1.21.9 {
-	private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, Consumer consumer, CallbackInfo ci) {
-		//? } else {
-		/*private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
-		 *///? }
+
+
+	private void init(ServerLevel serverLevel, Entity entity, int i, boolean bl, ServerEntity.Synchronizer synchronizer, CallbackInfo ci) {
+
 		trackedDataValues = entity.stellarity$entityData().getNonDefaultValues();
 	}
 
@@ -54,15 +52,9 @@ public abstract class ServerEntityMixin {
 		trackedDataValues = synchedEntityData.getNonDefaultValues();
 		if (trackedDataValues == null) return;
 		for (var serverPlayer : level.players()) {
-			var packet = new S2CSetStellarityEntityDataPacket(entity.getId(), list);
-
 			ServerPlayNetworking.send(
 				serverPlayer,
-				//? 1.20.1 {
-				S2CSetStellarityEntityDataPacket.ID, packet.pack()
-				//? } else {
-				/*packet
-				 *///? }
+				new S2CSetStellarityEntityDataPacket(entity.getId(), list)
 			);
 
 		}
@@ -71,15 +63,9 @@ public abstract class ServerEntityMixin {
 	@Inject(method = "addPairing", at = @At("TAIL"))
 	private void sendStellarityPairingData(ServerPlayer serverPlayer, CallbackInfo ci) {
 		if (trackedDataValues != null) {
-			var packet = new S2CSetStellarityEntityDataPacket(entity.getId(), trackedDataValues);
-
 			ServerPlayNetworking.send(
 				serverPlayer,
-				//? 1.20.1 {
-				S2CSetStellarityEntityDataPacket.ID, packet.pack()
-				//? } else {
-				/*packet
-				 *///? }
+				new S2CSetStellarityEntityDataPacket(entity.getId(), trackedDataValues)
 			);
 
 		}

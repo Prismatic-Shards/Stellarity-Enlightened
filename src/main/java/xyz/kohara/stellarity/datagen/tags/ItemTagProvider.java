@@ -1,11 +1,12 @@
 package xyz.kohara.stellarity.datagen.tags;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.tags.StellarityItemTags;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
@@ -13,30 +14,29 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.tags.ItemTags;
 
-//? >= 1.21.9 {
-/*import net.minecraft.data.tags.TagAppender;
+
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-*///?}
 
-public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
-	public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
+
+public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
+	public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
 		super(output, completableFuture, blockTagProvider);
 	}
 
-	public ItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+	public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
 		super(output, completableFuture);
 	}
 
-	//? >= 1.21.9 {
-	/*public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
+
+	public TagAppender<Item, Item> getOrCreateTagBuilder(TagKey<Item> tagKey) {
 		return this.valueLookupBuilder(tagKey);
 	}
-	*///?}
 
 
 	@Override
-	public void addTags(HolderLookup.Provider provider) {
+	public void addTags(HolderLookup.@NonNull Provider provider) {
 		getOrCreateTagBuilder(StellarityItemTags.FISHES).add(
 			StellarityItems.AMETHYST_BUDFISH,
 			StellarityItems.BUBBLEFISH,
@@ -49,24 +49,9 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		getOrCreateTagBuilder(ItemTags.FISHES).addTag(StellarityItemTags.FISHES);
 		getOrCreateTagBuilder(StellarityItemTags.ELYTRA_ENCHANTABLE).add(Items.ELYTRA);
-		//? 1.20.1 {
+
 		getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
-			.add(Items.BOW, Items.CROSSBOW, StellarityItems.CALL_OF_THE_VOID);
-		//? } else {
-		/*getOrCreateTagBuilder(StellarityItemTags.RANGED_ENCHANTABLE)
 			.forceAddTag(ItemTags.BOW_ENCHANTABLE)
 			.forceAddTag(ItemTags.CROSSBOW_ENCHANTABLE);
-		*///? }
-
-		//? 1.20.1 {
-		getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(
-			StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
-			StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-			StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
-		);
-
-		//? }
-
-
 	}
 }

@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.interface_injection;
 
 
-import net.minecraft.world.level.levelgen.feature.SpikeFeature;
+import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 
 public interface ExtEndSpike {
 	default boolean stellarity$hasAltar() {
@@ -20,13 +20,13 @@ public interface ExtEndSpike {
 		throw new AssertionError("Not transformed");
 	}
 
-	static SpikeFeature.EndSpike apply(SpikeFeature.EndSpike spike, boolean hasAltar, boolean cryingObsidianTops) {
+	static EndSpikeFeature.EndSpike apply(EndSpikeFeature.EndSpike spike, boolean hasAltar, boolean cryingObsidianTops) {
 		spike.stellarity$setAltar(hasAltar);
 		spike.stellarity$setCryingObsidianTops(cryingObsidianTops);
 		return spike;
 	}
 
-	static SpikeFeature.EndSpike applyDefaults(SpikeFeature.EndSpike spike) {
+	static EndSpikeFeature.EndSpike applyDefaults(EndSpikeFeature.EndSpike spike) {
 		return apply(spike, false, false);
 	}
 }

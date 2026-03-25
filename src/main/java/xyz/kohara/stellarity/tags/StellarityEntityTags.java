@@ -7,6 +7,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 public class StellarityEntityTags {
 	public static final TagKey<EntityType<?>> INVALID_TARGETS = bind("invalid_targets");
+	public static final TagKey<EntityType<?>> PLACEHOLDER_DONT_USE = bind("placeholder_dont_use");
 
 
 	private static TagKey<EntityType<?>> bind(String id) {

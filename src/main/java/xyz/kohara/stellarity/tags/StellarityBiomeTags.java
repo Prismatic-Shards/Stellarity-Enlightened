@@ -7,6 +7,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 public class StellarityBiomeTags {
 	public static final TagKey<Biome> SNOWY = bind("snowy");
+	public static final TagKey<Biome> PLACEHOLDER_DONT_USE = bind("placeholder_dont_use");
 
 	private static TagKey<Biome> bind(String id) {
 		return TagKey.create(Registries.BIOME, Stellarity.id(id));

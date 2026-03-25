@@ -1,7 +1,7 @@
 package xyz.kohara.stellarity.registry;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
@@ -11,6 +11,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.ItemLike;
 import xyz.kohara.stellarity.Stellarity;
 
+
+import java.util.function.Supplier;
 
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
 
@@ -52,7 +54,7 @@ public class StellarityCreativeModeTabs {
 	};
 
 
-	public static final ItemStack[] FOOD_ITEMSTACKS = new ItemStack[]{
+	public static final Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
 		StellarityItems.AMARENE_POTION,
 		StellarityItems.BLIND_RAGE_POTION,
 		StellarityItems.LONG_BLIND_RAGE_POTION,
@@ -115,25 +117,25 @@ public class StellarityCreativeModeTabs {
 	public static final ResourceKey<CreativeModeTab> INGREDIENTS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "ingredients");
 	public static final ResourceKey<CreativeModeTab> TRINKETS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "trinkets");
 
-	public static final CreativeModeTab FOOD = FabricItemGroup.builder()
+	public static final CreativeModeTab FOOD = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(StellarityItems.SUSHI))
 		.title(Component.translatable("itemGroup.stellarity.food"))
 		.build();
-	public static final CreativeModeTab BLOCKS = FabricItemGroup.builder()
+	public static final CreativeModeTab BLOCKS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(StellarityItems.ENDER_GRASS_BLOCK))
 		.title(Component.translatable("itemGroup.stellarity.blocks"))
 		.build();
-	public static final CreativeModeTab EQUIPMENT = FabricItemGroup.builder()
+	public static final CreativeModeTab EQUIPMENT = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(StellarityItems.CALL_OF_THE_VOID))
 		.title(Component.translatable("itemGroup.stellarity.equipment"))
 		.build();
 
-	public static final CreativeModeTab INGREDIENTS = FabricItemGroup.builder()
+	public static final CreativeModeTab INGREDIENTS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(StellarityItems.ENDERITE_SHARD))
 		.title(Component.translatable("itemGroup.stellarity.ingredients"))
 		.build();
 
-	public static final CreativeModeTab TRINKETS = FabricItemGroup.builder()
+	public static final CreativeModeTab TRINKETS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(StellarityItems.PRISMATIC_PEARL))
 		.title(Component.translatable("itemGroup.stellarity.trinkets"))
 		.build();
@@ -149,21 +151,24 @@ public class StellarityCreativeModeTabs {
 
 	}
 
-	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, ItemStack[] stacks) {
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
-		ItemGroupEvents.modifyEntriesEvent(key).register(itemGroup -> {
+	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, Supplier<ItemStack>[] stacks) {
+		var creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
+
+		CreativeModeTabEvents.modifyOutputEvent(key).register(itemGroup -> {
 			for (ItemLike item : items) {
 				itemGroup.accept(item);
 			}
 
-			for (ItemStack stack : stacks) {
-				itemGroup.accept(stack.copy());
+			for (Supplier<ItemStack> stack : stacks) {
+				itemGroup.accept(stack.get());
 			}
 		});
+
+
 	}
 
 	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items) {
-		register(key, tab, items, new ItemStack[]{});
+		register(key, tab, items, new Supplier[0]);
 	}
 
 }

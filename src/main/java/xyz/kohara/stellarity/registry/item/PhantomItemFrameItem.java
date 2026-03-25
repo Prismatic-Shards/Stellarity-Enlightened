@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemFrameItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.StellarityEntities;
 import xyz.kohara.stellarity.registry.entity.PhantomItemFrame;
 
@@ -28,7 +29,7 @@ public class PhantomItemFrameItem extends ItemFrameItem {
 		this(StellarityEntities.PHANTOM_ITEM_FRAME, properties);
 	}
 
-	public InteractionResult useOn(UseOnContext useOnContext) {
+	public @NonNull InteractionResult useOn(UseOnContext useOnContext) {
 		BlockPos blockPos = useOnContext.getClickedPos();
 		Direction direction = useOnContext.getClickedFace();
 		BlockPos blockPos2 = blockPos.relative(direction);

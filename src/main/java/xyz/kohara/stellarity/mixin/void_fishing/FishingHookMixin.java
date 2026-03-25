@@ -1,12 +1,18 @@
 package xyz.kohara.stellarity.mixin.void_fishing;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.PowerParticleOption;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -18,10 +24,8 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -30,37 +34,26 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.core.particles.ParticleOptions;
 import xyz.kohara.stellarity.Stellarity;
-import xyz.kohara.stellarity.registry.StellarityItems;
-import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 import xyz.kohara.stellarity.interface_injection.ExtFishingHook;
+import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
+import xyz.kohara.stellarity.registry.StellarityItems;
 
-//? >= 1.21.10 {
-/*import net.minecraft.core.particles.PowerParticleOption;
- *///?} else {
-
-//?}
-
-//? >= 1.21 {
-
-/*import net.minecraft.core.registries.Registries;
- *///? }
 
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile implements ExtFishingHook {
 	@Unique
 	private static final ParticleOptions DRAGON_BREATH =
-		//? >= 1.21.9 {
-		/*PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
-		 *///?} else {
-		ParticleTypes.DRAGON_BREATH;
-	//?}
+
+		PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
+
 
 	@Unique
 	private boolean buffVoidFishing = false;
@@ -94,11 +87,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 
 	@Unique
 	private boolean isEnd() {
-		//? <= 1.20.1 {
-		return this.level().dimensionTypeId() == BuiltinDimensionTypes.END;
-		//?} else {
-		/*return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
-		 *///?}
+		return this.level().dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
 	}
 
 	@Unique
@@ -115,6 +104,8 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 
 	@Unique
 	private boolean canBob() {
+		var owner = this.getOwner();
+		if (owner == null) return false;
 		double y = getY();
 
 		if (y < 0 && !warned) {
@@ -128,10 +119,12 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 			warned = false;
 		}
 
-		return !warned && isEndMidAir() && (this.currentState == FishingHook.FishHookState.BOBBING || this.distanceTo(this.getPlayerOwner()) > 20.0);
+		return !warned && isEndMidAir() && (this.currentState == FishingHook.FishHookState.BOBBING || this.distanceTo(owner) > 20.0);
 	}
 
-	@ModifyVariable(method = "tick()V", at = @At(value = "STORE"), ordinal = 0)
+	@Definition(id = "f", local = @Local(type = float.class))
+	@Expression("f > 0.0")
+	@ModifyExpressionValue(method = "tick()V", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
 	private boolean checkCanBob(boolean original) {
 		return canBob() || original;
 	}
@@ -187,10 +180,16 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	}
 
 
-	@WrapOperation(method = "catchingFish", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z"))
-	private boolean addVoidVishingToWaterCheck(BlockState instance, Block block, Operation<Boolean> original) {
+	@WrapOperation(method = "catchingFish", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
+	private boolean addVoidVishingToWaterCheck(BlockState instance, Object block, Operation<Boolean> original) {
 		return isVoidFishing || original.call(instance, block);
 	}
+
+	@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
+	public boolean dontStopFisherOfVoids(ItemStack instance, Object item, Operation<Boolean> original) {
+		return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, item);
+	}
+
 
 	@WrapOperation(method = "catchingFish", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;sendParticles(Lnet/minecraft/core/particles/ParticleOptions;DDDIDDDD)I"))
 	private int splashParticles(ServerLevel instance, ParticleOptions particleOptions, double d, double e, double f, int i, double g, double h, double j, double k, Operation<Integer> original) {
@@ -209,10 +208,6 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 		original.call(instance, soundEvent, evalVoidFishing() ? 1.5f : v, p);
 	}
 
-	@WrapOperation(method = "shouldStopFishing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
-	public boolean dontStopFisherOfVoids(ItemStack instance, Item item, Operation<Boolean> original) {
-		return instance.is(StellarityItems.FISHER_OF_VOIDS) || original.call(instance, item);
-	}
 
 	@WrapOperation(method = "catchingFish", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/projectile/FishingHook;lureSpeed:I", opcode = Opcodes.GETFIELD))
 	private int increaseLure(FishingHook instance, Operation<Integer> original) {
@@ -222,11 +217,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 			return lure;
 		}
 
-		//? < 1.21 {
-		return lure + 2;
-		//? } else {
-		/*return lure + 200;
-		 *///? }
+		return lure + 200;
 	}
 
 	@Unique
@@ -237,11 +228,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	@WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
 	private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> original, @Local Player player, @Local(argsOnly = true) ItemStack itemStack) {
 		if (isVoidFishing && level() instanceof ServerLevel level) {
-			//? 1.20.1 {
-			instance = level.getServer().getLootData().getLootTable(Stellarity.id("void_fishing/event"));
-			//? } else {
-			/*instance = level.getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
-			 *///? }
+			instance = level.getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
 		}
 		ObjectArrayList<ItemStack> list = original.call(instance, lootParams);
 		if (isVoidFishing) {

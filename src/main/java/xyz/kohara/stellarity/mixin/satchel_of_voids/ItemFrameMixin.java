@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
-//? > 1.21.10 {
-/*import net.minecraft.core.particles.ColorParticleOption;
-*///? }
+
+import net.minecraft.core.particles.ColorParticleOption;
+
 
 @Mixin(ItemFrame.class)
 public abstract class ItemFrameMixin extends HangingEntity {
@@ -37,7 +37,7 @@ public abstract class ItemFrameMixin extends HangingEntity {
 		level.setBlockAndUpdate(targetPos, StellarityBlocks.ALTAR_OF_THE_ACCURSED.defaultBlockState().setValue(AltarOfTheAccursed.PLACE_TYPE, AltarOfTheAccursed.PlaceType.SATCHEL).setValue(AltarOfTheAccursed.LOCKED, false));
 
 		var center = targetPos.getCenter();
-		level.sendParticles(/*? < 1.21.9 {*/ ParticleTypes.FLASH/*? } else {*/ /*ColorParticleOption.create(ParticleTypes.FLASH, -1) *//*? }*/, center.x, center.y, center.z, 1, 0, 0, 0, 0);
+		level.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), center.x, center.y, center.z, 1, 0, 0, 0, 0);
 
 		this.discard();
 

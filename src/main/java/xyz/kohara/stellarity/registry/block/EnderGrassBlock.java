@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.level.material.MapColor;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 
 public class EnderGrassBlock extends GrassBlock {
@@ -27,7 +28,7 @@ public class EnderGrassBlock extends GrassBlock {
 		.sound(SoundType.GRASS);
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+	public void randomTick(@NonNull BlockState state, @NonNull ServerLevel level, @NonNull BlockPos pos, @NonNull RandomSource random) {
 		if (!canBeGrass(state, level, pos)) {
 			level.setBlockAndUpdate(pos, StellarityBlocks.ENDER_DIRT.defaultBlockState());
 		} else {
@@ -58,13 +59,11 @@ public class EnderGrassBlock extends GrassBlock {
 		} else if (blockState.getFluidState().getAmount() == 8) {
 			return false;
 		} else {
-			//? <= 1.21.1 {
-			int i = LightEngine.getLightBlockInto(levelReader, state, pos, blockState, blockPos, Direction.UP, blockState.getLightBlock(levelReader, blockPos));
-			return i < levelReader.getMaxLightLevel();
-			//?} else {
-			/*int i = LightEngine.getLightBlockInto(blockState, state, Direction.UP, blockState.getLightBlock());
+
+
+			int i = LightEngine.getLightBlockInto(blockState, state, Direction.UP, blockState.getLightDampening());
 			return i < 15;
-			*///?}
+
 		}
 
 

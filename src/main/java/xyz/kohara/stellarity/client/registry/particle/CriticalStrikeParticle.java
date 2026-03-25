@@ -1,33 +1,24 @@
 package xyz.kohara.stellarity.client.registry.particle;
 
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-
 import net.minecraft.client.particle.Particle;
-import net.minecraft.core.particles.SimpleParticleType;
-
-//? < 1.21.9 {
-
-import net.minecraft.client.particle.*;
-	//? } else {
-/*import net.minecraft.client.particle.SingleQuadParticle;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.util.RandomSource;
-
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-*///? }
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
+import org.jspecify.annotations.NonNull;
+
 
 @Environment(EnvType.CLIENT)
-public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle/*? } else {*//*SingleQuadParticle*//*? }*/ {
+public class CriticalStrikeParticle extends SingleQuadParticle {
 	private float scale = 1f;
 
-	public CriticalStrikeParticle(ClientLevel clientLevel, double d, double e, double f/*? > 1.21.9 >> ') {'*//*, TextureAtlasSprite textureAtlasSprite*/) {
-		super(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, textureAtlasSprite*/);
+	public CriticalStrikeParticle(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite) {
+		super(clientLevel, d, e, f, textureAtlasSprite);
 
 		this.x = d;
 		this.y = e;
@@ -47,26 +38,17 @@ public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle
 
 	}
 
+
 	@Override
-	protected int getLightColor(float f) {
-		return 240;
-	}
-
-	//? < 1.21.9 {
-	@Override
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
-	}
-
-
-	//? } else {
-
-	/*@Override
-	public Layer getLayer() {
+	public @NonNull Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
-	*///? }
+	@Override
+	protected int getLightCoords(float a) {
+		return super.getLightCoords(a);
+	}
+
 
 	@Environment(EnvType.CLIENT)
 	public static class Provider implements ParticleProvider<SimpleParticleType> {
@@ -80,14 +62,8 @@ public class CriticalStrikeParticle extends /*? < 1.21.9 {*/TextureSheetParticle
 
 
 		@Override
-		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i/*? > 1.21.9 >> ') {'*//*, RandomSource randomSource*/) {
-			var particle = new CriticalStrikeParticle(clientLevel, d, e, f/*? > 1.21.9 >> ');'*//*, this.sprite.get(randomSource)*/);
-			//? < 1.21.9 {
-			particle.pickSprite(this.sprite);
-			//? }
-			return particle;
+		public Particle createParticle(SimpleParticleType simpleParticleType, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i, @NonNull RandomSource randomSource) {
+			return new CriticalStrikeParticle(clientLevel, d, e, f, this.sprite.get(randomSource));
 		}
-
-
 	}
 }

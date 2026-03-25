@@ -4,20 +4,12 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import org.jspecify.annotations.NonNull;
 
-//? < 1.21.9 {
-
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-
-//? }
 
 public class RoyalJelly extends Item {
 	public RoyalJelly(Properties properties) {
@@ -27,7 +19,7 @@ public class RoyalJelly extends Item {
 	public static final Properties PROPERTIES = new Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE);
 
 	@Override
-	public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
+	public @NonNull ItemStack finishUsingItem(@NonNull ItemStack itemStack, @NonNull Level level, @NonNull LivingEntity livingEntity) {
 		super.finishUsingItem(itemStack, level, livingEntity);
 		if (livingEntity instanceof ServerPlayer serverPlayer) {
 			CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, itemStack);
@@ -38,7 +30,7 @@ public class RoyalJelly extends Item {
 			var effects = livingEntity.getActiveEffects().stream().toList();
 
 			for (var effect : effects) {
-				if (effect.getEffect()/*? > 1.21 >> '.get' *//*.value()*/.getCategory() == MobEffectCategory.HARMFUL) {
+				if (effect.getEffect().value().getCategory() == MobEffectCategory.HARMFUL) {
 					livingEntity.removeEffect(effect.getEffect());
 				}
 			}
@@ -59,30 +51,9 @@ public class RoyalJelly extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack itemStack/*? > 1.21 >> ') {'*//*, LivingEntity livingEntity*/) {
+	public int getUseDuration(@NonNull ItemStack itemStack, @NonNull LivingEntity livingEntity) {
 		return 40;
 	}
 
-	//? < 1.21.9 {
 
-	@Override
-	public UseAnim getUseAnimation(ItemStack itemStack) {
-		return UseAnim.DRINK;
-	}
-
-	@Override
-	public SoundEvent getDrinkingSound() {
-		return SoundEvents.HONEY_DRINK;
-	}
-
-	@Override
-	public SoundEvent getEatingSound() {
-		return SoundEvents.HONEY_DRINK;
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-		return ItemUtils.startUsingInstantly(level, player, interactionHand);
-	}
-	//? }
 }

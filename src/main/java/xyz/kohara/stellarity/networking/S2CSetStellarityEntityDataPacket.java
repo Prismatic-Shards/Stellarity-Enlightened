@@ -1,58 +1,28 @@
 package xyz.kohara.stellarity.networking;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 
 import java.util.ArrayList;
 
-//? 1.20.1 {
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.minecraft.network.FriendlyByteBuf;
-
-	//? } else {
-/*import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.codec.StreamCodec;
-*///? }
 
 
 import java.util.List;
 
-public record S2CSetStellarityEntityDataPacket(int id,
-                                               List<SynchedEntityData.DataValue<?>> list) /*? > 1.21 >> '{' */ /*implements CustomPacketPayload  */{
-	public static final ResourceLocation ID = Stellarity.id("set_entity_data");
+public record S2CSetStellarityEntityDataPacket(int id, List<SynchedEntityData.DataValue<?>> list)
+	implements CustomPacketPayload {
 
-	//? 1.20.1 {
-	public FriendlyByteBuf pack() {
-		var buf = PacketByteBufs.create();
-		buf.writeVarInt(id);
-		for (SynchedEntityData.DataValue<?> dataValue : list) {
-			dataValue.write(buf);
-		}
+	public static final Identifier ID = Stellarity.id("set_entity_data");
 
-		buf.writeByte(255);
-
-		return buf;
-	}
-
-	public static S2CSetStellarityEntityDataPacket unpack(FriendlyByteBuf friendlyByteBuf) {
-		int id = friendlyByteBuf.readVarInt();
-		List<SynchedEntityData.DataValue<?>> list = new ArrayList<>();
-
-		int i;
-		while ((i = friendlyByteBuf.readUnsignedByte()) != 255) {
-			list.add(SynchedEntityData.DataValue.read(friendlyByteBuf, i));
-		}
-
-		return new S2CSetStellarityEntityDataPacket(id, list);
-	}
-	//? } else {
-	/*public static final Type<S2CSetStellarityEntityDataPacket> TYPE = new Type<>(ID);
+	public static final Type<S2CSetStellarityEntityDataPacket> TYPE = new Type<>(ID);
 
 	@Override
-	public Type<? extends CustomPacketPayload> type() {
+	public @NonNull Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 
@@ -80,6 +50,4 @@ public record S2CSetStellarityEntityDataPacket(int id,
 			return new S2CSetStellarityEntityDataPacket(id, list);
 		}
 	};
-
-	*///? }
 }

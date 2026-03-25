@@ -1,11 +1,14 @@
 {
-    "required": true,
-    "package": "xyz.kohara.stellarity.client.mixin",
-    "compatibilityLevel": "${java}",
-    "mixins": [],
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "client": [
-    ]
+	"required": true,
+	"package": "xyz.kohara.stellarity.client.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"phantom_item_frame_model.BlockStateDefinitionsMixin",
+		"phantom_item_frame_model.ItemFrameRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+	]
 }

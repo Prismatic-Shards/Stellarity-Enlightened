@@ -1,53 +1,40 @@
 package xyz.kohara.stellarity.registry.recipe;
 
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
 import xyz.kohara.stellarity.registry.StellarityRecipeTypes;
-//? 1.20.1 {
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParseException;
-//? }
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-//? > 1.21 {
-/*import net.minecraft.core.HolderLookup;
-	*///? } else {
-import net.minecraft.data.recipes.FinishedRecipe;
-import com.google.gson.JsonObject;
 
-//? }
+import net.minecraft.core.particles.ColorParticleOption;
 
-//? > 1.21.9 {
-/*import net.minecraft.core.particles.ColorParticleOption;
- *///?}
 
 public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
-	class Input extends SimpleContainer
-		//? < 1.21 {
-		{
-		 //? } else {
-		/*implements RecipeInput {
+	class Input extends SimpleContainer implements RecipeInput {
 		@Override
-			*///? }
 		public int size() {
 			return this.items.size();
 		}
@@ -60,138 +47,29 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 	HashMap<Ingredient, Integer> ingredients();
 
-	ItemStack result();
+	ItemStackTemplate result();
 
-	ResourceLocation id();
-
-	//? 1.20.1 {
-
-	static HashMap<Ingredient, Integer> ingredientsFromJson(JsonArray jsonArray) {
-		if (jsonArray.isEmpty()) {
-			throw new JsonParseException("No ingredients for altar recipe");
-		}
-		HashMap<Ingredient, Integer> ingredients = new HashMap<>();
-
-		for (int i = 0; i < jsonArray.size(); ++i) {
-			JsonObject entry = jsonArray.get(i).getAsJsonObject();
-
-			int count = 1;
-			if (entry.has("count")) count = entry.get("count").getAsInt();
-			Ingredient ingredient = Ingredient.fromJson(entry.get("ingredient"));
-			ingredients.put(ingredient, count);
-		}
-
-		return ingredients;
-	}
-
-	default void toJson(JsonObject jsonObject) {
-		var entrySet = this.ingredients().entrySet();
-		JsonArray ingredientsArray = new JsonArray();
-		for (var entry : entrySet) {
-			JsonObject ingredient = new JsonObject();
-			ingredient.add("ingredient", entry.getKey().toJson());
-			var count = entry.getValue();
-			if (count > 1) ingredient.addProperty("count", count);
-
-			ingredientsArray.add(ingredient);
-		}
-
-		jsonObject.add("ingredients", ingredientsArray);
-		JsonObject resultObj = new JsonObject();
-		var result = this.result();
-		resultObj.addProperty("item", BuiltInRegistries.ITEM.getKey(result.getItem()).toString());
-		int count = result.getCount();
-		if (count > 1) {
-			resultObj.addProperty("count", count);
-		}
-
-		jsonObject.add("result", resultObj);
-	}
-
-	record Finished(AltarRecipe recipe) implements FinishedRecipe {
-
-		@Override
-		public void serializeRecipeData(JsonObject jsonObject) {
-			recipe.toJson(jsonObject);
-		}
-
-		@Override
-		public ResourceLocation getId() {
-			return recipe.id();
-		}
-
-		@Override
-		public RecipeSerializer<?> getType() {
-			return recipe.getSerializer();
-		}
-
-		@Override
-		public @Nullable JsonObject serializeAdvancement() {
-			return null;
-		}
-
-		@Override
-		public @Nullable ResourceLocation getAdvancementId() {
-			return null;
-		}
-	}
-
-	default Finished finished() {
-		return new Finished(this);
-	}
+	Identifier id();
 
 	@Override
-	default ItemStack getResultItem(RegistryAccess registryAccess) {
-		return result();
-	}
-
-	@Override
-	default ItemStack assemble(Input container, RegistryAccess registryAccess) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	default ResourceLocation getId() {
-		return id();
-	}
-
-
-	//? } else {
-	/*//? = 1.21.1
-	//@Override
-	default ItemStack getResultItem(HolderLookup.Provider provider) {
-		return result().copy();
-	}
-
-	*///? }
-
-	//? > 1.21.9 {
-	/*@Override
-	default PlacementInfo placementInfo() {
+	default @NonNull PlacementInfo placementInfo() {
 		return PlacementInfo.NOT_PLACEABLE;
 	}
 
 	@Override
-	default RecipeBookCategory recipeBookCategory() {
+	default @NonNull RecipeBookCategory recipeBookCategory() {
 		return RecipeBookCategories.CRAFTING_MISC;
 	}
 
-	*///? } else {
-	@Override
-	default boolean canCraftInDimensions(int i, int j) {
-		return true;
-	}
-	//? }
-
 
 	@Override
-	default RecipeType<? extends Recipe<Input>> getType() {
+	default @NonNull RecipeType<? extends Recipe<Input>> getType() {
 		return StellarityRecipeTypes.ALTAR_RECIPE;
 	}
 
 
 	@Override
-	default boolean matches(Input container, Level level) {
+	default boolean matches(Input container, @NonNull Level level) {
 		return craft(container.items) == null;
 	}
 
@@ -230,17 +108,13 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 
 		if (itemMode == ExtItemEntity.ItemMode.CRAFTING) {
-			//? = 1.21.1 {
-			/*var allRecipes = serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE);
-			*///? } > 1.21.9 {
-			/*var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_RECIPE);
-			 *///? }
-			//? = 1.20.1 {
-			for (var recipe : serverLevel.getRecipeManager().getAllRecipesFor(StellarityRecipeTypes.ALTAR_RECIPE)) {
-			 //? } else {
-			/*for (var recipeHolder : allRecipes) {
+
+
+			var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_RECIPE);
+
+			for (var recipeHolder : allRecipes) {
 				var recipe = recipeHolder.value();
-				*///? }
+
 
 				output = recipe.craft(itemStacks);
 				if (output != null) {
@@ -260,8 +134,34 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		serverLevel.addFreshEntity(resultItem);
 
 
-		serverLevel.sendParticles(/*? < 1.21.9 {*/ ParticleTypes.FLASH/*? } else {*/ /*ColorParticleOption.create(ParticleTypes.FLASH, -1) *//*? }*/, x, y + 1, z, 1, 0, 0, 0, 0);
+		serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), x, y + 1, z, 1, 0, 0, 0, 0);
 
 		serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 17, 0, 0, 0, 0.13);
 	}
+
+	@Override
+	default boolean showNotification() {
+		return false;
+	}
+
+	MapCodec<Map.Entry<Ingredient, Integer>> INGREDIENT_CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+			Ingredient.CODEC.fieldOf("ingredient").forGetter(Map.Entry::getKey),
+			Codec.INT.optionalFieldOf("count", 1).forGetter(Map.Entry::getValue)
+		).apply(instance, Map::entry)
+	);
+
+
+	@Override
+	default @NonNull ItemStack assemble(Input recipeInput) {
+		return result().create();
+	}
+
+
+	@Override
+	default @NonNull String group() {
+		return "";
+	}
+
+
 }

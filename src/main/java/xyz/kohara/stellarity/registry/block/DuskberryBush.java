@@ -20,18 +20,14 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.item.Duskberry;
 import xyz.kohara.stellarity.tags.StellarityBlockTags;
-//? > 1.21 {
-/*import com.mojang.serialization.MapCodec;
- *///? }
-//? > 1.21.10 {
-/*import net.minecraft.world.entity.InsideBlockEffectApplier;
- *///? }
+import com.mojang.serialization.MapCodec;
 
-// whole bunch of deprecated stuff that just ends up being undeprecated later on
-//? 1.20.1
-@SuppressWarnings("deprecation")
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
+
 public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -44,20 +40,16 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		registerDefaultState(defaultBlockState().setValue(AGE, 0));
 	}
 
-	//? > 1.21 {
-	/*public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
+
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
 
 	@Override
-	public MapCodec<BushBlock> codec() {
+	public @NonNull MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
-	*///? } else {
-
-	//? }
-
 
 	@Override
-	protected boolean mayPlaceOn(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+	protected boolean mayPlaceOn(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos) {
 		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(StellarityBlockTags.DIRT);
 	}
 
@@ -66,16 +58,16 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		builder.add(AGE);
 	}
 
-	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
+	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState/*? 1.20.1 >> ') {'*/, boolean bl) {
+	public boolean isValidBonemealTarget(@NonNull LevelReader levelReader, @NonNull BlockPos blockPos, BlockState blockState) {
 		return blockState.getValue(AGE) < MAX_AGE;
 	}
 
 
 	@Override
-	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+	public @NonNull VoxelShape getShape(BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {
 		VoxelShape var10000;
 		switch (blockState.getValue(AGE)) {
 			case 0 -> var10000 = SAPLING_SHAPE;
@@ -88,15 +80,15 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 
 
 	@Override
-	public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, @NonNull BlockState blockState) {
 		return true;
 	}
 
 
 	@Override
-	public void entityInside(BlockState blockState, Level level, BlockPos blockPos, Entity entity/*? > 1.21.10 >> ') {'*//*, InsideBlockEffectApplier insideBlockEffectApplier, boolean bl*/) {
+	public void entityInside(@NonNull BlockState blockState, @NonNull Level level, @NonNull BlockPos blockPos, @NonNull Entity entity, @NonNull InsideBlockEffectApplier insideBlockEffectApplier, boolean bl) {
 		if (entity instanceof LivingEntity livingEntity) {
-			livingEntity.makeStuckInBlock(blockState, new Vec3((double) 0.8F, (double) 0.75F, (double) 0.8F));
+			livingEntity.makeStuckInBlock(blockState, new Vec3(0.8F, 0.75F, 0.8F));
 			for (var effect : Duskberry.debuffs(blockState.getValue(AGE))) {
 				livingEntity.addEffect(effect);
 			}
@@ -104,13 +96,13 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+	public void performBonemeal(ServerLevel serverLevel, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, BlockState blockState) {
 		int i = Math.min(3, blockState.getValue(AGE) + 1);
 		serverLevel.setBlock(blockPos, blockState.setValue(AGE, i), 2);
 	}
 
 	@Override
-	public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
+	public void randomTick(BlockState blockState, @NonNull ServerLevel serverLevel, @NonNull BlockPos blockPos, @NonNull RandomSource randomSource) {
 		int i = blockState.getValue(AGE);
 		if (i < 3 && randomSource.nextInt(8) == 0) {
 			BlockState growState = blockState.setValue(AGE, i + 1);

@@ -7,6 +7,7 @@ import xyz.kohara.stellarity.Stellarity;
 
 public class StellarityDamageTypeTags {
 	public static final TagKey<DamageType> MELEE = bind("melee");
+	public static final TagKey<DamageType> RANGED = bind("ranged");
 
 	private static TagKey<DamageType> bind(String id) {
 		return TagKey.create(Registries.DAMAGE_TYPE, Stellarity.id(id));

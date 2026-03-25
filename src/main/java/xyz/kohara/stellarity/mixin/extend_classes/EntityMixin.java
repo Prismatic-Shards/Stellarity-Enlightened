@@ -11,18 +11,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.kohara.stellarity.interface_injection.ExtEntity;
-//? > 1.21 {
-/*import net.minecraft.network.syncher.SyncedDataHolder;
+import net.minecraft.network.syncher.SyncedDataHolder;
 
 import java.util.ArrayList;
-	*///? }
 
 @Mixin(Entity.class)
-public abstract class EntityMixin implements ExtEntity
-	//? > 1.21 {
-	/*, SyncedDataHolder
-	 *///? }
-{
+public abstract class EntityMixin implements ExtEntity, SyncedDataHolder {
 
 	@Unique
 	@Mutable
@@ -43,21 +37,8 @@ public abstract class EntityMixin implements ExtEntity
 		stellarity$addSynchedData(DATA_GLOW_COLOR, -1);
 	}
 
-	//? 1.20.1 {
-	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;defineSynchedData()V", ordinal = 0))
-	private void addSynchedData(EntityType<?> entityType, Level level, CallbackInfo ci) {
-		entityData = new SynchedEntityData((Entity) (Object) this);
-		stellarity$defineSynchedData();
-	}
-
-	@Override
-	public <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
-		entityData.define(accessor, initialValue);
-	}
-
-	//?} else {
-
-	/*@Unique
+	@Unique
+	final
 	ArrayList<SynchedEntityData.DataItem<?>> dataItems = new ArrayList<>();
 
 	@Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;defineSynchedData(Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V", ordinal = 0, shift = At.Shift.AFTER))
@@ -71,8 +52,6 @@ public abstract class EntityMixin implements ExtEntity
 	public <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
 		dataItems.add(new SynchedEntityData.DataItem<>(accessor, initialValue));
 	}
-
-	*///?}
 
 
 	@Inject(method = "getTeamColor", at = @At("HEAD"), cancellable = true)

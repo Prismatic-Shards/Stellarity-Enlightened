@@ -10,11 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.jetbrains.annotations.Nullable;
 import xyz.kohara.stellarity.Stellarity;
-//? 1.20.1 {
-import java.util.UUID;
-	//? } else {
-/*import net.minecraft.world.item.Item;
- *///? }
+import net.minecraft.world.item.Item;
 
 
 public final class DamageUtility {
@@ -38,12 +34,10 @@ public final class DamageUtility {
 		apDamageSource = other.apDamageSource;
 		apRatio = other.apRatio;
 		damageBoostEfficiency = other.damageBoostEfficiency;
-		noop = true;//cloned
+		noop = true;
 	}
 
-	/**
-	 * convenience method
-	 */
+
 	public static void damageEntity(LivingEntity entity, float damage, float apRatio, float damageBoostEfficiency, DamageSource damageSource, @Nullable DamageSource apDamageSource) {
 		DamageUtility.builder()
 			.setApDamageSource(apDamageSource)
@@ -64,12 +58,12 @@ public final class DamageUtility {
 			apDamage.setArg(damageWithBonus - actualNonAPDamage.getArg());
 			Thread.onSpinWait();
 		}
-		DamageUtility clone = makeNoOpClone();//stackoverflow protection
+		DamageUtility clone = makeNoOpClone();
 		PreDamage.EVENT.invoker().preDamage(entity, actualNonAPDamage, apDamage, clone);
-		//the actual damaging part
-		if (apDamage.getArg() != 0)
-			entity./*? < 1.21.11 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/apDamageSource, apDamage.getArg());
-		entity./*? < 1.21.11 { */hurt(/*? } else { */ /*hurtServer(serverLevel, *//*? }*/damageSource, actualNonAPDamage.getArg());
+
+		if (apDamage.getArg() != 0 && apDamageSource != null)
+			entity.hurtServer(serverLevel, apDamageSource, apDamage.getArg());
+		entity.hurtServer(serverLevel, damageSource, actualNonAPDamage.getArg());
 		PostDamage.EVENT.invoker().postDamage(entity, actualNonAPDamage.getArg(), apDamage.getArg(), clone);
 	}
 
@@ -104,13 +98,8 @@ public final class DamageUtility {
 		float weaponDamage;
 		float strengthDamage;
 		try {
-			//? if 1.20.1 {
-			weaponDamage = (float) attackDamage.getModifier(UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF")).getAmount() * 100;
-			strengthDamage = (float) attackDamage.getModifier(UUID.fromString("648D7064-6A60-4F59-8ABE-C2C23A6DD7A9")).getAmount() * 100;
-			//?} else {
-			/*weaponDamage = (float) attackDamage.getModifier(Item.BASE_ATTACK_DAMAGE_ID).amount() * 100;
+			weaponDamage = (float) attackDamage.getModifier(Item.BASE_ATTACK_DAMAGE_ID).amount() * 100;
 			strengthDamage = (float) attackDamage.getModifier(Stellarity.mcId("effect.strength")).amount() * 100;
-			*///?}
 		} catch (Exception e) {
 			weaponDamage = 0.0f;
 			strengthDamage = 0.0f;
