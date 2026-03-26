@@ -25,7 +25,6 @@
 		"extend_classes.EntityMixin",
 		"extend_classes.ItemEntityMixin",
 		"extend_classes.ItemStackMixin",
-		"extend_classes.ServerEntityMixin",
 		"mob_effects.LivingEntityMixin",
 		"mob_effects.ServerPlayerMixin",
 		"potions.CreativeModeTabsMixin",

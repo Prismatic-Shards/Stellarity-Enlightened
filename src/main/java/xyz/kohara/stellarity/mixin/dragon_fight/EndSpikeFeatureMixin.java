@@ -16,8 +16,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.EndSpikeConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Debug;
@@ -42,26 +42,34 @@ public abstract class EndSpikeFeatureMixin extends Feature<EndSpikeConfiguration
 
 	@Inject(method = "placeSpike", at = @At("HEAD"))
 	private void stellaritySpikeInit(ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, EndSpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, CallbackInfo ci) {
-		random = new RandomSequence((long) (endSpike.getCenterX()) << 32 & endSpike.getCenterX(), Stellarity.id("obsidian_splatter")).random();
+		random = new RandomSequence((long) (endSpike.getCenterX()) << 32 & endSpike.getCenterZ(), Stellarity.id("obsidian_splatter")).random();
+	}
+
+	@Definition(id = "OBSIDIAN", field = "Lnet/minecraft/world/level/block/Blocks;OBSIDIAN:Lnet/minecraft/world/level/block/Block;")
+	@Expression("OBSIDIAN.?()")
+	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local(name = "pos") BlockPos blockPos, @Local(argsOnly = true) EndSpikeFeature.EndSpike endSpike) {
+		if (endSpike.stellarity$hasCryingObsidianTops()) {
+			int distance = endSpike.getHeight() - blockPos.getY();
+
+			if (distance <= 15f && random.nextFloat() < -0.05f * distance + 0.8f)
+				return Blocks.CRYING_OBSIDIAN.defaultBlockState();
+		}
+
+		return original.call(instance);
+
 	}
 
 	@Definition(id = "setBlock", method = "Lnet/minecraft/world/level/levelgen/feature/EndSpikeFeature;setBlock(Lnet/minecraft/world/level/LevelWriter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V")
-	@Definition(id = "blockPos", local = @Local(type = BlockPos.class))
-	@Expression("?.setBlock(?,blockPos,?)")
+	@Definition(id = "pos", local = @Local(type = BlockPos.class, name = "pos"))
+	@Expression("?.setBlock(?, pos, ?)")
 	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private void customSpike(EndSpikeFeature instance, LevelWriter levelWriter, BlockPos blockPos, BlockState blockState, Operation<Void> original, @Local(argsOnly = true) EndSpikeFeature.EndSpike spike) {
+	private void hollowForAltar(EndSpikeFeature instance, LevelWriter levelWriter, BlockPos blockPos, BlockState blockState, Operation<Void> original, @Local(argsOnly = true) EndSpikeFeature.EndSpike spike) {
 		int y = blockPos.getY();
-
 		if (spike.stellarity$hasAltar() && y < spike.getHeight() - 4 && y > spike.getHeight() - 30) return;
-		if (spike.stellarity$hasCryingObsidianTops()) {
-			int distance = spike.getHeight() - blockPos.getY();
-
-			if (distance <= 15f && random.nextFloat() < -0.05f * distance + 0.8f && !blockState.is(Blocks.AIR)) {
-				blockState = Blocks.CRYING_OBSIDIAN.defaultBlockState();
-			}
-		}
 		original.call(instance, levelWriter, blockPos, blockState);
 	}
+
 
 	@WrapMethod(method = "placeSpike")
 	private void placeAltar(ServerLevelAccessor level, RandomSource random, EndSpikeConfiguration config, EndSpikeFeature.EndSpike endSpike, Operation<Void> original) {

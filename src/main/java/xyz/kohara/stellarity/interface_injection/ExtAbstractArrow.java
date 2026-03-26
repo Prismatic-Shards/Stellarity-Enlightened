@@ -1,21 +1,32 @@
 package xyz.kohara.stellarity.interface_injection;
 
-public interface ExtAbstractArrow {
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import xyz.kohara.stellarity.Stellarity;
+import xyz.kohara.stellarity.registry.StellarityDataAttachments;
+
+import java.util.HashMap;
+
+@SuppressWarnings("NonExtendableApiUsage")
+public interface ExtAbstractArrow extends AttachmentTarget {
 
 	default int stellarity$levitationShot() {
-		throw new AssertionError("Not transformed!");
+		var attachment = this.getAttached(StellarityDataAttachments.ENCHANTMENTS);
+		if (attachment == null) return 0;
+		return Math.max(0, attachment.getOrDefault(Stellarity.id("levitation_shot"), 0));
 	}
 
 	default void stellarity$setLevitationShot(int levitationShot) {
-		throw new AssertionError("Not transformed!");
+		this.getAttachedOrSet(StellarityDataAttachments.ENCHANTMENTS, new HashMap<>()).put(Stellarity.id("levitation_shot"), levitationShot);
 	}
 
 	default boolean stellarity$voidShot() {
-		throw new AssertionError("Not transformed!");
+		var attachment = this.getAttached(StellarityDataAttachments.ENCHANTMENTS);
+		if (attachment == null) return false;
+		return attachment.getOrDefault(Stellarity.id("void_shot"), 0) > 0;
 	}
 
 	default void stellarity$setVoidShot(boolean voidShot) {
-		throw new AssertionError("Not transformed!");
+		this.getAttachedOrSet(StellarityDataAttachments.ENCHANTMENTS, new HashMap<>()).put(Stellarity.id("void_shot"), voidShot ? 1 : 0);
 	}
 
 }

@@ -95,7 +95,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 
 		List<ItemStack> itemStacks = itemEntities.stream().map(ItemEntity::getItem).toList();
-		ExtItemEntity.ItemMode itemMode = player != null && player.isCrouching() ? ExtItemEntity.ItemMode.PICKUP : ExtItemEntity.ItemMode.CRAFTING;
+		ExtItemEntity.ItemMode itemMode = player != null && player.isCrouching() ? ExtItemEntity.ItemMode.DEFAULT : ExtItemEntity.ItemMode.CRAFTING;
 
 		for (var entity : itemEntities) {
 			if (!entity.stellarity$getItemMode().equals(itemMode)) entity.stellarity$setItemMode(itemMode);

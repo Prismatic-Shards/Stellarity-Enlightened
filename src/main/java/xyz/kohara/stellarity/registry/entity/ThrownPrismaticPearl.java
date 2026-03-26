@@ -1,10 +1,12 @@
 package xyz.kohara.stellarity.registry.entity;
 
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.particles.DustParticleOptions;
 
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,12 +25,11 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-import xyz.kohara.stellarity.Stellarity;
+import xyz.kohara.stellarity.registry.StellarityDataAttachments;
 import xyz.kohara.stellarity.registry.StellarityEntities;
 import xyz.kohara.stellarity.registry.StellarityItems;
 
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import xyz.kohara.stellarity.utils.CustomCodec;
 
 
 import java.util.Set;
@@ -42,10 +43,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	private @Nullable Vec3 oldPos = null;
 
 	public ThrownPrismaticPearl(Level level, LivingEntity livingEntity, ItemStack itemStack) {
-
 		super(StellarityEntities.PRISMATIC_PEARL, livingEntity, level, itemStack);
-
-
 	}
 
 	@Override
@@ -55,12 +53,12 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		if (!level().isClientSide() && entity instanceof Player player) {
 
 			String name = player.getGameProfile().name();
-			if (name.equalsIgnoreCase("bush_moss")) setTrailType(TrailType.BISEXUAL);
-			else if (name.equalsIgnoreCase("coder2195")) setTrailType(TrailType.TRANSGENDER);
+			if (name.equalsIgnoreCase("bush_moss")) setTrailType(Trail.BISEXUAL);
+			else if (name.equalsIgnoreCase("coder2195")) setTrailType(Trail.TRANSGENDER);
 		}
 	}
 
-	public enum TrailType {
+	public enum Trail {
 		NORMAL(0, new int[]{
 			0xfa80fc,
 			0xfa9ce0,
@@ -109,7 +107,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		public final int id;
 		public final int[] colors;
 
-		TrailType(int id, int[] colors) {
+		Trail(int id, int[] colors) {
 			this.id = id;
 			this.colors = colors;
 		}
@@ -118,53 +116,22 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 			return id;
 		}
 
-		public static final IntFunction<TrailType> BY_ID = ByIdMap.continuous(TrailType::id, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+		public static final IntFunction<Trail> BY_ID = ByIdMap.continuous(Trail::id, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
 
+		public static final StreamCodec<ByteBuf, Trail> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Trail::id);
 
+		public static final Codec<Trail> CODEC = CustomCodec.enumName(Trail.class, NORMAL);
 	}
-
-
-	public static final int DATA_SIZE = Entity.stellarity$DATA_SIZE + 1;
-
-	public static EntityDataAccessor<Integer> DATA_TRAIL_TYPE = new EntityDataAccessor<>(Entity.stellarity$DATA_SIZE, EntityDataSerializers.INT);
-
-
-	@Override
-	public void stellarity$defineSynchedData() {
-		super.stellarity$defineSynchedData();
-
-		stellarity$addSynchedData(DATA_TRAIL_TYPE, TrailType.NORMAL.id());
-	}
-
-	public TrailType getTrailType() {
-		return TrailType.BY_ID.apply(stellarity$entityData().get(DATA_TRAIL_TYPE));
-	}
-
-	public void setTrailType(TrailType mode) {
-		stellarity$entityData().set(DATA_TRAIL_TYPE, mode.id());
-	}
-
-
-	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput valueInput) {
-		super.readAdditionalSaveData(valueInput);
-		TrailType trailType = TrailType.NORMAL;
-		try {
-			trailType = TrailType.valueOf(valueInput.getStringOr("stellarity:trail_type", "NORMAL").toUpperCase());
-		} catch (Exception e) {
-			Stellarity.LOGGER.warn("Failed to parse prismatic pearl trail type");
-		}
-		setTrailType(trailType);
-	}
-
-	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput valueOutput) {
-		super.addAdditionalSaveData(valueOutput);
-		valueOutput.putString("stellarity:trail_type", getTrailType().toString());
-	}
-
 
 	private int colorIndex = 0;
+
+	public Trail getTrailType() {
+		return this.getAttachedOrCreate(StellarityDataAttachments.PRISMATIC_PEARL_TRAIL, () -> Trail.NORMAL);
+	}
+
+	public void setTrailType(Trail trail) {
+		this.setAttached(StellarityDataAttachments.PRISMATIC_PEARL_TRAIL, trail);
+	}
 
 
 	@Override

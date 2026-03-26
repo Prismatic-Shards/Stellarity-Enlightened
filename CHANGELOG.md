@@ -9,7 +9,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Altar of the Accursed (AOTA)**
 
-- Supports `stellarity:altar_of_the_accused_upgrade` recipe for upgrading equipment
+- Supports `stellarity:altar_of_the_accused_upgrade` recipe
 - Patches a bug where you could potentially use less items than required by separating items out into individual stacks
 - Fixed a bug where Altar crafting items would randomly be picked back up through your inventory
 
@@ -31,14 +31,22 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 ## Versions
 
-**[-] 1.20.1**
+**[-] 1.20.1 & 1.21.1**
 
-- As per poll and download counts, the 1.20.1 version is simply not worth maintaining.
+- As per poll and download counts, we are no longer maintaining multiversion support.
 
 **[*] 1.21.11 -> 26.1**
 
-### AOTA
+- Now uses Data Attachments
+
+## Mechanics
+
+**[+] Upgrade AOTA Recipe**
+
+- Denoted by `stellarity:altar_of_the_accused_upgrade` recipe type
+- Accepts basic amount of materials to go in, a specific item to upgrade to the final result, and copies data across
+  those two items
 
 # Developers Note
 
-Sorry had to deal with hackergames multiloader aspirations
+I hate microslop

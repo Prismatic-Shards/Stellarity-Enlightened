@@ -1,34 +1,17 @@
 package xyz.kohara.stellarity.interface_injection;
 
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
+import xyz.kohara.stellarity.registry.StellarityDataAttachments;
 
-public interface ExtEntity {
+@SuppressWarnings("NonExtendableApiUsage")
+public interface ExtEntity extends AttachmentTarget {
 
 	default void stellarity$setGlowColor(int color) {
-		throw new AssertionError("Not transformed!");
+		this.setAttached(StellarityDataAttachments.GLOW_COLOR, color);
 	}
-
-	default SynchedEntityData stellarity$entityData() {
-		throw new AssertionError("Not transformed!");
-	}
-
 
 	default int stellarity$getGlowColor() {
-		throw new AssertionError("Not transformed!");
+		return this.getAttachedOrElse(StellarityDataAttachments.GLOW_COLOR, -1);
 	}
 
-	default void stellarity$defineSynchedData() {
-		throw new AssertionError("Not transformed!");
-	}
-
-	default <T> void stellarity$addSynchedData(EntityDataAccessor<T> accessor, T initialValue) {
-		throw new AssertionError("Not transformed!");
-	}
-
-
-	int stellarity$DATA_SIZE = 1;
-
-	EntityDataAccessor<Integer> DATA_GLOW_COLOR = new EntityDataAccessor<>(0, EntityDataSerializers.INT);
 }

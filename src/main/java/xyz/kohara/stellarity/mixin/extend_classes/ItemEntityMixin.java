@@ -7,15 +7,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.block.AltarOfTheAccursed;
@@ -34,22 +30,15 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 	@Shadow
 	public abstract void setPickUpDelay(int i);
 
-	@Unique
-	private ItemMode itemMode = ItemMode.PICKUP;
-
 	public ItemEntityMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
 	}
 
 	@Override
-	public ItemMode stellarity$getItemMode() {
-		return itemMode;
-	}
-
-	@Override
 	public void stellarity$setItemMode(ItemMode mode) {
-		this.itemMode = mode;
-		boolean crafting = mode == ItemMode.CRAFTING;
+		ExtItemEntity.super.stellarity$setItemMode(mode);
+
+		boolean crafting = mode.equals(ItemMode.CRAFTING);
 		setGlowingTag(crafting);
 		this.stellarity$setGlowColor(crafting ? 11141290 : -1);
 		setPickUpDelay(crafting ? Short.MAX_VALUE : 0);
@@ -57,7 +46,7 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 
 	@Override
 	public void stellarity$updateResults(HashMap<ItemStack, Integer> results) {
-		if (this.itemMode != ItemMode.CRAFTING) return;
+		if (stellarity$getItemMode() != ItemMode.CRAFTING) return;
 		ItemStack stack = this.getItem();
 		Integer count = results.get(stack);
 
@@ -69,43 +58,9 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 		setItem(stack.copyWithCount(count));
 	}
 
-	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
-	public void saveData(
-
-
-		ValueOutput tag, CallbackInfo ci
-
-	) {
-
-		tag.putString("stellarity:mode", itemMode.toString());
-	}
-
-
-	@SuppressWarnings("OptionalGetWithoutIsPresent")
-	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-	public void readData(
-
-
-		ValueInput tag, CallbackInfo ci
-
-	) {
-		if (tag.contains("stellarity:mode")) {
-			try {
-				stellarity$setItemMode(ItemMode.valueOf(tag.getString("stellarity:mode")
-
-					.get()
-
-				));
-			} catch (Exception e) {
-				Stellarity.LOGGER.info("Detected invalid itemmode, ignoring");
-			}
-		}
-	}
-
-
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tick()V", shift = At.Shift.AFTER))
 	public void movedOffRecipeBlock(CallbackInfo ci) {
-		if (itemMode != ItemMode.CRAFTING) return;
+		if (!stellarity$getItemMode().equals(ItemMode.CRAFTING)) return;
 		if (level() instanceof ServerLevel level) {
 			var position = this.position();
 			for (var corner : List.of(
@@ -122,7 +77,7 @@ public abstract class ItemEntityMixin extends Entity implements ExtItemEntity {
 					return;
 			}
 
-			stellarity$setItemMode(ItemMode.PICKUP);
+			stellarity$setItemMode(ItemMode.DEFAULT);
 		}
 	}
 }

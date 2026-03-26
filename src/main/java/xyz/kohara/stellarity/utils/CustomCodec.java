@@ -1,5 +1,6 @@
 package xyz.kohara.stellarity.utils;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.PrimitiveCodec;
@@ -19,4 +20,14 @@ public class CustomCodec {
 			return ops.createString(value.toString());
 		}
 	};
+
+	public static <T extends Enum<T>> Codec<T> enumName(Class<T> enumClass, T defaultValue) {
+		return PrimitiveCodec.STRING.xmap(name -> {
+			try {
+				return T.valueOf(enumClass, name.toUpperCase());
+			} catch (IllegalArgumentException e) {
+				return defaultValue;
+			}
+		}, Enum::name);
+	}
 }

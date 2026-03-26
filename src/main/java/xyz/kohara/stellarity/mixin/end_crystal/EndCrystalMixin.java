@@ -30,8 +30,6 @@ import xyz.kohara.stellarity.interface_injection.ExtEndCrystal;
 
 @Mixin(EndCrystal.class)
 public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
-	@Unique
-	Type type = Type.NORMAL;
 
 	public EndCrystalMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
@@ -39,23 +37,18 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 
 	@Override
 	public void stellarity$setType(Type type) {
-		this.type = type;
+		ExtEndCrystal.super.stellarity$setType(type);
+
 		boolean glow = type != Type.NORMAL;
 		setGlowingTag(glow);
 		this.stellarity$setGlowColor(glow ? 11141290 : -1);
 	}
 
-	@Override
-	public Type stellarity$getType() {
-		return type;
-	}
-
-
 	@WrapOperation(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSource;is(Lnet/minecraft/tags/TagKey;)Z"))
 
 	public boolean explodeOnlyNormal(DamageSource instance, TagKey<DamageType> tagKey, Operation<Boolean> original) {
 
-		return original.call(instance, tagKey) || type != Type.NORMAL;
+		return original.call(instance, tagKey) || !stellarity$getType().equals(Type.NORMAL);
 	}
 
 
@@ -67,14 +60,14 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 		if (level.getBlockState(pos).is(BlockTags.FIRE)) {
 			level.setBlock(blockPosition(), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
-		if (type == Type.RESPAWN && !damageSource.isCreativePlayer())
+		if (stellarity$getType().equals(Type.RESPAWN) && !damageSource.isCreativePlayer())
 			level.addFreshEntity(new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(Items.END_CRYSTAL)));
 
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER))
 	public void checkType(CallbackInfo ci) {
-
+		Type type = stellarity$getType();
 		ServerLevel level = (ServerLevel) level();
 		EnderDragonFight dragonFight = level.getDragonFight();
 		BlockPos blockPos = blockPosition();

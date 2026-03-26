@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
+import net.minecraft.client.renderer.entity.state.ItemFrameRenderState;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,4 +22,9 @@ public class PhantomItemFrameRenderer extends ItemFrameRenderer<PhantomItemFrame
 		super(context);
 	}
 
+	@Override
+	public void extractRenderState(PhantomItemFrame entity, ItemFrameRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		this.blockModelResolver.update(state.frameModel, FAKE_STATE_DEFINITION.any(), ItemFrameRenderer.BLOCK_DISPLAY_CONTEXT);
+	}
 }

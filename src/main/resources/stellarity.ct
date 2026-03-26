@@ -23,3 +23,5 @@ accessible method net/minecraft/network/syncher/SynchedEntityData <init> (Lnet/m
 extendable class net/minecraft/world/item/enchantment/Enchantment
 accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentInSlotVisitor
 accessible field net/minecraft/world/entity/LivingEntity lastHurt F
+
+accessible field net/minecraft/client/renderer/entity/ItemFrameRenderer blockModelResolver Lnet/minecraft/client/renderer/block/BlockModelResolver;

@@ -50,13 +50,7 @@ import xyz.kohara.stellarity.registry.StellarityItems;
 @Mixin(FishingHook.class)
 public abstract class FishingHookMixin extends Projectile implements ExtFishingHook {
 	@Unique
-	private static final ParticleOptions DRAGON_BREATH =
-
-		PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
-
-
-	@Unique
-	private boolean buffVoidFishing = false;
+	private static final ParticleOptions DRAGON_BREATH = PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 1f);
 
 	@Shadow
 	private FishingHook.FishHookState currentState;
@@ -213,16 +207,11 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	private int increaseLure(FishingHook instance, Operation<Integer> original) {
 		isVoidFishing = evalVoidFishing();
 		int lure = original.call(instance);
-		if (!this.buffVoidFishing || !isVoidFishing) {
+		if (!stellarity$getVoidFishingBuff() || !isVoidFishing) {
 			return lure;
 		}
 
 		return lure + 200;
-	}
-
-	@Unique
-	public void stellarity$buffVoidFishing(boolean buffVoidFishing) {
-		this.buffVoidFishing = buffVoidFishing;
 	}
 
 	@WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
