@@ -29,6 +29,16 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Requires mineable AOTAs to now be mined with a diamond pickaxe or better
 
+## Advancements
+
+**[+] Cursed Crafting**
+
+- New criterion `advancement_completed` is available for use in datapacks
+- This criterion is triggered for special crafting invoked by blocks such as AOTA, but will also be used for stuff like
+  Cauldron and Altar of Light crafting in the future
+
+**[+] I am Titanium!**
+
 ## Mechanics
 
 **[*] Fabric API Data Attachment Hotfix**

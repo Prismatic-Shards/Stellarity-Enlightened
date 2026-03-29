@@ -13,12 +13,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
+import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 import xyz.kohara.stellarity.registry.StellarityItems;
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
+import xyz.kohara.stellarity.registry.advancement_criterion.SpecialCraftTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 
 import java.util.Arrays;
@@ -169,7 +172,47 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				requires(new String[][]{{"summon"}, {"require_kill"}})
 			).build(Stellarity.mcId("end/respawn_dragon"));
 
-		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON)) {
+		// TODO: reparent to intro to dark magic
+		var CURSED_CRAFTING = advancement().display(
+				StellarityItems.ALTAR_OF_THE_ACCURSED,
+				Component.translatable("advancements.stellarity.cursed_crafting"),
+				Component.translatable("advancements.stellarity.cursed_crafting.description"),
+				null,
+				GOAL,
+				true,
+				true,
+				false
+			).parent(KILL_DRAGON)
+			.addCriterion("craft", SpecialCraftTrigger.triggerInstance(
+				Optional.empty(),
+				Optional.of(ContextAwarePredicate.create(
+					new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
+				))
+			))
+			.requirements(
+				requires(new String[][]{{"craft"}})
+			).build(Stellarity.mcId("altar_of_the_accursed/cursed_crafting"));
+
+		var CRAFT_FULL_SHULKER_ARMOR = advancement().display(
+				StellarityItems.SHULKER_CHESTPLATE,
+				Component.translatable("advancements.stellarity.craft_full_shulker_armor"),
+				Component.translatable("advancements.stellarity.craft_full_shulker_armor.description"),
+				null,
+				CHALLENGE,
+				true,
+				true,
+				false
+			).parent(CURSED_CRAFTING)
+			.addCriterion("helmet", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_HELMET))
+			.addCriterion("chestplate", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_CHESTPLATE))
+			.addCriterion("leggings", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_LEGGINGS))
+			.addCriterion("boots", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_BOOTS))
+			.requirements(
+				requires(new String[][]{{"helmet"}, {"chestplate"}, {"leggings"}, {"boots"}})
+			).build(Stellarity.mcId("altar_of_the_accursed/craft_full_shulker_armor"));
+
+
+		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON, CURSED_CRAFTING, CRAFT_FULL_SHULKER_ARMOR)) {
 			consumer.accept(advancement);
 		}
 	}

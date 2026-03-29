@@ -3,6 +3,7 @@ package xyz.kohara.stellarity.registry;
 import net.minecraft.advancements.CriteriaTriggers;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
+import xyz.kohara.stellarity.registry.advancement_criterion.SpecialCraftTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 
 public class StellarityCriteriaTriggers {
@@ -16,6 +17,11 @@ public class StellarityCriteriaTriggers {
 
 		"stellarity:advancement_completed",
 		new AdvancementCompletedTrigger()
+	);
+
+	public static final SpecialCraftTrigger SPECIAL_CRAFT = CriteriaTriggers.register(
+		"stellarity:special_craft",
+		new SpecialCraftTrigger()
 	);
 
 	public static void init() {

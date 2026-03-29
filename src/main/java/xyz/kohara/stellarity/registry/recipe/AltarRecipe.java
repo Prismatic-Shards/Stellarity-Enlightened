@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
@@ -22,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.interface_injection.ExtItemEntity;
+import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 import xyz.kohara.stellarity.registry.StellarityRecipeTypes;
 
 import java.util.HashMap;
@@ -89,7 +91,6 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 				);
 			}
 
-
 			return;
 		}
 
@@ -133,10 +134,10 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		resultItem.stellarity$setItemMode(ExtItemEntity.ItemMode.RESULT);
 		serverLevel.addFreshEntity(resultItem);
 
-
 		serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), x, y + 1, z, 1, 0, 0, 0, 0);
-
 		serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 17, 0, 0, 0, 0.13);
+
+		serverLevel.getEntitiesOfClass(ServerPlayer.class, new AABB(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5)).forEach(p -> StellarityCriteriaTriggers.SPECIAL_CRAFT.trigger(p, BlockPos.containing(x, y, z), p.getActiveItem()));
 	}
 
 	@Override
