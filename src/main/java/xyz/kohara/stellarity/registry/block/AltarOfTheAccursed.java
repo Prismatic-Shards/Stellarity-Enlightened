@@ -70,7 +70,8 @@ public class AltarOfTheAccursed extends BaseEntityBlock {
 		.instrument(NoteBlockInstrument.BASEDRUM)
 		.sound(SoundType.GLASS)
 		.lightLevel((_) -> 7)
-		.strength(-1.0F, 6700000.0F);
+		.strength(-1.0F, 6700000.0F)
+		.requiresCorrectToolForDrops();
 
 	@Override
 	public @NonNull VoxelShape getShape(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {

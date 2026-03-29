@@ -18,7 +18,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
-import xyz.kohara.stellarity.registry.StellarityItems;
+import xyz.kohara.stellarity.registry.StellarityEquipmentAssets;
+
+import static xyz.kohara.stellarity.registry.StellarityItems.*;
 
 
 public class ModelProvider extends FabricModelProvider {
@@ -27,44 +29,44 @@ public class ModelProvider extends FabricModelProvider {
 	}
 
 	public final static Item[] FLAT_ITEMS = new Item[]{
-		StellarityItems.SUSHI,
-		StellarityItems.GOLDEN_CHORUS_FRUIT,
-		StellarityItems.FRIED_CHORUS_FRUIT,
-		StellarityItems.FROZEN_CARPACCIO,
-		StellarityItems.ENDERMAN_FLESH,
-		StellarityItems.CRYSTAL_HEARTFISH,
-		StellarityItems.GRILLED_ENDERMAN_FLESH,
-		StellarityItems.FLAREFIN_KOI,
-		StellarityItems.AMETHYST_BUDFISH,
-		StellarityItems.CRIMSON_TIGERFISH,
-		StellarityItems.ENDER_KOI,
-		StellarityItems.FLESHY_PIRANHA,
-		StellarityItems.BUBBLEFISH,
-		StellarityItems.PRISMITE,
-		StellarityItems.OVERGROWN_COD,
-		StellarityItems.PRISMATIC_SUSHI,
-		StellarityItems.SHEPHERDS_PIE,
-		StellarityItems.CHORUS_PIE,
-		StellarityItems.PHO,
-		StellarityItems.PHANTOM_ITEM_FRAME,
-		StellarityItems.CHORUS_PLATING,
-		StellarityItems.ENDERITE_SHARD,
-		StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE,
-		StellarityItems.HALLOWED_INGOT,
-		StellarityItems.SAND_RUNE,
-		StellarityItems.STARLIGHT_SOOT,
-		StellarityItems.GILDED_PURPUR_KEY,
-		StellarityItems.PURPUR_KEY,
-		StellarityItems.WINGED_KEY,
-		StellarityItems.PRISMATIC_PEARL,
-		StellarityItems.ENDONOMICON,
-		StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
-		StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-		StellarityItems.MUSIC_DISC_PRECIPICE_STEREO,
-		StellarityItems.ROYAL_JELLY,
-		StellarityItems.ROYAL_JELLY_II,
-		StellarityItems.SATCHEL_OF_VOIDS,
-		StellarityItems.DUSKBERRY
+		SUSHI,
+		GOLDEN_CHORUS_FRUIT,
+		FRIED_CHORUS_FRUIT,
+		FROZEN_CARPACCIO,
+		ENDERMAN_FLESH,
+		CRYSTAL_HEARTFISH,
+		GRILLED_ENDERMAN_FLESH,
+		FLAREFIN_KOI,
+		AMETHYST_BUDFISH,
+		CRIMSON_TIGERFISH,
+		ENDER_KOI,
+		FLESHY_PIRANHA,
+		BUBBLEFISH,
+		PRISMITE,
+		OVERGROWN_COD,
+		PRISMATIC_SUSHI,
+		SHEPHERDS_PIE,
+		CHORUS_PIE,
+		PHO,
+		PHANTOM_ITEM_FRAME,
+		CHORUS_PLATING,
+		ENDERITE_SHARD,
+		ENDERITE_UPGRADE_SMITHING_TEMPLATE,
+		HALLOWED_INGOT,
+		SAND_RUNE,
+		STARLIGHT_SOOT,
+		GILDED_PURPUR_KEY,
+		PURPUR_KEY,
+		WINGED_KEY,
+		PRISMATIC_PEARL,
+		ENDONOMICON,
+		MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+		MUSIC_DISC_FIRES_OF_HOKKAI,
+		MUSIC_DISC_PRECIPICE_STEREO,
+		ROYAL_JELLY,
+		ROYAL_JELLY_II,
+		SATCHEL_OF_VOIDS,
+		DUSKBERRY
 	};
 
 	public void generateBush(BlockModelGenerators generators, Block block) {
@@ -110,16 +112,21 @@ public class ModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerators generators) {
 
-		generators.generateBow(StellarityItems.CALL_OF_THE_VOID);
-		generators.declareCustomModelItem(StellarityItems.SHULKER_BODY);
-		generators.generateFishingRod(StellarityItems.FISHER_OF_VOIDS);
+		generators.generateBow(CALL_OF_THE_VOID);
+		generators.declareCustomModelItem(SHULKER_BODY);
+		generators.generateFishingRod(FISHER_OF_VOIDS);
 
-
-		generators.generateFlatItem(StellarityItems.TAMARIS, ModelTemplates.FLAT_HANDHELD_ITEM);
+		generators.generateFlatItem(TAMARIS, ModelTemplates.FLAT_HANDHELD_ITEM);
 
 		for (Item item : FLAT_ITEMS) {
 			generators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
+
+		generators.generateTrimmableItem(SHULKER_HELMET, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_helmet_trim"), false);
+		generators.generateTrimmableItem(SHULKER_CHESTPLATE, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_chestplate_trim"), false);
+		generators.generateTrimmableItem(SHULKER_LEGGINGS, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_leggings_trim"), false);
+		generators.generateTrimmableItem(SHULKER_BOOTS, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_boots_trim"), false);
+
 
 	}
 }

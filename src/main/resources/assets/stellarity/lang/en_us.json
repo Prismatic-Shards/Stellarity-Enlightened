@@ -340,7 +340,7 @@
     "item.stellarity.ender_koi": "Ender Koi",
     "item.stellarity.enderite_shard": "Enderite Shard",
     "item.stellarity.enderite_shard.description": "Contains a fraction of the unknown",
-    "item.stellarity.enderite_upgrade_smithing_template": "Smithing Template",
+    "item.stellarity.enderite_upgrade_smithing_template": "Enderite Upgrade",
     "item.stellarity.enderite_upgrade_smithing_template.applies_to": "Netherite Equipment",
     "item.stellarity.enderite_upgrade_smithing_template.description": "Only usable at the Altar of The Accursed",
     "item.stellarity.enderite_upgrade_smithing_template.ingredients": "%1$s %2$s",

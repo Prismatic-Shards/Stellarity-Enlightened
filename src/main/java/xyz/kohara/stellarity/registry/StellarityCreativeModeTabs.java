@@ -15,100 +15,105 @@ import xyz.kohara.stellarity.Stellarity;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
+import static xyz.kohara.stellarity.registry.StellarityItems.*;
 
 public class StellarityCreativeModeTabs {
 	public static final ItemLike[] BLOCKS_ITEMS = new ItemLike[]{
-		StellarityItems.ASHEN_FROGLIGHT,
-		StellarityItems.ENDER_DIRT,
-		StellarityItems.ENDER_GRASS_BLOCK,
-		StellarityItems.ROOTED_ENDER_DIRT,
-		StellarityItems.ENDER_DIRT_PATH,
-		StellarityItems.ALTAR_OF_THE_ACCURSED,
-		StellarityItems.PHANTOM_ITEM_FRAME,
+		ASHEN_FROGLIGHT,
+		ENDER_DIRT,
+		ENDER_GRASS_BLOCK,
+		ROOTED_ENDER_DIRT,
+		ENDER_DIRT_PATH,
+		ALTAR_OF_THE_ACCURSED,
+		PHANTOM_ITEM_FRAME,
 	};
 
 	public static final ItemLike[] FOOD_ITEMS = new ItemLike[]{
-		StellarityItems.CRYSTAL_HEARTFISH,
-		StellarityItems.SUSHI,
-		StellarityItems.GOLDEN_CHORUS_FRUIT,
-		StellarityItems.FRIED_CHORUS_FRUIT,
-		StellarityItems.FROZEN_CARPACCIO,
-		StellarityItems.ENDERMAN_FLESH,
-		StellarityItems.GRILLED_ENDERMAN_FLESH,
-		StellarityItems.FLAREFIN_KOI,
-		StellarityItems.AMETHYST_BUDFISH,
-		StellarityItems.CRIMSON_TIGERFISH,
-		StellarityItems.ENDER_KOI,
-		StellarityItems.FLESHY_PIRANHA,
-		StellarityItems.BUBBLEFISH,
-		StellarityItems.PRISMITE,
-		StellarityItems.OVERGROWN_COD,
-		StellarityItems.SHULKER_BODY,
-		StellarityItems.PRISMATIC_SUSHI,
-		StellarityItems.SHEPHERDS_PIE,
-		StellarityItems.CHORUS_PIE,
-		StellarityItems.PHO,
-		StellarityItems.ROYAL_JELLY,
-		StellarityItems.ROYAL_JELLY_II,
-		StellarityItems.DUSKBERRY
+		CRYSTAL_HEARTFISH,
+		SUSHI,
+		GOLDEN_CHORUS_FRUIT,
+		FRIED_CHORUS_FRUIT,
+		FROZEN_CARPACCIO,
+		ENDERMAN_FLESH,
+		GRILLED_ENDERMAN_FLESH,
+		FLAREFIN_KOI,
+		AMETHYST_BUDFISH,
+		CRIMSON_TIGERFISH,
+		ENDER_KOI,
+		FLESHY_PIRANHA,
+		BUBBLEFISH,
+		PRISMITE,
+		OVERGROWN_COD,
+		SHULKER_BODY,
+		PRISMATIC_SUSHI,
+		SHEPHERDS_PIE,
+		CHORUS_PIE,
+		PHO,
+		ROYAL_JELLY,
+		ROYAL_JELLY_II,
+		DUSKBERRY
 	};
 
 
 	public static final Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
-		StellarityItems.AMARENE_POTION,
-		StellarityItems.BLIND_RAGE_POTION,
-		StellarityItems.LONG_BLIND_RAGE_POTION,
-		StellarityItems.ENDURANCE_POTION,
-		StellarityItems.LONG_ENDURANCE_POTION,
-		StellarityItems.STRONG_ENDURANCE_POTION,
-		StellarityItems.ENTANGLEMENT_POTION,
-		StellarityItems.LONG_ENTANGLEMENT_POTION,
-		StellarityItems.STRONG_ENTANGLEMENT_POTION,
-		StellarityItems.FROST_CLOUD_POTION,
-		StellarityItems.HELLFIRE_TREADER_POTION,
-		StellarityItems.LONG_HELLFIRE_TREADER_POTION,
-		StellarityItems.STRONG_HELLFIRE_TREADER_POTION,
-		StellarityItems.LIFEFORCE_POTION,
-		StellarityItems.LONG_LIFEFORCE_POTION,
-		StellarityItems.STRONG_LIFEFORCE_POTION,
-		StellarityItems.SPELUNKER_POTION,
-		StellarityItems.LONG_SPELUNKER_POTION,
-		StellarityItems.STRONG_SPELUNKER_POTION,
-		StellarityItems.POSEIDONS_NECTAR_POTION,
-		StellarityItems.RED_POTION,
-		StellarityItems.REGENERAGA_POTION,
-		StellarityItems.LONG_REGENERAGA_POTION,
-		StellarityItems.STRONG_REGENERAGA_POTION,
-		StellarityItems.LUCK_POTION,
+		AMARENE_POTION,
+		BLIND_RAGE_POTION,
+		LONG_BLIND_RAGE_POTION,
+		ENDURANCE_POTION,
+		LONG_ENDURANCE_POTION,
+		STRONG_ENDURANCE_POTION,
+		ENTANGLEMENT_POTION,
+		LONG_ENTANGLEMENT_POTION,
+		STRONG_ENTANGLEMENT_POTION,
+		FROST_CLOUD_POTION,
+		HELLFIRE_TREADER_POTION,
+		LONG_HELLFIRE_TREADER_POTION,
+		STRONG_HELLFIRE_TREADER_POTION,
+		LIFEFORCE_POTION,
+		LONG_LIFEFORCE_POTION,
+		STRONG_LIFEFORCE_POTION,
+		SPELUNKER_POTION,
+		LONG_SPELUNKER_POTION,
+		STRONG_SPELUNKER_POTION,
+		POSEIDONS_NECTAR_POTION,
+		RED_POTION,
+		REGENERAGA_POTION,
+		LONG_REGENERAGA_POTION,
+		STRONG_REGENERAGA_POTION,
+		LUCK_POTION,
 	};
 
 
 	public static final ItemLike[] EQUIPMENT_ITEMS = new ItemLike[]{
-		StellarityItems.CALL_OF_THE_VOID,
-		StellarityItems.FISHER_OF_VOIDS,
-		StellarityItems.TAMARIS
+		CALL_OF_THE_VOID,
+		FISHER_OF_VOIDS,
+		TAMARIS,
+		SHULKER_HELMET,
+		SHULKER_CHESTPLATE,
+		SHULKER_LEGGINGS,
+		SHULKER_BOOTS
 	};
 
 	public static final ItemLike[] INGREDIENT_ITEMS = new ItemLike[]{
-		StellarityItems.CHORUS_PLATING,
-		StellarityItems.ENDERITE_SHARD,
-		StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE,
-		StellarityItems.HALLOWED_INGOT,
-		StellarityItems.SAND_RUNE,
-		StellarityItems.STARLIGHT_SOOT,
-		StellarityItems.GILDED_PURPUR_KEY,
-		StellarityItems.PURPUR_KEY,
-		StellarityItems.WINGED_KEY,
-		StellarityItems.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
-		StellarityItems.MUSIC_DISC_FIRES_OF_HOKKAI,
-		StellarityItems.MUSIC_DISC_PRECIPICE_STEREO
+		CHORUS_PLATING,
+		ENDERITE_SHARD,
+		ENDERITE_UPGRADE_SMITHING_TEMPLATE,
+		HALLOWED_INGOT,
+		SAND_RUNE,
+		STARLIGHT_SOOT,
+		GILDED_PURPUR_KEY,
+		PURPUR_KEY,
+		WINGED_KEY,
+		MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
+		MUSIC_DISC_FIRES_OF_HOKKAI,
+		MUSIC_DISC_PRECIPICE_STEREO
 	};
 
 	public static final ItemLike[] TRINKET_ITEMS = new ItemLike[]{
-		StellarityItems.PRISMATIC_PEARL,
-		StellarityItems.ENDONOMICON,
-		StellarityItems.SATCHEL_OF_VOIDS,
-		StellarityItems.DUSKBERRY
+		PRISMATIC_PEARL,
+		ENDONOMICON,
+		SATCHEL_OF_VOIDS,
+		DUSKBERRY
 	};
 
 	public static final ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");
@@ -118,25 +123,25 @@ public class StellarityCreativeModeTabs {
 	public static final ResourceKey<CreativeModeTab> TRINKETS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "trinkets");
 
 	public static final CreativeModeTab FOOD = FabricCreativeModeTab.builder()
-		.icon(() -> new ItemStack(StellarityItems.SUSHI))
+		.icon(() -> new ItemStack(SUSHI))
 		.title(Component.translatable("itemGroup.stellarity.food"))
 		.build();
 	public static final CreativeModeTab BLOCKS = FabricCreativeModeTab.builder()
-		.icon(() -> new ItemStack(StellarityItems.ENDER_GRASS_BLOCK))
+		.icon(() -> new ItemStack(ENDER_GRASS_BLOCK))
 		.title(Component.translatable("itemGroup.stellarity.blocks"))
 		.build();
 	public static final CreativeModeTab EQUIPMENT = FabricCreativeModeTab.builder()
-		.icon(() -> new ItemStack(StellarityItems.CALL_OF_THE_VOID))
+		.icon(() -> new ItemStack(CALL_OF_THE_VOID))
 		.title(Component.translatable("itemGroup.stellarity.equipment"))
 		.build();
 
 	public static final CreativeModeTab INGREDIENTS = FabricCreativeModeTab.builder()
-		.icon(() -> new ItemStack(StellarityItems.ENDERITE_SHARD))
+		.icon(() -> new ItemStack(ENDERITE_SHARD))
 		.title(Component.translatable("itemGroup.stellarity.ingredients"))
 		.build();
 
 	public static final CreativeModeTab TRINKETS = FabricCreativeModeTab.builder()
-		.icon(() -> new ItemStack(StellarityItems.PRISMATIC_PEARL))
+		.icon(() -> new ItemStack(PRISMATIC_PEARL))
 		.title(Component.translatable("itemGroup.stellarity.trinkets"))
 		.build();
 

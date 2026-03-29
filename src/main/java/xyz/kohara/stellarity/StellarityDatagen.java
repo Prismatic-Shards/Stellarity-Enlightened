@@ -34,6 +34,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(BiomeTagProvider::new);
 		pack.addProvider(ChestLootTableProvider::new);
 		pack.addProvider(DynamicRegistriesProvider::new);
+		pack.addProvider((FabricDataGenerator.Pack.Factory<EquipmentAssetProvider>) EquipmentAssetProvider::new);
 
 
 	}

@@ -12,6 +12,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.equipment.ArmorMaterials;
+import net.minecraft.world.item.equipment.ArmorType;
 import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.registry.item.*;
 
@@ -217,6 +219,11 @@ public class StellarityItems {
 
 	public static final Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
 	public static final Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.PROPERTIES);
+
+	public static final Item SHULKER_HELMET = register("shulker_helmet", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.HELMET).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.HELMET)));
+	public static final Item SHULKER_CHESTPLATE = register("shulker_chestplate", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
+	public static final Item SHULKER_LEGGINGS = register("shulker_leggings", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
+	public static final Item SHULKER_BOOTS = register("shulker_boots", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
 
 
 	public static Supplier<ItemStack> createPotion(Holder<Potion> potion) {

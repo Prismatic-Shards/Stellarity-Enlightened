@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class DragonRespawnStageMixin {
 	// Purely to prevent a section of the end portal from being chopped
 	@WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;removeBlock(Lnet/minecraft/core/BlockPos;Z)Z"))
-	private boolean blockBlockRemoval(ServerLevel instance, BlockPos blockPos, boolean b, Operation<Boolean> original) {
+	private boolean bugFixAltarSectionDeleted(ServerLevel instance, BlockPos blockPos, boolean b, Operation<Boolean> original) {
 		return false;
 	}
 }

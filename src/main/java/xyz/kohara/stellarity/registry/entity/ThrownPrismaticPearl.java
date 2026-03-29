@@ -20,6 +20,7 @@ import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableIt
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -133,11 +134,15 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		this.setAttached(StellarityDataAttachments.PRISMATIC_PEARL_TRAIL, trail);
 	}
 
-
 	@Override
 	public void tick() {
-		super.tick();
+
 		var level = level();
+
+		if (!level.isClientSide()) {
+			super.tick();
+			return;
+		}
 
 		int[] colors = getTrailType().colors;
 
@@ -149,6 +154,8 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		if (oldPos == null) {
 			oldPos = new Vec3(x, y, z);
 		}
+
+		super.tick();
 
 		var dx = x - oldPos.x;
 		var dy = y - oldPos.y;
@@ -166,9 +173,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 
 		for (int i = 0; i <= steps + 1; i++) {
 			var color = colors[colorIndex];
-
-			stellarity$setGlowColor(color);
-			level.addParticle(new DustParticleOptions(color, 1.5f), x + i * xStep, y + i * yStep, z + i * zStep, 0, 0, 0);
+			level.addAlwaysVisibleParticle(new DustParticleOptions(color, 1.5f), true, x + i * xStep, y + i * yStep, z + i * zStep, 0, 0, 0);
 		}
 
 		colorIndex++;
