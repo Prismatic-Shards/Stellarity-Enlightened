@@ -122,10 +122,10 @@ public class ModelProvider extends FabricModelProvider {
 			generators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
 
-		generators.generateTrimmableItem(SHULKER_HELMET, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_helmet_trim"), false);
-		generators.generateTrimmableItem(SHULKER_CHESTPLATE, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_chestplate_trim"), false);
-		generators.generateTrimmableItem(SHULKER_LEGGINGS, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_leggings_trim"), false);
-		generators.generateTrimmableItem(SHULKER_BOOTS, StellarityEquipmentAssets.SHULKER, Stellarity.id("trims/items/shulker_boots_trim"), false);
+		generators.generateTrimmableItem(SHULKER_HELMET, StellarityEquipmentAssets.SHULKER, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
+		generators.generateTrimmableItem(SHULKER_CHESTPLATE, StellarityEquipmentAssets.SHULKER, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
+		generators.generateTrimmableItem(SHULKER_LEGGINGS, StellarityEquipmentAssets.SHULKER, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
+		generators.generateTrimmableItem(SHULKER_BOOTS, StellarityEquipmentAssets.SHULKER, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
 
 
 	}

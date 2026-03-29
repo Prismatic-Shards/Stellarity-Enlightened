@@ -18,7 +18,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
-import xyz.kohara.stellarity.registry.StellarityCriteriaTriggers;
 import xyz.kohara.stellarity.registry.StellarityItems;
 import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.SpecialCraftTrigger;
@@ -172,11 +171,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				requires(new String[][]{{"summon"}, {"require_kill"}})
 			).build(Stellarity.mcId("end/respawn_dragon"));
 
-		// TODO: reparent to intro to dark magic
-		var CURSED_CRAFTING = advancement().display(
-				StellarityItems.ALTAR_OF_THE_ACCURSED,
-				Component.translatable("advancements.stellarity.cursed_crafting"),
-				Component.translatable("advancements.stellarity.cursed_crafting.description"),
+		var ALTAR_OF_THE_ACCURSED_INTRO = advancement().display(
+				StellarityItems.ENDONOMICON,
+				Component.translatable("advancements.stellarity.altar_of_the_accursed_intro"),
+				Component.translatable("advancements.stellarity.altar_of_the_accursed_intro.description"),
 				null,
 				GOAL,
 				true,
@@ -187,7 +185,32 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				Optional.empty(),
 				Optional.of(ContextAwarePredicate.create(
 					new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
-				))
+				)),
+				Optional.of(
+					ItemPredicate.Builder.item().of(itemLookup, StellarityItems.ENDONOMICON).build()
+				)
+			))
+			.requirements(
+				requires(new String[][]{{"craft"}})
+			).build(Stellarity.mcId("altar_of_the_accursed/altar_of_the_accursed_intro"));
+
+		// TODO: reparent to intro to dark magic
+		var CURSED_CRAFTING = advancement().display(
+				StellarityItems.ALTAR_OF_THE_ACCURSED,
+				Component.translatable("advancements.stellarity.cursed_crafting"),
+				Component.translatable("advancements.stellarity.cursed_crafting.description"),
+				null,
+				GOAL,
+				true,
+				true,
+				false
+			).parent(ALTAR_OF_THE_ACCURSED_INTRO)
+			.addCriterion("craft", SpecialCraftTrigger.triggerInstance(
+				Optional.empty(),
+				Optional.of(ContextAwarePredicate.create(
+					new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
+				)),
+				Optional.empty()
 			))
 			.requirements(
 				requires(new String[][]{{"craft"}})
@@ -212,7 +235,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			).build(Stellarity.mcId("altar_of_the_accursed/craft_full_shulker_armor"));
 
 
-		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON, CURSED_CRAFTING, CRAFT_FULL_SHULKER_ARMOR)) {
+		for (var advancement : List.of(VOID_REELS, TOPPED_OFF, FIND_DUSKBERRY, POOR_LIFE_CHOICES, SACRIFICAL_RITUAL, RESPAWN_DRAGON, CURSED_CRAFTING, CRAFT_FULL_SHULKER_ARMOR, ALTAR_OF_THE_ACCURSED_INTRO)) {
 			consumer.accept(advancement);
 		}
 	}

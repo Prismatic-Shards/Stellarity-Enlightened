@@ -33,7 +33,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Cursed Crafting**
 
-- New criterion `advancement_completed` is available for use in datapacks
+- New criterion `special_craft` is available for use in datapacks
 - This criterion is triggered for special crafting invoked by blocks such as AOTA, but will also be used for stuff like
   Cauldron and Altar of Light crafting in the future
 
@@ -44,6 +44,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] Fabric API Data Attachment Hotfix**
 
 - Fixed a bug where the data attachment system would desync when setting data attachments via `/data modify`
+
+## Recipes
+
+### AOTA
+
+**[+] Netherite Armor + 4 Shulker Shells + 1 Enderite Upgrade = Shulker Armor**
 
 # Developers Note
 

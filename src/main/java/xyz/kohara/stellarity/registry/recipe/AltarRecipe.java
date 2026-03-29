@@ -130,14 +130,16 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 			entity.stellarity$updateResults(output.remainders());
 		}
 
-		ItemEntity resultItem = new ItemEntity(serverLevel, x, y + 0.75, z, output.result());
+		var result = output.result();
+
+		ItemEntity resultItem = new ItemEntity(serverLevel, x, y + 0.75, z, result);
 		resultItem.stellarity$setItemMode(ExtItemEntity.ItemMode.RESULT);
 		serverLevel.addFreshEntity(resultItem);
 
 		serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), x, y + 1, z, 1, 0, 0, 0, 0);
 		serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 17, 0, 0, 0, 0.13);
 
-		serverLevel.getEntitiesOfClass(ServerPlayer.class, new AABB(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5)).forEach(p -> StellarityCriteriaTriggers.SPECIAL_CRAFT.trigger(p, BlockPos.containing(x, y, z), p.getActiveItem()));
+		serverLevel.getEntitiesOfClass(ServerPlayer.class, new AABB(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5)).forEach(p -> StellarityCriteriaTriggers.SPECIAL_CRAFT.trigger(p, BlockPos.containing(x, y, z), result));
 	}
 
 	@Override
