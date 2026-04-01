@@ -5,8 +5,12 @@
 	"name": "${name}",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Coder2195"
+		"Me!"
 	],
+	"contact": {
+		"homepage": "https://stonecutter.kikugie.dev/",
+		"sources": "https://codeberg.org/stonecutter/template-fabric"
+	},
 	"license": "CC0-1.0",
 	"icon": "assets/stellarity/icon.png",
 	"environment": "*",
@@ -22,13 +26,15 @@
 		]
 	},
 	"mixins": [
-		"stellarity.mixins.json",
-		"stellarity.client.mixins.json"
+		"stellarity.mixins.json"
 	],
-	"accessWidener": "stellarity.ct",
+	"accessWidener": "stellarity.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.17",
 		"fabric-api": ">=${fabric_api}",
 		"minecraft": "${minecraft}"
+	},
+	"recommends": {
+		"patchouli": "*"
 	}
 }

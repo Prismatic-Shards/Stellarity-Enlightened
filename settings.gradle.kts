@@ -1,15 +1,25 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		maven {
-			name = "Fabric"
-			url = uri("https://maven.fabricmc.net/")
-		}
 		mavenCentral()
 		gradlePluginPortal()
-	}
-
-	plugins {
-		id("net.fabricmc.fabric-loom") version providers.gradleProperty("deps.fabric_loom").get()
+		maven("https://maven.fabricmc.net/")
+		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
+		maven("https://maven.kikugie.dev/releases")
 	}
 }
+
+plugins {
+	id("dev.kikugie.stonecutter") version "0.9"
+}
+
+stonecutter {
+	create(rootProject) {
+		// See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
+		versions("26.1", "26.1.1")
+		vcsVersion = "26.1.1"
+	}
+}
+
+
+rootProject.name = "Stellarity"

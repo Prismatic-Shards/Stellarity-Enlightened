@@ -13,5 +13,4 @@ public interface ExtEntity extends AttachmentTarget {
 	default int stellarity$getGlowColor() {
 		return this.getAttachedOrElse(StellarityDataAttachments.GLOW_COLOR, -1);
 	}
-
 }

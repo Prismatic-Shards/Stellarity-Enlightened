@@ -1,26 +1,74 @@
 plugins {
 	id("net.fabricmc.fabric-loom")
+	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.22"
 	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
-	id("co.uzzu.dotenv.gradle") version "4.0.0"
-	`maven-publish`
+	// `maven-publish`
+	kotlin("jvm") version "2.2.20"
+	id("com.google.devtools.ksp") version "2.2.20-2.0.4"
 }
 
-version = providers.gradleProperty("mod.version").get()
-group = providers.gradleProperty("maven.group").get()
 
-base {
-	archivesName = providers.gradleProperty("maven.archives_base_name")
+
+version = "${property("mod.version")}+${stonecutter.current.version}"
+base.archivesName = property("mod.id") as String
+
+val requiredJava = when {
+	stonecutter.eval(stonecutter.current.version, ">=26.1") -> JavaVersion.VERSION_25
+	else -> JavaVersion.VERSION_21
 }
+
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	/**
+	 * Restricts dependency search of the given [groups] to the [maven URL][url],
+	 * improving the setup speed.
+	 */
+	fun strictMaven(url: String, alias: String, vararg groups: String) = exclusiveContent {
+		forRepository { maven(url) { name = alias } }
+		filter { groups.forEach(::includeGroup) }
+	}
+	strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
+	strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
+	maven("https://maven.blamejared.com")
+	maven("https://maven.latvian.dev/releases")
+	maven("https://thedarkcolour.github.io/KotlinForForge/")
+
 }
+
+dependencies {
+
+	minecraft("com.mojang:minecraft:${stonecutter.current.version}")
+	implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+	implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
+}
+
+stonecutter {
+}
+
+fletchingTable {
+	mixins.register("main") {
+		mixin("default", "stellarity.mixins.json") {
+			env("DEFAULT")
+		}
+		mixin("client", "stellarity.client.mixins.json") {
+			env("CLIENT")
+		}
+	}
+}
+
+
 loom {
-	accessWidenerPath = project.file("src/main/resources/${project.property("mod.id")}.ct")
+	mods {
+		create(project.property("mod.id") as String) {
+			sourceSet(sourceSets["main"])
+		}
+	}
+
+	fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
+	accessWidenerPath = sc.process(rootProject.file("src/main/resources/stellarity.accesswidener"), "build/dev.aw")
+	file("build/generated/stonecutter/main/resources/stellarity.accesswidener").let {
+		if (it.exists()) accessWidenerPath = it
+	}
 
 	decompilerOptions.named("vineflower") {
 		options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
@@ -30,10 +78,17 @@ loom {
 		programArgs("--username=StellarityDev")
 	}
 
+	runConfigs["server"].apply {
+		runDir = "./serverrun"
+	}
+
+
 	runConfigs.all {
 		ideConfigGenerated(true)
 		vmArgs("-Dmixin.debug.export=true -XX:+AllowEnhancedClassRedefinition")
 	}
+
+
 }
 
 fabricApi {
@@ -42,84 +97,67 @@ fabricApi {
 	}
 }
 
-dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft("com.mojang:minecraft:${providers.gradleProperty("deps.minecraft_versions").get()}")
-
-	implementation("net.fabricmc:fabric-loader:${providers.gradleProperty("deps.fabric_loader").get()}")
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	implementation("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("deps.fabric_api").get()}")
-
-}
-
-tasks.processResources {
+tasks.withType<ProcessResources> {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
 	inputs.property("id", project.property("mod.id"))
 	inputs.property("name", project.property("mod.name"))
 	inputs.property("version", project.property("mod.version"))
-	inputs.property("minecraft", project.property("deps.minecraft"))
+	inputs.property("minecraft", project.property("mod.mc_dep"))
 	inputs.property("fabric_api", project.property("deps.fabric_api"))
+
 
 	val props = mapOf(
 		"id" to project.property("mod.id"),
 		"name" to project.property("mod.name"),
 		"version" to project.property("mod.version"),
-		"minecraft" to project.property("deps.minecraft"),
+		"minecraft" to project.property("mod.mc_dep"),
 		"fabric_api" to project.property("deps.fabric_api"),
 	)
 
 	filesMatching("fabric.mod.json") { expand(props) }
+
+
+	val mixinJava = "JAVA_${requiredJava.majorVersion}"
+	filesMatching("*.mixins.json") { expand("java" to mixinJava) }
 }
 
-tasks.withType<JavaCompile>().configureEach {
-	options.release = 25
-}
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
 	withSourcesJar()
+	targetCompatibility = requiredJava
+	sourceCompatibility = requiredJava
+}
 
-	sourceCompatibility = JavaVersion.VERSION_25
-	targetCompatibility = JavaVersion.VERSION_25
+val sourcesJar = tasks.named("sourcesJar", Jar::class)
+
+tasks {
+	// Builds the version into a shared folder in `build/libs/${mod version}/`
+	register<Copy>("buildAndCollect") {
+		group = "build"
+		from(jar.map { it.archiveFile }, sourcesJar.map { it.archiveFile })
+		into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
+		dependsOn("build")
+	}
+
+	build {
+		dependsOn("validateAccessWidener")
+	}
+
+	stonecutterGenerate {
+		dependsOn("validateAccessWidener")
+	}
+
+
 }
 
 
-
-tasks.jar {
-	inputs.property("archivesName", base.archivesName)
-
-	from("LICENSE") {
-		rename { "${it}_${base.archivesName.get()}" }
-	}
-}
-
-// configure the maven publication
-publishing {
-	publications {
-		register<MavenPublication>("mavenJava") {
-			artifactId = base.archivesName.get()
-			from(components["java"])
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
-}
-
+// Publishes builds to Modrinth and Curseforge with changelog from the CHANGELOG.md file
+// Publishing using publishMods task
 publishMods {
 	file = tasks.jar.map { it.archiveFile.get() }
-	displayName = "${property("mod.name")} ${property("mod.version")}"
+	displayName = "${property("mod.name")} ${property("mod.version")} for ${property("mod.mc_title")}"
 	version = property("mod.version") as String
-	changelog = file("CHANGELOG.md").readText()
+	changelog = rootProject.file("CHANGELOG.md").readText()
 	type = STABLE
 	modLoaders.add("fabric")
 
@@ -129,15 +167,42 @@ publishMods {
 	modrinth {
 		projectId = property("publish.modrinth") as String
 		accessToken = env.fetch("MODRINTH_TOKEN", "")
-		minecraftVersions.addAll(property("deps.minecraft_versions").toString().split(' '))
+		minecraftVersions.addAll(property("mod.mc_targets").toString().split(' '))
 		requires("fabric-api")
-
 	}
 
 	curseforge {
 		projectId = property("publish.curseforge") as String
 		accessToken = env.fetch("CURSEFORGE_TOKEN", "")
-		minecraftVersions.addAll(property("deps.minecraft_versions").toString().split(' '))
+		minecraftVersions.addAll(property("mod.mc_targets").toString().split(' '))
 		requires("fabric-api")
 	}
 }
+
+
+/*
+// Publishes builds to a maven repository under `com.example:template:0.1.0+mc`
+publishing {
+    repositories {
+        maven("https://maven.example.com/releases") {
+            name = "myMaven"
+            // To authenticate, create `myMavenUsername` and `myMavenPassword` properties in your Gradle home properties.
+            // See https://stonecutter.kikugie.dev/wiki/tips/properties#defining-properties
+            credentials(PasswordCredentials::class.java)
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "${property("mod.group")}.${property("mod.id")}"
+            artifactId = property("mod.id") as String
+            version = project.version
+
+            from(components["java"])
+        }
+    }
+}
+*/
