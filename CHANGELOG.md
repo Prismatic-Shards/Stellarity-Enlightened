@@ -39,6 +39,11 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] I am Titanium!**
 
+**[*] The End... Again...**
+
+- Updated to use the ingame advancement detector
+- Removed criterion `advancement_completed`
+
 ## Mechanics
 
 **[*] Fabric API Data Attachment Hotfix**
