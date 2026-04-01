@@ -19,7 +19,6 @@ import org.jspecify.annotations.NonNull;
 import xyz.kohara.stellarity.Stellarity;
 import xyz.kohara.stellarity.registry.StellarityBlocks;
 import xyz.kohara.stellarity.registry.StellarityItems;
-import xyz.kohara.stellarity.registry.advancement_criterion.AdvancementCompletedTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.SpecialCraftTrigger;
 import xyz.kohara.stellarity.registry.advancement_criterion.VoidFishedTrigger;
 
@@ -139,7 +138,6 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.requirements(requires(new String[][]{{"eat"}, {"feed"}, {"place"}}))
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
 
-		var summonDragon = SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON)));
 		var SACRIFICAL_RITUAL = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.stellarity.sacrificial_ritual"),
@@ -150,7 +148,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			).parent(END_ROOT)
-			.addCriterion("summon", summonDragon)
+			.addCriterion("summon", SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON))))
 			.requirements(
 				requires(new String[][]{{"summon"}})
 			).build(Stellarity.id("ender_dragon/sacrificial_ritual"));
@@ -165,10 +163,16 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			).parent(KILL_DRAGON)
-			.addCriterion("require_kill", AdvancementCompletedTrigger.TriggerInstance.triggerInstance(Stellarity.mcId("end/kill_dragon"), true))
-			.addCriterion("summon", summonDragon)
+			.addCriterion("summon", CriteriaTriggers.SUMMONED_ENTITY.createCriterion(new SummonedEntityTrigger.TriggerInstance(
+					Optional.of(
+						EntityPredicate.wrap(new EntityPredicate.Builder().subPredicate(PlayerPredicate.Builder.player().checkAdvancementDone(Stellarity.id("ender_dragon/sacrificial_ritual"), true).build()))
+					),
+					Optional.of(
+						EntityPredicate.wrap(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON))))
+				)
+			))
 			.requirements(
-				requires(new String[][]{{"summon"}, {"require_kill"}})
+				requires(new String[][]{{"summon"}})
 			).build(Stellarity.mcId("end/respawn_dragon"));
 
 		var ALTAR_OF_THE_ACCURSED_INTRO = advancement().display(

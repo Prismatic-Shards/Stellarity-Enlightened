@@ -25,3 +25,5 @@ accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$Enchantm
 accessible field net/minecraft/world/entity/LivingEntity lastHurt F
 
 accessible field net/minecraft/client/renderer/entity/ItemFrameRenderer blockModelResolver Lnet/minecraft/client/renderer/block/BlockModelResolver;
+
+accessible field net/minecraft/world/entity/Mob target Lnet/minecraft/world/entity/LivingEntity;

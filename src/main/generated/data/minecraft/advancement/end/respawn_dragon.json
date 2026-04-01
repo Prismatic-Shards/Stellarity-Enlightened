@@ -1,13 +1,6 @@
 {
   "parent": "minecraft:end/kill_dragon",
   "criteria": {
-    "require_kill": {
-      "conditions": {
-        "advancement": "minecraft:end/kill_dragon",
-        "is_prerequisite": true
-      },
-      "trigger": "stellarity:advancement_completed"
-    },
     "summon": {
       "conditions": {
         "entity": [
@@ -16,6 +9,20 @@
             "entity": "this",
             "predicate": {
               "type": "minecraft:ender_dragon"
+            }
+          }
+        ],
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "minecraft:player",
+                "advancements": {
+                  "stellarity:ender_dragon/sacrificial_ritual": true
+                }
+              }
             }
           }
         ]
@@ -37,9 +44,6 @@
   "requirements": [
     [
       "summon"
-    ],
-    [
-      "require_kill"
     ]
   ],
   "sends_telemetry_event": true

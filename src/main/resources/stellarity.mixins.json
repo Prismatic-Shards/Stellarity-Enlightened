@@ -3,7 +3,7 @@
 	"package": "xyz.kohara.stellarity.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"advancement_triggers.PlayerAdvancementsMixin",
+		"armor_effects.PlayerMixin",
 		"break_speeds.BlockStateBaseMixin",
 		"death_messages.DamageSourceMixin",
 		"dragon_fight.DragonHoldingPatternPhaseMixin",

@@ -28,32 +28,4 @@ public abstract class EntityMixin implements ExtEntity, AttachmentTargetImpl {
 		return original.call();
 	}
 
-	@SuppressWarnings("UnstableApiUsage")
-	@WrapMethod(method = "load")
-	private void bugFixFabricAttachmentSync(ValueInput input, Operation<Void> original) {
-		if (!fabric_shouldTryToSync()) {
-			original.call(input);
-			return;
-		}
-
-		var oldAttachments = this.fabric_getAttachments();
-		oldAttachments = oldAttachments != null ? new HashMap<>(oldAttachments) : new HashMap<>();
-
-		original.call(input);
-
-		var newAttachments = this.fabric_getAttachments();
-		newAttachments = newAttachments != null ? new HashMap<>(newAttachments) : new HashMap<>();
-
-		var allKeys = new HashSet<>(oldAttachments.keySet());
-		allKeys.addAll(newAttachments.keySet());
-
-
-		for (var key : allKeys) {
-			var newValue = newAttachments.get(key);
-			if (!key.isSynced() || newValue != null && newValue.equals(oldAttachments.get(key))) continue;
-
-			AttachmentChange change = AttachmentChange.create(fabric_getSyncTargetInfo(), key, newValue, fabric_getRegistryAccess());
-			this.fabric_syncChange(key, change);
-		}
-	}
 }
