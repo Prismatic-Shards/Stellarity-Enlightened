@@ -60,6 +60,8 @@ public class Stellarity implements ModInitializer {
 		StellarityRecipeSerializers.init();
 		StellarityMobEffects.init();
 		StellaritySounds.init();
+		StellarityVillagerTypes.init();
+		StellarityVillagerProfessions.init();
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment() && audit)
 			MixinEnvironment.getCurrentEnvironment().audit();
