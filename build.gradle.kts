@@ -12,11 +12,7 @@ plugins {
 version = "${property("mod.version")}+${stonecutter.current.version}"
 base.archivesName = property("mod.id") as String
 
-val requiredJava = when {
-	stonecutter.eval(stonecutter.current.version, ">=26.1") -> JavaVersion.VERSION_25
-	else -> JavaVersion.VERSION_21
-}
-
+val requiredJava = JavaVersion.VERSION_25
 
 repositories {
 	/**

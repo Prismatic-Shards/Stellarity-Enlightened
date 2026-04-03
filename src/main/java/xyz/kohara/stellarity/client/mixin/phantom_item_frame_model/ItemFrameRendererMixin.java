@@ -27,11 +27,12 @@ public class ItemFrameRendererMixin {
 	public static BlockDisplayContext BLOCK_DISPLAY_CONTEXT;
 
 	@WrapOperation(method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ItemFrame;Lnet/minecraft/client/renderer/entity/state/ItemFrameRenderState;F)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/block/BlockModelResolver;updateForItemFrame(Lnet/minecraft/client/renderer/block/BlockModelRenderState;ZZ)V"))
-	private void phantomItemFrameState(BlockModelResolver instance, BlockModelRenderState renderState, boolean isGlowing, boolean map, Operation<Void> original, @Local(name = "entity", argsOnly = true) ItemFrame entity) {
+	private void phantomItemFrameState(BlockModelResolver instance, BlockModelRenderState renderState, boolean isGlowing, boolean map, Operation<Void> original, @Local(argsOnly = true, name = "entity") ItemFrame entity) {
 		if (entity.is(StellarityEntities.PHANTOM_ITEM_FRAME)) {
 			instance.update(renderState, FAKE_STATE_DEFINITION.any(), BLOCK_DISPLAY_CONTEXT);
-		}
 
+			return;
+		}
 
 		original.call(instance, renderState, isGlowing, map);
 	}
