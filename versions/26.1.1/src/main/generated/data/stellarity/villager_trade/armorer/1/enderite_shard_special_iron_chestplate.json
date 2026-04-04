@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "minecraft:iron_chestplate"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "count": 9.0,
+    "id": "stellarity:enderite_shard"
+  },
+  "xp": 2.0
+}

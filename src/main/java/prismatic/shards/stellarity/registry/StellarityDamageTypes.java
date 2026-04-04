@@ -1,0 +1,20 @@
+package prismatic.shards.stellarity.registry;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
+import prismatic.shards.stellarity.Stellarity;
+
+
+public class StellarityDamageTypes {
+
+	public static final ResourceKey<DamageType> FROSTBURN = create("dot/frostburn");
+	public static final ResourceKey<DamageType> PRISMATIC_INFERNO = create("dot/prismatic_inferno");
+	public static final ResourceKey<DamageType> BRITTLE = create("brittle");
+	public static final ResourceKey<DamageType> TAMARIS_EXECUTE = create("tamaris_execute");
+	public static final ResourceKey<DamageType> PRISMEMBER = create("prismember");
+
+	private static ResourceKey<DamageType> create(String string) {
+		return ResourceKey.create(Registries.DAMAGE_TYPE, Stellarity.id(string));
+	}
+}

@@ -1,0 +1,17 @@
+package prismatic.shards.stellarity.tags;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import prismatic.shards.stellarity.Stellarity;
+
+public class StellarityEntityTags {
+	public static final TagKey<EntityType<?>> INVALID_TARGETS = bind("invalid_targets");
+	public static final TagKey<EntityType<?>> PLACEHOLDER_DONT_USE = bind("placeholder_dont_use");
+
+
+	private static TagKey<EntityType<?>> bind(String id) {
+		return TagKey.create(Registries.ENTITY_TYPE, Stellarity.id(id));
+	}
+
+}

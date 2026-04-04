@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"xyz.kohara.stellarity.Stellarity"
+			"prismatic.shards.stellarity.Stellarity"
 		],
 		"client": [
-			"xyz.kohara.stellarity.StellarityClient"
+			"prismatic.shards.stellarity.StellarityClient"
 		],
 		"fabric-datagen": [
-			"xyz.kohara.stellarity.StellarityDatagen"
+			"prismatic.shards.stellarity.StellarityDatagen"
 		]
 	},
 	"mixins": [
