@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.EquipmentAsset;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.Stellarity;
-import prismatic.shards.stellarity.registry.StellarityEquipmentAssets;
+import prismatic.shards.stellarity.key.StellarityEquipmentAssets;
 
 import java.util.HashMap;
 import java.util.Map;

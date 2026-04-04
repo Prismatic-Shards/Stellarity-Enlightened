@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.npc.villager.VillagerType;
 import prismatic.shards.stellarity.Stellarity;
 
-public class StellarityVillagerTypes {
-	public static final ResourceKey<VillagerType> END = register("end");
+public interface StellarityVillagerTypes {
+	ResourceKey<VillagerType> END = register("end");
 
 	private static ResourceKey<VillagerType> register(String name) {
 		ResourceKey<VillagerType> key = Stellarity.key(Registries.VILLAGER_TYPE, name);
@@ -17,7 +17,7 @@ public class StellarityVillagerTypes {
 		return key;
 	}
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Villager Types");
 	}
 }

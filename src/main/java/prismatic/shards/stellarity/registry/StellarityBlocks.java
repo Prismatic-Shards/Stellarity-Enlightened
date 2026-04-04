@@ -21,28 +21,28 @@ import prismatic.shards.stellarity.registry.block.EnderGrassBlock;
 
 import java.util.function.Function;
 
-public class StellarityBlocks {
+public interface StellarityBlocks {
 
-	public static final Block ENDER_DIRT = register("ender_dirt", Block::new, BlockBehaviour.Properties.of()
+	Block ENDER_DIRT = register("ender_dirt", Block::new, BlockBehaviour.Properties.of()
 		.mapColor(MapColor.DIRT)
 		.strength(0.5F)
 		.sound(SoundType.ROOTED_DIRT));
-	public static final Block ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.PROPERTIES);
-	public static final Block ASHEN_FROGLIGHT = register("ashen_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+	Block ENDER_GRASS_BLOCK = register("ender_grass_block", EnderGrassBlock::new, EnderGrassBlock.PROPERTIES);
+	Block ASHEN_FROGLIGHT = register("ashen_froglight", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
 		.mapColor(MapColor.SAND)
 		.strength(0.3F)
 		.lightLevel((state) -> 15)
 		.sound(SoundType.FROGLIGHT));
-	public static final Block ROOTED_ENDER_DIRT = register("rooted_ender_dirt", RootedDirtBlock::new, BlockBehaviour.Properties.of()
+	Block ROOTED_ENDER_DIRT = register("rooted_ender_dirt", RootedDirtBlock::new, BlockBehaviour.Properties.of()
 		.mapColor(MapColor.DIRT)
 		.strength(0.5F)
 		.sound(SoundType.ROOTED_DIRT));
-	public static final Block ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.PROPERTIES);
-	public static final Block ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.PROPERTIES);
-	public static final Block DUSKBERRY_BUSH = register("duskberry_bush", DuskberryBush::new, DuskberryBush.PROPERTIES);
+	Block ENDER_DIRT_PATH = register("ender_dirt_path", EnderDirtPath::new, EnderDirtPath.PROPERTIES);
+	Block ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursed::new, AltarOfTheAccursed.PROPERTIES);
+	Block DUSKBERRY_BUSH = register("duskberry_bush", DuskberryBush::new, DuskberryBush.PROPERTIES);
 
 
-	public static Block register(String id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings) {
+	static Block register(String id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties settings) {
 
 
 		var location = Stellarity.key(Registries.BLOCK, id);
@@ -55,7 +55,7 @@ public class StellarityBlocks {
 		return block;
 	}
 
-	public static void init() {
+	static void init() {
 
 		Stellarity.LOGGER.info("Registering Stellarity Blocks");
 

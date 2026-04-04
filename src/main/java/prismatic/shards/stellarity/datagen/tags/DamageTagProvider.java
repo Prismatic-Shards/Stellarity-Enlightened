@@ -8,7 +8,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import org.jspecify.annotations.NonNull;
-import prismatic.shards.stellarity.registry.StellarityDamageTypes;
+import prismatic.shards.stellarity.key.StellarityDamageTypes;
 import prismatic.shards.stellarity.tags.StellarityDamageTypeTags;
 
 import java.util.concurrent.CompletableFuture;

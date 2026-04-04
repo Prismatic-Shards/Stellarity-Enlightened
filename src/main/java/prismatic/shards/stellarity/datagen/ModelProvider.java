@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.StellarityBlocks;
-import prismatic.shards.stellarity.registry.StellarityEquipmentAssets;
+import prismatic.shards.stellarity.key.StellarityEquipmentAssets;
 
 import static prismatic.shards.stellarity.registry.StellarityItems.*;
 

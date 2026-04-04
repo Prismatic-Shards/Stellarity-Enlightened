@@ -5,7 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.item.trading.VillagerTrade;
-import prismatic.shards.stellarity.registry.StellarityVillagerTradeSets;
+import prismatic.shards.stellarity.key.StellarityVillagerTradeSets;
 import prismatic.shards.stellarity.tags.StellarityVillagerTradeTags;
 import prismatic.shards.stellarity.utils.LootTableUtils;
 

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import prismatic.shards.stellarity.registry.StellarityDamageTypes;
+import prismatic.shards.stellarity.key.StellarityDamageTypes;
 import prismatic.shards.stellarity.registry.StellarityMobEffects;
 import prismatic.shards.stellarity.utils.DamageUtility;
 

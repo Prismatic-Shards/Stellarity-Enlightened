@@ -17,11 +17,12 @@ import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.item.trading.TradeSets;
 import org.jspecify.annotations.Nullable;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.key.StellarityVillagerTradeSets;
 
 import java.util.List;
 
-public class StellarityVillagerProfessions {
-	public static final Holder.Reference<VillagerProfession> ARMORER = register(
+public interface StellarityVillagerProfessions {
+	Holder.Reference<VillagerProfession> ARMORER = register(
 		"armorer",
 		true,
 		PoiTypes.ARMORER,
@@ -29,7 +30,7 @@ public class StellarityVillagerProfessions {
 		Int2ObjectMap.ofEntries(Int2ObjectMap.entry(1, StellarityVillagerTradeSets.ARMORER_LEVEL_1), Int2ObjectMap.entry(2, TradeSets.ARMORER_LEVEL_4), Int2ObjectMap.entry(3, TradeSets.ARMORER_LEVEL_3), Int2ObjectMap.entry(4, TradeSets.ARMORER_LEVEL_4), Int2ObjectMap.entry(5, TradeSets.ARMORER_LEVEL_5))
 	);
 
-	public static Holder.Reference<VillagerProfession> mapVanilla(Holder.Reference<VillagerProfession> original) {
+	static Holder.Reference<VillagerProfession> mapVanilla(Holder.Reference<VillagerProfession> original) {
 		var id = original.key().identifier();
 		if (!id.getNamespace().equals("minecraft")) {
 			return original;
@@ -40,7 +41,7 @@ public class StellarityVillagerProfessions {
 		return original;
 	}
 
-	public static @Nullable List<ResourceKey<TradeSet>> extraTradeSets(VillagerData data) {
+	static @Nullable List<ResourceKey<TradeSet>> extraTradeSets(VillagerData data) {
 		var profession = data.profession();
 		var level = data.level();
 		if (profession.is(StellarityVillagerProfessions.ARMORER.key()) && level == 1) {
@@ -51,7 +52,7 @@ public class StellarityVillagerProfessions {
 	}
 
 
-	public static Holder.Reference<VillagerProfession> register(String name, boolean vanilla, final ResourceKey<PoiType> jobSite, final @Nullable SoundEvent workSound, final Int2ObjectMap<ResourceKey<TradeSet>> trades) {
+	static Holder.Reference<VillagerProfession> register(String name, boolean vanilla, final ResourceKey<PoiType> jobSite, final @Nullable SoundEvent workSound, final Int2ObjectMap<ResourceKey<TradeSet>> trades) {
 		var key = Stellarity.key(Registries.VILLAGER_PROFESSION, name);
 
 		return Registry.registerForHolder(BuiltInRegistries.VILLAGER_PROFESSION, key, new VillagerProfession(
@@ -64,7 +65,7 @@ public class StellarityVillagerProfessions {
 		));
 	}
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Villager Professions");
 	}
 }

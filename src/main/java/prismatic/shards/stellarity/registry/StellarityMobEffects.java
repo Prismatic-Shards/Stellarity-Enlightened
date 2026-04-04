@@ -8,22 +8,22 @@ import net.minecraft.world.effect.MobEffect;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.effect.*;
 
-public class StellarityMobEffects {
+public interface StellarityMobEffects {
 
-	public static final Holder<MobEffect> VOIDED = register("voided", new VoidedEffect());
-	public static final Holder<MobEffect> JINX = register("jinx", new JinxEffect());
+	Holder<MobEffect> VOIDED = register("voided", new VoidedEffect());
+	Holder<MobEffect> JINX = register("jinx", new JinxEffect());
 
-	public static final Holder<MobEffect> BRITTLE = register("brittle", new BrittleEffect());
-	public static final Holder<MobEffect> CREATIVE_SHOCK = register("creative_shock", new CreativeShockEffect());
-	public static final Holder<MobEffect> FROSTBURN = register("frostburn", new FrostburnEffect());
-	public static final Holder<MobEffect> PRISMATIC_INFERNO = register("prismatic_inferno", new PrismaticInfernoEffect());
+	Holder<MobEffect> BRITTLE = register("brittle", new BrittleEffect());
+	Holder<MobEffect> CREATIVE_SHOCK = register("creative_shock", new CreativeShockEffect());
+	Holder<MobEffect> FROSTBURN = register("frostburn", new FrostburnEffect());
+	Holder<MobEffect> PRISMATIC_INFERNO = register("prismatic_inferno", new PrismaticInfernoEffect());
 
 
-	public static Holder<MobEffect> register(String name, MobEffect effect) {
+	static Holder<MobEffect> register(String name, MobEffect effect) {
 		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Stellarity.id(name), effect);
 	}
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Mob Effects");
 	}
 }

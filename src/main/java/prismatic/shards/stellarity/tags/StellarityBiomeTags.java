@@ -5,11 +5,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import prismatic.shards.stellarity.Stellarity;
 
-public class StellarityBiomeTags {
-	public static final TagKey<Biome> SNOWY = bind("snowy");
-	public static final TagKey<Biome> PLACEHOLDER_DONT_USE = bind("placeholder_dont_use");
+public interface StellarityBiomeTags {
+	TagKey<Biome> SNOWY = id("snowy");
+	TagKey<Biome> PLACEHOLDER_DONT_USE = id("placeholder_dont_use");
 
-	private static TagKey<Biome> bind(String id) {
+	static TagKey<Biome> id(String id) {
 		return TagKey.create(Registries.BIOME, Stellarity.id(id));
 	}
 }

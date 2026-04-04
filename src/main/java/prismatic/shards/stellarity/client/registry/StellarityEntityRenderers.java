@@ -2,7 +2,7 @@ package prismatic.shards.stellarity.client.registry;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.client.registry.renderer.entity.PhantomItemFrameRenderer;
@@ -13,8 +13,8 @@ public class StellarityEntityRenderers {
 
 	public static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Entity Renderers");
-		EntityRendererRegistry.register(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
-		EntityRendererRegistry.register(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
+		EntityRenderers.register(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
+		EntityRenderers.register(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);
 	}
 
 }

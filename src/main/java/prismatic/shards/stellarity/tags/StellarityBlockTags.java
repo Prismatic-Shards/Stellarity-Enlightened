@@ -5,11 +5,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import prismatic.shards.stellarity.Stellarity;
 
-public class StellarityBlockTags {
-	public static final TagKey<Block> DUNE_SPEED_BLOCKS = bind("dune_speed_blocks");
-	public static final TagKey<Block> DIRT = bind("dirt");
+public interface StellarityBlockTags {
+	TagKey<Block> DUNE_SPEED_BLOCKS = id("dune_speed_blocks");
+	TagKey<Block> DIRT = id("dirt");
 
-	private static TagKey<Block> bind(String id) {
+	static TagKey<Block> id(String id) {
 		return TagKey.create(Registries.BLOCK, Stellarity.id(id));
 	}
 

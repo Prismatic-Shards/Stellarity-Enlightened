@@ -5,13 +5,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import prismatic.shards.stellarity.Stellarity;
 
-public class StellarityItemTags {
-	public static final TagKey<Item> FISHES = bind("fishes");
-	public static final TagKey<Item> ELYTRA_ENCHANTABLE = bind("enchantable/elytra");
-	public static final TagKey<Item> RANGED_ENCHANTABLE = bind("enchantable/ranged");
+public interface StellarityItemTags {
+	TagKey<Item> FISHES = id("fishes");
+	TagKey<Item> ELYTRA_ENCHANTABLE = id("enchantable/elytra");
+	TagKey<Item> RANGED_ENCHANTABLE = id("enchantable/ranged");
 
 
-	private static TagKey<Item> bind(String id) {
+	static TagKey<Item> id(String id) {
 		return TagKey.create(Registries.ITEM, Stellarity.id(id));
 	}
 

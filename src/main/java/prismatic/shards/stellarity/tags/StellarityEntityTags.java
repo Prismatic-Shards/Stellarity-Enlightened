@@ -5,12 +5,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import prismatic.shards.stellarity.Stellarity;
 
-public class StellarityEntityTags {
-	public static final TagKey<EntityType<?>> INVALID_TARGETS = bind("invalid_targets");
-	public static final TagKey<EntityType<?>> PLACEHOLDER_DONT_USE = bind("placeholder_dont_use");
+public interface StellarityEntityTags {
+	TagKey<EntityType<?>> INVALID_TARGETS = id("invalid_targets");
+	TagKey<EntityType<?>> PLACEHOLDER_DONT_USE = id("placeholder_dont_use");
 
 
-	private static TagKey<EntityType<?>> bind(String id) {
+	static TagKey<EntityType<?>> id(String id) {
 		return TagKey.create(Registries.ENTITY_TYPE, Stellarity.id(id));
 	}
 

@@ -7,7 +7,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import org.jspecify.annotations.NonNull;
-import prismatic.shards.stellarity.registry.StellarityDamageTypes;
+import prismatic.shards.stellarity.key.StellarityDamageTypes;
 
 public class FrostburnEffect extends MobEffect {
 	public FrostburnEffect() {

@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 import static net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB;
 import static prismatic.shards.stellarity.registry.StellarityItems.*;
 
-public class StellarityCreativeModeTabs {
-	public static final ItemLike[] BLOCKS_ITEMS = new ItemLike[]{
+public interface StellarityCreativeModeTabs {
+	ItemLike[] BLOCKS_ITEMS = new ItemLike[]{
 		ASHEN_FROGLIGHT,
 		ENDER_DIRT,
 		ENDER_GRASS_BLOCK,
@@ -27,7 +27,7 @@ public class StellarityCreativeModeTabs {
 		PHANTOM_ITEM_FRAME,
 	};
 
-	public static final ItemLike[] FOOD_ITEMS = new ItemLike[]{
+	ItemLike[] FOOD_ITEMS = new ItemLike[]{
 		CRYSTAL_HEARTFISH,
 		SUSHI,
 		GOLDEN_CHORUS_FRUIT,
@@ -54,7 +54,7 @@ public class StellarityCreativeModeTabs {
 	};
 
 
-	public static final Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
+	Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
 		AMARENE_POTION,
 		BLIND_RAGE_POTION,
 		LONG_BLIND_RAGE_POTION,
@@ -83,7 +83,7 @@ public class StellarityCreativeModeTabs {
 	};
 
 
-	public static final ItemLike[] EQUIPMENT_ITEMS = new ItemLike[]{
+	ItemLike[] EQUIPMENT_ITEMS = new ItemLike[]{
 		CALL_OF_THE_VOID,
 		FISHER_OF_VOIDS,
 		TAMARIS,
@@ -93,7 +93,7 @@ public class StellarityCreativeModeTabs {
 		SHULKER_BOOTS
 	};
 
-	public static final ItemLike[] INGREDIENT_ITEMS = new ItemLike[]{
+	ItemLike[] INGREDIENT_ITEMS = new ItemLike[]{
 		CHORUS_PLATING,
 		ENDERITE_SHARD,
 		ENDERITE_UPGRADE_SMITHING_TEMPLATE,
@@ -108,43 +108,43 @@ public class StellarityCreativeModeTabs {
 		MUSIC_DISC_PRECIPICE_STEREO
 	};
 
-	public static final ItemLike[] TRINKET_ITEMS = new ItemLike[]{
+	ItemLike[] TRINKET_ITEMS = new ItemLike[]{
 		PRISMATIC_PEARL,
 		ENDONOMICON,
 		SATCHEL_OF_VOIDS,
 		DUSKBERRY
 	};
 
-	public static final ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");
-	public static final ResourceKey<CreativeModeTab> BLOCKS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "building_blocks");
-	public static final ResourceKey<CreativeModeTab> EQUIPMENT_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "equipment");
-	public static final ResourceKey<CreativeModeTab> INGREDIENTS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "ingredients");
-	public static final ResourceKey<CreativeModeTab> TRINKETS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "trinkets");
+	ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");
+	ResourceKey<CreativeModeTab> BLOCKS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "building_blocks");
+	ResourceKey<CreativeModeTab> EQUIPMENT_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "equipment");
+	ResourceKey<CreativeModeTab> INGREDIENTS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "ingredients");
+	ResourceKey<CreativeModeTab> TRINKETS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "trinkets");
 
-	public static final CreativeModeTab FOOD = FabricCreativeModeTab.builder()
+	CreativeModeTab FOOD = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(SUSHI))
 		.title(Component.translatable("itemGroup.stellarity.food"))
 		.build();
-	public static final CreativeModeTab BLOCKS = FabricCreativeModeTab.builder()
+	CreativeModeTab BLOCKS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(ENDER_GRASS_BLOCK))
 		.title(Component.translatable("itemGroup.stellarity.blocks"))
 		.build();
-	public static final CreativeModeTab EQUIPMENT = FabricCreativeModeTab.builder()
+	CreativeModeTab EQUIPMENT = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(CALL_OF_THE_VOID))
 		.title(Component.translatable("itemGroup.stellarity.equipment"))
 		.build();
 
-	public static final CreativeModeTab INGREDIENTS = FabricCreativeModeTab.builder()
+	CreativeModeTab INGREDIENTS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(ENDERITE_SHARD))
 		.title(Component.translatable("itemGroup.stellarity.ingredients"))
 		.build();
 
-	public static final CreativeModeTab TRINKETS = FabricCreativeModeTab.builder()
+	CreativeModeTab TRINKETS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(PRISMATIC_PEARL))
 		.title(Component.translatable("itemGroup.stellarity.trinkets"))
 		.build();
 
-	public static void init() {
+	static void init() {
 		register(FOOD_KEY, FOOD, FOOD_ITEMS, FOOD_ITEMSTACKS);
 		register(BLOCKS_KEY, BLOCKS, BLOCKS_ITEMS);
 		register(EQUIPMENT_KEY, EQUIPMENT, EQUIPMENT_ITEMS);
@@ -155,7 +155,7 @@ public class StellarityCreativeModeTabs {
 
 	}
 
-	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, Supplier<ItemStack>[] stacks) {
+	static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, Supplier<ItemStack>[] stacks) {
 		var creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
 
 		CreativeModeTabEvents.modifyOutputEvent(key).register(itemGroup -> {
@@ -171,7 +171,7 @@ public class StellarityCreativeModeTabs {
 
 	}
 
-	public static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items) {
+	static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items) {
 		register(key, tab, items, new Supplier[0]);
 	}
 

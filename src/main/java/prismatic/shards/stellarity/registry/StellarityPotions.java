@@ -10,51 +10,51 @@ import prismatic.shards.stellarity.Stellarity;
 
 import java.util.HashMap;
 
-public class StellarityPotions {
-	public static final HashMap<Holder<Potion>, Integer> COLORS = new HashMap<>();
+public interface StellarityPotions {
+	HashMap<Holder<Potion>, Integer> COLORS = new HashMap<>();
 
-	public static final Holder<Potion> BLIND_RAGE = register("blind_rage", "blind_rage",
+	Holder<Potion> BLIND_RAGE = register("blind_rage", "blind_rage",
 		new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 0),
 		new MobEffectInstance(MobEffects.STRENGTH, 15 * 20, 2));
 
-	public static final Holder<Potion> LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage", new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
+	Holder<Potion> LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage", new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
 		new MobEffectInstance(MobEffects.STRENGTH, 22 * 20, 2));
 
-	public static final Holder<Potion> ENDURANCE = register("endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 2 * 60 * 20
+	Holder<Potion> ENDURANCE = register("endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 2 * 60 * 20
 	));
 
-	public static final Holder<Potion> LONG_ENDURANCE = register("long_endurance", "endurance", new MobEffectInstance(
+	Holder<Potion> LONG_ENDURANCE = register("long_endurance", "endurance", new MobEffectInstance(
 		MobEffects.RESISTANCE, 4 * 60 * 20
 	));
 
-	public static final Holder<Potion> STRONG_ENDURANCE = register("strong_endurance", "endurance", new MobEffectInstance(
+	Holder<Potion> STRONG_ENDURANCE = register("strong_endurance", "endurance", new MobEffectInstance(
 		MobEffects.RESISTANCE, 60 * 20, 1
 	));
 
-	public static final Holder<Potion> ENTANGLEMENT = register("entanglement", "entanglement", new MobEffectInstance(
+	Holder<Potion> ENTANGLEMENT = register("entanglement", "entanglement", new MobEffectInstance(
 		MobEffects.SLOWNESS, 11 * 20, 4
 	));
 
-	public static final Holder<Potion> LONG_ENTANGLEMENT = register("long_entanglement", "entanglement", new MobEffectInstance(
+	Holder<Potion> LONG_ENTANGLEMENT = register("long_entanglement", "entanglement", new MobEffectInstance(
 		MobEffects.SLOWNESS, 14 * 20, 4
 	));
 
-	public static final Holder<Potion> STRONG_ENTANGLEMENT = register("strong_entanglement", "entanglement", new MobEffectInstance(
+	Holder<Potion> STRONG_ENTANGLEMENT = register("strong_entanglement", "entanglement", new MobEffectInstance(
 		MobEffects.SLOWNESS, 8 * 20, 5
 	));
 
-	public static final Holder<Potion> FROST_CLOUD = register("frost_cloud", "frost_cloud", new MobEffectInstance(
+	Holder<Potion> FROST_CLOUD = register("frost_cloud", "frost_cloud", new MobEffectInstance(
 		MobEffects.SLOWNESS, 6, 98
 	));
 
-	public static final Holder<Potion> HELLFIRE_TREADER = register("hellfire_treader", "hellfire_treader", new MobEffectInstance(
+	Holder<Potion> HELLFIRE_TREADER = register("hellfire_treader", "hellfire_treader", new MobEffectInstance(
 		MobEffects.SPEED, 4 * 60 * 20, 0
 	), new MobEffectInstance(
 		MobEffects.FIRE_RESISTANCE
 		, 4 * 60 * 20, 0
 	));
 
-	public static final Holder<Potion> LONG_HELLFIRE_TREADER = register("long_hellfire_treader", "hellfire_treader", new MobEffectInstance(
+	Holder<Potion> LONG_HELLFIRE_TREADER = register("long_hellfire_treader", "hellfire_treader", new MobEffectInstance(
 		MobEffects.SPEED
 		, 8 * 60 * 20, 0
 	), new MobEffectInstance(
@@ -62,7 +62,7 @@ public class StellarityPotions {
 		, 8 * 60 * 20, 0
 	));
 
-	public static final Holder<Potion> STRONG_HELLFIRE_TREADER = register("strong_hellfire_treader", "hellfire_treader", new MobEffectInstance(
+	Holder<Potion> STRONG_HELLFIRE_TREADER = register("strong_hellfire_treader", "hellfire_treader", new MobEffectInstance(
 		MobEffects.SPEED, 2 * 60 * 20, 1
 	), new MobEffectInstance(
 		MobEffects.FIRE_RESISTANCE
@@ -70,7 +70,7 @@ public class StellarityPotions {
 	));
 
 
-	public static final Holder<Potion> AMARENE = register("amarene", "amarene",
+	Holder<Potion> AMARENE = register("amarene", "amarene",
 		new MobEffectInstance(MobEffects.SPEED, 48 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 48 * 20),
 		new MobEffectInstance(MobEffects.WEAKNESS, 48 * 20),
@@ -78,58 +78,58 @@ public class StellarityPotions {
 		new MobEffectInstance(MobEffects.LUCK, 4800)
 	);
 
-	public static final Holder<Potion> LIFEFORCE = register("lifeforce", "lifeforce",
+	Holder<Potion> LIFEFORCE = register("lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 3 * 60 * 20)
 	);
 
-	public static final Holder<Potion> LONG_LIFEFORCE = register("long_lifeforce", "lifeforce",
+	Holder<Potion> LONG_LIFEFORCE = register("long_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 6 * 60 * 20)
 	);
 
-	public static final Holder<Potion> STRONG_LIFEFORCE = register("strong_lifeforce", "lifeforce",
+	Holder<Potion> STRONG_LIFEFORCE = register("strong_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 90 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 90 * 20, 1)
 	);
 
-	public static final Holder<Potion> SPELUNKER = register("spelunker", "spelunker",
+	Holder<Potion> SPELUNKER = register("spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 3 * 60 * 20)
 	);
 
-	public static final Holder<Potion> LONG_SPELUNKER = register("long_spelunker", "spelunker",
+	Holder<Potion> LONG_SPELUNKER = register("long_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 6 * 60 * 20)
 	);
 
-	public static Holder<Potion> STRONG_SPELUNKER = register("strong_spelunker", "spelunker",
+	Holder<Potion> STRONG_SPELUNKER = register("strong_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 90 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 90 * 20, 1)
 	);
 
-	public static final Holder<Potion> POSEIDONS_NECTAR = register("poseidons_nectar", "poseidons_nectar",
+	Holder<Potion> POSEIDONS_NECTAR = register("poseidons_nectar", "poseidons_nectar",
 		new MobEffectInstance(MobEffects.CONDUIT_POWER, 390 * 20),
 		new MobEffectInstance(MobEffects.ABSORPTION, 390 * 20),
 		new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 390 * 20)
 	);
 
-	public static final Holder<Potion> REGENERAGA = register("regeneraga", "regeneraga",
+	Holder<Potion> REGENERAGA = register("regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 140, 2),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)
 	);
 
-	public static final Holder<Potion> LONG_REGENERAGA = register("long_regeneraga", "regeneraga",
+	Holder<Potion> LONG_REGENERAGA = register("long_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 210, 2),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)
 	);
 
-	public static final Holder<Potion> STRONG_REGENERAGA = register("strong_regeneraga", "regeneraga",
+	Holder<Potion> STRONG_REGENERAGA = register("strong_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 70, 4),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)
 	);
 
-	public static final Holder<Potion> RED = register("red", "red",
+	Holder<Potion> RED = register("red", "red",
 		new MobEffectInstance(MobEffects.DARKNESS, -1, 9),
 		new MobEffectInstance(MobEffects.SLOWNESS, -1, 9),
 		new MobEffectInstance(MobEffects.MINING_FATIGUE, -1, 9),
@@ -144,7 +144,7 @@ public class StellarityPotions {
 		new MobEffectInstance(MobEffects.GLOWING, -1)
 	);
 
-	public static final Holder<Potion> LUCK = register("luck", "luck",
+	Holder<Potion> LUCK = register("luck", "luck",
 		new MobEffectInstance(MobEffects.LUCK)
 	);
 
@@ -153,7 +153,7 @@ public class StellarityPotions {
 		return Registry.registerForHolder(BuiltInRegistries.POTION, Stellarity.id(id), new Potion("stellarity." + name, effects));
 	}
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Potions");
 		COLORS.put(BLIND_RAGE, 7230976);
 		COLORS.put(LONG_BLIND_RAGE, 7230976);

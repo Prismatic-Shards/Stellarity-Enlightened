@@ -7,8 +7,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.recipe.AltarRecipe;
 
-public class StellarityRecipeTypes {
-	public static final RecipeType<AltarRecipe> ALTAR_RECIPE = register("altar_of_the_accursed");
+public interface StellarityRecipeTypes {
+	RecipeType<AltarRecipe> ALTAR_RECIPE = register("altar_of_the_accursed");
 
 
 	private static <T extends Recipe<?>> RecipeType<T> register(final String id) {
@@ -22,7 +22,7 @@ public class StellarityRecipeTypes {
 	}
 
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Recipe Types");
 	}
 }

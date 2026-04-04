@@ -9,6 +9,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.key.StellarityEquipmentAssets;
 
 import static net.minecraft.world.item.equipment.ArmorMaterials.makeDefense;
 

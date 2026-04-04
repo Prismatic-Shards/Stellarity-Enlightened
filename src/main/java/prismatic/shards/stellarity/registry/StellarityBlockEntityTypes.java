@@ -10,11 +10,11 @@ import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.block_entity.AltarOfTheAccursedBlockEntity;
 
 
-public class StellarityBlockEntityTypes {
-	public static final BlockEntityType<AltarOfTheAccursedBlockEntity> ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursedBlockEntity::new, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
+public interface StellarityBlockEntityTypes {
+	BlockEntityType<AltarOfTheAccursedBlockEntity> ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursedBlockEntity::new, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
 
-	public static <T extends BlockEntity> BlockEntityType<T> register(
+	static <T extends BlockEntity> BlockEntityType<T> register(
 		String name,
 		FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
 		Block... blocks
@@ -23,7 +23,7 @@ public class StellarityBlockEntityTypes {
 	}
 
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Block Entities");
 	}
 }

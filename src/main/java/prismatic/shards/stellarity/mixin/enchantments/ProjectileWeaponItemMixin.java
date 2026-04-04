@@ -10,7 +10,7 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import prismatic.shards.stellarity.registry.StellarityEnchantments;
+import prismatic.shards.stellarity.key.StellarityEnchantments;
 
 @Mixin(ProjectileWeaponItem.class)
 public class ProjectileWeaponItemMixin {

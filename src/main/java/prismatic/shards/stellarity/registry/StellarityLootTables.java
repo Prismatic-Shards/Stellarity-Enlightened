@@ -8,8 +8,8 @@ import prismatic.shards.stellarity.Stellarity;
 import static prismatic.shards.stellarity.utils.LootTableUtils.*;
 
 
-public class StellarityLootTables {
-	public static void init() {
+public interface StellarityLootTables {
+	static void init() {
 		LootTableEvents.MODIFY.register((key, builder, source, provider) -> {
 
 
