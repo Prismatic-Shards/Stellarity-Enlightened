@@ -1,0 +1,14 @@
+{
+  "additional_wants": {
+    "id": "stellarity:enderite_shard"
+  },
+  "gives": {
+    "id": "minecraft:shield"
+  },
+  "max_uses": 2.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "id": "minecraft:shield"
+  },
+  "xp": 40.0
+}

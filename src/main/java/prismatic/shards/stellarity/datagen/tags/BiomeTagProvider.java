@@ -16,7 +16,6 @@ public class BiomeTagProvider extends FabricTagsProvider<Biome> {
 		super(output, Registries.BIOME, registriesFuture);
 	}
 
-
 	@Override
 	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		builder(StellarityBiomeTags.SNOWY);

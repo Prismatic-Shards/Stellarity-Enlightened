@@ -11,7 +11,7 @@ import prismatic.shards.stellarity.registry.StellarityItems;
 
 import java.util.concurrent.CompletableFuture;
 
-import static prismatic.shards.stellarity.utils.LootTableUtils.*;
+import static prismatic.shards.stellarity.utils.LootUtils.*;
 
 public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 

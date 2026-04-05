@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static prismatic.shards.stellarity.utils.LootTableUtils.*;
+import static prismatic.shards.stellarity.utils.LootUtils.*;
 
 public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;

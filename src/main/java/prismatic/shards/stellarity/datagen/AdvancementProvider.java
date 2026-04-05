@@ -59,8 +59,8 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 
 	@Override
 	public void generateAdvancement(HolderLookup.Provider registryLookup, @NonNull Consumer<AdvancementHolder> consumer) {
-		final HolderLookup.RegistryLookup<Item> itemLookup = registryLookup.lookupOrThrow(Registries.ITEM);
-		final HolderLookup.RegistryLookup<EntityType<?>> entityLookup = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
+		final HolderLookup.RegistryLookup<Item> items = registryLookup.lookupOrThrow(Registries.ITEM);
+		final HolderLookup.RegistryLookup<EntityType<?>> entities = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
 
 		var ENTER_END_GATEWAY = dummy(Stellarity.mcId("end/enter_end_gateway"));
 		var ENTER_END = dummy(Stellarity.mcId("story/enter_the_end"));
@@ -127,10 +127,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			)
-			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(itemLookup, StellarityItems.DUSKBERRY))
-			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(itemLookup, StellarityItems.DUSKBERRY),
+			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(items, StellarityItems.DUSKBERRY))
+			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(items, StellarityItems.DUSKBERRY),
 
-				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entityLookup, EntityType.FOX).build()).build())
+				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entities, EntityType.FOX).build()).build())
 				)
 			))
 			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(StellarityBlocks.DUSKBERRY_BUSH))
@@ -148,7 +148,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 				true,
 				false
 			).parent(END_ROOT)
-			.addCriterion("summon", SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON))))
+			.addCriterion("summon", SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entities, EntityType.ENDER_DRAGON))))
 			.requirements(
 				requires(new String[][]{{"summon"}})
 			).build(Stellarity.id("ender_dragon/sacrificial_ritual"));
@@ -168,7 +168,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 						EntityPredicate.wrap(new EntityPredicate.Builder().subPredicate(PlayerPredicate.Builder.player().checkAdvancementDone(Stellarity.id("ender_dragon/sacrificial_ritual"), true).build()))
 					),
 					Optional.of(
-						EntityPredicate.wrap(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entityLookup, EntityType.ENDER_DRAGON))))
+						EntityPredicate.wrap(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entities, EntityType.ENDER_DRAGON))))
 				)
 			))
 			.requirements(
@@ -191,7 +191,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 					new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
 				)),
 				Optional.of(
-					ItemPredicate.Builder.item().of(itemLookup, StellarityItems.ENDONOMICON).build()
+					ItemPredicate.Builder.item().of(items, StellarityItems.ENDONOMICON).build()
 				)
 			))
 			.requirements(

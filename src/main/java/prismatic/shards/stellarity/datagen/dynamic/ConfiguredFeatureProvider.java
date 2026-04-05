@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.datagen;
+package prismatic.shards.stellarity.datagen.dynamic;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -12,15 +12,15 @@ import prismatic.shards.stellarity.utils.Constants;
 
 import java.util.List;
 
-public class ConfiguredFeatureProvider {
-	public static final ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_RING = id("main_island/ring");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
+public interface ConfiguredFeatureProvider {
+	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_RING = id("main_island/ring");
+	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
 
-	public static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
+	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);
 	}
 
-	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+	static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		context.register(MAIN_ISLAND_RING,
 			new ConfiguredFeature<>(
 				Feature.END_SPIKE,

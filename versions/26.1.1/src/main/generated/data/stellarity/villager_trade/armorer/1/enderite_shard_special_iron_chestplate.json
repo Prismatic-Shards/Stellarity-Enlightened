@@ -1,4 +1,30 @@
 {
+  "given_item_modifiers": [
+    {
+      "components": {
+        "minecraft:trim": {
+          "material": "minecraft:emerald",
+          "pattern": "minecraft:spire"
+        }
+      },
+      "conditions": [
+        {
+          "chance": 0.5,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "function": "minecraft:set_components"
+    },
+    {
+      "conditions": [
+        {
+          "chance": 0.5,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "function": "minecraft:enchant_randomly"
+    }
+  ],
   "gives": {
     "id": "minecraft:iron_chestplate"
   },

@@ -2,6 +2,7 @@ package prismatic.shards.stellarity.utils;
 
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,6 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -24,12 +26,15 @@ import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jspecify.annotations.NonNull;
 
-public class LootTableUtils {
+import java.util.List;
+
+public class LootUtils {
 	public static LootPool.Builder pool() {
 		return new LootPool.Builder();
 	}
@@ -85,8 +90,12 @@ public class LootTableUtils {
 	}
 
 
-	public static EnchantWithLevelsFunction.Builder enchantLevels(HolderLookup.Provider provider, int min, int max) {
+	public static EnchantWithLevelsFunction.Builder enchant(HolderLookup.Provider provider, int min, int max) {
 		return EnchantWithLevelsFunction.enchantWithLevels(provider, range(min, max));
+	}
+
+	public static EnchantWithLevelsFunction.Builder enchant(HolderGetter<Enchantment> enchantments, int min, int max) {
+		return new EnchantWithLevelsFunction.Builder(range(min, max)).withOptions(enchantments.getOrThrow(EnchantmentTags.ON_RANDOM_LOOT));
 	}
 
 	public static LootItemConditionalFunction.Builder<?> damage(float damage) {
@@ -127,8 +136,28 @@ public class LootTableUtils {
 		return registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment);
 	}
 
-	public static LootItemConditionalFunction.Builder<?> uniform(Holder<Enchantment> enchantment, int i) {
+	public static LootItemConditionalFunction.Builder<?> enchantLevel(Holder<Enchantment> enchantment, int i) {
 		return ApplyBonusCount.addUniformBonusCount(enchantment, i);
+	}
+
+	public static SequenceFunction modifiers(LootItemFunction... functions) {
+		return SequenceFunction.of(List.of(functions));
+	}
+
+	public static LootItemCondition.Builder chance(float chance) {
+		return LootItemRandomChanceCondition.randomChance(chance);
+	}
+
+	public static LootItemCondition.Builder chance(NumberProvider numberProvider) {
+		return LootItemRandomChanceCondition.randomChance(numberProvider);
+	}
+
+	public static EnchantRandomlyFunction.Builder enchant() {
+		return EnchantRandomlyFunction.randomEnchantment();
+	}
+
+	public static LootItemFunction modifier(ResourceKey<LootItemFunction> key) {
+		return FunctionReference.functionReference(key).build();
 	}
 
 

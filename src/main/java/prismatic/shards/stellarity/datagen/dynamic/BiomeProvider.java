@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.datagen;
+package prismatic.shards.stellarity.datagen.dynamic;
 
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -17,19 +17,19 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 
 
-public class BiomeProvider {
-	public static MobSpawnSettings.Builder addSpawn(MobSpawnSettings.Builder builder, MobCategory category, EntityType<?> entityType, int weight, int min, int max) {
+public interface BiomeProvider {
+	static MobSpawnSettings.Builder addSpawn(MobSpawnSettings.Builder builder, MobCategory category, EntityType<?> entityType, int weight, int min, int max) {
 		return builder.addSpawn(category,
 			weight,
 			new MobSpawnSettings.SpawnerData(entityType, min, max)
 		);
 	}
 
-	public static ResourceKey<PlacedFeature> feature(String id) {
+	static ResourceKey<PlacedFeature> feature(String id) {
 		return Stellarity.mcKey(Registries.PLACED_FEATURE, id);
 	}
 
-	public static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
+	static void configure(HolderLookup.Provider provider, FabricDynamicRegistryProvider.Entries entries) {
 		int skyColor = 0x000000;
 		int fogColor = 0x000000;
 		int waterFogColor = 0x41307e;
@@ -64,7 +64,7 @@ public class BiomeProvider {
 			.build());
 	}
 
-	public static void bootstrap(BootstrapContext<Biome> context) {
+	static void bootstrap(BootstrapContext<Biome> context) {
 
 	}
 }

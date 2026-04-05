@@ -56,6 +56,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Netherite Armor + 4 Shulker Shells + 1 Enderite Upgrade = Shulker Armor**
 
+## Entities
+
+**[+] End Villagers**
+
+- All trades have been implemented except the ones where items have not, those have placeholders.
+
 # Developers Note
 
 I hate microslop
