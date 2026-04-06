@@ -23,7 +23,7 @@ public interface ValueUtil {
 		@SuppressWarnings("unchecked") Weighted<IntProvider>[] weights = new Weighted[values.length / 2];
 
 		for (int i = 0; i < weights.length; i++) {
-			weights[i] = new Weighted<>(num(values[i]), values[i + 1]);
+			weights[i] = new Weighted<>(num(values[2 * i]), values[2 * i + 1]);
 		}
 
 		return new WeightedListInt(WeightedList.of(weights));
