@@ -12,9 +12,12 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
+
+import static net.minecraft.world.level.biome.Biomes.THE_END;
+import static net.minecraft.world.level.levelgen.GenerationStep.Decoration.*;
+import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 
 
 public interface BiomeProvider {
@@ -25,7 +28,7 @@ public interface BiomeProvider {
 		);
 	}
 
-	static ResourceKey<PlacedFeature> feature(String id) {
+	static ResourceKey<PlacedFeature> mc(String id) {
 		return Stellarity.mcKey(Registries.PLACED_FEATURE, id);
 	}
 
@@ -33,7 +36,7 @@ public interface BiomeProvider {
 		int skyColor = 0x000000;
 		int fogColor = 0x000000;
 		int waterFogColor = 0x41307e;
-		entries.add(Stellarity.mcKey(Registries.BIOME, "the_end"), new Biome.BiomeBuilder()
+		entries.add(THE_END, new Biome.BiomeBuilder()
 			.temperature(0.8f)
 			.downfall(0.4f)
 			.hasPrecipitation(false)
@@ -41,15 +44,10 @@ public interface BiomeProvider {
 				.grassColorOverride(0xdedede)
 				.foliageColorOverride(0xc2c2c2)
 				.waterColor(0x62529e)
-
-
 				.build())
-
-
 			.setAttribute(EnvironmentAttributes.SKY_COLOR, skyColor)
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, fogColor)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, fogColor)
-
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, waterFogColor)
 			.mobSpawnSettings(addSpawn(new MobSpawnSettings.Builder(), MobCategory.MONSTER, EntityType.ENDERMAN, 10, 4, 4)
 				.addMobCharge(EntityType.ENDERMAN, 0.75, 1)
 				.build())
@@ -57,9 +55,14 @@ public interface BiomeProvider {
 				provider.lookupOrThrow(Registries.PLACED_FEATURE),
 				provider.lookupOrThrow(Registries.CONFIGURED_CARVER)
 			)
-				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_RING)
-				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, PlacedFeatureProvider.MAIN_ISLAND_PORTAL_PLATFORM)
-				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, feature("end_platform"))
+				.addFeature(RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(RAW_GENERATION, MAIN_ISLAND_HILLS)
+				.addFeature(UNDERGROUND_DECORATION, MAIN_ISLAND_OBSIDIAN)
+				.addFeature(FLUID_SPRINGS, MAIN_ISLAND_PATCHES)
+				.addFeature(VEGETAL_DECORATION, MAIN_ISLAND_CHORUS_PLANTS)
+				.addFeature(TOP_LAYER_MODIFICATION, MAIN_ISLAND_RING)
+				.addFeature(TOP_LAYER_MODIFICATION, MAIN_ISLAND_PORTAL_PLATFORM)
+				.addFeature(TOP_LAYER_MODIFICATION, mc("end_platform"))
 				.build())
 			.build());
 	}

@@ -1,0 +1,121 @@
+package prismatic.shards.stellarity.util;
+
+import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
+import net.minecraft.world.level.levelgen.placement.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static prismatic.shards.stellarity.util.ValueUtil.weighted;
+
+public interface WorldgenUtil {
+	static SimpleStateProvider block(Block block) {
+		return BlockStateProvider.simple(block);
+	}
+
+	static SimpleStateProvider block(BlockState blockState) {
+		return BlockStateProvider.simple(blockState);
+	}
+
+	static CountPlacement countPlace(IntProvider count) {
+		return CountPlacement.of(count);
+	}
+
+	static InSquarePlacement inSquare() {
+		return InSquarePlacement.spread();
+	}
+
+	static NoiseBasedCountPlacement noisePlace(final int noiseToCountRatio, final double noiseFactor, final double noiseOffset) {
+		return NoiseBasedCountPlacement.of(noiseToCountRatio, noiseFactor, noiseOffset);
+	}
+
+	static HeightRangePlacement heightPlace(HeightProvider heightProvider) {
+		return HeightRangePlacement.of(heightProvider);
+	}
+
+	static UniformHeight height(VerticalAnchor min, VerticalAnchor max) {
+		return UniformHeight.of(min, max);
+	}
+
+	static VerticalAnchor aboveBottom(int offset) {
+		return VerticalAnchor.aboveBottom(offset);
+	}
+
+	static VerticalAnchor belowTop(int offset) {
+		return VerticalAnchor.belowTop(offset);
+	}
+
+	static EnvironmentScanPlacement envPlace(final Direction directionOfSearch, final BlockPredicate targetCondition, final BlockPredicate allowedSearchCondition, final int maxSteps) {
+		return EnvironmentScanPlacement.scanningFor(directionOfSearch, targetCondition, allowedSearchCondition, maxSteps);
+	}
+
+	static BlockPredicate matchBlocks(Block... blocks) {
+		return BlockPredicate.matchesBlocks(blocks);
+	}
+
+	static BlockPredicate matchBlocks(Vec3i offset, Block... blocks) {
+		return BlockPredicate.matchesBlocks(offset, blocks);
+	}
+
+	static BlockPredicate solid() {
+		return BlockPredicate.solid();
+	}
+
+	static BiomeFilter biome() {
+		return BiomeFilter.biome();
+	}
+
+	static BlockColumnConfiguration.Layer columnLayer(IntProvider intProvider, BlockStateProvider state) {
+		return new BlockColumnConfiguration.Layer(intProvider, state);
+	}
+
+	static BlockColumnConfiguration blockColumns(Direction direction, BlockPredicate allowedPlacement, boolean prioritizeTip, BlockColumnConfiguration.Layer... layers) {
+		return new BlockColumnConfiguration(List.of(layers), direction, allowedPlacement, prioritizeTip);
+	}
+
+	static WeightedStateProvider weightedBlocks(BlockState[] states, int[] weights) {
+		return new WeightedStateProvider(weighted(states, weights));
+	}
+
+	static WeightedStateProvider weightedBlocks(Block[] states, int[] weights) {
+		return new WeightedStateProvider(weighted(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new), weights));
+	}
+
+	static RarityFilter rarity(int onAverageEvery) {
+		return RarityFilter.onAverageOnceEvery(onAverageEvery);
+	}
+
+	static HeightmapPlacement heightmap(Heightmap.Types heightmap) {
+		return HeightmapPlacement.onHeightmap(heightmap);
+	}
+
+	static WeightedPlacedFeature weightedPlaced(PlacedFeature placedFeature, float chance) {
+		return new WeightedPlacedFeature(Holder.direct(placedFeature), chance);
+	}
+
+	static TwoLayersFeatureSize twoLayersSize() {
+		return new TwoLayersFeatureSize(1, 0, 1);
+	}
+
+	@SuppressWarnings("deprecation")
+	static CountOnEveryLayerPlacement everyLayer(IntProvider provider) {
+		return CountOnEveryLayerPlacement.of(provider);
+	}
+
+}

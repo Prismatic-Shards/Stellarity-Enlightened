@@ -16,6 +16,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		registryBuilder.add(Registries.BIOME, BiomeProvider::bootstrap);
+		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrapEarly);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureProvider::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrap);
 		registryBuilder.add(Registries.VILLAGER_TRADE, VillagerTradeProvider::bootstrap);

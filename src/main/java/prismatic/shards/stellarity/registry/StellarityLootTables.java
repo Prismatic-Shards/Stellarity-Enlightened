@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import prismatic.shards.stellarity.Stellarity;
 
-import static prismatic.shards.stellarity.utils.LootUtils.*;
+import static prismatic.shards.stellarity.util.LootUtil.*;
 
 
 public interface StellarityLootTables {

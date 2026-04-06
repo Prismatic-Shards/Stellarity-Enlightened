@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.utils;
+package prismatic.shards.stellarity.util;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

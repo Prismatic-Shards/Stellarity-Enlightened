@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import org.spongepowered.asm.mixin.Mixin;
-import prismatic.shards.stellarity.utils.Constants;
+import prismatic.shards.stellarity.util.Constants;
 
 import java.util.List;
 

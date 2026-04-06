@@ -26,7 +26,7 @@ import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
 import prismatic.shards.stellarity.registry.StellarityEntities;
 import prismatic.shards.stellarity.registry.StellarityItems;
-import prismatic.shards.stellarity.utils.CustomCodec;
+import prismatic.shards.stellarity.util.CustomCodec;
 
 import java.util.Set;
 import java.util.function.IntFunction;

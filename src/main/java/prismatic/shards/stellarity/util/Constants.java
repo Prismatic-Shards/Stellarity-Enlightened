@@ -1,12 +1,12 @@
-package prismatic.shards.stellarity.utils;
+package prismatic.shards.stellarity.util;
 
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import prismatic.shards.stellarity.interface_injection.ExtEndSpike;
 
 import java.util.List;
 
-public class Constants {
-	public static final List<EndSpikeFeature.EndSpike> OBSIDIAN_SPIKES = List.of(
+public interface Constants {
+	List<EndSpikeFeature.EndSpike> OBSIDIAN_SPIKES = List.of(
 		ExtEndSpike.apply(new EndSpikeFeature.EndSpike(63, 0, 5, 100, false), false, true),
 		ExtEndSpike.apply(new EndSpikeFeature.EndSpike(50, 36, 4, 105, false), false, true),
 		ExtEndSpike.apply(new EndSpikeFeature.EndSpike(18, 59, 4, 94, true), false, true),

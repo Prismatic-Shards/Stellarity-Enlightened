@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ItemStack;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
-import prismatic.shards.stellarity.utils.CustomCodec;
+import prismatic.shards.stellarity.util.CustomCodec;
 
 import java.util.HashMap;
 import java.util.function.IntFunction;

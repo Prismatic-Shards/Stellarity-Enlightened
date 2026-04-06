@@ -11,7 +11,7 @@ import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import org.jspecify.annotations.Nullable;
 import prismatic.shards.stellarity.tags.StellarityVillagerTradeTags;
-import prismatic.shards.stellarity.utils.LootUtils;
+import prismatic.shards.stellarity.util.LootUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public interface TradeSetProvider {
 	             boolean allowDuplicates, @Nullable
 	             Identifier random) {
 		public Entry(ResourceKey<TradeSet> tradeSet, TagKey<VillagerTrade> tradeTag, int num, boolean allowDuplicates) {
-			this(tradeSet, tradeTag, LootUtils.num(num), allowDuplicates, null);
+			this(tradeSet, tradeTag, LootUtil.num(num), allowDuplicates, null);
 		}
 	}
 

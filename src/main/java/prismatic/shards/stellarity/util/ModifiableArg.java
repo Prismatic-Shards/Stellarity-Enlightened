@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.utils;
+package prismatic.shards.stellarity.util;
 
 public class ModifiableArg<T> {
 	private T arg;

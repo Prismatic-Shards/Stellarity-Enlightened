@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import static net.minecraft.world.item.Items.*;
 import static prismatic.shards.stellarity.registry.StellarityItems.*;
-import static prismatic.shards.stellarity.utils.LootUtils.*;
+import static prismatic.shards.stellarity.util.LootUtil.*;
 
 public interface VillagerTradeProvider {
 	static void bootstrap(BootstrapContext<VillagerTrade> context) {

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import prismatic.shards.stellarity.interface_injection.ExtEnderDragonFight;
-import prismatic.shards.stellarity.utils.CodecExtensionHelper;
+import prismatic.shards.stellarity.util.CodecExtensionHelper;
 
 @Mixin(EnderDragonFight.class)
 public class EnderDragonFightMixin implements ExtEnderDragonFight {

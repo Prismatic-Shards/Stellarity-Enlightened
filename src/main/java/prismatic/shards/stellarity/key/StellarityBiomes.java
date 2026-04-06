@@ -1,0 +1,37 @@
+package prismatic.shards.stellarity.key;
+
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
+import prismatic.shards.stellarity.Stellarity;
+
+public interface StellarityBiomes {
+	ResourceKey<Biome> AMETHYST_FOREST = id("amethyst_forest");
+	ResourceKey<Biome> ASHFALL_DELTAS = id("ashfall_deltas");
+	ResourceKey<Biome> BLAZING_DUNES = id("blazing_dunes");
+	ResourceKey<Biome> CRYSTAL_CRAGS = id("crystal_crags");
+	ResourceKey<Biome> DRAGONS_DEN = id("dragons_den");
+	ResourceKey<Biome> END_SHRUBLAND = id("end_shrubland");
+	ResourceKey<Biome> END_WILDS = id("end_wilds");
+	ResourceKey<Biome> ENDER_WASTES = id("ender_wastes");
+	ResourceKey<Biome> ENDLESS_DUNES = id("endless_dunes");
+	ResourceKey<Biome> FIERY_HILLS = id("fiery_hills");
+	ResourceKey<Biome> FLESH_TUNDRA = id("flesh_tundra");
+	ResourceKey<Biome> FROSTED_HILLS = id("frosted_hills");
+	ResourceKey<Biome> FROSTED_VALLEY = id("frosted_valley");
+	ResourceKey<Biome> FROZEN_MARSH = id("frozen_marsh");
+	ResourceKey<Biome> FROZEN_SHRUBLAND = id("frozen_shrubland");
+	ResourceKey<Biome> FROZEN_SPIKES = id("frozen_spikes");
+	ResourceKey<Biome> HALLOWED_TUNDRA = id("hallowed_tundra");
+	ResourceKey<Biome> PRISMARINE_FOREST = id("prismarine_forest");
+	ResourceKey<Biome> PRISMATIC_DUNES = id("prismatic_dunes");
+	ResourceKey<Biome> SCULK_GROWTH = id("sculk_growth");
+	ResourceKey<Biome> THE_HALLOW = id("the_hallow");
+	ResourceKey<Biome> THE_NEST = id("the_nest");
+	ResourceKey<Biome> THE_VOID = id("the_void");
+	ResourceKey<Biome> WARPED_MARSH = id("warped_marsh");
+
+	static ResourceKey<Biome> id(String string) {
+		return ResourceKey.create(Registries.BIOME, Stellarity.id(string));
+	}
+}

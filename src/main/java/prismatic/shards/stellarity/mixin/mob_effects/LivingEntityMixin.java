@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import prismatic.shards.stellarity.key.StellarityDamageTypes;
 import prismatic.shards.stellarity.registry.StellarityMobEffects;
-import prismatic.shards.stellarity.utils.DamageUtility;
+import prismatic.shards.stellarity.util.DamageUtility;
 
 import java.util.Map;
 

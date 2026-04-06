@@ -32,7 +32,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface StellarityItems {
-
 	Item ENDER_DIRT = registerBlock("ender_dirt", StellarityBlocks.ENDER_DIRT);
 	Item ENDER_GRASS_BLOCK = registerBlock("ender_grass_block", StellarityBlocks.ENDER_GRASS_BLOCK);
 	Item ASHEN_FROGLIGHT = registerBlock("ashen_froglight", StellarityBlocks.ASHEN_FROGLIGHT);
@@ -63,35 +62,19 @@ public interface StellarityItems {
 	Item BUBBLEFISH = register("bubblefish", Item::new, foodProperties(0, 0, new EffectChance(new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20))));
 	Item PRISMITE = register("prismite", Item::new, foodProperties(3, 1.8f, new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20))));
 	Item OVERGROWN_COD = register("overgrown_cod", Item::new,
-		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(
-
-			MobEffects.SLOWNESS
-
-
-			, 3 * 20, 2))));
+		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2))));
 	Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
 	Item PRISMATIC_SUSHI = register("prismatic_sushi", Item::new, foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
 	Item SHEPHERDS_PIE = register("shepherds_pie", Item::new,
 		foodProperties(20, 20f, true,
-			new EffectChance(new MobEffectInstance(
-
-				MobEffects.HEALTH_BOOST
-
-
-				, 20, 2)),
+			new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2)),
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1))
 		));
 	Item CHORUS_PIE = register("chorus_pie", Item::new, foodProperties(8, 4.8f));
 	Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
-
 	Item PHO = register("pho",
 		Item::new,
-		foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder()
-
-
-			, Consumables.defaultFood()
-
-			, 13, 20f, true,
+		foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
 			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
 			new EffectChance(new MobEffectInstance(MobEffects.STRENGTH, 150 * 20)),
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 32 * 20))
@@ -99,7 +82,6 @@ public interface StellarityItems {
 			.usingConvertsTo(Items.BOWL));
 
 	Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
-
 	Item CHORUS_PLATING = register("chorus_plating", Item::new, new Item.Properties());
 	Item ENDERITE_SHARD = register("enderite_shard", Item::new, new Item.Properties());
 	Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register("enderite_upgrade_smithing_template", (properties) -> new SmithingTemplateItem(
@@ -110,8 +92,6 @@ public interface StellarityItems {
 		List.of(),
 		List.of(), properties
 	) {
-
-
 		@Override
 		public void appendHoverText(@NonNull ItemStack itemStack, @NonNull TooltipContext tooltipContext, @NonNull TooltipDisplay tooltipDisplay, @NonNull Consumer<Component> consumer, @NonNull TooltipFlag tooltipFlag) {
 			super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
@@ -119,8 +99,6 @@ public interface StellarityItems {
 			consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.minecraft.shulker_shell")).withStyle(ChatFormatting.BLUE)));
 			consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
 		}
-
-
 	}, new Item.Properties());
 
 	Item HALLOWED_INGOT = register("hallowed_ingot", Item::new, new Item.Properties());
@@ -136,7 +114,6 @@ public interface StellarityItems {
 	Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.DEVIANTS_LIGHT_MUSIC_BOX)
 	);
-
 
 	Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
@@ -183,33 +160,13 @@ public interface StellarityItems {
 
 	Supplier<ItemStack> LUCK_POTION = createPotion(StellarityPotions.LUCK);
 
-	Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new,
-		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
+	Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK), 6, 3.6f, true,
+		new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20))
+	).usingConvertsTo(Items.GLASS_BOTTLE));
 
-
-			, Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK)
-
-			, 6, 3.6f, true,
-			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20))
-		)
-
-			.usingConvertsTo(Items.GLASS_BOTTLE)
-
-	);
-
-	Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new,
-		foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder()
-
-
-			, Consumables.defaultFood()
-
-			, 6, 3.6f, true,
-			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2))
-		)
-
-			.usingConvertsTo(Items.GLASS_BOTTLE)
-
-	);
+	Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood(), 6, 3.6f, true,
+		new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2))
+	).usingConvertsTo(Items.GLASS_BOTTLE));
 
 	Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
 	Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.PROPERTIES);
@@ -275,18 +232,14 @@ public interface StellarityItems {
 		foodProperties = foodProperties
 			.nutrition(nutrition)
 			.saturationModifier(saturation);
-
-
 		if (alwaysEat) {
 			foodProperties = foodProperties.alwaysEdible();
 		}
-
 
 		for (EffectChance ec : effectChances) {
 			consumable = consumable.onConsume(new ApplyStatusEffectsConsumeEffect(ec.effect, ec.chance));
 		}
 		return properties.food(foodProperties.build(), consumable.build());
-
 
 	}
 
@@ -309,10 +262,7 @@ public interface StellarityItems {
 		return foodProperties(nutrition, saturation, false);
 	}
 
-
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Items");
-
-
 	}
 }

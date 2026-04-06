@@ -15,13 +15,13 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.StellarityItems;
-import prismatic.shards.stellarity.utils.LootUtils;
+import prismatic.shards.stellarity.util.LootUtil;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-import static prismatic.shards.stellarity.utils.LootUtils.*;
+import static prismatic.shards.stellarity.util.LootUtil.*;
 
 public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 
@@ -80,9 +80,9 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.add(item(Items.END_CRYSTAL).setWeight(3).apply(count(range(2, 3))))
 			.add(item(StellarityItems.ENDERITE_UPGRADE_SMITHING_TEMPLATE).setWeight(11))
 			.add(item(StellarityItems.WINGED_KEY).setWeight(11))
-			.add(item(Items.BOOK).setWeight(2).apply(LootUtils.enchant(lookup, 30, 40).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
+			.add(item(Items.BOOK).setWeight(2).apply(LootUtil.enchant(lookup, 30, 40).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
 			))
-			.add(item(Items.BOOK).setWeight(5).apply(LootUtils.enchant(lookup, 17, 29).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
+			.add(item(Items.BOOK).setWeight(5).apply(LootUtil.enchant(lookup, 17, 29).withOptions(lookup.lookup(Registries.ENCHANTMENT).orElseThrow().getOrThrow(EnchantmentTags.ON_RANDOM_LOOT))
 			))
 		));
 

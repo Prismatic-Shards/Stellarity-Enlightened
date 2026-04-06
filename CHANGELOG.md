@@ -60,7 +60,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] End Villagers**
 
-- All trades have been implemented except the ones where items have not, those have placeholders.
+- End Armorer and Butcher variants added
+- Missing trade for Copper Elektra Shield, will be added in a future update
+
+## Biomes
 
 # Developers Note
 

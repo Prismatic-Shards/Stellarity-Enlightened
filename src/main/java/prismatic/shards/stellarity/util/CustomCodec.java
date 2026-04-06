@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.utils;
+package prismatic.shards.stellarity.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -7,8 +7,8 @@ import com.mojang.serialization.codecs.PrimitiveCodec;
 
 import java.util.UUID;
 
-public class CustomCodec {
-	public static PrimitiveCodec<UUID> UUID = new PrimitiveCodec<>() {
+public interface CustomCodec {
+	PrimitiveCodec<UUID> UUID = new PrimitiveCodec<>() {
 
 		@Override
 		public <T> DataResult<UUID> read(DynamicOps<T> ops, T input) {
@@ -21,7 +21,7 @@ public class CustomCodec {
 		}
 	};
 
-	public static <T extends Enum<T>> Codec<T> enumName(Class<T> enumClass, T defaultValue) {
+	static <T extends Enum<T>> Codec<T> enumName(Class<T> enumClass, T defaultValue) {
 		return PrimitiveCodec.STRING.xmap(name -> {
 			try {
 				return T.valueOf(enumClass, name.toUpperCase());

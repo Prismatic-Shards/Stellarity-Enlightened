@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.utils;
+package prismatic.shards.stellarity.util;
 
 import com.google.common.base.Suppliers;
 import com.mojang.datafixers.kinds.App;
@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 
-public class CodecExtensionHelper {
+public interface CodecExtensionHelper {
 
 	static <A> Codec<A> recursive(final String name, final Function<Codec<A>, Codec<A>> wrapped) {
 		return new RecursiveCodec<>(name, wrapped);
@@ -23,7 +23,7 @@ public class CodecExtensionHelper {
 		return new RecursiveCodec<>(delegate.toString(), self -> delegate.get());
 	}
 
-	static class RecursiveCodec<T> implements Codec<T> {
+	class RecursiveCodec<T> implements Codec<T> {
 		private final String name;
 		private final Supplier<Codec<T>> wrapped;
 
@@ -62,7 +62,7 @@ public class CodecExtensionHelper {
 		return either.map(Function.identity(), Function.identity());
 	}
 
-	public static <A> MapCodec<A> assumeMapUnsafe(final Codec<A> codec) {
+	static <A> MapCodec<A> assumeMapUnsafe(final Codec<A> codec) {
 		return new MapCodec<>() {
 			private static final String COMPRESSED_VALUE_KEY = "value";
 
@@ -99,7 +99,7 @@ public class CodecExtensionHelper {
 	}
 
 
-	public static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder, Function<T, T> defaultValueApplicator) {
+	static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder, Function<T, T> defaultValueApplicator) {
 		return deferUntilUsed(
 			() -> withAlternative(
 				RecordCodecBuilder.create(
@@ -114,12 +114,12 @@ public class CodecExtensionHelper {
 	}
 
 
-	public static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder) {
+	static <T> Codec<T> buildExtensionCodec(Codec<T> original, BiFunction<RecordCodecBuilder.Instance<T>, RecordCodecBuilder<T, T>, ? extends App<RecordCodecBuilder.Mu<T>, T>> builder) {
 		return buildExtensionCodec(original, builder, Function.identity());
 	}
 
 
-	public static <T> Codec<T> deferUntilUsed(Supplier<Codec<T>> delegate) {
+	static <T> Codec<T> deferUntilUsed(Supplier<Codec<T>> delegate) {
 		return lazyInitialized(delegate);
 	}
 }
