@@ -10,6 +10,7 @@ import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtEndCrystal;
 import prismatic.shards.stellarity.interface_injection.ExtItemEntity;
 import prismatic.shards.stellarity.registry.entity.ThrownPrismaticPearl;
+import prismatic.shards.stellarity.StellarityConfig;
 
 import java.util.Map;
 
@@ -31,6 +32,9 @@ public interface StellarityDataAttachments {
 	);
 
 	AttachmentType<ThrownPrismaticPearl.Trail> PRISMATIC_PEARL_TRAIL = AttachmentRegistry.create(Stellarity.id("prismatic_pearl_trail"), builder -> builder.persistent(ThrownPrismaticPearl.Trail.CODEC).syncWith(ThrownPrismaticPearl.Trail.STREAM_CODEC, AttachmentSyncPredicate.all())
+	);
+
+	AttachmentType<StellarityConfig> CONFIG = AttachmentRegistry.create(Stellarity.id("config"), builder -> builder.persistent(StellarityConfig.CODEC).syncWith(StellarityConfig.STREAM_CODEC, AttachmentSyncPredicate.all()).initializer(() -> StellarityConfig.DEFAULT)
 	);
 
 	static void init() {

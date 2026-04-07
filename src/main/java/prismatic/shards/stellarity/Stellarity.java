@@ -3,21 +3,14 @@ package prismatic.shards.stellarity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import prismatic.shards.stellarity.registry.*;
-import terrablender.api.RegionType;
-import terrablender.api.Regions;
-import terrablender.api.TerraBlenderApi;
-import terrablender.config.TerraBlenderConfig;
-import terrablender.core.TerraBlender;
-import terrablender.worldgen.IExtendedNoiseGeneratorSettings;
 
-public class Stellarity implements ModInitializer, TerraBlenderApi {
+public class Stellarity implements ModInitializer {
 
 
 	public static final String MOD_ID = "stellarity";
@@ -48,7 +41,7 @@ public class Stellarity implements ModInitializer, TerraBlenderApi {
 
 	@Override
 	public void onInitialize() {
-
+		StellarityWorldgenModification.init();
 		StellarityDataAttachments.init();
 		StellarityItems.init();
 		StellarityParticles.init();
@@ -69,10 +62,5 @@ public class Stellarity implements ModInitializer, TerraBlenderApi {
 
 		if (FabricLoader.getInstance().isDevelopmentEnvironment() && audit)
 			MixinEnvironment.getCurrentEnvironment().audit();
-	}
-
-	@Override
-	public void onTerraBlenderInitialized() {
-		Stellarity.LOGGER.info("Terrablender Entrypoint Initialized");
 	}
 }

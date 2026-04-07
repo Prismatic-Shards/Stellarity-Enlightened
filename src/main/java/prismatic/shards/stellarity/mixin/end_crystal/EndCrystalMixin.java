@@ -91,7 +91,7 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 		} else if (type == Type.NORMAL) {
 			if (portalLocation != null) {
 				for (Direction direction : Direction.Plane.HORIZONTAL) {
-					if (portalLocation.above(3).relative(direction, 4).equals(blockPos)) {
+					if (portalLocation.above(3).relative(direction, 4).equals(blockPos) && dragonFight.dragonKilled) {
 						stellarity$setType(Type.RESPAWN);
 						Stellarity.LOGGER.info("Found respawn crystal");
 						break;

@@ -26,7 +26,7 @@ repositories {
 	maven("https://maven.blamejared.com")
 	maven("https://maven.latvian.dev/releases")
 	maven("https://thedarkcolour.github.io/KotlinForForge/")
-	maven("https://maven.minecraftforge.net/")
+	maven("https://maven.terraformersmc.com/")
 
 }
 
@@ -35,7 +35,7 @@ dependencies {
 	minecraft("com.mojang:minecraft:${stonecutter.current.version}")
 	implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 	implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
-	implementation("com.github.glitchfiend:TerraBlender-fabric:${property("deps.terrablender")}")
+	implementation("com.terraformersmc:biolith-fabric:${property("deps.biolith")}")
 }
 
 stonecutter {
@@ -100,7 +100,7 @@ tasks.withType<ProcessResources> {
 	inputs.property("version", project.property("mod.version"))
 	inputs.property("minecraft", project.property("mod.mc_dep"))
 	inputs.property("fabric_api", project.property("deps.fabric_api"))
-	inputs.property("terrablender", project.property("deps.terrablender"))
+	inputs.property("biolith", project.property("deps.biolith"))
 
 
 	val props = mapOf(
@@ -109,7 +109,7 @@ tasks.withType<ProcessResources> {
 		"version" to project.property("mod.version"),
 		"minecraft" to project.property("mod.mc_dep"),
 		"fabric_api" to project.property("deps.fabric_api"),
-		"terrablender" to project.property("deps.terrablender")
+		"biolith" to project.property("deps.biolith")
 	)
 
 	filesMatching("fabric.mod.json") { expand(props) }
