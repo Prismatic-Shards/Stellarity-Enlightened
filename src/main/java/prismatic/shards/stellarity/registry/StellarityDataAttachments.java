@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.component.DyedItemColor;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtEndCrystal;
 import prismatic.shards.stellarity.interface_injection.ExtItemEntity;
@@ -32,6 +33,9 @@ public interface StellarityDataAttachments {
 	);
 
 	AttachmentType<ThrownPrismaticPearl.Trail> PRISMATIC_PEARL_TRAIL = AttachmentRegistry.create(Stellarity.id("prismatic_pearl_trail"), builder -> builder.persistent(ThrownPrismaticPearl.Trail.CODEC).syncWith(ThrownPrismaticPearl.Trail.STREAM_CODEC, AttachmentSyncPredicate.all())
+	);
+
+	AttachmentType<Boolean> EXIT_PORTAL_CHEST = AttachmentRegistry.create(Stellarity.id("exit_portal_chest"), builder -> builder.persistent(Codec.BOOL).syncWith(ByteBufCodecs.BOOL, AttachmentSyncPredicate.all())
 	);
 
 	AttachmentType<StellarityConfig> CONFIG = AttachmentRegistry.create(Stellarity.id("config"), builder -> builder.persistent(StellarityConfig.CODEC).syncWith(StellarityConfig.STREAM_CODEC, AttachmentSyncPredicate.all()).initializer(() -> StellarityConfig.DEFAULT)

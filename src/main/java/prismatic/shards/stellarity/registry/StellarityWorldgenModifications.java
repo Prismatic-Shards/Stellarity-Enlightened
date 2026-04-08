@@ -23,7 +23,7 @@ import static net.minecraft.world.attribute.EnvironmentAttributes.*;
 import static net.minecraft.world.level.levelgen.GenerationStep.Decoration.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 
-public interface StellarityWorldgenModification {
+public interface StellarityWorldgenModifications {
 
 	static ResourceKey<PlacedFeature> mc(String id) {
 		return Stellarity.mcKey(Registries.PLACED_FEATURE, id);

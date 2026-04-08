@@ -63,7 +63,31 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 - End Armorer and Butcher variants added
 - Missing trade for Copper Elektra Shield, will be added in a future update
 
+**[*] Ender Dragon**
+
+- Updated boss bar colors
+
+## Mechanics
+
+**[*] Item Tooltips**
+
+- Uses the colors from the datapack
+
+**[*] Configuration**
+
+- Implemented a basic infrastructure for configuration
+
 ## Biomes
+
+**[*] The End**
+
+- Updated the main island to use Stellarity's worldgen placed features
+
+## Structures
+
+**[*] Exit Portal**
+
+- Implemented Stellarity exit portal chest particles
 
 # Developers Note
 

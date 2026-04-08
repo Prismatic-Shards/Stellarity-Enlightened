@@ -41,7 +41,7 @@ public class Stellarity implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		StellarityWorldgenModification.init();
+		StellarityWorldgenModifications.init();
 		StellarityDataAttachments.init();
 		StellarityItems.init();
 		StellarityParticles.init();

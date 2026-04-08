@@ -1,10 +1,15 @@
 package prismatic.shards.stellarity.mixin.end_crystal;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,11 +25,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.StellarityConfig;
 import prismatic.shards.stellarity.interface_injection.ExtEndCrystal;
 
 @Mixin(EndCrystal.class)
@@ -43,11 +50,18 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 		this.stellarity$setGlowColor(glow ? 11141290 : -1);
 	}
 
-	@WrapOperation(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSource;is(Lnet/minecraft/tags/TagKey;)Z"))
+	@Definition(id = "source", local = @Local(type = DamageSource.class, name = "source", argsOnly = true))
+	@Expression("source.?(?) == false")
+	@ModifyExpressionValue(method = "hurtServer", at = @At("MIXINEXTRAS:EXPRESSION"))
 
-	public boolean explodeOnlyNormal(DamageSource instance, TagKey<DamageType> tagKey, Operation<Boolean> original) {
+	public boolean explodeCheck(boolean original) {
+		return original && !shouldDrop();
+	}
 
-		return original.call(instance, tagKey) || !stellarity$getType().equals(Type.NORMAL);
+	@Unique
+	private boolean shouldDrop() {
+		var type = stellarity$getType();
+		return type.equals(Type.RESPAWN) || type.equals(Type.NORMAL) && level() instanceof ServerLevel serverLevel && StellarityConfig.get(serverLevel.getServer()).enableEndCrystalDrop();
 	}
 
 
@@ -59,7 +73,11 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 		if (level.getBlockState(pos).is(BlockTags.FIRE)) {
 			level.setBlock(blockPosition(), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
-		if (stellarity$getType().equals(Type.RESPAWN) && !damageSource.isCreativePlayer())
+
+		playSound(SoundEvents.GLASS_BREAK, 1, 0.8f);
+		playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1, 0f);
+
+		if (shouldDrop() && !damageSource.isCreativePlayer())
 			level.addFreshEntity(new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(Items.END_CRYSTAL)));
 
 	}

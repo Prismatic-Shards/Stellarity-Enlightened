@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtEnderDragonFight;
+import prismatic.shards.stellarity.registry.StellarityDataAttachments;
 
 import java.util.List;
 
@@ -55,6 +56,7 @@ public abstract class EnderDragonFightMixin implements ExtEnderDragonFight {
 
 		if (entity instanceof ChestBlockEntity chestEntity) {
 			chestEntity.setLootTable(Stellarity.key(Registries.LOOT_TABLE, "exit_portal"), level.getSeed());
+			chestEntity.setAttached(StellarityDataAttachments.EXIT_PORTAL_CHEST, true);
 
 			stellarity$setPortalChestGenerated(true);
 		}

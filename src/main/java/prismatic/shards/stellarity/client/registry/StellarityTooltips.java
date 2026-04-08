@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 public class StellarityTooltips {
 	public static final Component EMPTY_LINE = Component.literal("");
-	public static final Component STELLARITY = Component.translatable("Stellarity").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC);
+	public static final Component STELLARITY = Component.translatable("Stellarity").withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(0xCC26FF));
 
 
 	public static void init() {

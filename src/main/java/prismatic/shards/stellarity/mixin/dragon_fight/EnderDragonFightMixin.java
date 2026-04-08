@@ -1,11 +1,16 @@
 package prismatic.shards.stellarity.mixin.dragon_fight;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
@@ -18,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.registry.StellarityDataAttachments;
 
 import java.util.UUID;
 
@@ -30,16 +36,25 @@ public abstract class EnderDragonFightMixin {
 	@Shadow
 	private int aliveCrystals;
 
+	@Shadow
+	private ServerLevel level;
 	@Unique
-	private final ServerBossEvent crystalsRemaining = new ServerBossEvent(UUID.fromString("d4a16717-72f2-4a42-8813-78e50b18f181"), Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(ChatFormatting.DARK_PURPLE), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
+	private final ServerBossEvent crystalsRemaining = new ServerBossEvent(UUID.fromString("d4a16717-72f2-4a42-8813-78e50b18f181"), Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(Style.EMPTY.withColor(0x4C0081)), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.NOTCHED_20);
 
+
+	@Definition(id = "EVENT_DISPLAY_NAME", field = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;EVENT_DISPLAY_NAME:Lnet/minecraft/network/chat/Component;")
+	@Expression("EVENT_DISPLAY_NAME = @(?)")
+	@ModifyExpressionValue(method = "<clinit>", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private static MutableComponent enderDragonBossBarColor(MutableComponent original) {
+		return original.withColor(0xBF00C8);
+	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void tick(CallbackInfo ci) {
 		crystalsRemaining.setVisible(!dragonKilled);
 		if (!dragonKilled) {
 			crystalsRemaining.setProgress(Math.min((float) aliveCrystals / EndSpikeFeature.NUMBER_OF_SPIKES, 1.0f));
-			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(ChatFormatting.DARK_PURPLE));
+			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(Style.EMPTY.withColor(0x4C0081)));
 		}
 	}
 
@@ -59,5 +74,13 @@ public abstract class EnderDragonFightMixin {
 	private void scanStatePreventRevive(EnderDragonFight instance, boolean value, Operation<Void> original) {
 		original.call(instance, true);
 		Stellarity.LOGGER.info("force overriding to prevent dragon summoning");
+	}
+
+
+	@Definition(id = "hasPreviouslyKilledDragon", field = "Lnet/minecraft/world/level/dimension/end/EnderDragonFight;hasPreviouslyKilledDragon:Z")
+	@Expression("this.hasPreviouslyKilledDragon == false")
+	@ModifyExpressionValue(method = "setDragonKilled", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private boolean overrideEggSettings(boolean shouldSpawn) {
+		return level.getServer().globalAttachments().getAttachedOrCreate(StellarityDataAttachments.CONFIG).alwaysGenerateEgg() || shouldSpawn;
 	}
 }

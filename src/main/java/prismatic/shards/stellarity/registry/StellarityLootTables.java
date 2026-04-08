@@ -30,6 +30,8 @@ public interface StellarityLootTables {
 						)
 					)).add(item(StellarityItems.ASHEN_FROGLIGHT)));
 			}
+
+
 		});
 
 	}
