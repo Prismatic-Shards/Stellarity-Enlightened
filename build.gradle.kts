@@ -28,6 +28,12 @@ repositories {
 	maven("https://thedarkcolour.github.io/KotlinForForge/")
 	maven("https://maven.terraformersmc.com/")
 
+	maven("https://dl.cloudsmith.io/public/klikli-dev/mods/maven/") {
+		content {
+			includeGroup("com.klikli_dev")
+		}
+	}
+
 }
 
 dependencies {
@@ -36,6 +42,9 @@ dependencies {
 	implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 	implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
 	implementation("com.terraformersmc:biolith-fabric:${property("deps.biolith")}")
+
+	val modonomicon = property("deps.modonomicon").toString().split('-')
+	implementation("com.klikli_dev:modonomicon-${modonomicon[0]}-fabric:${modonomicon[1]}") { isTransitive = false }
 }
 
 stonecutter {
@@ -90,6 +99,7 @@ loom {
 fabricApi {
 	configureDataGeneration {
 		client = true
+		modId = "stellarity"
 	}
 }
 
@@ -101,6 +111,7 @@ tasks.withType<ProcessResources> {
 	inputs.property("minecraft", project.property("mod.mc_dep"))
 	inputs.property("fabric_api", project.property("deps.fabric_api"))
 	inputs.property("biolith", project.property("deps.biolith"))
+	inputs.property("modonomicon", project.property("deps.modonomicon"))
 
 
 	val props = mapOf(
@@ -109,7 +120,8 @@ tasks.withType<ProcessResources> {
 		"version" to project.property("mod.version"),
 		"minecraft" to project.property("mod.mc_dep"),
 		"fabric_api" to project.property("deps.fabric_api"),
-		"biolith" to project.property("deps.biolith")
+		"biolith" to project.property("deps.biolith"),
+		"modonomicon" to project.property("deps.modonomicon")
 	)
 
 	filesMatching("fabric.mod.json") { expand(props) }
@@ -167,6 +179,8 @@ publishMods {
 		accessToken = env.fetch("MODRINTH_TOKEN", "")
 		minecraftVersions.addAll(property("mod.mc_targets").toString().split(' '))
 		requires("fabric-api")
+		requires("biolith")
+		optional("modonomicon")
 	}
 
 	curseforge {
@@ -174,6 +188,8 @@ publishMods {
 		accessToken = env.fetch("CURSEFORGE_TOKEN", "")
 		minecraftVersions.addAll(property("mod.mc_targets").toString().split(' '))
 		requires("fabric-api")
+		requires("biolith")
+		optional("modonomicon")
 	}
 }
 

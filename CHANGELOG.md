@@ -67,6 +67,11 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Updated boss bar colors
 
+**[*] End Crystal**
+
+- Can be breakable into item
+- Right clicking yields a nice noise like the original end crystal
+
 ## Mechanics
 
 **[*] Item Tooltips**

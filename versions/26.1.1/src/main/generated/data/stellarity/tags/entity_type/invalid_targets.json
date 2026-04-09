@@ -1,8 +1,14 @@
 {
   "values": [
-    "#c:boats",
+    {
+      "id": "#c:boats",
+      "required": false
+    },
     "#minecraft:impact_projectiles",
-    "#c:minecarts",
+    {
+      "id": "#c:minecarts",
+      "required": false
+    },
     "minecraft:item_frame",
     "minecraft:glow_item_frame",
     "minecraft:painting",

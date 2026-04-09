@@ -44,7 +44,7 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 	}
 
 	@Nullable Output craft(List<ItemStack> itemStacks);
-
+	
 	HashMap<Ingredient, Integer> ingredients();
 
 	ItemStackTemplate result();

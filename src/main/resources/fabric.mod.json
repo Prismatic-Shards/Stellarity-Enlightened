@@ -39,6 +39,6 @@
 		"biolith": ">=${biolith}"
 	},
 	"recommends": {
-		"patchouli": "*"
+		"modonomicon": ">=${modonomicon}"
 	}
 }

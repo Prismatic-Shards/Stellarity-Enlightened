@@ -3,27 +3,25 @@ package prismatic.shards.stellarity.mixin.end_crystal;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,6 +39,7 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 		super(entityType, level);
 	}
 
+
 	@Override
 	public void stellarity$setType(Type type) {
 		ExtEndCrystal.super.stellarity$setType(type);
@@ -54,32 +53,30 @@ public abstract class EndCrystalMixin extends Entity implements ExtEndCrystal {
 	@Expression("source.?(?) == false")
 	@ModifyExpressionValue(method = "hurtServer", at = @At("MIXINEXTRAS:EXPRESSION"))
 
-	public boolean explodeCheck(boolean original) {
-		return original && !shouldDrop();
+	public boolean blockExplodeAndDrop(boolean original, @Local(argsOnly = true, name = "source") DamageSource source, @Local(argsOnly = true, name = "level") ServerLevel level) {
+		boolean drop = shouldDrop(source);
+		if (drop) {
+			BlockPos pos = blockPosition();
+			if (level.getBlockState(pos).is(BlockTags.FIRE)) {
+				level.setBlock(blockPosition(), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+			}
+
+			playSound(SoundEvents.GLASS_BREAK, 1, 0.8f);
+			playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1, 0f);
+
+			if (shouldDrop(source) && !source.isCreativePlayer())
+				level.addFreshEntity(new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(Items.END_CRYSTAL)));
+		}
+		return original && !drop;
 	}
 
 	@Unique
-	private boolean shouldDrop() {
+	private boolean shouldDrop(DamageSource damageSource) {
 		var type = stellarity$getType();
-		return type.equals(Type.RESPAWN) || type.equals(Type.NORMAL) && level() instanceof ServerLevel serverLevel && StellarityConfig.get(serverLevel.getServer()).enableEndCrystalDrop();
-	}
+		if (type.equals(Type.RESPAWN)) return true;
+		if (!(damageSource.getEntity() instanceof Player player) || player.isCrouching()) return false;
 
-
-	@Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;onDestroyedBy(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)V"))
-	private void dropCrystal(ServerLevel level, DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
-
-
-		BlockPos pos = blockPosition();
-		if (level.getBlockState(pos).is(BlockTags.FIRE)) {
-			level.setBlock(blockPosition(), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-		}
-
-		playSound(SoundEvents.GLASS_BREAK, 1, 0.8f);
-		playSound(SoundEvents.AMETHYST_BLOCK_BREAK, 1, 0f);
-
-		if (shouldDrop() && !damageSource.isCreativePlayer())
-			level.addFreshEntity(new ItemEntity(level, getX(), getY(), getZ(), new ItemStack(Items.END_CRYSTAL)));
-
+		return type.equals(Type.NORMAL) && level() instanceof ServerLevel serverLevel && StellarityConfig.get(serverLevel.getServer()).enableEndCrystalDrop();
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EndCrystal;blockPosition()Lnet/minecraft/core/BlockPos;", shift = At.Shift.AFTER))

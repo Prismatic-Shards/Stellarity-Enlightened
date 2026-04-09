@@ -1,5 +1,10 @@
 package prismatic.shards.stellarity.registry.item;
 
+import com.klikli_dev.modonomicon.api.ModonomiconAPI;
+import com.klikli_dev.modonomicon.client.gui.BookGuiManager;
+import com.klikli_dev.modonomicon.client.gui.book.BookAddress;
+import com.klikli_dev.modonomicon.data.BookDataManager;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -7,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
+import prismatic.shards.stellarity.Stellarity;
 
 
 public class Endonomicon extends Item {
@@ -21,8 +27,16 @@ public class Endonomicon extends Item {
 	public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player player, @NonNull InteractionHand interactionHand) {
 		var result = super.use(level, player, interactionHand);
 
-		player.sendOverlayMessage(Component.literal("Blame Patchouli for not supplying modern support"));
+		if (!Stellarity.hasModonomicon()) {
+			player.sendOverlayMessage(Component.translatable("message.stellarity.missing_modonomicon"));
+			return result;
+		}
 
-		return result;
+		if (level.isClientSide()) {
+			var book = BookDataManager.get().getBook(Stellarity.id("endonomicon"));
+			BookGuiManager.get().openBook(BookAddress.defaultFor(book));
+		}
+		
+		return InteractionResult.SUCCESS;
 	}
 }

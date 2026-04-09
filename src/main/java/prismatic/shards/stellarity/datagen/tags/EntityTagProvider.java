@@ -20,9 +20,7 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
 
 	@Override
 	public void addTags(HolderLookup.@NonNull Provider provider) {
-		getOrCreateTagBuilder(StellarityEntityTags.INVALID_TARGETS).forceAddTag(ConventionalEntityTypeTags.BOATS).forceAddTag(EntityTypeTags.IMPACT_PROJECTILES).forceAddTag(ConventionalEntityTypeTags.MINECARTS).add(EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME, EntityType.PAINTING, EntityType.ARMOR_STAND, EntityType.LEASH_KNOT, EntityType.INTERACTION, EntityType.AREA_EFFECT_CLOUD, EntityType.ENDER_PEARL, EntityType.END_CRYSTAL, EntityType.EVOKER_FANGS, EntityType.EXPERIENCE_BOTTLE, EntityType.EXPERIENCE_ORB, EntityType.EYE_OF_ENDER, EntityType.FALLING_BLOCK, EntityType.FISHING_BOBBER, EntityType.FIREWORK_ROCKET, EntityType.FIREBALL, EntityType.ITEM, EntityType.LLAMA_SPIT, EntityType.SHULKER_BULLET
-
-
+		getOrCreateTagBuilder(StellarityEntityTags.INVALID_TARGETS).addOptionalTag(ConventionalEntityTypeTags.BOATS).forceAddTag(EntityTypeTags.IMPACT_PROJECTILES).addOptionalTag(ConventionalEntityTypeTags.MINECARTS).add(EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME, EntityType.PAINTING, EntityType.ARMOR_STAND, EntityType.LEASH_KNOT, EntityType.INTERACTION, EntityType.AREA_EFFECT_CLOUD, EntityType.ENDER_PEARL, EntityType.END_CRYSTAL, EntityType.EVOKER_FANGS, EntityType.EXPERIENCE_BOTTLE, EntityType.EXPERIENCE_ORB, EntityType.EYE_OF_ENDER, EntityType.FALLING_BLOCK, EntityType.FISHING_BOBBER, EntityType.FIREWORK_ROCKET, EntityType.FIREBALL, EntityType.ITEM, EntityType.LLAMA_SPIT, EntityType.SHULKER_BULLET
 			, EntityType.SPLASH_POTION, EntityType.LINGERING_POTION
 		);
 	}

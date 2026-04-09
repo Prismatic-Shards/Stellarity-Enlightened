@@ -11,8 +11,7 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import prismatic.shards.stellarity.registry.*;
 
 public class Stellarity implements ModInitializer {
-
-
+	public static final String VERSION = /*$ minecraft*/ "26.1.1";
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -34,6 +33,10 @@ public class Stellarity implements ModInitializer {
 
 	public static <T extends Registry<U>, U> ResourceKey<U> mcKey(ResourceKey<T> registry, String path) {
 		return ResourceKey.create(registry, mcId(path));
+	}
+
+	public static boolean hasModonomicon() {
+		return FabricLoader.getInstance().isModLoaded("modonomicon");
 	}
 
 	@SuppressWarnings("CanBeFinal")

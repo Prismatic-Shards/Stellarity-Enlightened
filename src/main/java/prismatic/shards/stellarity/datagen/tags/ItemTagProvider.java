@@ -15,9 +15,6 @@ import static prismatic.shards.stellarity.registry.StellarityItems.*;
 
 
 public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
-	public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, @Nullable BlockTagProvider blockTagProvider) {
-		super(output, completableFuture, blockTagProvider);
-	}
 
 	public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
 		super(output, completableFuture);
