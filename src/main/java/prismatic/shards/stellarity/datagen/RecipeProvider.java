@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.registry.recipe.AltarDyeRecipe;
 import prismatic.shards.stellarity.registry.recipe.AltarRecipe;
 import prismatic.shards.stellarity.registry.recipe.AltarSimpleRecipe;
 import prismatic.shards.stellarity.registry.recipe.AltarUpgradeRecipe;
@@ -28,11 +29,11 @@ public class RecipeProvider extends FabricRecipeProvider {
 		super(output, registriesFuture);
 	}
 
-	public static void altarOfTheAccursed(RecipeOutput output, AltarRecipe recipe) {
+	public static void altarOfTheAccursed(RecipeOutput output, String id, AltarRecipe recipe) {
 		output.accept(
 
 
-			ResourceKey.create(Registries.RECIPE, recipe.id()),
+			ResourceKey.create(Registries.RECIPE, Stellarity.id(id)),
 			recipe, null);
 	}
 
@@ -51,8 +52,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 
 
 	public void buildRecipes(HolderLookup.Provider provider, RecipeOutput output) {
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/lapis_to_amethyst"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/lapis_to_amethyst", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(DIAMOND), 1);
 				put(Ingredient.of(LAPIS_LAZULI), 1);
@@ -60,8 +60,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(AMETHYST_SHARD)
 		));
 
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/chorus_plating"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/chorus_plating", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(IRON_INGOT), 1);
 				put(Ingredient.of(POPPED_CHORUS_FRUIT), 2);
@@ -69,8 +68,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(CHORUS_PLATING)
 		));
 
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/enderite_upgrade_smithing_template"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/enderite_upgrade_smithing_template", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENDERITE_UPGRADE_SMITHING_TEMPLATE), 1);
 				put(Ingredient.of(ENDERITE_SHARD), 5);
@@ -79,16 +77,14 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(ENDERITE_UPGRADE_SMITHING_TEMPLATE, 2)
 		));
 
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/endonomicon"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/endonomicon", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENCHANTED_BOOK), 1);
 			}},
 			new ItemStackTemplate(ENDONOMICON, 1)
 		));
 
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/satchel_of_voids"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(BUNDLE), 1);
 				put(Ingredient.of(NETHER_STAR), 2);
@@ -99,8 +95,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(SATCHEL_OF_VOIDS, 1)
 		));
 
-		altarOfTheAccursed(output, new AltarSimpleRecipe(
-			Stellarity.id("altar_of_the_accursed/satchel_of_voids_alternative"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids_alternative", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(LEATHER), 1);
 				put(Ingredient.of(STRING), 1);
@@ -112,8 +107,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(SATCHEL_OF_VOIDS, 1)
 		));
 
-		altarOfTheAccursed(output, new AltarUpgradeRecipe(
-			Stellarity.id("altar_of_the_accursed/shulker_helmet"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/shulker_helmet", new AltarUpgradeRecipe(
 			Ingredient.of(NETHERITE_HELMET),
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENDERITE_UPGRADE_SMITHING_TEMPLATE), 1);
@@ -122,8 +116,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(SHULKER_HELMET)
 		));
 
-		altarOfTheAccursed(output, new AltarUpgradeRecipe(
-			Stellarity.id("altar_of_the_accursed/shulker_chestplate"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/shulker_chestplate", new AltarUpgradeRecipe(
 			Ingredient.of(NETHERITE_CHESTPLATE),
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENDERITE_UPGRADE_SMITHING_TEMPLATE), 1);
@@ -132,8 +125,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(SHULKER_CHESTPLATE)
 		));
 
-		altarOfTheAccursed(output, new AltarUpgradeRecipe(
-			Stellarity.id("altar_of_the_accursed/shulker_leggings"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/shulker_leggings", new AltarUpgradeRecipe(
 			Ingredient.of(NETHERITE_LEGGINGS),
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENDERITE_UPGRADE_SMITHING_TEMPLATE), 1);
@@ -142,8 +134,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 			new ItemStackTemplate(SHULKER_LEGGINGS)
 		));
 
-		altarOfTheAccursed(output, new AltarUpgradeRecipe(
-			Stellarity.id("altar_of_the_accursed/shulker_boots"),
+		altarOfTheAccursed(output, "altar_of_the_accursed/shulker_boots", new AltarUpgradeRecipe(
 			Ingredient.of(NETHERITE_BOOTS),
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(ENDERITE_UPGRADE_SMITHING_TEMPLATE), 1);
@@ -151,6 +142,8 @@ public class RecipeProvider extends FabricRecipeProvider {
 			}},
 			new ItemStackTemplate(SHULKER_BOOTS)
 		));
+
+		altarOfTheAccursed(output, "altar_of_the_accursed/dye_elytra", new AltarDyeRecipe(Ingredient.of(ELYTRA)));
 	}
 
 	@Override

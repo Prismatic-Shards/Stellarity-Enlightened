@@ -10,7 +10,6 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
@@ -40,16 +39,15 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		}
 	}
 
-	record Output(HashMap<ItemStack, Integer> remainders, ItemStack result) {
+	record Output(HashMap<ItemStack, Integer> remainders, ItemStack... result) {
+		public Output(HashMap<ItemStack, Integer> remainders, ItemStack result) {
+			this(remainders, new ItemStack[]{result});
+		}
 	}
 
 	@Nullable Output craft(List<ItemStack> itemStacks);
-	
+
 	HashMap<Ingredient, Integer> ingredients();
-
-	ItemStackTemplate result();
-
-	Identifier id();
 
 	@Override
 	default @NonNull PlacementInfo placementInfo() {
@@ -128,16 +126,17 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 			entity.stellarity$updateResults(output.remainders());
 		}
 
-		var result = output.result();
+		var stacks = output.result();
+		for (var stack : stacks) {
+			ItemEntity resultItem = new ItemEntity(serverLevel, x, y + 0.75, z, stack);
+			resultItem.stellarity$setItemMode(ExtItemEntity.ItemMode.RESULT);
+			serverLevel.addFreshEntity(resultItem);
 
-		ItemEntity resultItem = new ItemEntity(serverLevel, x, y + 0.75, z, result);
-		resultItem.stellarity$setItemMode(ExtItemEntity.ItemMode.RESULT);
-		serverLevel.addFreshEntity(resultItem);
+			serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), x, y + 1, z, 1, 0, 0, 0, 0);
+			serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 17, 0, 0, 0, 0.13);
 
-		serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.FLASH, -1), x, y + 1, z, 1, 0, 0, 0, 0);
-		serverLevel.sendParticles(ParticleTypes.END_ROD, x, y + 1, z, 17, 0, 0, 0, 0.13);
-
-		serverLevel.getEntitiesOfClass(ServerPlayer.class, new AABB(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5)).forEach(p -> StellarityCriteriaTriggers.SPECIAL_CRAFT.trigger(p, BlockPos.containing(x, y, z), result));
+			serverLevel.getEntitiesOfClass(ServerPlayer.class, new AABB(x - 5, y - 5, z - 5, x + 5, y + 5, z + 5)).forEach(p -> StellarityCriteriaTriggers.SPECIAL_CRAFT.trigger(p, BlockPos.containing(x, y, z), stack));
+		}
 	}
 
 	@Override
@@ -154,15 +153,13 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 
 	@Override
-	default @NonNull ItemStack assemble(Input recipeInput) {
-		return result().create();
+	default @NonNull ItemStack assemble(@NonNull Input recipeInput) {
+		// stupid mojang recipes
+		return ItemStack.EMPTY;
 	}
-
 
 	@Override
 	default @NonNull String group() {
 		return "";
 	}
-
-
 }

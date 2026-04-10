@@ -21,21 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
+public record AltarUpgradeRecipe(Ingredient equipment,
                                  HashMap<Ingredient, Integer> ingredients,
                                  ItemStackTemplate result) implements AltarRecipe {
-
-	public AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment, HashMap<Ingredient, Integer> ingredients,
-	                          ItemStackTemplate result) {
-		this.id = id;
-		this.ingredients = ingredients;
-		this.result = result;
-		this.equipment = equipment;
-
-
-		Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
-
-	}
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
 		HashMap<Ingredient, Integer> required = new HashMap<>(ingredients);
@@ -124,14 +112,14 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 				recipe.ingredients.entrySet().stream().toList()
 			),
 			Ingredient.CODEC.fieldOf("equipment").forGetter(AltarUpgradeRecipe::equipment),
-			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
+			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarUpgradeRecipe::result)
 		).apply(instance, (ingredients, equipment, result) -> {
 			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
 
 			for (var ingredient : ingredients) {
 				ingredientMap.put(ingredient.getKey(), ingredient.getValue());
 			}
-			return new AltarUpgradeRecipe(null, equipment, ingredientMap, result);
+			return new AltarUpgradeRecipe(equipment, ingredientMap, result);
 		}));
 
 	public static AltarUpgradeRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
@@ -144,7 +132,7 @@ public record AltarUpgradeRecipe(@Nullable Identifier id, Ingredient equipment,
 		}
 		Ingredient equipment = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
 		ItemStackTemplate itemStack = ItemStackTemplate.STREAM_CODEC.decode(buf);
-		return new AltarUpgradeRecipe(null, equipment, ingredients, itemStack);
+		return new AltarUpgradeRecipe(equipment, ingredients, itemStack);
 	}
 
 	public static void toNetwork(RegistryFriendlyByteBuf buf, AltarUpgradeRecipe recipe) {

@@ -16,7 +16,7 @@ public interface StellarityEntities {
 
 	EntityType<PhantomItemFrame> PHANTOM_ITEM_FRAME = register("phantom_item_frame", EntityType.Builder.of(PhantomItemFrame::new, MobCategory.MISC));
 
-	EntityType<ThrownPrismaticPearl> PRISMATIC_PEARL = register("prismatic_pearl", EntityType.Builder.of(ThrownPrismaticPearl::new, MobCategory.MISC));
+	EntityType<ThrownPrismaticPearl> PRISMATIC_PEARL = register("prismatic_pearl", EntityType.Builder.<ThrownPrismaticPearl>of(ThrownPrismaticPearl::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F));
 
 	static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
 		var location = Stellarity.id(id);

@@ -1,13 +1,15 @@
 package prismatic.shards.stellarity.registry;
 
+import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.component.DyedItemColor;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.registry.data_component.DyedColor;
 
 public interface StellarityDataComponents {
-	DataComponentType<DyedItemColor> DYED_COLOR = register("dyed_color", DataComponentType.<DyedItemColor>builder().persistent(DyedItemColor.CODEC).networkSynchronized(DyedItemColor.STREAM_CODEC));
+	DataComponentType<DyedColor> DYED_COLOR = register("dyed_color", DataComponentType.<DyedColor>builder().persistent(DyedColor.CODEC).networkSynchronized(DyedColor.STREAM_CODEC));
 
 	static <T> DataComponentType<T> register(String id, DataComponentType.Builder<T> component) {
 		return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Stellarity.id(id), component.build());
@@ -15,5 +17,7 @@ public interface StellarityDataComponents {
 
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Data Components");
+
+		ItemComponentTooltipProviderRegistry.addAfter(DataComponents.DYED_COLOR, DYED_COLOR);
 	}
 }

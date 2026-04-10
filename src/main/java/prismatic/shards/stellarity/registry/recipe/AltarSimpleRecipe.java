@@ -20,20 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public record AltarSimpleRecipe(@Nullable Identifier id,
-                                HashMap<Ingredient, Integer> ingredients,
+public record AltarSimpleRecipe(HashMap<Ingredient, Integer> ingredients,
                                 ItemStackTemplate result) implements AltarRecipe {
-
-	public AltarSimpleRecipe(@Nullable Identifier id, HashMap<Ingredient, Integer> ingredients,
-	                         ItemStackTemplate result) {
-		this.id = id;
-		this.ingredients = ingredients;
-		this.result = result;
-
-
-		Stellarity.LOGGER.info("For the sake of convience, recipe validation is skipped. Please confirm on older versions!");
-
-	}
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
 		HashMap<Ingredient, Integer> required = new HashMap<>(ingredients);
@@ -92,7 +80,7 @@ public record AltarSimpleRecipe(@Nullable Identifier id,
 			INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
 				recipe.ingredients.entrySet().stream().toList()
 			),
-			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarRecipe::result)
+			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarSimpleRecipe::result)
 
 		).apply(instance, (ingredients, result) -> {
 			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
@@ -100,7 +88,7 @@ public record AltarSimpleRecipe(@Nullable Identifier id,
 			for (var ingredient : ingredients) {
 				ingredientMap.put(ingredient.getKey(), ingredient.getValue());
 			}
-			return new AltarSimpleRecipe(null, ingredientMap, result);
+			return new AltarSimpleRecipe(ingredientMap, result);
 		}));
 
 	public static AltarSimpleRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
@@ -113,7 +101,7 @@ public record AltarSimpleRecipe(@Nullable Identifier id,
 		}
 
 		ItemStackTemplate itemStack = ItemStackTemplate.STREAM_CODEC.decode(buf);
-		return new AltarSimpleRecipe(null, ingredients, itemStack);
+		return new AltarSimpleRecipe(ingredients, itemStack);
 	}
 
 	public static void toNetwork(RegistryFriendlyByteBuf buf, AltarSimpleRecipe recipe) {

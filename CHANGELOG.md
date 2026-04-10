@@ -82,6 +82,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Implemented a basic infrastructure for configuration
 
+**[*] (Elytra) Dying**
+
+- Implemented elytra dying in the Altar of the Accursed
+- New recipe type `altar_of_the_accursed_dye` is available for use in datapacks, which is used for elytra dying on the
+  Altar, but can be applied to other items, although they won't do anything.
+
 ## Biomes
 
 **[*] The End**
