@@ -40,6 +40,7 @@ public record DyedColor(int rgb) implements TooltipProvider {
 		return result;
 	}
 
+
 	public static DyedColor applyDyes(final DyedColor currentDye, final List<DyeColor> dyes) {
 		int redTotal = 0;
 		int greenTotal = 0;
