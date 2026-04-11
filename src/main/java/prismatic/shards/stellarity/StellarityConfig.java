@@ -26,7 +26,7 @@ public record StellarityConfig(boolean joinMessage, boolean enableEndCrystalDrop
 		Codec.BOOL.optionalFieldOf("enable_end_crystal_drop", true).forGetter(StellarityConfig::enableEndCrystalDrop),
 		Codec.BOOL.optionalFieldOf("enable_totem_void_saving", true).forGetter(StellarityConfig::enableTotemVoidSaving),
 		Codec.BOOL.optionalFieldOf("always_generate_egg", true).forGetter(StellarityConfig::alwaysGenerateEgg),
-		Codec.INT.optionalFieldOf("dragon_hStellarityConfigealth", 300).forGetter(StellarityConfig::dragonHealth)
+		Codec.INT.optionalFieldOf("dragon_health", 300).forGetter(StellarityConfig::dragonHealth)
 	).apply(instance, StellarityConfig::new));
 
 	public static StreamCodec<RegistryFriendlyByteBuf, StellarityConfig> STREAM_CODEC = StreamCodec.of(StellarityConfig::toNetwork, StellarityConfig::new);

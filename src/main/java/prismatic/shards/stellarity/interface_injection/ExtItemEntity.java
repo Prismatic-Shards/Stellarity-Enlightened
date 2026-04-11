@@ -8,7 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ItemStack;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
-import prismatic.shards.stellarity.util.CustomCodec;
+import prismatic.shards.stellarity.util.CustomCodecs;
 
 import java.util.HashMap;
 import java.util.function.IntFunction;
@@ -38,7 +38,7 @@ public interface ExtItemEntity extends AttachmentTarget {
 			);
 
 		public static final StreamCodec<ByteBuf, ItemMode> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, ItemMode::id);
-		public static final Codec<ItemMode> CODEC = CustomCodec.enumName(ItemMode.class, DEFAULT);
+		public static final Codec<ItemMode> CODEC = CustomCodecs.enumName(ItemMode.class, DEFAULT);
 	}
 
 	default ItemMode stellarity$getItemMode() {

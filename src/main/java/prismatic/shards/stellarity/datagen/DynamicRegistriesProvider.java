@@ -18,6 +18,13 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	public void configure(HolderLookup.@NonNull Provider provider, @NonNull Entries entries) {
+		entries.addAll(provider.lookupOrThrow(Registries.PAINTING_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.COW_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.PIG_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.FROG_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.CAT_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.WOLF_VARIANT));
+		entries.addAll(provider.lookupOrThrow(Registries.CHICKEN_VARIANT));
 		entries.addAll(provider.lookupOrThrow(Registries.CONFIGURED_FEATURE));
 		entries.addAll(provider.lookupOrThrow(Registries.PLACED_FEATURE));
 		entries.addAll(provider.lookupOrThrow(Registries.BIOME));

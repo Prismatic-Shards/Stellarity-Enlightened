@@ -1,0 +1,13 @@
+{
+  "asset_id": "stellarity:entity/cat/ender_cat",
+  "baby_asset_id": "stellarity:entity/cat/ender_cat_baby",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:is_end"
+      },
+      "priority": 5
+    }
+  ]
+}

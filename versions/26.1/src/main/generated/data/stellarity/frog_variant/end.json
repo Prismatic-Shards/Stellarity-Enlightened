@@ -1,0 +1,12 @@
+{
+  "asset_id": "stellarity:entity/frog/ender_frog",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": "#minecraft:is_end"
+      },
+      "priority": 5
+    }
+  ]
+}

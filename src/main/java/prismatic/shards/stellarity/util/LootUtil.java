@@ -17,16 +17,14 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.*;
-import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -41,6 +39,10 @@ public interface LootUtil {
 
 	static LootItemCondition.Builder onDamage(DamageSourcePredicate.Builder predicate) {
 		return DamageSourceCondition.hasDamageSource(predicate);
+	}
+
+	static InvertedLootItemCondition not(LootItemCondition term) {
+		return new InvertedLootItemCondition(term);
 	}
 
 	static DamageSourcePredicate.Builder damage() {
@@ -158,6 +160,14 @@ public interface LootUtil {
 
 	static LootItemFunction modifier(ResourceKey<LootItemFunction> key) {
 		return FunctionReference.functionReference(key).build();
+	}
+
+	static LootItemCondition entityProperty(LootContext.EntityTarget target, EntityPredicate.Builder predicate) {
+		return LootItemEntityPropertyCondition.hasProperties(target, predicate.build()).build();
+	}
+
+	static LootItemCondition entityProperty(EntityPredicate.Builder predicate) {
+		return entityProperty(LootContext.EntityTarget.THIS, predicate);
 	}
 
 

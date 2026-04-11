@@ -23,6 +23,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Shulker Boots**
 
+**[+] Ender Egg**
+
 ## Blocks
 
 **[*] Altar of the Accursed**
@@ -72,6 +74,26 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 - Can be breakable into item
 - Right clicking yields a nice noise like the original end crystal
 
+**[*] Cat**
+
+- Added Ender Cat variant
+
+**[*] Cow**
+
+- Added Ender Cow variant
+
+**[*] Pig**
+
+- Added Ender Pig variant
+
+**[*] Chicken**
+
+- Added Ender Chicken variant
+
+**[*] Wolf**
+
+- Added Ender Wolf variant
+
 ## Mechanics
 
 **[*] Item Tooltips**
@@ -104,6 +126,12 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Implemented Stellarity exit portal chest particles
 
+## Versions
+
+**[+] 26.1.1**
+
+**[+] 26.1.2**
+
 # Developers Note
 
-I hate microslop
+idk

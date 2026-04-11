@@ -6,12 +6,11 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.component.DyedItemColor;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.StellarityConfig;
 import prismatic.shards.stellarity.interface_injection.ExtEndCrystal;
 import prismatic.shards.stellarity.interface_injection.ExtItemEntity;
 import prismatic.shards.stellarity.registry.entity.ThrownPrismaticPearl;
-import prismatic.shards.stellarity.StellarityConfig;
 
 import java.util.Map;
 
@@ -40,7 +39,7 @@ public interface StellarityDataAttachments {
 
 	AttachmentType<StellarityConfig> CONFIG = AttachmentRegistry.create(Stellarity.id("config"), builder -> builder.persistent(StellarityConfig.CODEC).syncWith(StellarityConfig.STREAM_CODEC, AttachmentSyncPredicate.all()).initializer(() -> StellarityConfig.DEFAULT)
 	);
-
+	
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Data Attachments");
 	}

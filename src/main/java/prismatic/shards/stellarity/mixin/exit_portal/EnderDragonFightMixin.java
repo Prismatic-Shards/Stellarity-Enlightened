@@ -1,5 +1,6 @@
 package prismatic.shards.stellarity.mixin.exit_portal;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
@@ -76,6 +77,12 @@ public abstract class EnderDragonFightMixin implements ExtEnderDragonFight {
 			endCrystal.setInvulnerable(false);
 			endCrystal.setBeamTarget(null);
 		}
+	}
+
+	@WrapMethod(method = "spawnExitPortal")
+	private void setPortalRespawn(boolean activated, Operation<Void> original) {
+		original.call(activated);
+		if (exitPortalLocation == null) return;
 	}
 
 	// FIXME: once this is corrected in official repos

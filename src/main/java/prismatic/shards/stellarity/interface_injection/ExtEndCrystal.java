@@ -7,7 +7,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
-import prismatic.shards.stellarity.util.CustomCodec;
+import prismatic.shards.stellarity.util.CustomCodecs;
 
 import java.util.function.IntFunction;
 
@@ -37,7 +37,7 @@ public interface ExtEndCrystal extends AttachmentTarget {
 
 		public static final StreamCodec<ByteBuf, Type> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Type::id);
 
-		public final static Codec<Type> CODEC = CustomCodec.enumName(Type.class, NORMAL);
+		public final static Codec<Type> CODEC = CustomCodecs.enumName(Type.class, NORMAL);
 	}
 
 	default Type stellarity$getType() {

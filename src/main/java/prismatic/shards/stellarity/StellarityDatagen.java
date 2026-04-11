@@ -18,6 +18,14 @@ import prismatic.shards.stellarity.datagen.tags.*;
 public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.PAINTING_VARIANT, PaintingProvider::bootstrap);
+		registryBuilder.add(Registries.CHICKEN_VARIANT, AnimalVariantProvider::bootstrapChicken);
+		registryBuilder.add(Registries.CAT_VARIANT, AnimalVariantProvider::bootstrapCat);
+		registryBuilder.add(Registries.WOLF_VARIANT, AnimalVariantProvider::bootstrapWolf);
+		registryBuilder.add(Registries.COW_VARIANT, AnimalVariantProvider::bootstrapCow);
+		registryBuilder.add(Registries.FROG_VARIANT, AnimalVariantProvider::bootstrapFrog);
+		registryBuilder.add(Registries.PIG_VARIANT, AnimalVariantProvider::bootstrapPig);
+
 		registryBuilder.add(Registries.BIOME, BiomeProvider::bootstrap);
 		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrapEarly);
 		registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureProvider::bootstrap);

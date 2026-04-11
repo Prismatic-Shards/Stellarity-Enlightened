@@ -26,7 +26,7 @@ import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
 import prismatic.shards.stellarity.registry.StellarityEntities;
 import prismatic.shards.stellarity.registry.StellarityItems;
-import prismatic.shards.stellarity.util.CustomCodec;
+import prismatic.shards.stellarity.util.CustomCodecs;
 
 import java.util.Set;
 import java.util.function.IntFunction;
@@ -116,7 +116,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 
 		public static final StreamCodec<ByteBuf, Trail> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Trail::id);
 
-		public static final Codec<Trail> CODEC = CustomCodec.enumName(Trail.class, NORMAL);
+		public static final Codec<Trail> CODEC = CustomCodecs.enumName(Trail.class, NORMAL);
 	}
 
 	private int colorIndex = 0;

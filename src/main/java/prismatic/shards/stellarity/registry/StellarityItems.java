@@ -3,6 +3,7 @@ package prismatic.shards.stellarity.registry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.CommonComponents;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.key.StellarityAnimalVariants;
 import prismatic.shards.stellarity.key.StellarityJukeboxSongs;
 import prismatic.shards.stellarity.registry.item.*;
 
@@ -175,6 +177,8 @@ public interface StellarityItems {
 	Item SHULKER_CHESTPLATE = register("shulker_chestplate", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
 	Item SHULKER_LEGGINGS = register("shulker_leggings", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
 	Item SHULKER_BOOTS = register("shulker_boots", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
+
+	Item ENDER_EGG = register("ender_egg", EggItem::new, new Item.Properties().stacksTo(16).delayedHolderComponent(DataComponents.CHICKEN_VARIANT, StellarityAnimalVariants.ENDER_CHICKEN));
 
 
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
