@@ -22,6 +22,11 @@ public interface StellaritySounds {
 	SoundEvent DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc.deviants_light_music_box");
 	SoundEvent PRECIPICE_STEREO = register("music_disc.precipice_stereo");
 
+	SoundEvent AMBIENT_DARK = register("ambient.dark");
+	SoundEvent AMBIENT_DARK_CALM = register("ambient.dark_calm");
+	SoundEvent AMBIENT_HEAVENLY_BLESSED = register("ambient.heavenly_blessed");
+	SoundEvent AMBIENT_HEAVENLY_GRIM = register("ambient.heavenly_grim");
+
 
 	SoundEvent PRISMATIC_PEARL_THROW = register("item.prismatic_pearl.throw");
 

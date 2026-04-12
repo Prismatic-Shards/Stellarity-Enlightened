@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import prismatic.shards.stellarity.registry.StellarityEntities;
 
-import static prismatic.shards.stellarity.client.registry.renderer.entity.PhantomItemFrameRenderer.FAKE_STATE_DEFINITION;
+import static prismatic.shards.stellarity.client.registry.entity.renderer.PhantomItemFrameRenderer.FAKE_STATE_DEFINITION;
 
 @MixinEnvironment("client")
 @Mixin(ItemFrameRenderer.class)
