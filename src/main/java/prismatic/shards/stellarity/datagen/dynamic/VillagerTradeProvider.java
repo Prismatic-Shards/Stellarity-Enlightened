@@ -11,6 +11,7 @@ import net.minecraft.world.item.equipment.trim.TrimPatterns;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 import static prismatic.shards.stellarity.key.StellarityVillagerTrades.*;
 
@@ -68,6 +69,10 @@ public interface VillagerTradeProvider {
 	}
 
 	static VillagerTrade simpleToShard(Item item, int count, int shards, int xp, int maxUses, float repDiscount) {
+		return simpleToShard(item, num(count), shards, xp, maxUses, repDiscount);
+	}
+
+	static VillagerTrade simpleToShard(Item item, NumberProvider count, int shards, int xp, int maxUses, float repDiscount) {
 		return new VillagerTrade(
 			new TradeCost(item, count),
 			new ItemStackTemplate(ENDERITE_SHARD, shards),
@@ -81,6 +86,10 @@ public interface VillagerTradeProvider {
 	}
 
 	static VillagerTrade shardToSimple(int shards, Item item, int count, int xp, int maxUses, float repDiscount) {
+		return shardToSimple(num(shards), item, count, xp, maxUses, repDiscount);
+	}
+
+	static VillagerTrade shardToSimple(NumberProvider shards, Item item, int count, int xp, int maxUses, float repDiscount) {
 		return new VillagerTrade(
 			new TradeCost(ENDERITE_SHARD, shards),
 			new ItemStackTemplate(item, count),
@@ -89,11 +98,14 @@ public interface VillagerTradeProvider {
 			repDiscount,
 			Optional.empty(),
 			List.of()
-
 		);
 	}
 
 	static VillagerTrade shardToModifierItem(int shards, Item item, List<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
+		return shardToModifierItem(num(shards), item, modifiers, count, xp, maxUses, repDiscount);
+	}
+
+	static VillagerTrade shardToModifierItem(NumberProvider shards, Item item, List<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
 		return new VillagerTrade(
 			new TradeCost(ENDERITE_SHARD, shards),
 			new ItemStackTemplate(item, count),
@@ -106,6 +118,10 @@ public interface VillagerTradeProvider {
 	}
 
 	static VillagerTrade simpleShardToSimple(Item item, int count, int shards, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
+		return simpleShardToSimple(item, num(count), num(shards), result, resultCount, xp, maxUses, repDiscount);
+	}
+
+	static VillagerTrade simpleShardToSimple(Item item, NumberProvider count, NumberProvider shards, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
 		return new VillagerTrade(
 			new TradeCost(item, count),
 			Optional.of(new TradeCost(ENDERITE_SHARD, shards)),
