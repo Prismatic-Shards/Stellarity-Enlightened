@@ -7,6 +7,9 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.GeodeBlockSettings;
+import net.minecraft.world.level.levelgen.GeodeCrackSettings;
+import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -23,8 +26,8 @@ import java.util.Optional;
 import static net.minecraft.core.Holder.direct;
 import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityConfiguredFeatures.*;
-import static prismatic.shards.stellarity.tags.StellarityBlockTags.WORLDGEN_REPLACEABLE_END_STONE;
-import static prismatic.shards.stellarity.tags.StellarityBlockTags.WORLDGEN_REPLACEABLE_STALACTITE;
+import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
+import static prismatic.shards.stellarity.tags.StellarityBlockTags.*;
 import static prismatic.shards.stellarity.util.ValueUtil.num;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
@@ -35,6 +38,8 @@ public interface ConfiguredFeatureProvider {
 
 	static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
+
+		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
 
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			false, Constants.OBSIDIAN_SPIKES, null
@@ -65,10 +70,10 @@ public interface ConfiguredFeatureProvider {
 		)));
 		context.register(MAIN_ISLAND_OBSIDIAN, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{END_STONE, CRYING_OBSIDIAN, OBSIDIAN}, new int[]{5, 1, 3}),
-			placed.getOrThrow(StellarityPlacedFeatures.NOTHING),
+			NOTHING,
 			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
 		)));
-		context.register(MAIN_ISLAND_PATCHES, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+		context.register(MAIN_ISLAND_PATCH, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{END_STONE, COBBLESTONE, ANDESITE, TUFF}, new int[]{77, 3, 1, 2}),
 			direct(new PlacedFeature(
 				direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
@@ -104,5 +109,30 @@ public interface ConfiguredFeatureProvider {
 			)),
 			CaveSurface.CEILING, num(3, 8), 0.5f, 20, 1, num(3, 8), 0.5f
 		)));
+		context.register(AMETHYST_FOREST_AMETHYST_GEODE, new ConfiguredFeature<>(Feature.GEODE, new GeodeConfiguration(
+			new GeodeBlockSettings(block(AIR), block(AMETHYST_BLOCK), block(BUDDING_AMETHYST),
+				weightedBlocks(new Block[]{CALCITE, POLISHED_DIORITE, DIORITE}, new int[]{1, 1, 1}),
+				weightedBlocks(new Block[]{CALCITE, POLISHED_DIORITE, DIORITE}, new int[]{1, 1, 1}),
+				List.of(
+					SMALL_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+					MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+					LARGE_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+					AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP)
+				), WORLDGEN_INVALID_AMETHYST_GEODE, WORLDGEN_INVALID_AMETHYST_GEODE
+			),
+			new GeodeLayerSettings(1.7, 2.2, 3.2, 3.2),
+			new GeodeCrackSettings(0.65, 1.5, 2),
+			0.2, 0.083, false, num(4, 6), num(3, 4), num(1, 2), -8, 8, 0.05, 1
+		)));
+		context.register(AMETHYST_FOREST_TUFF_ROCK, new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(TUFF.defaultBlockState(), all())));
+		context.register(AMETHYST_FOREST_OBSIDIAN, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, CRYING_OBSIDIAN, OBSIDIAN}, new int[]{20, 1, 5}), NOTHING,
+			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
+		)));
+		context.register(AMETHYST_FOREST_DIRT, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT}, new int[]{21, 1}), NOTHING,
+			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
+		)));
+
 	}
 }

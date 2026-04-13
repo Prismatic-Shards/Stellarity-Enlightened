@@ -120,6 +120,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Updated the main island to use Stellarity's worldgen placed features
 
+**[+] All existing Stellarity biomes**
+
 ## Structures
 
 **[*] Exit Portal**

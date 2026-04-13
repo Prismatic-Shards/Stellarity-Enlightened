@@ -19,7 +19,7 @@
         "tick_delay": 1000
       }
     },
-    "minecraft:visual/ambient_light_color": "#3f473f",
+    "minecraft:visual/ambient_light_color": "#3f472f",
     "minecraft:visual/fog_color": "#000000",
     "minecraft:visual/sky_color": "#000000",
     "minecraft:visual/water_fog_color": "#000000"

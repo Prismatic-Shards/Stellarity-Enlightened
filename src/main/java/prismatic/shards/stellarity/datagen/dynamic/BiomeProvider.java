@@ -14,6 +14,7 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.registry.StellaritySounds;
 
 import java.util.List;
@@ -51,6 +52,11 @@ public interface BiomeProvider {
 				.build()
 			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
 				.addFeature(GenerationStep.Decoration.RAW_GENERATION, AMETHYST_FOREST_CALCITE_BOTTOM)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, AMETHYST_FOREST_AMETHYST_GEODES)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, AMETHYST_FOREST_TUFF_ROCKS)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, AMETHYST_FOREST_OBSIDIAN)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, AMETHYST_FOREST_DIRT)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, placedFeatures.getOrThrow(Stellarity.mcKey(Registries.PLACED_FEATURE, "patch_bush")))
 				.build()
 			).build()
 		);
@@ -58,7 +64,7 @@ public interface BiomeProvider {
 		for (var biome : List.of(ASHFALL_DELTAS, CRYSTAL_CRAGS, END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
+				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
 				.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
 				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)

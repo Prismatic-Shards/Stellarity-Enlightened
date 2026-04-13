@@ -1,5 +1,5 @@
 {
-  "feature": "stellarity:main_island/patches",
+  "feature": "stellarity:main_island/patch",
   "placement": [
     {
       "type": "minecraft:biome"

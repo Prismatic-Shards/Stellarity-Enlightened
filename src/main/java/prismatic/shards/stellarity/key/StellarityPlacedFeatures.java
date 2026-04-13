@@ -7,16 +7,21 @@ import prismatic.shards.stellarity.Stellarity;
 
 public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> NOTHING = id("nothing");
+	ResourceKey<PlacedFeature> GLOBAL_STALACTITES = id("global/stalactites");
+
 	ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
-	ResourceKey<PlacedFeature> GLOBAL_STALACTITES = id("global/stalactites");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_HILLS = id("main_island/hills");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_OBSIDIAN = id("main_island/obsidian");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PATCHES = id("main_island/patches");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_CHORUS_PLANTS = id("main_island/chorus_plants");
-	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 
-	// Obsidian spikes have been skipped because of native implementation of crying obsidian tops
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_AMETHYST_GEODES = id("amethyst_forest/amethyst_geodes");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_TUFF_ROCKS = id("amethyst_forest/tuff_rocks");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_OBSIDIAN = id("amethyst_forest/obsidian");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_DIRT = id("amethyst_forest/dirt");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_TREES = id("amethyst_forest/trees");
 
 
 	static ResourceKey<PlacedFeature> id(String name) {

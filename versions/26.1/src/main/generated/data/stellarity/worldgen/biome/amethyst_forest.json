@@ -34,6 +34,22 @@
   "features": [
     [
       "stellarity:amethyst_forest/calcite_bottom"
+    ],
+    [],
+    [
+      "stellarity:amethyst_forest/amethyst_geodes",
+      "stellarity:amethyst_forest/tuff_rocks",
+      "stellarity:amethyst_forest/obsidian",
+      "stellarity:amethyst_forest/dirt"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:patch_bush"
     ]
   ],
   "has_precipitation": false,

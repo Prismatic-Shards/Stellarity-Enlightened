@@ -7,6 +7,7 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.Arrays;
 import java.util.List;
 
+import static prismatic.shards.stellarity.util.ValueUtil.num;
 import static prismatic.shards.stellarity.util.ValueUtil.weighted;
 
 public interface WorldgenUtil {
@@ -35,6 +37,10 @@ public interface WorldgenUtil {
 
 	static CountPlacement countPlace(IntProvider count) {
 		return CountPlacement.of(count);
+	}
+
+	static CountPlacement countPlace(int count) {
+		return countPlace(num(count));
 	}
 
 	static InSquarePlacement inSquare() {
@@ -97,6 +103,10 @@ public interface WorldgenUtil {
 		return new WeightedStateProvider(weighted(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new), weights));
 	}
 
+	static BlockPredicate all() {
+		return BlockPredicate.alwaysTrue();
+	}
+
 	static RarityFilter rarity(int onAverageEvery) {
 		return RarityFilter.onAverageOnceEvery(onAverageEvery);
 	}
@@ -118,4 +128,12 @@ public interface WorldgenUtil {
 		return CountOnEveryLayerPlacement.of(provider);
 	}
 
+	@SuppressWarnings("deprecation")
+	static CountOnEveryLayerPlacement everyLayer(int count) {
+		return everyLayer(num(count));
+	}
+
+	public static SurfaceRules.RuleSource state(final Block state) {
+		return SurfaceRules.state(state.defaultBlockState());
+	}
 }

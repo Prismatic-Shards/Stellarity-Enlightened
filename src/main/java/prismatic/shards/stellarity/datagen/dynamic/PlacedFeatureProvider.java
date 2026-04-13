@@ -32,7 +32,6 @@ public interface PlacedFeatureProvider {
 		context.register(NOTHING, new PlacedFeature(Holder.direct(new ConfiguredFeature<>(Feature.NO_OP, NoneFeatureConfiguration.INSTANCE)), List.of()));
 	}
 
-
 	static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -55,9 +54,9 @@ public interface PlacedFeatureProvider {
 			biome()
 		)));
 		context.register(MAIN_ISLAND_OBSIDIAN, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_OBSIDIAN), List.of(
-			biome(), countPlace(num(1)), inSquare(), rarity(2), heightmap(Heightmap.Types.MOTION_BLOCKING)
+			biome(), countPlace(1), inSquare(), rarity(2), heightmap(Heightmap.Types.MOTION_BLOCKING)
 		)));
-		context.register(MAIN_ISLAND_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PATCHES), List.of(
+		context.register(MAIN_ISLAND_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PATCH), List.of(
 			biome(), everyLayer(num(2))
 		)));
 		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(configured.getOrThrow(mcPlaced("chorus_plant")), List.of(
@@ -65,8 +64,20 @@ public interface PlacedFeatureProvider {
 		)));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
-			countPlace(num(40)), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),
+			countPlace(40), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),
 			envPlace(Direction.UP, solid(), matchBlocks(AIR), 32), biome()
+		)));
+		context.register(AMETHYST_FOREST_AMETHYST_GEODES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_AMETHYST_GEODE), List.of(
+			rarity(1), countPlace(1), inSquare(), heightPlace(height(aboveBottom(12), belowTop(12))), biome()
+		)));
+		context.register(AMETHYST_FOREST_TUFF_ROCKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_TUFF_ROCK), List.of(
+			everyLayer(num(1)), rarity(2), biome()
+		)));
+		context.register(AMETHYST_FOREST_OBSIDIAN, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_OBSIDIAN), List.of(
+			rarity(3), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), countPlace(16), biome()
+		)));
+		context.register(AMETHYST_FOREST_DIRT, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_DIRT), List.of(
+			rarity(3), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), countPlace(16), biome()
 		)));
 	}
 }

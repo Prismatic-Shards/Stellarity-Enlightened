@@ -11,6 +11,8 @@ public interface StellarityBlockTags {
 	TagKey<Block> WORLDGEN_REPLACEABLE_STALACTITE = id("worldgen/replaceable/stalactite");
 	TagKey<Block> WORLDGEN_REPLACEABLE_END_STONE = id("worldgen/replaceable/end_stone");
 	TagKey<Block> WORLDGEN_REPLACEABLE_AMETHYST_FOREST_BOTTOM = id("worldgen/replaceable/amethyst_forest/bottom");
+	TagKey<Block> WORLDGEN_REPLACEABLE_GRASS_BLOCK = id("worldgen/replaceable/grass_block");
+	TagKey<Block> WORLDGEN_INVALID_AMETHYST_GEODE = id("worldgen/invalid/amethyst_geode");
 
 	static TagKey<Block> id(String id) {
 		return TagKey.create(Registries.BLOCK, Stellarity.id(id));
