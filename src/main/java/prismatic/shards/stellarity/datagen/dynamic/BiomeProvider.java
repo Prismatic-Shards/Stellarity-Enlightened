@@ -54,5 +54,21 @@ public interface BiomeProvider {
 				.build()
 			).build()
 		);
+
+		for (var biome : List.of(ASHFALL_DELTAS, CRYSTAL_CRAGS, END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+			context.register(biome, new Biome.BiomeBuilder()
+				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
+				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
+				.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
+				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)
+				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+					of(direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)),
+					of(new AmbientMoodSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE), 1000, 4, 2)),
+					List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE), 0.001))
+				)).specialEffects(new BiomeSpecialEffects(0xf3d1ff, of(0xd494ff), empty(), of(0xdeadff), BiomeSpecialEffects.GrassColorModifier.NONE))
+				.mobSpawnSettings(new MobSpawnSettings.Builder().build()).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers).build()).build()
+			);
+		}
 	}
 }
