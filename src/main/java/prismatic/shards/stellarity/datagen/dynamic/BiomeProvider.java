@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import prismatic.shards.stellarity.registry.StellaritySounds;
 
 import java.util.List;
@@ -20,7 +21,8 @@ import java.util.List;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static net.minecraft.core.Holder.direct;
-import static prismatic.shards.stellarity.key.StellarityBiomes.AMETHYST_FOREST;
+import static prismatic.shards.stellarity.key.StellarityBiomes.*;
+import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 
 
 public interface BiomeProvider {
@@ -48,7 +50,7 @@ public interface BiomeProvider {
 				.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 8))
 				.build()
 			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
-
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, AMETHYST_FOREST_CALCITE_BOTTOM)
 				.build()
 			).build()
 		);

@@ -14,6 +14,8 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> MAIN_ISLAND_OBSIDIAN = id("main_island/obsidian");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PATCHES = id("main_island/patches");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_CHORUS_PLANTS = id("main_island/chorus_plants");
+	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
+
 	// Obsidian spikes have been skipped because of native implementation of crying obsidian tops
 
 

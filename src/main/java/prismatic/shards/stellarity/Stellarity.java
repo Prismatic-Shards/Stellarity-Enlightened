@@ -8,7 +8,9 @@ import net.minecraft.resources.ResourceKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.MixinEnvironment;
+import prismatic.shards.stellarity.key.StellarityBiomes;
 import prismatic.shards.stellarity.registry.*;
+import prismatic.shards.stellarity.registry.recipe.StellarityBiolithBiomes;
 
 public class Stellarity implements ModInitializer {
 	public static final String VERSION = /*$ minecraft*/ "26.1.1";
@@ -44,7 +46,9 @@ public class Stellarity implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		StellarityRegistryEntries.init();
 		StellarityWorldgenModifications.init();
+		StellarityBiolithBiomes.init();
 		StellarityDataAttachments.init();
 		StellarityDataComponents.init();
 		StellarityItems.init();

@@ -52,6 +52,8 @@ public class RecipeProvider extends FabricRecipeProvider {
 
 
 	public void buildRecipes(HolderLookup.Provider provider, RecipeOutput output) {
+
+
 		altarOfTheAccursed(output, "altar_of_the_accursed/lapis_to_amethyst", new AltarSimpleRecipe(
 			new LinkedHashMap<>() {{
 				put(Ingredient.of(DIAMOND), 1);

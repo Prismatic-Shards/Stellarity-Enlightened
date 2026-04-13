@@ -31,7 +31,11 @@
     "grass_color": "#deadff",
     "water_color": "#f3d1ff"
   },
-  "features": [],
+  "features": [
+    [
+      "stellarity:amethyst_forest/calcite_bottom"
+    ]
+  ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {

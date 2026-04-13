@@ -31,3 +31,24 @@ accessible field net/minecraft/world/level/dimension/DimensionType height I
 accessible field net/minecraft/world/level/dimension/DimensionType logicalHeight I
 mutable field net/minecraft/world/level/dimension/DimensionType height I
 mutable field net/minecraft/world/level/dimension/DimensionType logicalHeight I
+
+accessible field net/minecraft/world/level/levelgen/NoiseSettings height I
+mutable field net/minecraft/world/level/levelgen/NoiseSettings height I
+
+accessible field net/minecraft/world/level/levelgen/NoiseRouter temperature Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter vegetation Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter continents Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter erosion Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter depth Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter ridges Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter preliminarySurfaceLevel Lnet/minecraft/world/level/levelgen/DensityFunction;
+accessible field net/minecraft/world/level/levelgen/NoiseRouter finalDensity Lnet/minecraft/world/level/levelgen/DensityFunction;
+
+mutable field net/minecraft/world/level/levelgen/NoiseRouter temperature Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter vegetation Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter erosion Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter continents Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter depth Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter ridges Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter preliminarySurfaceLevel Lnet/minecraft/world/level/levelgen/DensityFunction;
+mutable field net/minecraft/world/level/levelgen/NoiseRouter finalDensity Lnet/minecraft/world/level/levelgen/DensityFunction;

@@ -33,7 +33,7 @@ public interface StellarityLootTables {
 			} else if (id.equals(Stellarity.mcId("gameplay/chicken_lay"))) {
 
 				var nbtCheck = entityProperty(entity().nbt(nbt(endVariant)));
-				
+
 				builder.withPool(pool().add(item(StellarityItems.ENDER_EGG)).when(nbtCheck));
 			}
 		});

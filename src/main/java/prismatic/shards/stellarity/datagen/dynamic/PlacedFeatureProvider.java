@@ -63,5 +63,10 @@ public interface PlacedFeatureProvider {
 		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(configured.getOrThrow(mcPlaced("chorus_plant")), List.of(
 			biome(), heightmap(Heightmap.Types.MOTION_BLOCKING), countPlace(weighted(0, 9, 1, 1)), inSquare()
 		)));
+
+		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
+			countPlace(num(40)), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),
+			envPlace(Direction.UP, solid(), matchBlocks(AIR), 32), biome()
+		)));
 	}
 }

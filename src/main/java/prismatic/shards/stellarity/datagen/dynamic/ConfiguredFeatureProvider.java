@@ -41,7 +41,7 @@ public interface ConfiguredFeatureProvider {
 		)));
 		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			true, List.of(new EndSpikeFeature.EndSpike(
-			0, 0, 16, 70, false
+			0, 0, 16, 60, false
 		)), null
 		)));
 		context.register(GLOBAL_STALACTITES, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
@@ -91,6 +91,18 @@ public interface ConfiguredFeatureProvider {
 				))), List.of()
 			)),
 			CaveSurface.FLOOR, num(3), 0.334f, 10, 0.03f, num(5, 7), 0.556f
+		)));
+
+		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),
+			direct(new PlacedFeature(
+				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+					List.of(new BlockColumnConfiguration.Layer(num(1), weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}))),
+					Direction.DOWN, matchBlocks(AIR), true
+				))),
+				List.of()
+			)),
+			CaveSurface.CEILING, num(3, 8), 0.5f, 20, 1, num(3, 8), 0.5f
 		)));
 	}
 }

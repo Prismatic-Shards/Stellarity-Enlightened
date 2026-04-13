@@ -13,6 +13,8 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_OBSIDIAN = id("main_island/obsidian");
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_PATCHES = id("main_island/patches");
 
+	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
+
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);
 	}
