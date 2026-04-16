@@ -2,7 +2,6 @@ package prismatic.shards.stellarity.util;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
@@ -16,11 +15,13 @@ import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConf
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 import java.util.Arrays;
 import java.util.List;
@@ -167,4 +168,26 @@ public interface WorldgenUtil {
 	static BlockPredicate wouldSurvive(BlockState state) {
 		return BlockPredicate.wouldSurvive(state, Vec3i.ZERO);
 	}
+
+	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, BlockState... blocks) {
+		return new NoiseProvider(seed, noise, scale, List.of(blocks));
+	}
+
+	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, Block... blocks) {
+		return new NoiseProvider(seed, noise, scale, Arrays.stream(blocks).map(Block::defaultBlockState).toList());
+	}
+
+	static RandomOffsetPlacement placeRandom(IntProvider xzSpread, IntProvider ySpread) {
+		return RandomOffsetPlacement.of(xzSpread, ySpread);
+	}
+
+	static HasSturdyFacePredicate sturdyFace(Direction direction) {
+		return new HasSturdyFacePredicate(Vec3i.ZERO, direction);
+	}
+
+	static HasSturdyFacePredicate sturdyFace(Vec3i offset, Direction direction) {
+		return new HasSturdyFacePredicate(offset, direction);
+	}
+
+
 }

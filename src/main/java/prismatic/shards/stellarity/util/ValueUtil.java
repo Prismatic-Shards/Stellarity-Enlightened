@@ -2,10 +2,7 @@ package prismatic.shards.stellarity.util;
 
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.IntProvider;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.util.valueproviders.WeightedListInt;
+import net.minecraft.util.valueproviders.*;
 
 import java.util.Arrays;
 
@@ -49,6 +46,14 @@ public interface ValueUtil {
 	static <T> WeightedList<T> weightedEven(T[] values) {
 		//noinspection unchecked
 		return WeightedList.of(Arrays.stream(values).map(value -> new Weighted<>(value, 1)).toArray(Weighted[]::new));
+	}
+
+	static TrapezoidFloat trapezoid(float min, float max, float plateau) {
+		return new TrapezoidFloat(min, max, plateau);
+	}
+
+	static TrapezoidInt trapezoid(int min, int max, int plateau) {
+		return new TrapezoidInt(min, max, plateau);
 	}
 
 }

@@ -3,6 +3,7 @@ package prismatic.shards.stellarity.datagen.dynamic;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -11,17 +12,17 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
 
 import java.util.List;
 
-import static net.minecraft.world.level.block.Blocks.AIR;
-import static net.minecraft.world.level.block.Blocks.DARK_OAK_SAPLING;
+import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
-import static prismatic.shards.stellarity.util.ValueUtil.num;
-import static prismatic.shards.stellarity.util.ValueUtil.weighted;
+import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
+import static prismatic.shards.stellarity.util.ValueUtil.*;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
 
@@ -88,6 +89,16 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CRYSTAL_GRASS), List.of(
 			everyLayer(7), biome()
+		)));
+		context.register(AMETHYST_FOREST_FLOWERS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_FLOWER), List.of(
+			everyLayer(1), biome(), countPlace(40), placeRandom(trapezoid(-5, 5, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(AMETHYST_FOREST_ROOTS, new PlacedFeature(Holder.direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS)))), List.of(
+			countPlace(87), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envPlace(Direction.UP, all(
+				sturdyFace(Direction.DOWN), matchBlocks(ENDER_DIRT, ENDER_GRASS_BLOCK)
+			), matchBlocks(AIR), 32), placeRandom(num(0), num(-1)), biome(), countPlace(24), placeRandom(
+				trapezoid(-5, 5, 0), trapezoid(-5, 5, 0)
+			), blockFilter(all(matchBlocks(AIR), matchBlocks(new Vec3i(0, 1, 0), ENDER_DIRT, ENDER_GRASS_BLOCK)))
 		)));
 	}
 }

@@ -59,6 +59,8 @@ public interface BiomeProvider {
 				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, AMETHYST_FOREST_DIRT)
 				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AMETHYST_FOREST_TREES)
 				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AMETHYST_FOREST_CRYSTAL_GRASS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AMETHYST_FOREST_FLOWERS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AMETHYST_FOREST_ROOTS)
 				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Stellarity.mcKey(Registries.PLACED_FEATURE, "patch_bush"))
 				.build()
 			).build()

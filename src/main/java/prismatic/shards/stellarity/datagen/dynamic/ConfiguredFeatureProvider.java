@@ -8,31 +8,32 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
-import net.minecraft.world.level.levelgen.feature.*;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
-import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSize;
-import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSizeType;
-import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 import prismatic.shards.stellarity.util.Constants;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static net.minecraft.core.Holder.direct;
 import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityConfiguredFeatures.*;
-import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
+import static prismatic.shards.stellarity.registry.StellarityBlocks.ENDER_GRASS_BLOCK;
+import static prismatic.shards.stellarity.registry.StellarityBlocks.ROOTED_ENDER_DIRT;
 import static prismatic.shards.stellarity.tags.StellarityBlockTags.*;
 import static prismatic.shards.stellarity.util.ValueUtil.num;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
@@ -46,11 +47,12 @@ public interface ConfiguredFeatureProvider {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
+		final var UP_AMETHYST_CLUSTER = AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP);
 		final var AMETHYST_CRYSTALS_UP = new BlockState[]{
 			SMALL_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
 			MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
 			LARGE_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-			AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP)
+			UP_AMETHYST_CLUSTER
 		};
 
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
@@ -146,6 +148,13 @@ public interface ConfiguredFeatureProvider {
 			Optional.empty(), threeLayersSize(), List.of(), false, block(Blocks.DIRT)
 		)));
 		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(AMETHYST_CRYSTALS_UP))));
-
+		context.register(AMETHYST_FOREST_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(noiseBlocks(
+			12345, new NormalNoise.NoiseParameters(1, 1, 1), 1f,
+			ALLIUM.defaultBlockState(), UP_AMETHYST_CLUSTER, PINK_TULIP.defaultBlockState(),
+			PEONY.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
+			PINK_TULIP.defaultBlockState(), ALLIUM.defaultBlockState(),
+			LILAC.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
+			ALLIUM.defaultBlockState(), UP_AMETHYST_CLUSTER
+		))));
 	}
 }
