@@ -2,6 +2,7 @@ package prismatic.shards.stellarity.util;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
@@ -9,9 +10,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.blockpredicates.*;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
@@ -22,9 +24,9 @@ import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalInt;
 
-import static prismatic.shards.stellarity.util.ValueUtil.num;
-import static prismatic.shards.stellarity.util.ValueUtil.weighted;
+import static prismatic.shards.stellarity.util.ValueUtil.*;
 
 public interface WorldgenUtil {
 	static SimpleStateProvider block(Block block) {
@@ -103,6 +105,14 @@ public interface WorldgenUtil {
 		return new WeightedStateProvider(weighted(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new), weights));
 	}
 
+	static WeightedStateProvider blocks(Block... states) {
+		return new WeightedStateProvider(weightedEven(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new)));
+	}
+
+	static WeightedStateProvider blocks(BlockState... states) {
+		return new WeightedStateProvider(weightedEven(states));
+	}
+
 	static BlockPredicate all() {
 		return BlockPredicate.alwaysTrue();
 	}
@@ -133,7 +143,28 @@ public interface WorldgenUtil {
 		return everyLayer(num(count));
 	}
 
-	public static SurfaceRules.RuleSource state(final Block state) {
+	static SurfaceRules.RuleSource state(final Block state) {
 		return SurfaceRules.state(state.defaultBlockState());
+	}
+
+	static ThreeLayersFeatureSize threeLayersSize() {
+		return new ThreeLayersFeatureSize(1, 1, 0, 1, 1, OptionalInt.empty());
+	}
+
+	static BlockPredicateFilter blockFilter(BlockPredicate predicate) {
+		return BlockPredicateFilter.forPredicate(predicate);
+	}
+
+
+	static BlockPredicate all(BlockPredicate... predicates) {
+		return BlockPredicate.allOf(List.of(predicates));
+	}
+
+	static BlockPredicate any(BlockPredicate... predicates) {
+		return BlockPredicate.anyOf(List.of(predicates));
+	}
+
+	static BlockPredicate wouldSurvive(BlockState state) {
+		return BlockPredicate.wouldSurvive(state, Vec3i.ZERO);
 	}
 }

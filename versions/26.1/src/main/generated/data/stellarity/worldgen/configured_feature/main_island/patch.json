@@ -51,7 +51,7 @@
                       "data": {
                         "Name": "minecraft:dead_fire_coral",
                         "Properties": {
-                          "waterlogged": "false"
+                          "waterlogged": "true"
                         }
                       },
                       "weight": 1
@@ -60,7 +60,7 @@
                       "data": {
                         "Name": "minecraft:dead_horn_coral",
                         "Properties": {
-                          "waterlogged": "false"
+                          "waterlogged": "true"
                         }
                       },
                       "weight": 1
@@ -69,7 +69,7 @@
                       "data": {
                         "Name": "minecraft:dead_bubble_coral",
                         "Properties": {
-                          "waterlogged": "false"
+                          "waterlogged": "true"
                         }
                       },
                       "weight": 1
@@ -78,7 +78,7 @@
                       "data": {
                         "Name": "minecraft:dead_brain_coral",
                         "Properties": {
-                          "waterlogged": "false"
+                          "waterlogged": "true"
                         }
                       },
                       "weight": 1
@@ -87,7 +87,7 @@
                       "data": {
                         "Name": "minecraft:dead_tube_coral",
                         "Properties": {
-                          "waterlogged": "false"
+                          "waterlogged": "true"
                         }
                       },
                       "weight": 1

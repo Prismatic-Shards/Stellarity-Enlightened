@@ -1,18 +1,16 @@
 package prismatic.shards.stellarity.mixin.entity_rules;
 
-import com.llamalad7.mixinextras.expression.Definition;
-import com.llamalad7.mixinextras.expression.Expression;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.BlockAndLightGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(Animal.class)
 public abstract class AnimalMixin extends AgeableMob {
@@ -20,12 +18,14 @@ public abstract class AnimalMixin extends AgeableMob {
 		super(type, level);
 	}
 
-	@Definition(id = "brightEnoughToSpawn", local = @Local(type = boolean.class, name = "brightEnoughToSpawn"))
-	@Expression("brightEnoughToSpawn")
-	@ModifyExpressionValue(method = "checkAnimalSpawnRules", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private static boolean changeEndLightRequirements(boolean original, @Local(argsOnly = true, name = "level") LevelAccessor level, @Local(argsOnly = true, name = "pos") BlockPos pos) {
-		// end has no light requirement
-		return original || level.getBiome(pos).is(BiomeTags.IS_END);
+	@WrapMethod(method = "isBrightEnoughToSpawn")
+	private static boolean changeEndLightRequirements(BlockAndLightGetter level, BlockPos pos, Operation<Boolean> original) {
+		if (original.call(level, pos)) return true;
+
+		var actualLevel = level instanceof Level level1 ? level1 : level instanceof WorldGenLevel worldGenLevel ? worldGenLevel.getLevel() : null;
+		if (actualLevel != null) return actualLevel.dimensionTypeRegistration().is(BuiltinDimensionTypes.END);
+
+		return false;
 	}
 
 }

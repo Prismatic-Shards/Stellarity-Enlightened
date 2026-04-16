@@ -52,3 +52,10 @@ mutable field net/minecraft/world/level/levelgen/NoiseRouter depth Lnet/minecraf
 mutable field net/minecraft/world/level/levelgen/NoiseRouter ridges Lnet/minecraft/world/level/levelgen/DensityFunction;
 mutable field net/minecraft/world/level/levelgen/NoiseRouter preliminarySurfaceLevel Lnet/minecraft/world/level/levelgen/DensityFunction;
 mutable field net/minecraft/world/level/levelgen/NoiseRouter finalDensity Lnet/minecraft/world/level/levelgen/DensityFunction;
+
+accessible method net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration <init> (Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;Lnet/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer;Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;Lnet/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacer;Ljava/util/Optional;Lnet/minecraft/world/level/levelgen/feature/featuresize/FeatureSize;Ljava/util/List;ZLnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;)V
+
+accessible field net/minecraft/world/level/LocalMobCapCalculator$MobCounts counts Lit/unimi/dsi/fastutil/objects/Object2IntMap;
+accessible field net/minecraft/world/level/NaturalSpawner$SpawnState localMobCapCalculator Lnet/minecraft/world/level/LocalMobCapCalculator;
+accessible method net/minecraft/world/level/LocalMobCapCalculator getPlayersNear (Lnet/minecraft/world/level/ChunkPos;)Ljava/util/List;
+accessible field net/minecraft/world/level/LocalMobCapCalculator playerMobCounts Ljava/util/Map;

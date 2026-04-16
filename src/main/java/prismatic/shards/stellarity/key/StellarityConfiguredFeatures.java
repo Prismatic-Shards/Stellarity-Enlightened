@@ -19,6 +19,7 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_OBSIDIAN = id("amethyst_forest/obsidian");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_DIRT = id("amethyst_forest/dirt");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_TREE = id("amethyst_forest/tree");
+	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CRYSTAL_GRASS = id("amethyst_forest/crystal_grass");
 
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);

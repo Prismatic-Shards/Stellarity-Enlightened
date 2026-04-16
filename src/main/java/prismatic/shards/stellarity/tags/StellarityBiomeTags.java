@@ -7,7 +7,8 @@ import prismatic.shards.stellarity.Stellarity;
 
 public interface StellarityBiomeTags {
 	TagKey<Biome> SNOWY = id("snowy");
-	TagKey<Biome> PLACEHOLDER_DONT_USE = id("placeholder_dont_use");
+	TagKey<Biome> ALL_STELLARITY = id("all");
+	TagKey<Biome> ALL_OUTER = id("all_with_mc");
 
 	static TagKey<Biome> id(String id) {
 		return TagKey.create(Registries.BIOME, Stellarity.id(id));

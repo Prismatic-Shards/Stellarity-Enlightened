@@ -6,6 +6,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -17,6 +18,7 @@ import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
 import java.util.List;
 
 import static net.minecraft.world.level.block.Blocks.AIR;
+import static net.minecraft.world.level.block.Blocks.DARK_OAK_SAPLING;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 import static prismatic.shards.stellarity.util.ValueUtil.num;
 import static prismatic.shards.stellarity.util.ValueUtil.weighted;
@@ -78,6 +80,14 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(AMETHYST_FOREST_DIRT, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_DIRT), List.of(
 			rarity(3), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), countPlace(16), biome()
+		)));
+		context.register(AMETHYST_FOREST_TREES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_TREE), List.of(
+			everyLayer(2), biome(), blockFilter(all(
+				matchBlocks(AIR), wouldSurvive(DARK_OAK_SAPLING.defaultBlockState().setValue(BlockStateProperties.STAGE, 0))
+			))
+		)));
+		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CRYSTAL_GRASS), List.of(
+			everyLayer(7), biome()
 		)));
 	}
 }

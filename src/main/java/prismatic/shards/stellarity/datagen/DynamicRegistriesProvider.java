@@ -17,7 +17,7 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	public void configure(HolderLookup.@NonNull Provider provider, @NonNull Entries entries) {
-		for (var registry : List.of(NOISE, PAINTING_VARIANT, COW_VARIANT, FROG_VARIANT, CAT_VARIANT, WOLF_VARIANT, CHICKEN_VARIANT, CONFIGURED_FEATURE, PLACED_FEATURE, BIOME, VILLAGER_TRADE, TRADE_SET)) {
+		for (var registry : List.of(NOISE, PAINTING_VARIANT, COW_VARIANT, FROG_VARIANT, CAT_VARIANT, WOLF_VARIANT, PIG_VARIANT, CHICKEN_VARIANT, CONFIGURED_FEATURE, PLACED_FEATURE, BIOME, VILLAGER_TRADE, TRADE_SET)) {
 			entries.addAll(provider.lookupOrThrow(registry));
 		}
 	}

@@ -5,6 +5,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
@@ -12,8 +13,13 @@ import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSize;
+import net.minecraft.world.level.levelgen.feature.featuresize.FeatureSizeType;
+import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
@@ -40,6 +46,12 @@ public interface ConfiguredFeatureProvider {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
+		final var AMETHYST_CRYSTALS_UP = new BlockState[]{
+			SMALL_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+			MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+			LARGE_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+			AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP)
+		};
 
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			false, Constants.OBSIDIAN_SPIKES, null
@@ -89,9 +101,8 @@ public interface ConfiguredFeatureProvider {
 						).build())),
 						List.of()
 					), 0.0033f)),
-					direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
-						Arrays.stream(new Block[]{DEAD_FIRE_CORAL, DEAD_HORN_CORAL, DEAD_BUBBLE_CORAL, DEAD_BRAIN_CORAL, DEAD_TUBE_CORAL}).map(block -> block.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false)).toArray(BlockState[]::new),
-						new int[]{1, 1, 1, 1, 1}
+					direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(
+						new Block[]{DEAD_FIRE_CORAL, DEAD_HORN_CORAL, DEAD_BUBBLE_CORAL, DEAD_BRAIN_CORAL, DEAD_TUBE_CORAL}
 					)))), List.of()))
 				))), List.of()
 			)),
@@ -111,14 +122,9 @@ public interface ConfiguredFeatureProvider {
 		)));
 		context.register(AMETHYST_FOREST_AMETHYST_GEODE, new ConfiguredFeature<>(Feature.GEODE, new GeodeConfiguration(
 			new GeodeBlockSettings(block(AIR), block(AMETHYST_BLOCK), block(BUDDING_AMETHYST),
-				weightedBlocks(new Block[]{CALCITE, POLISHED_DIORITE, DIORITE}, new int[]{1, 1, 1}),
-				weightedBlocks(new Block[]{CALCITE, POLISHED_DIORITE, DIORITE}, new int[]{1, 1, 1}),
-				List.of(
-					SMALL_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-					MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-					LARGE_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-					AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP)
-				), WORLDGEN_INVALID_AMETHYST_GEODE, WORLDGEN_INVALID_AMETHYST_GEODE
+				blocks(CALCITE, POLISHED_DIORITE, DIORITE),
+				blocks(CALCITE, POLISHED_DIORITE, DIORITE),
+				List.of(AMETHYST_CRYSTALS_UP), WORLDGEN_INVALID_AMETHYST_GEODE, WORLDGEN_INVALID_AMETHYST_GEODE
 			),
 			new GeodeLayerSettings(1.7, 2.2, 3.2, 3.2),
 			new GeodeCrackSettings(0.65, 1.5, 2),
@@ -133,6 +139,13 @@ public interface ConfiguredFeatureProvider {
 			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT}, new int[]{21, 1}), NOTHING,
 			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
 		)));
+		context.register(AMETHYST_FOREST_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+			block(CHERRY_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y)), new MegaJungleTrunkPlacer(10, 6, 12),
+			weightedBlocks(new BlockState[]{DARK_OAK_LEAVES.defaultBlockState().setValue(BlockStateProperties.DISTANCE, 1).setValue(BlockStateProperties.PERSISTENT, true), GLOWSTONE.defaultBlockState()}, new int[]{64, 1}),
+			new RandomSpreadFoliagePlacer(num(3, 4), num(0, 6), num(10, 13), 256),
+			Optional.empty(), threeLayersSize(), List.of(), false, block(Blocks.DIRT)
+		)));
+		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(AMETHYST_CRYSTALS_UP))));
 
 	}
 }

@@ -7,6 +7,8 @@ import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.util.valueproviders.WeightedListInt;
 
+import java.util.Arrays;
+
 public interface ValueUtil {
 	static ConstantInt num(int value) {
 		return ConstantInt.of(value);
@@ -33,15 +35,20 @@ public interface ValueUtil {
 		return UniformInt.of(min, max);
 	}
 
-	static <T> WeightedList<T> weighted(T[] blockStateProvider, int[] weights) {
-		if (blockStateProvider.length != weights.length)
+	static <T> WeightedList<T> weighted(T[] values, int[] weights) {
+		if (values.length != weights.length)
 			throw new IllegalArgumentException("Blockstates must correspond to weights");
-		@SuppressWarnings("unchecked") Weighted<T>[] weightList = new Weighted[blockStateProvider.length];
-		for (int i = 0; i < blockStateProvider.length; i++) {
-			weightList[i] = new Weighted<>(blockStateProvider[i], weights[i]);
+		@SuppressWarnings("unchecked") Weighted<T>[] weightList = new Weighted[values.length];
+		for (int i = 0; i < values.length; i++) {
+			weightList[i] = new Weighted<>(values[i], weights[i]);
 		}
 
 		return WeightedList.of(weightList);
+	}
+
+	static <T> WeightedList<T> weightedEven(T[] values) {
+		//noinspection unchecked
+		return WeightedList.of(Arrays.stream(values).map(value -> new Weighted<>(value, 1)).toArray(Weighted[]::new));
 	}
 
 }

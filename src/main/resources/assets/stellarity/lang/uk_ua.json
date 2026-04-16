@@ -626,5 +626,7 @@
     "subtitles.stellarity.item.fluffy_hammer.throw": "Fluffy Hammer throws",
     "subtitles.stellarity.item.kaleidoscope.ready": "Kaleidoscope charges",
     "subtitles.stellarity.item.living_flesh.boost": "Living Flesh hurts",
+    "tag.item.stellarity.enchantable/elytra": "Stellarity Elytra Enchantables",
+    "tag.item.stellarity.enchantable/ranged": "Stellarity Ranged Weapon Enchantables",
     "tag.item.stellarity.fishes": "Stellarity Fishes"
 }

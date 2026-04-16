@@ -25,6 +25,7 @@
     "minecraft:visual/water_fog_color": "#000000"
   },
   "carvers": [],
+  "creature_spawn_probability": 0.9999,
   "downfall": 0.4,
   "effects": {
     "foliage_color": "#d494ff",
@@ -49,6 +50,8 @@
     [],
     [],
     [
+      "stellarity:amethyst_forest/trees",
+      "stellarity:amethyst_forest/crystal_grass",
       "minecraft:patch_bush"
     ]
   ],
@@ -61,31 +64,31 @@
       {
         "type": "minecraft:sheep",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 12
       },
       {
         "type": "minecraft:pig",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 10
       },
       {
         "type": "minecraft:chicken",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 10
       },
       {
         "type": "minecraft:cow",
         "maxCount": 4,
-        "minCount": 4,
+        "minCount": 1,
         "weight": 8
       },
       {
         "type": "minecraft:wolf",
-        "maxCount": 8,
-        "minCount": 4,
+        "maxCount": 4,
+        "minCount": 1,
         "weight": 8
       }
     ],
@@ -95,7 +98,7 @@
         "type": "minecraft:enderman",
         "maxCount": 4,
         "minCount": 4,
-        "weight": 33
+        "weight": 8
       }
     ],
     "underground_water_creature": [],
