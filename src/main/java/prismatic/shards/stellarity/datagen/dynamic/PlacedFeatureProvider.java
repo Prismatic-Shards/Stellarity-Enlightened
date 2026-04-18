@@ -100,5 +100,16 @@ public interface PlacedFeatureProvider {
 				trapezoid(-5, 5, 0), trapezoid(-5, 5, 0)
 			), blockFilter(all(matchBlocks(AIR), matchBlocks(new Vec3i(0, 1, 0), ENDER_DIRT, ENDER_GRASS_BLOCK)))
 		)));
+
+		context.register(ASHFALL_DELTAS_WATER_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_WATER_DELTA), List.of(
+			everyLayer(35), biome()
+		)));
+		context.register(ASHFALL_DELTAS_GRASS_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_GRASS_DELTA), List.of(
+			everyLayer(3), biome()
+		)));
+		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_BASALT_COLUMNS), List.of(
+			everyLayer(2), biome()
+		)));
+
 	}
 }

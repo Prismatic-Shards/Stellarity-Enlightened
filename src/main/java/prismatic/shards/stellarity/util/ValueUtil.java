@@ -1,8 +1,13 @@
 package prismatic.shards.stellarity.util;
 
+import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Arrays;
 
@@ -54,6 +59,26 @@ public interface ValueUtil {
 
 	static TrapezoidInt trapezoid(int min, int max, int plateau) {
 		return new TrapezoidInt(min, max, plateau);
+	}
+
+	static <T extends Comparable<T>> InclusiveRange<T> range(T min, T max) {
+		return new InclusiveRange<>(min, max);
+	}
+
+	static <T extends Comparable<T>> InclusiveRange<T> range(T constant) {
+		return new InclusiveRange<>(constant, constant);
+	}
+
+	static BlockState from(Block block) {
+		return block.defaultBlockState();
+	}
+
+	static <T extends Comparable<T>> BlockState property(BlockState state, Property<T> key, T value) {
+		return state.setValue(key, value);
+	}
+
+	static <T extends Comparable<T>> BlockState property(Block block, Property<T> key, T value) {
+		return property(block.defaultBlockState(), key, value);
 	}
 
 }

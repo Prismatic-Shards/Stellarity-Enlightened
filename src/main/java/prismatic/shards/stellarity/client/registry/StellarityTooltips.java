@@ -16,12 +16,12 @@ import prismatic.shards.stellarity.Stellarity;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class StellarityTooltips {
-	public static final Component EMPTY_LINE = Component.literal("");
-	public static final Component STELLARITY = Component.translatable("Stellarity").withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(0xCC26FF));
+public interface StellarityTooltips {
+	Component EMPTY_LINE = Component.literal("");
+	Component STELLARITY = Component.translatable("Stellarity").withStyle(ChatFormatting.ITALIC).withStyle(Style.EMPTY.withColor(0xCC26FF));
 
 
-	public static void init() {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Tooltips");
 
 		ItemTooltipCallback.EVENT.register((

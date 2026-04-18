@@ -3,6 +3,7 @@ package prismatic.shards.stellarity.util;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
+import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,10 +15,7 @@ import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.ThreeLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.*;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -169,12 +167,20 @@ public interface WorldgenUtil {
 		return BlockPredicate.wouldSurvive(state, Vec3i.ZERO);
 	}
 
-	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, BlockState... blocks) {
-		return new NoiseProvider(seed, noise, scale, List.of(blocks));
+	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, BlockState... blockStates) {
+		return new NoiseProvider(seed, noise, scale, List.of(blockStates));
 	}
 
 	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, Block... blocks) {
 		return new NoiseProvider(seed, noise, scale, Arrays.stream(blocks).map(Block::defaultBlockState).toList());
+	}
+
+	static DualNoiseProvider noiseBlocks(InclusiveRange<Integer> variety, NormalNoise.NoiseParameters slowNoiseParameters, float slowScale, long seed, NormalNoise.NoiseParameters parameters, float scale, BlockState... blockStates) {
+		return new DualNoiseProvider(variety, slowNoiseParameters, slowScale, seed, parameters, scale, List.of(blockStates));
+	}
+
+	static DualNoiseProvider noiseBlocks(InclusiveRange<Integer> variety, NormalNoise.NoiseParameters slowNoiseParameters, float slowScale, long seed, NormalNoise.NoiseParameters parameters, float scale, Block... blocks) {
+		return new DualNoiseProvider(variety, slowNoiseParameters, slowScale, seed, parameters, scale, Arrays.stream(blocks).map(Block::defaultBlockState).toList());
 	}
 
 	static RandomOffsetPlacement placeRandom(IntProvider xzSpread, IntProvider ySpread) {

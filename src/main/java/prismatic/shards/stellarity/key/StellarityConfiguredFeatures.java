@@ -22,6 +22,16 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CRYSTAL_GRASS = id("amethyst_forest/crystal_grass");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_FLOWER = id("amethyst_forest/flower");
 
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_WATER_DELTA = id("ashfall_deltas/water_delta");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_GRASS_DELTA = id("ashfall_deltas/grass_delta");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_BASALT_COLUMNS = id("ashfall_deltas/basalt_columns");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_SEAGRASS = id("ashfall_deltas/sea_grass");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_TREE = id("ashfall_deltas/tree");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_VEGETATION = id("ashfall_deltas/vegetation");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_GRASS = id("ashfall_deltas/grass");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_MAGMA = id("ashfall_deltas/magma");
+	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_ASH_PILE = id("ashfall_deltas/ash_pile");
+
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);
 	}

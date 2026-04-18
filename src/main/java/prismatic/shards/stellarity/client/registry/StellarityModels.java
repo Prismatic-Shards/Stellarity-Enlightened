@@ -11,25 +11,23 @@ import java.util.List;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.ENDER_GRASS_BLOCK;
 
 @Environment(EnvType.CLIENT)
-public class StellarityModels {
-
-
-	public static void initModelPredicates() {
+public interface StellarityModels {
+	static void initModelPredicates() {
 
 
 	}
 
-	public static void initBlockColors() {
+	static void initBlockColors() {
 		BlockColorRegistry.register(List.of(BlockTintSources.grassBlock()), ENDER_GRASS_BLOCK);
 
 		Stellarity.LOGGER.info("Initialized Block Model Colors");
 	}
 
-	public static void initItemColors() {
+	static void initItemColors() {
 		Stellarity.LOGGER.info("Initialized Item Model Colors");
 	}
 
-	public static void init() {
+	static void init() {
 		initModelPredicates();
 		initBlockColors();
 		initItemColors();

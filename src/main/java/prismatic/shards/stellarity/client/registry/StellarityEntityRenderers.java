@@ -9,8 +9,8 @@ import prismatic.shards.stellarity.client.registry.entity.renderer.PhantomItemFr
 import prismatic.shards.stellarity.registry.StellarityEntities;
 
 @Environment(EnvType.CLIENT)
-public class StellarityEntityRenderers {
-	public static void init() {
+public interface StellarityEntityRenderers {
+	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Entity Renderers");
 		EntityRenderers.register(StellarityEntities.PHANTOM_ITEM_FRAME, PhantomItemFrameRenderer::new);
 		EntityRenderers.register(StellarityEntities.PRISMATIC_PEARL, ThrownItemRenderer::new);

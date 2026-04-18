@@ -26,6 +26,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 import prismatic.shards.stellarity.util.Constants;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ import static prismatic.shards.stellarity.key.StellarityConfiguredFeatures.*;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.ENDER_GRASS_BLOCK;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.ROOTED_ENDER_DIRT;
 import static prismatic.shards.stellarity.tags.StellarityBlockTags.*;
-import static prismatic.shards.stellarity.util.ValueUtil.num;
+import static prismatic.shards.stellarity.util.ValueUtil.*;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
 public interface ConfiguredFeatureProvider {
@@ -47,11 +48,11 @@ public interface ConfiguredFeatureProvider {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
-		final var UP_AMETHYST_CLUSTER = AMETHYST_CLUSTER.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP);
+		final var UP_AMETHYST_CLUSTER = property(AMETHYST_CLUSTER, BlockStateProperties.FACING, Direction.UP);
 		final var AMETHYST_CRYSTALS_UP = new BlockState[]{
-			SMALL_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-			MEDIUM_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
-			LARGE_AMETHYST_BUD.defaultBlockState().setValue(BlockStateProperties.FACING, Direction.UP),
+			property(SMALL_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
+			property(MEDIUM_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
+			property(LARGE_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
 			UP_AMETHYST_CLUSTER
 		};
 
@@ -104,7 +105,7 @@ public interface ConfiguredFeatureProvider {
 						List.of()
 					), 0.0033f)),
 					direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(
-						new Block[]{DEAD_FIRE_CORAL, DEAD_HORN_CORAL, DEAD_BUBBLE_CORAL, DEAD_BRAIN_CORAL, DEAD_TUBE_CORAL}
+						Arrays.stream(new Block[]{DEAD_FIRE_CORAL, DEAD_HORN_CORAL, DEAD_BUBBLE_CORAL, DEAD_BRAIN_CORAL, DEAD_TUBE_CORAL}).map(c -> property(c, BlockStateProperties.WATERLOGGED, false)).toArray(BlockState[]::new)
 					)))), List.of()))
 				))), List.of()
 			)),
@@ -132,7 +133,7 @@ public interface ConfiguredFeatureProvider {
 			new GeodeCrackSettings(0.65, 1.5, 2),
 			0.2, 0.083, false, num(4, 6), num(3, 4), num(1, 2), -8, 8, 0.05, 1
 		)));
-		context.register(AMETHYST_FOREST_TUFF_ROCK, new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(TUFF.defaultBlockState(), all())));
+		context.register(AMETHYST_FOREST_TUFF_ROCK, new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(from(TUFF), all())));
 		context.register(AMETHYST_FOREST_OBSIDIAN, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, CRYING_OBSIDIAN, OBSIDIAN}, new int[]{20, 1, 5}), NOTHING,
 			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
@@ -142,19 +143,46 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.FLOOR, num(1), 0, 1, 0.1f, num(0, 5), 0.1f
 		)));
 		context.register(AMETHYST_FOREST_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
-			block(CHERRY_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y)), new MegaJungleTrunkPlacer(10, 6, 12),
-			weightedBlocks(new BlockState[]{DARK_OAK_LEAVES.defaultBlockState().setValue(BlockStateProperties.DISTANCE, 1).setValue(BlockStateProperties.PERSISTENT, true), GLOWSTONE.defaultBlockState()}, new int[]{64, 1}),
+			block(property(CHERRY_LOG, BlockStateProperties.AXIS, Direction.Axis.Y)), new MegaJungleTrunkPlacer(10, 6, 12),
+			weightedBlocks(new BlockState[]{property(DARK_OAK_LEAVES, BlockStateProperties.DISTANCE, 1).setValue(BlockStateProperties.PERSISTENT, true), from(GLOWSTONE)}, new int[]{64, 1}),
 			new RandomSpreadFoliagePlacer(num(3, 4), num(0, 6), num(10, 13), 256),
 			Optional.empty(), threeLayersSize(), List.of(), false, block(Blocks.DIRT)
 		)));
 		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(AMETHYST_CRYSTALS_UP))));
 		context.register(AMETHYST_FOREST_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(noiseBlocks(
 			12345, new NormalNoise.NoiseParameters(1, 1, 1), 1f,
-			ALLIUM.defaultBlockState(), UP_AMETHYST_CLUSTER, PINK_TULIP.defaultBlockState(),
-			PEONY.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
-			PINK_TULIP.defaultBlockState(), ALLIUM.defaultBlockState(),
-			LILAC.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
-			ALLIUM.defaultBlockState(), UP_AMETHYST_CLUSTER
+			from(ALLIUM), UP_AMETHYST_CLUSTER, from(PINK_TULIP),
+			property(PEONY, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
+			from(PINK_TULIP), from(ALLIUM),
+			property(LILAC, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),
+			from(ALLIUM), UP_AMETHYST_CLUSTER
 		))));
+
+		context.register(ASHFALL_DELTAS_WATER_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
+			from(WATER), from(MUD), num(8, 10), num(1, 4)
+		)));
+		context.register(ASHFALL_DELTAS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
+			from(ENDER_GRASS_BLOCK), from(MUD), num(8, 10), num(0)
+		)));
+		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+			weightedPlaced(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BASALT_COLUMNS, new ColumnFeatureConfiguration(num(2, 3), num(3, 6)))), List.of()), 0.12f)
+		), NOTHING)));
+		context.register(ASHFALL_DELTAS_SEAGRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
+			new BlockState[]{SEA_PICKLE.defaultBlockState().setValue(BlockStateProperties.PICKLES, 2), from(SEA_PICKLE), from(SEAGRASS)},
+			new int[]{2, 3, 100}
+		))));
+		{
+			final var TUBE = property(DEAD_BUBBLE_CORAL, BlockStateProperties.WATERLOGGED, false);
+			final var FIRE = property(DEAD_FIRE_CORAL, BlockStateProperties.WATERLOGGED, false);
+			final var BUBBLE = property(DEAD_BUBBLE_CORAL, BlockStateProperties.WATERLOGGED, false);
+			final var BUSH = from(DEAD_BUSH);
+			final var ROSE = from(WITHER_ROSE);
+
+			context.register(ASHFALL_DELTAS_VEGETATION, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(noiseBlocks(
+				range(1), new NormalNoise.NoiseParameters(-7, 1, 0, 2), 1, 1234567, new NormalNoise.NoiseParameters(-7, 1, 0, 2), 0.75f,
+				TUBE, BUSH, ROSE, FIRE, BUBBLE, FIRE, ROSE, BUBBLE, BUSH, TUBE, ROSE
+			))));
+		}
+
 	}
 }

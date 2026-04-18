@@ -1,0 +1,6 @@
+{
+	"parent": "stellarity:block/chorus_leaves_template",
+	"textures": {
+		"leaves": "stellarity:block/chorus_flower/side_leaves_2"
+	}
+}

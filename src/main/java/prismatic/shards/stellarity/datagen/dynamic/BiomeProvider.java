@@ -1,12 +1,10 @@
 package prismatic.shards.stellarity.datagen.dynamic;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.attribute.AmbientAdditionsSettings;
-import net.minecraft.world.attribute.AmbientMoodSettings;
-import net.minecraft.world.attribute.AmbientSounds;
-import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.attribute.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -22,6 +20,7 @@ import java.util.List;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static net.minecraft.core.Holder.direct;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.PATCH_BUSH;
 import static prismatic.shards.stellarity.key.StellarityBiomes.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 
@@ -66,7 +65,34 @@ public interface BiomeProvider {
 			).build()
 		);
 
-		for (var biome : List.of(ASHFALL_DELTAS, CRYSTAL_CRAGS, END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+		context.register(ASHFALL_DELTAS, new Biome.BiomeBuilder()
+			.temperature(0.8f).downfall(0.9f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.NONE)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xc4c4cf)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(direct(StellaritySounds.AMBIENT_DARK)),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1250, 3, 2)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0033))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(
+				ParticleTypes.WHITE_ASH, 0.01f
+			)))
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
+			.specialEffects(new BiomeSpecialEffects(
+				0xe5eeff, of(0xc2c2c2), empty(), of(0xdedede), BiomeSpecialEffects.GrassColorModifier.NONE
+			))
+			.mobSpawnSettings(new MobSpawnSettings.Builder().build())
+			.generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_WATER_DELTAS)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_GRASS_DELTAS)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_BASALT_COLUMNS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PATCH_BUSH)
+				.build()
+			).build());
+
+		for (var biome : List.of(CRYSTAL_CRAGS, END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
