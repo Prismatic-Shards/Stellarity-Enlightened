@@ -40,6 +40,8 @@ public interface PlacedFeatureProvider {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = context.lookup(Registries.CONFIGURED_FEATURE);
 		HolderGetter<PlacedFeature> placed = context.lookup(Registries.PLACED_FEATURE);
 
+		final var CHORUS_PLANT = configured.getOrThrow(mcConfig("chorus_plant"));
+
 		context.register(GLOBAL_STALACTITES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_STALACTITES), List.of(
 			countPlace(weighted(14, 100, 28, 50, 56, 25, 80, 1)),
 			inSquare(),
@@ -68,7 +70,7 @@ public interface PlacedFeatureProvider {
 		context.register(MAIN_ISLAND_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PATCH), List.of(
 			biome(), everyLayer(num(2))
 		)));
-		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(configured.getOrThrow(mcConfig("chorus_plant")), List.of(
+		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(
 			biome(), heightmap(Heightmap.Types.MOTION_BLOCKING), countPlace(weighted(0, 9, 1, 1)), inSquare()
 		)));
 
@@ -86,6 +88,14 @@ public interface PlacedFeatureProvider {
 			rarity(3), inSquare(), heightPlace(height(aboveBottom(0), absolute(170))),
 			envScan(Direction.UP, all(matchBlocks(vec(0, 1, 0), END_STONE), matchBlocks(AIR, CAVE_AIR)), all(), 32), biome()
 		)));
+		context.register(END_MIDLANDS_ROCKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_MIDLANDS_ROCK), List.of(
+			everyLayer(1), rarity(7), biome()
+		)));
+		context.register(END_MIDLANDS_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_MIDLANDS_VEGETATION), List.of(
+			everyLayer(8), blockFilter(matchBlocks(vec(0, -1, 0), ENDER_GRASS_BLOCK)), biome(), countPlace(64),
+			placeRandom(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)), blockFilter(all(matchBlocks(AIR), wouldSurvive(SHORT_GRASS)))
+		)));
+		context.register(END_MIDLANDS_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(everyLayer(2), biome())));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
 			countPlace(40), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),

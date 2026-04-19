@@ -47,6 +47,7 @@ public interface StellarityWorldgenModifications {
 			dimensionType.logicalHeight = Math.max(dimensionType.logicalHeight, 384);
 			dimensionType.height = Math.max(dimensionType.height, 384);
 			dimensionType.hasSkyLight = false;
+			dimensionType.ambientLight = 0.35f;
 		});
 
 
@@ -110,6 +111,11 @@ public interface StellarityWorldgenModifications {
 
 		Predicate<BiomeSelectionContext> endMidlands = context -> context.getBiomeHolder().is(Biomes.END_MIDLANDS);
 		BiomeModifications.addFeature(endMidlands, LAKES, END_MIDLANDS_OBSIDIAN_SPIKES);
+		BiomeModifications.addFeature(endMidlands, LAKES, END_MIDLANDS_ROCKS);
+		BiomeModifications.addFeature(endMidlands, STRONGHOLDS, END_MIDLANDS_VEGETATION);
+		BiomeModifications.addFeature(endMidlands, STRONGHOLDS, Stellarity.mcKey(Registries.PLACED_FEATURE, "patch_bush"));
+		BiomeModifications.addFeature(endMidlands, VEGETAL_DECORATION, END_MIDLANDS_CHORUS_PLANTS);
+		BiomeModifications.addFeature(endMidlands, TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS);
 		BiomeModifications.create(Stellarity.id("end_midlands_replacements")).add(ModificationPhase.REPLACEMENTS, endMidlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
 			attributes.set(SKY_COLOR, 0x000000);

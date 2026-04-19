@@ -78,7 +78,7 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.CEILING, num(1), 0, 10, 1, num(3, 6), 0.5f
 		)));
 		context.register(GLOBAL_FOSSIL, new ConfiguredFeature<>(Feature.FOSSIL, new FossilFeatureConfiguration(
-			List.of(Stellarity.id("fossils/phantom")), List.of(Stellarity.id("fossils/phantom_overlay")),
+			List.of(Stellarity.id("fossil/phantom")), List.of(Stellarity.id("fossil/phantom_overlay")),
 			processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_rot")), processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_coal")),
 			2
 		)));
@@ -130,18 +130,22 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.FLOOR, num(1), 0, 10, 1, num(3, 6), 0.5f
 		)));
 
-		context.register(END_MIDLANDS_OBSIDIAN_SPIKE, new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(direct(new PlacedFeature(direct(new ConfiguredFeature<>(
-			Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{14, 1}))
-		)), List.of(
-			countPlace(num(128, 256)), countPlace(num(6, 8)),
-			placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)),
-			placeRandom(normal(0, 0.65f, -1, 1), num(0)), placeRandom(normal(0, 0.65f, -1, 1), num(0)),
-			envScan(Direction.DOWN, not(replaceable()), all(), 32), envScan(Direction.UP, not(replaceable()), all(), 32),
-			blockFilter(not(all(
-				matchBlocks(vec(-1, -4, 0), AIR, WATER), matchBlocks(vec(1, -4, 0), AIR, WATER), matchBlocks(vec(0, -4, 1), AIR, WATER), matchBlocks(vec(0, -4, -1), AIR, WATER)
-			)))))), 1, 3, WORLDGEN_REPLACEABLE_STALACTITE, block(OBSIDIAN), 20, 100,
+		context.register(END_MIDLANDS_OBSIDIAN_SPIKE, new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(direct(
+			new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{14, 1})))), List.of(
+				countPlace(num(128, 256)), countPlace(num(6, 8)),
+				placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)),
+				placeRandom(normal(0, 0.65f, -1, 1), num(0)), placeRandom(normal(0, 0.65f, -1, 1), num(0)),
+				envScan(Direction.DOWN, not(replaceable()), all(), 32), envScan(Direction.UP, replaceable(), all(), 32),
+				blockFilter(not(any(
+					matchBlocks(vec(-1, -4, 0), AIR, WATER), matchBlocks(vec(1, -4, 0), AIR, WATER), matchBlocks(vec(0, -4, 1), AIR, WATER), matchBlocks(vec(0, -4, -1), AIR, WATER)
+				)))))
+		), 1, 3, WORLDGEN_REPLACEABLE_STALACTITE, block(OBSIDIAN), 20, 100,
 			3, 2, block(CRYING_OBSIDIAN), 15, 1, all()
 		)));
+		context.register(END_MIDLANDS_ROCK, new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(from(SMOOTH_BASALT), all())));
+		context.register(END_MIDLANDS_VEGETATION, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new BlockState[]{
+			property(TALL_GRASS, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER), from(SHORT_GRASS)
+		}, new int[]{1, 14}))));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),

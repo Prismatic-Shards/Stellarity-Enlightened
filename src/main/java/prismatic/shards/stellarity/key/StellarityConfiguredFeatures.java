@@ -18,6 +18,8 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> END_BARRENS_HILLS = id("end_barrens/hills");
 
 	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_OBSIDIAN_SPIKE = id("end_midlands/obsidian_spike");
+	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_ROCK = id("end_midlands/rock");
+	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_VEGETATION = id("end_midlands/vegetation");
 
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_AMETHYST_GEODE = id("amethyst_forest/amethyst_geode");
