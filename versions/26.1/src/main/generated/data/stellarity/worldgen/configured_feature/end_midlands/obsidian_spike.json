@@ -1,0 +1,219 @@
+{
+  "type": "minecraft:root_system",
+  "config": {
+    "allowed_tree_position": {
+      "type": "minecraft:true"
+    },
+    "allowed_vertical_water_for_tree": 1,
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "data": {
+                  "Name": "minecraft:obsidian"
+                },
+                "weight": 14
+              },
+              {
+                "data": {
+                  "Name": "minecraft:crying_obsidian"
+                },
+                "weight": 1
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:count",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 256,
+            "min_inclusive": 128
+          }
+        },
+        {
+          "type": "minecraft:count",
+          "count": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 8,
+            "min_inclusive": 6
+          }
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 1,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 1,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 1,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 1,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:uniform",
+            "max_inclusive": 1,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:clamped_normal",
+            "deviation": 0.65,
+            "max_inclusive": 1,
+            "mean": 0.0,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": {
+            "type": "minecraft:clamped_normal",
+            "deviation": 0.65,
+            "max_inclusive": 1,
+            "mean": 0.0,
+            "min_inclusive": -1
+          },
+          "y_spread": 0
+        },
+        {
+          "type": "minecraft:environment_scan",
+          "direction_of_search": "down",
+          "max_steps": 32,
+          "target_condition": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:replaceable"
+            }
+          }
+        },
+        {
+          "type": "minecraft:environment_scan",
+          "direction_of_search": "up",
+          "max_steps": 32,
+          "target_condition": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:replaceable"
+            }
+          }
+        },
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ],
+                  "offset": [
+                    -1,
+                    -4,
+                    0
+                  ]
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ],
+                  "offset": [
+                    1,
+                    -4,
+                    0
+                  ]
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ],
+                  "offset": [
+                    0,
+                    -4,
+                    1
+                  ]
+                },
+                {
+                  "type": "minecraft:matching_blocks",
+                  "blocks": [
+                    "minecraft:air",
+                    "minecraft:water"
+                  ],
+                  "offset": [
+                    0,
+                    -4,
+                    -1
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "hanging_root_placement_attempts": 15,
+    "hanging_root_radius": 3,
+    "hanging_root_state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:crying_obsidian"
+      }
+    },
+    "hanging_roots_vertical_span": 2,
+    "required_vertical_space_for_tree": 1,
+    "root_column_max_height": 100,
+    "root_placement_attempts": 20,
+    "root_radius": 3,
+    "root_replaceable": "#stellarity:worldgen/replaceable/stalactite",
+    "root_state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:obsidian"
+      }
+    }
+  }
+}

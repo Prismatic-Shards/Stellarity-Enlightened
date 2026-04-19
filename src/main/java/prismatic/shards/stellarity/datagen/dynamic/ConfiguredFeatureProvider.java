@@ -2,7 +2,6 @@ package prismatic.shards.stellarity.datagen.dynamic;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.BlockTags;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.levelgen.GeodeLayerSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FossilFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
@@ -56,6 +56,7 @@ public interface ConfiguredFeatureProvider {
 	static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
 		var blocksGetter = context.lookup(Registries.BLOCK);
+		var processors = context.lookup(Registries.PROCESSOR_LIST);
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
 		final var UP_AMETHYST_CLUSTER = property(AMETHYST_CLUSTER, BlockStateProperties.FACING, Direction.UP);
@@ -66,6 +67,22 @@ public interface ConfiguredFeatureProvider {
 			UP_AMETHYST_CLUSTER
 		};
 
+		context.register(GLOBAL_STALACTITES, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_STALACTITE, block(END_STONE),
+			direct(new PlacedFeature(
+				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, blockColumns(
+					Direction.DOWN, matchBlocks(vec(0, 1, 0), AIR), true,
+					columnLayer(num(1, 2), block(END_STONE))
+				))), List.of()
+			)),
+			CaveSurface.CEILING, num(1), 0, 10, 1, num(3, 6), 0.5f
+		)));
+		context.register(GLOBAL_FOSSIL, new ConfiguredFeature<>(Feature.FOSSIL, new FossilFeatureConfiguration(
+			List.of(Stellarity.id("fossils/phantom")), List.of(Stellarity.id("fossils/phantom_overlay")),
+			processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_rot")), processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_coal")),
+			2
+		)));
+
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			false, Constants.OBSIDIAN_SPIKES, null
 		)));
@@ -73,25 +90,6 @@ public interface ConfiguredFeatureProvider {
 			true, List.of(new EndSpikeFeature.EndSpike(
 			0, 0, 16, 60, false
 		)), null
-		)));
-		context.register(GLOBAL_STALACTITES, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
-			WORLDGEN_REPLACEABLE_STALACTITE, block(END_STONE),
-			direct(new PlacedFeature(
-				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, blockColumns(
-					Direction.DOWN, matchBlocks(new Vec3i(0, 1, 0), AIR), true,
-					columnLayer(num(1, 2), block(END_STONE))
-				))), List.of()
-			)),
-			CaveSurface.CEILING, num(1), 0, 10, 1, num(3, 6), 0.5f
-		)));
-		context.register(END_BARRENS_HILLS, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
-			WORLDGEN_REPLACEABLE_STALACTITE, block(END_STONE),
-			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, blockColumns(
-				Direction.UP, matchBlocks(AIR), true,
-				columnLayer(num(0), block(END_STONE)), columnLayer(num(1), block(END_STONE))
-			))), List.of()
-			)),
-			CaveSurface.FLOOR, num(1), 0, 10, 1, num(3, 6), 0.5f
 		)));
 		context.register(MAIN_ISLAND_OBSIDIAN, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{END_STONE, CRYING_OBSIDIAN, OBSIDIAN}, new int[]{5, 1, 3}),
@@ -120,6 +118,29 @@ public interface ConfiguredFeatureProvider {
 				))), List.of()
 			)),
 			CaveSurface.FLOOR, num(3), 0.334f, 10, 0.03f, num(5, 7), 0.556f
+		)));
+
+		context.register(END_BARRENS_HILLS, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_STALACTITE, block(END_STONE),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, blockColumns(
+				Direction.UP, matchBlocks(AIR), true,
+				columnLayer(num(0), block(END_STONE)), columnLayer(num(1), block(END_STONE))
+			))), List.of()
+			)),
+			CaveSurface.FLOOR, num(1), 0, 10, 1, num(3, 6), 0.5f
+		)));
+
+		context.register(END_MIDLANDS_OBSIDIAN_SPIKE, new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(direct(new PlacedFeature(direct(new ConfiguredFeature<>(
+			Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{14, 1}))
+		)), List.of(
+			countPlace(num(128, 256)), countPlace(num(6, 8)),
+			placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)), placeRandom(num(-1, 1), num(0)),
+			placeRandom(normal(0, 0.65f, -1, 1), num(0)), placeRandom(normal(0, 0.65f, -1, 1), num(0)),
+			envScan(Direction.DOWN, not(replaceable()), all(), 32), envScan(Direction.UP, not(replaceable()), all(), 32),
+			blockFilter(not(all(
+				matchBlocks(vec(-1, -4, 0), AIR, WATER), matchBlocks(vec(1, -4, 0), AIR, WATER), matchBlocks(vec(0, -4, 1), AIR, WATER), matchBlocks(vec(0, -4, -1), AIR, WATER)
+			)))))), 1, 3, WORLDGEN_REPLACEABLE_STALACTITE, block(OBSIDIAN), 20, 100,
+			3, 2, block(CRYING_OBSIDIAN), 15, 1, all()
 		)));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(

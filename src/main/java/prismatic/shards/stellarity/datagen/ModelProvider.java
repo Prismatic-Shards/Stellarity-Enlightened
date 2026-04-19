@@ -100,7 +100,6 @@ public class ModelProvider extends FabricModelProvider {
 
 		generateBush(generators, StellarityBlocks.DUSKBERRY_BUSH);
 
-
 		generators.createAxisAlignedPillarBlock(StellarityBlocks.ASHEN_FROGLIGHT, TexturedModel.COLUMN);
 		generators.registerSimpleItemModel(StellarityBlocks.ASHEN_FROGLIGHT, Stellarity.id("block/ashen_froglight"));
 		generators.createGrassLikeBlock(StellarityBlocks.ENDER_GRASS_BLOCK, new MultiVariant(WeightedList.<Variant>builder()

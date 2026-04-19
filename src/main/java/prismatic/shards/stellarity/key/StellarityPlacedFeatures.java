@@ -8,6 +8,7 @@ import prismatic.shards.stellarity.Stellarity;
 public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> NOTHING = id("nothing");
 	ResourceKey<PlacedFeature> GLOBAL_STALACTITES = id("global/stalactites");
+	ResourceKey<PlacedFeature> GLOBAL_FOSSILS = id("global/fossils");
 
 	ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
@@ -15,6 +16,11 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> MAIN_ISLAND_OBSIDIAN = id("main_island/obsidian");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PATCHES = id("main_island/patches");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_CHORUS_PLANTS = id("main_island/chorus_plants");
+
+	ResourceKey<PlacedFeature> END_BARRENS_HILLS = id("end_barrens/hills");
+	ResourceKey<PlacedFeature> END_BARRENS_STALACTITES = id("end_barrens/stalactites");
+
+	ResourceKey<PlacedFeature> END_MIDLANDS_OBSIDIAN_SPIKES = id("end_midlands/obsidian_spikes");
 
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_AMETHYST_GEODES = id("amethyst_forest/amethyst_geodes");

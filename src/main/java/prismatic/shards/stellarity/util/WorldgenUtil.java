@@ -68,7 +68,7 @@ public interface WorldgenUtil {
 		return VerticalAnchor.belowTop(offset);
 	}
 
-	static EnvironmentScanPlacement envPlace(final Direction directionOfSearch, final BlockPredicate targetCondition, final BlockPredicate allowedSearchCondition, final int maxSteps) {
+	static EnvironmentScanPlacement envScan(final Direction directionOfSearch, final BlockPredicate targetCondition, final BlockPredicate allowedSearchCondition, final int maxSteps) {
 		return EnvironmentScanPlacement.scanningFor(directionOfSearch, targetCondition, allowedSearchCondition, maxSteps);
 	}
 
@@ -209,6 +209,22 @@ public interface WorldgenUtil {
 
 	static SurfaceRelativeThresholdFilter surfaceRelative(Heightmap.Types heightmap) {
 		return surfaceRelative(heightmap, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	static VerticalAnchor.Absolute absolute(int y) {
+		return new VerticalAnchor.Absolute(y);
+	}
+
+	static BlockPredicate not(BlockPredicate predicate) {
+		return BlockPredicate.not(predicate);
+	}
+
+	static BlockPredicate replaceable() {
+		return BlockPredicate.replaceable();
+	}
+
+	static BlockPredicate replaceable(Vec3i pos) {
+		return BlockPredicate.replaceable(pos);
 	}
 
 

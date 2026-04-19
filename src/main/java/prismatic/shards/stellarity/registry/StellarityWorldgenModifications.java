@@ -4,9 +4,12 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.dimension.v1.DimensionEvents;
+import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.attribute.BedRule;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.attribute.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
@@ -16,6 +19,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -44,26 +48,28 @@ public interface StellarityWorldgenModifications {
 			dimensionType.height = Math.max(dimensionType.height, 384);
 		});
 
-		Predicate<BiomeSelectionContext> mainIsland = context -> context.getBiomeHolder().is(Biomes.THE_END);
 
-		BiomeModifications.addFeature(mainIsland, RAW_GENERATION, GLOBAL_STALACTITES);
+		BiomeModifications.addFeature(context -> context.getBiomeHolder().is(Biomes.THE_END) || context.getBiomeHolder().is(Biomes.END_BARRENS) || context.getBiomeHolder().is(Biomes.END_HIGHLANDS) || context.getBiomeHolder().is(Biomes.END_MIDLANDS), RAW_GENERATION, GLOBAL_STALACTITES);
+		BiomeModifications.addFeature(context -> context.getBiomeHolder().is(Biomes.END_BARRENS) || context.getBiomeHolder().is(Biomes.END_HIGHLANDS) || context.getBiomeHolder().is(Biomes.END_MIDLANDS), TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS);
+
+
+		Predicate<BiomeSelectionContext> mainIsland = context -> context.getBiomeHolder().is(Biomes.THE_END);
 		BiomeModifications.addFeature(mainIsland, RAW_GENERATION, MAIN_ISLAND_HILLS);
 		BiomeModifications.addFeature(mainIsland, UNDERGROUND_DECORATION, MAIN_ISLAND_OBSIDIAN);
 		BiomeModifications.addFeature(mainIsland, FLUID_SPRINGS, MAIN_ISLAND_PATCHES);
 		BiomeModifications.addFeature(mainIsland, VEGETAL_DECORATION, MAIN_ISLAND_CHORUS_PLANTS);
 		BiomeModifications.addFeature(mainIsland, TOP_LAYER_MODIFICATION, MAIN_ISLAND_RING);
 		BiomeModifications.addFeature(mainIsland, TOP_LAYER_MODIFICATION, MAIN_ISLAND_PORTAL_PLATFORM);
-
-		BiomeModifications.create(Stellarity.id("replacements")).add(ModificationPhase.REPLACEMENTS, context -> context.getBiomeHolder().is(Biomes.THE_END), (selection, modification) -> {
+		BiomeModifications.create(Stellarity.id("the_end_replacements")).add(ModificationPhase.REPLACEMENTS, mainIsland, (_, modification) -> {
 				var attributes = modification.getAttributes();
 				attributes.set(SKY_COLOR, 0x000000);
 				attributes.set(FOG_COLOR, 0x000000);
 				attributes.set(WATER_FOG_COLOR, 0x41307e);
 
 				var effects = modification.getEffects();
+				effects.setWaterColor(0x62529e);
 				effects.setGrassColorOverride(0xdedede);
 				effects.setFoliageColorOverride(0xc2c2c2);
-				effects.setWaterColor(0x62529e);
 
 				var mobSpawns = modification.getMobSpawnSettings();
 				mobSpawns.removeSpawnsOfEntityType(EntityType.ENDERMAN);
@@ -72,5 +78,82 @@ public interface StellarityWorldgenModifications {
 				mobSpawns.addMobCharge(EntityType.ENDERMAN, 0.75, 1);
 			}
 		);
+
+		Predicate<BiomeSelectionContext> endBarrens = context -> context.getBiomeHolder().is(Biomes.END_BARRENS);
+		BiomeModifications.addFeature(endBarrens, RAW_GENERATION, END_BARRENS_STALACTITES);
+		BiomeModifications.create(Stellarity.id("end_barrens_replacements")).add(ModificationPhase.REPLACEMENTS, endBarrens, (_, modification) -> {
+				var attributes = modification.getAttributes();
+				attributes.set(SKY_COLOR, 0x000000);
+				attributes.set(FOG_COLOR, 0x000000);
+				attributes.set(WATER_FOG_COLOR, 0x302947);
+				attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+				attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(Holder.direct(StellaritySounds.AMBIENT_DARK)), Optional.of(new AmbientMoodSettings(
+					SoundEvents.AMBIENT_CAVE, 800, 8, 2
+				)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.005))));
+				attributes.set(AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.ASH, 0.0111f)));
+
+				var effects = modification.getEffects();
+				effects.setWaterColor(0x504771);
+				effects.setGrassColorOverride(0x4c3654);
+				effects.setFoliageColorOverride(0x553a5f);
+
+				var mobSpawns = modification.getMobSpawnSettings();
+				mobSpawns.removeSpawnsOfEntityType(EntityType.ENDERMAN);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4), 30);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_ZOMBIE, 4, 4), 30);
+				mobSpawns.clearMobCharge(EntityType.ENDERMAN);
+				mobSpawns.addMobCharge(EntityType.ENDERMAN, 0.8, 1);
+				mobSpawns.addMobCharge(StellarityEntities.VOIDED_ZOMBIE, 0.68, 1);
+			}
+		);
+
+		Predicate<BiomeSelectionContext> endMidlands = context -> context.getBiomeHolder().is(Biomes.END_MIDLANDS);
+		BiomeModifications.addFeature(endMidlands, LAKES, END_MIDLANDS_OBSIDIAN_SPIKES);
+		BiomeModifications.create(Stellarity.id("end_midlands_replacements")).add(ModificationPhase.REPLACEMENTS, endMidlands, (_, modification) -> {
+			var attributes = modification.getAttributes();
+			attributes.set(SKY_COLOR, 0x000000);
+			attributes.set(FOG_COLOR, 0x000000);
+			attributes.set(WATER_FOG_COLOR, 0x6c519e);
+			attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+			attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(Holder.direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)), Optional.of(new AmbientMoodSettings(
+				SoundEvents.AMBIENT_NETHER_WASTES_MOOD, 900, 8, 2
+			)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.001))));
+
+			var effects = modification.getEffects();
+			effects.setWaterColor(0x6c519e);
+			effects.setGrassColorOverride(0xb063d9);
+			effects.setFoliageColorOverride(0xc161db);
+
+			var mobSpawns = modification.getMobSpawnSettings();
+			mobSpawns.removeSpawnsOfEntityType(EntityType.ENDERMAN);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4), 10);
+			mobSpawns.clearMobCharge(EntityType.ENDERMAN);
+			mobSpawns.addMobCharge(EntityType.ENDERMAN, 0.7, 1);
+		});
+
+		Predicate<BiomeSelectionContext> endHighlands = context -> context.getBiomeHolder().is(Biomes.END_HIGHLANDS);
+		BiomeModifications.addFeature(endHighlands, LAKES, END_MIDLANDS_OBSIDIAN_SPIKES);
+		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
+			var attributes = modification.getAttributes();
+			attributes.set(SKY_COLOR, 0x000000);
+			attributes.set(FOG_COLOR, 0x000000);
+			attributes.set(WATER_FOG_COLOR, 0x5c79f0);
+			attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+			attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(Holder.direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)), Optional.of(new AmbientMoodSettings(
+				SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, 850, 2, 2
+			)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0013))));
+			attributes.set(AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.WHITE_ASH, 0.003f)));
+
+			var effects = modification.getEffects();
+			effects.setWaterColor(0x5c6df0);
+			effects.setGrassColorOverride(0xc153d0);
+			effects.setFoliageColorOverride(0xeed6ee);
+
+			var mobSpawns = modification.getMobSpawnSettings();
+			mobSpawns.removeSpawnsOfEntityType(EntityType.ENDERMAN);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4), 20);
+		});
+
+
 	}
 }

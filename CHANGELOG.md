@@ -136,6 +136,18 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Updated the main island to use Stellarity's worldgen placed features
 
+**[*] End Highlands**
+
+- Updated to use Stellarity's worldgen placed features
+
+**[*] End Midlands**
+
+- Updated to use Stellarity's worldgen placed features
+
+**[*] End Barrens**
+
+- Updated to use Stellarity's worldgen placed features
+
 **[+] Amethyst Forest**
 
 **[+] Ashfall Deltas**

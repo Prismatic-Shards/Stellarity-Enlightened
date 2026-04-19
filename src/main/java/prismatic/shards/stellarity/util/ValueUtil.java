@@ -1,13 +1,14 @@
 package prismatic.shards.stellarity.util;
 
+import net.minecraft.core.Vec3i;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Arrays;
 
@@ -81,5 +82,22 @@ public interface ValueUtil {
 	static <T extends Comparable<T>> BlockState property(Block block, Property<T> key, T value) {
 		return property(block.defaultBlockState(), key, value);
 	}
+
+	static ClampedNormalFloat normalf(float mean, float deviation, float min, float max) {
+		return ClampedNormalFloat.of(mean, deviation, min, max);
+	}
+
+	static ClampedNormalInt normal(float mean, float deviation, int min, int max) {
+		return ClampedNormalInt.of(mean, deviation, min, max);
+	}
+
+	static Vec3i vec(int x, int y, int z) {
+		return new Vec3i(x, y, z);
+	}
+
+	static Vec3 vec(double x, double y, double z) {
+		return new Vec3(x, y, z);
+	}
+
 
 }
