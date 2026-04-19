@@ -29,7 +29,6 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_TREE = id("ashfall_deltas/tree");
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_VEGETATION = id("ashfall_deltas/vegetation");
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_GRASS = id("ashfall_deltas/grass");
-	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_MAGMA = id("ashfall_deltas/magma");
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_ASH_PILE = id("ashfall_deltas/ash_pile");
 
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {

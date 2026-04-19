@@ -59,3 +59,5 @@ accessible field net/minecraft/world/level/LocalMobCapCalculator$MobCounts count
 accessible field net/minecraft/world/level/NaturalSpawner$SpawnState localMobCapCalculator Lnet/minecraft/world/level/LocalMobCapCalculator;
 accessible method net/minecraft/world/level/LocalMobCapCalculator getPlayersNear (Lnet/minecraft/world/level/ChunkPos;)Ljava/util/List;
 accessible field net/minecraft/world/level/LocalMobCapCalculator playerMobCounts Ljava/util/Map;
+
+accessible field net/minecraft/client/model/geom/ModelLayers ALL_MODELS Ljava/util/Set;

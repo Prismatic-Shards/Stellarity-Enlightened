@@ -54,6 +54,7 @@ public interface StellarityCreativeModeTabs {
 	};
 
 
+	@SuppressWarnings("unchecked")
 	Supplier<ItemStack>[] FOOD_ITEMSTACKS = new Supplier[]{
 		AMARENE_POTION,
 		BLIND_RAGE_POTION,
@@ -116,48 +117,65 @@ public interface StellarityCreativeModeTabs {
 		DUSKBERRY
 	};
 
-	ResourceKey<CreativeModeTab> FOOD_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "food");
-	ResourceKey<CreativeModeTab> BLOCKS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "building_blocks");
-	ResourceKey<CreativeModeTab> EQUIPMENT_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "equipment");
-	ResourceKey<CreativeModeTab> INGREDIENTS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "ingredients");
-	ResourceKey<CreativeModeTab> TRINKETS_KEY = Stellarity.key(CREATIVE_MODE_TAB.key(), "trinkets");
+	ItemLike[] SPAWN_EGGS_ITEMS = new ItemLike[]{
+		VOIDED_SILVERFISH_SPAWN_EGG,
+		VOIDED_SKELETON_SPAWN_EGG,
+		VOIDED_SLIME_SPAWN_EGG,
+		VOIDED_ZOMBIE_SPAWN_EGG
+	};
+
+	static ResourceKey<CreativeModeTab> key(String key) {
+		return Stellarity.key(CREATIVE_MODE_TAB.key(), key);
+	}
+
+	static ResourceKey<CreativeModeTab> mc(String key) {
+		return Stellarity.mcKey(CREATIVE_MODE_TAB.key(), key);
+	}
 
 	CreativeModeTab FOOD = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(SUSHI))
-		.title(Component.translatable("itemGroup.stellarity.food"))
+		.title(Component.translatable("item_group.stellarity.food"))
 		.build();
 	CreativeModeTab BLOCKS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(ENDER_GRASS_BLOCK))
-		.title(Component.translatable("itemGroup.stellarity.blocks"))
+		.title(Component.translatable("item_group.stellarity.blocks"))
 		.build();
 	CreativeModeTab EQUIPMENT = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(CALL_OF_THE_VOID))
-		.title(Component.translatable("itemGroup.stellarity.equipment"))
+		.title(Component.translatable("item_group.stellarity.equipment"))
 		.build();
 
 	CreativeModeTab INGREDIENTS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(ENDERITE_SHARD))
-		.title(Component.translatable("itemGroup.stellarity.ingredients"))
+		.title(Component.translatable("item_group.stellarity.ingredients"))
 		.build();
 
 	CreativeModeTab TRINKETS = FabricCreativeModeTab.builder()
 		.icon(() -> new ItemStack(PRISMATIC_PEARL))
-		.title(Component.translatable("itemGroup.stellarity.trinkets"))
+		.title(Component.translatable("item_group.stellarity.trinkets"))
+		.build();
+
+	CreativeModeTab SPAWN_EGGS = FabricCreativeModeTab.builder()
+		.icon(() -> new ItemStack(VOIDED_ZOMBIE_SPAWN_EGG))
+		.title(Component.translatable("item_group.stellarity.spawn_eggs"))
 		.build();
 
 	static void init() {
-		register(FOOD_KEY, FOOD, FOOD_ITEMS, FOOD_ITEMSTACKS);
-		register(BLOCKS_KEY, BLOCKS, BLOCKS_ITEMS);
-		register(EQUIPMENT_KEY, EQUIPMENT, EQUIPMENT_ITEMS);
-		register(INGREDIENTS_KEY, INGREDIENTS, INGREDIENT_ITEMS);
-		register(TRINKETS_KEY, TRINKETS, TRINKET_ITEMS);
+		register(key("food"), FOOD, FOOD_ITEMS, FOOD_ITEMSTACKS);
+		register(key("blocks"), BLOCKS, BLOCKS_ITEMS);
+		register(key("equipment"), EQUIPMENT, EQUIPMENT_ITEMS);
+		register(key("ingredients"), INGREDIENTS, INGREDIENT_ITEMS);
+		register(key("trinkets"), TRINKETS, TRINKET_ITEMS);
+		register(key("spawn_eggs"), SPAWN_EGGS, SPAWN_EGGS_ITEMS);
+		register(mc("spawn_eggs"), SPAWN_EGGS, SPAWN_EGGS_ITEMS);
 
 		Stellarity.LOGGER.info("Registering Stellarity Creative Mode Tabs");
 
 	}
 
 	static void register(ResourceKey<CreativeModeTab> key, CreativeModeTab tab, ItemLike[] items, Supplier<ItemStack>[] stacks) {
-		var creativeModeTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
+		if (key.identifier().getNamespace().equals(Stellarity.MOD_ID))
+			Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key, tab);
 
 		CreativeModeTabEvents.modifyOutputEvent(key).register(itemGroup -> {
 			for (ItemLike item : items) {

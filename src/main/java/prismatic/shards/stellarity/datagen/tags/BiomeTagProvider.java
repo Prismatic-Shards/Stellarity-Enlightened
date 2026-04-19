@@ -30,5 +30,6 @@ public class BiomeTagProvider extends FabricTagsProvider<Biome> {
 		builder(ALL_OUTER).forceAddTag(ALL_STELLARITY).add(END_BARRENS, END_HIGHLANDS, END_MIDLANDS, SMALL_END_ISLANDS);
 		builder(ConventionalBiomeTags.IS_END).forceAddTag(ALL_STELLARITY);
 		builder(BiomeTags.IS_END).forceAddTag(ALL_STELLARITY);
+		builder(BiomeTags.ALLOWS_TROPICAL_FISH_SPAWNS_AT_ANY_HEIGHT).forceAddTag(ALL_STELLARITY);
 	}
 }

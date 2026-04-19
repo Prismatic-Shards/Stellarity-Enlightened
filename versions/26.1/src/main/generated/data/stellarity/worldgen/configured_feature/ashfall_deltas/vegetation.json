@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:dual_noise_provider",
+      "noise": {
+        "amplitudes": [
+          1.0,
+          0.0,
+          2.0
+        ],
+        "firstOctave": -7
+      },
+      "scale": 0.75,
+      "seed": 1234567,
+      "slow_noise": {
+        "amplitudes": [
+          1.0,
+          0.0,
+          2.0
+        ],
+        "firstOctave": -7
+      },
+      "slow_scale": 1.0,
+      "states": [
+        {
+          "Name": "minecraft:dead_bubble_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:dead_bush"
+        },
+        {
+          "Name": "minecraft:wither_rose"
+        },
+        {
+          "Name": "minecraft:dead_fire_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:dead_bubble_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:dead_fire_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:wither_rose"
+        },
+        {
+          "Name": "minecraft:dead_bubble_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:dead_bush"
+        },
+        {
+          "Name": "minecraft:dead_bubble_coral",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        },
+        {
+          "Name": "minecraft:wither_rose"
+        }
+      ],
+      "variety": 1
+    }
+  }
+}

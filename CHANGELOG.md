@@ -25,6 +25,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Ender Egg**
 
+**[+] Voided Zombie Spawn Egg**
+
+**[+] Voided Slime Spawn Egg**
+
+**[+] Voided Skeleton Spawn Egg**
+
+**[+] Voided Silverfish Spawn Egg**
+
 ## Blocks
 
 **[*] Altar of the Accursed**
@@ -94,6 +102,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Added Ender Wolf variant
 
+**[+] Voided Zombie**
+
+**[+] Voided Slime**
+
+**[+] Voided Skeleton**
+
+**[+] Voided Silverfish**
+
 ## Mechanics
 
 **[*] Item Tooltips**
@@ -120,7 +136,9 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Updated the main island to use Stellarity's worldgen placed features
 
-**[+] All existing Stellarity biomes**
+**[+] Amethyst Forest**
+
+**[+] Ashfall Deltas**
 
 ## Structures
 

@@ -9,9 +9,11 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
@@ -27,7 +29,7 @@ import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
 
 public interface PlacedFeatureProvider {
-	static ResourceKey<ConfiguredFeature<?, ?>> mcPlaced(String id) {
+	static ResourceKey<ConfiguredFeature<?, ?>> mcConfig(String id) {
 		return Stellarity.mcKey(Registries.CONFIGURED_FEATURE, id);
 	}
 
@@ -37,6 +39,7 @@ public interface PlacedFeatureProvider {
 
 	static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configured = context.lookup(Registries.CONFIGURED_FEATURE);
+		HolderGetter<PlacedFeature> placed = context.lookup(Registries.PLACED_FEATURE);
 
 		context.register(MAIN_ISLAND_RING, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_RING), List.of(biome())));
 		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PORTAL_PLATFORM), List.of(biome())));
@@ -62,7 +65,7 @@ public interface PlacedFeatureProvider {
 		context.register(MAIN_ISLAND_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PATCH), List.of(
 			biome(), everyLayer(num(2))
 		)));
-		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(configured.getOrThrow(mcPlaced("chorus_plant")), List.of(
+		context.register(MAIN_ISLAND_CHORUS_PLANTS, new PlacedFeature(configured.getOrThrow(mcConfig("chorus_plant")), List.of(
 			biome(), heightmap(Heightmap.Types.MOTION_BLOCKING), countPlace(weighted(0, 9, 1, 1)), inSquare()
 		)));
 
@@ -109,6 +112,25 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_BASALT_COLUMNS), List.of(
 			everyLayer(2), biome()
+		)));
+		context.register(ASHFALL_DELTAS_SEAGRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_SEAGRASS), List.of(
+			everyLayer(150), blockFilter(all(matchBlocks(new Vec3i(0, -1, 0), BASALT, STONE, BLACKSTONE), matchBlocks(WATER), matchBlocks(new Vec3i(0, 1, 0), AIR, WATER))), biome()
+		)));
+		context.register(ASHFALL_DELTAS_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_VEGETATION), List.of(
+			everyLayer(30), biome(), countPlace(2), placeRandom(trapezoid(-5, 5, 0), trapezoid(-3, 3, 0)), blockFilter(BlockPredicate.allOf(matchBlocks(AIR), matchBlocks(new Vec3i(0, -1, 0), ENDER_GRASS_BLOCK, MUD)))
+		)));
+		context.register(ASHFALL_DELTAS_TREES, new PlacedFeature(Holder.direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+			List.of(weightedPlaced(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_TREE), List.of()), 0.8f)),
+			placed.getOrThrow(NOTHING)
+		))), List.of(everyLayer(2), biome(), rarity(5))));
+		context.register(ASHFALL_DELTAS_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_GRASS), List.of(
+			everyLayer(30), biome(), countPlace(20), placeRandom(trapezoid(-5, 5, 0), trapezoid(-3, 3, 0)), blockFilter(all(matchBlocks(AIR), wouldSurvive(SHORT_GRASS)))
+		)));
+		context.register(ASHFALL_DELTAS_MAGMA, new PlacedFeature(configured.getOrThrow(mcConfig("underwater_magma")), List.of(
+			countPlace(200), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), surfaceRelative(Heightmap.Types.OCEAN_FLOOR), biome()
+		)));
+		context.register(ASHFALL_DELTAS_ASH_PILES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_ASH_PILE), List.of(
+			countPlace(25), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envPlace(Direction.DOWN, solid(), matchBlocks(AIR), 12), biome()
 		)));
 
 	}

@@ -132,6 +132,10 @@ public interface WorldgenUtil {
 		return new TwoLayersFeatureSize(1, 0, 1);
 	}
 
+	static TwoLayersFeatureSize twoLayersSize(int limit, int lowerSize, int upperSize) {
+		return new TwoLayersFeatureSize(limit, lowerSize, upperSize);
+	}
+
 	@SuppressWarnings("deprecation")
 	static CountOnEveryLayerPlacement everyLayer(IntProvider provider) {
 		return CountOnEveryLayerPlacement.of(provider);
@@ -167,6 +171,10 @@ public interface WorldgenUtil {
 		return BlockPredicate.wouldSurvive(state, Vec3i.ZERO);
 	}
 
+	static BlockPredicate wouldSurvive(Block block) {
+		return wouldSurvive(block.defaultBlockState());
+	}
+
 	static NoiseProvider noiseBlocks(int seed, NormalNoise.NoiseParameters noise, float scale, BlockState... blockStates) {
 		return new NoiseProvider(seed, noise, scale, List.of(blockStates));
 	}
@@ -193,6 +201,14 @@ public interface WorldgenUtil {
 
 	static HasSturdyFacePredicate sturdyFace(Vec3i offset, Direction direction) {
 		return new HasSturdyFacePredicate(offset, direction);
+	}
+
+	static SurfaceRelativeThresholdFilter surfaceRelative(Heightmap.Types heightmap, int min, int max) {
+		return SurfaceRelativeThresholdFilter.of(heightmap, min, max);
+	}
+
+	static SurfaceRelativeThresholdFilter surfaceRelative(Heightmap.Types heightmap) {
+		return surfaceRelative(heightmap, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 

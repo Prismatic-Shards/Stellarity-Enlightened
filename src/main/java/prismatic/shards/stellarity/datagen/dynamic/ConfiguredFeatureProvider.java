@@ -1,9 +1,11 @@
 package prismatic.shards.stellarity.datagen.dynamic;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,12 +19,19 @@ import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
+import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacement;
+import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
+import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 import prismatic.shards.stellarity.util.Constants;
 
@@ -46,6 +55,7 @@ public interface ConfiguredFeatureProvider {
 
 	static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
+		var blocksGetter = context.lookup(Registries.BLOCK);
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
 		final var UP_AMETHYST_CLUSTER = property(AMETHYST_CLUSTER, BlockStateProperties.FACING, Direction.UP);
@@ -183,6 +193,19 @@ public interface ConfiguredFeatureProvider {
 				TUBE, BUSH, ROSE, FIRE, BUBBLE, FIRE, ROSE, BUBBLE, BUSH, TUBE, ROSE
 			))));
 		}
-
+		context.register(ASHFALL_DELTAS_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+			block(ACACIA_WOOD), new CherryTrunkPlacer(5, 3, 6, weighted(1, 1, 2, 1, 3, 1), num(3, 5), num(-4, -3), num(-1, 0)),
+			block(property(OAK_LEAVES, BlockStateProperties.WATERLOGGED, false)), new CherryFoliagePlacer(num(4), num(0), num(5), 0.25f, 0.25f, 0.16666667f, 0.33333334f),
+			Optional.of(new MangroveRootPlacer(num(0, 5), block(ACACIA_WOOD), Optional.of(new AboveRootPlacement(block(AIR), 0.5f)), new MangroveRootPlacement(
+				blocksGetter.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH),
+				HolderSet.direct(
+					blocksGetter.getOrThrow(Stellarity.mcKey(Registries.BLOCK, "mud")),
+					blocksGetter.getOrThrow(Stellarity.mcKey(Registries.BLOCK, "muddy_mangrove_roots"))
+				), block(ACACIA_WOOD), 8, 15, 0.2f
+			))),
+			twoLayersSize(3, 0, 2), List.of(new LeaveVineDecorator(0.125f)), true, block(ACACIA_WOOD)
+		)));
+		context.register(ASHFALL_DELTAS_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{SHORT_GRASS, FERN}, new int[]{16, 1}))));
+		context.register(ASHFALL_DELTAS_ASH_PILE, new ConfiguredFeature<>(Feature.BLOCK_PILE, new BlockPileConfiguration(block(LIGHT_GRAY_CONCRETE_POWDER))));
 	}
 }

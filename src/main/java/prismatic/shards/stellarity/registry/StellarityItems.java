@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
@@ -44,35 +45,35 @@ public interface StellarityItems {
 	Item CALL_OF_THE_VOID = register("call_of_the_void", CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
 	Item FISHER_OF_VOIDS = register("fisher_of_voids", FisherOfVoids::new, FisherOfVoids.PROPERTIES);
 
-	Item SUSHI = register("sushi", Item::new, basicFood(4, 2.4f));
+	Item SUSHI = register("sushi", basicFood(4, 2.4f));
 	Item GOLDEN_CHORUS_FRUIT = register("golden_chorus_fruit", GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
 	Item FRIED_CHORUS_FRUIT = register("fried_chorus_fruit", FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
-	Item FROZEN_CARPACCIO = register("frozen_carpaccio", Item::new, basicFood(7, 8.4f));
+	Item FROZEN_CARPACCIO = register("frozen_carpaccio", basicFood(7, 8.4f));
 	Item ENDERMAN_FLESH = register("enderman_flesh", EndermanFlesh::new, EndermanFlesh.PROPERTIES);
 	Item CRYSTAL_HEARTFISH = register("crystal_heartfish", CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
-	Item GRILLED_ENDERMAN_FLESH = register("grilled_enderman_flesh", Item::new, basicFood(6, 9.6f));
-	Item FLAREFIN_KOI = register("flarefin_koi", Item::new, foodProperties(4, 0.8f, new EffectChance(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20))));
-	Item AMETHYST_BUDFISH = register("amethyst_budfish", Item::new, new Item.Properties());
-	Item CRIMSON_TIGERFISH = register("crimson_tigerfish", Item::new, foodProperties(1, 0.2f,
+	Item GRILLED_ENDERMAN_FLESH = register("grilled_enderman_flesh", basicFood(6, 9.6f));
+	Item FLAREFIN_KOI = register("flarefin_koi", foodProperties(4, 0.8f, new EffectChance(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20))));
+	Item AMETHYST_BUDFISH = register("amethyst_budfish");
+	Item CRIMSON_TIGERFISH = register("crimson_tigerfish", foodProperties(1, 0.2f,
 		new EffectChance(new MobEffectInstance(MobEffects.HUNGER, 30 * 20)),
 		new EffectChance(new MobEffectInstance(MobEffects.POISON, 20 * 20))));
-	Item ENDER_KOI = register("ender_koi", Item::new, basicFood(1, 0.6f));
-	Item FLESHY_PIRANHA = register("fleshy_piranha", Item::new, foodProperties(1, 0.2f,
+	Item ENDER_KOI = register("ender_koi", basicFood(1, 0.6f));
+	Item FLESHY_PIRANHA = register("fleshy_piranha", foodProperties(1, 0.2f,
 		new EffectChance(new MobEffectInstance(MobEffects.HUNGER, 30 * 20)),
 		new EffectChance(new MobEffectInstance(MobEffects.POISON, 20 * 20)))
 	);
-	Item BUBBLEFISH = register("bubblefish", Item::new, foodProperties(0, 0, new EffectChance(new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20))));
-	Item PRISMITE = register("prismite", Item::new, foodProperties(3, 1.8f, new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20))));
+	Item BUBBLEFISH = register("bubblefish", foodProperties(0, 0, new EffectChance(new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20))));
+	Item PRISMITE = register("prismite", foodProperties(3, 1.8f, new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20))));
 	Item OVERGROWN_COD = register("overgrown_cod", Item::new,
 		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2))));
 	Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
-	Item PRISMATIC_SUSHI = register("prismatic_sushi", Item::new, foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
+	Item PRISMATIC_SUSHI = register("prismatic_sushi", foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
 	Item SHEPHERDS_PIE = register("shepherds_pie", Item::new,
 		foodProperties(20, 20f, true,
 			new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2)),
 			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1))
 		));
-	Item CHORUS_PIE = register("chorus_pie", Item::new, foodProperties(8, 4.8f));
+	Item CHORUS_PIE = register("chorus_pie", foodProperties(8, 4.8f));
 	Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
 	Item PHO = register("pho",
 		Item::new,
@@ -84,8 +85,8 @@ public interface StellarityItems {
 			.usingConvertsTo(Items.BOWL));
 
 	Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
-	Item CHORUS_PLATING = register("chorus_plating", Item::new, new Item.Properties());
-	Item ENDERITE_SHARD = register("enderite_shard", Item::new, new Item.Properties());
+	Item CHORUS_PLATING = register("chorus_plating");
+	Item ENDERITE_SHARD = register("enderite_shard");
 	Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register("enderite_upgrade_smithing_template", (properties) -> new SmithingTemplateItem(
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.applies_to").withStyle(ChatFormatting.BLUE),
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.hallowed_ingot")).withStyle(ChatFormatting.BLUE),
@@ -103,12 +104,12 @@ public interface StellarityItems {
 		}
 	}, new Item.Properties());
 
-	Item HALLOWED_INGOT = register("hallowed_ingot", Item::new, new Item.Properties());
-	Item SAND_RUNE = register("sand_rune", Item::new, new Item.Properties());
-	Item STARLIGHT_SOOT = register("starlight_soot", Item::new, new Item.Properties());
-	Item GILDED_PURPUR_KEY = register("gilded_purpur_key", Item::new, new Item.Properties());
-	Item PURPUR_KEY = register("purpur_key", Item::new, new Item.Properties());
-	Item WINGED_KEY = register("winged_key", Item::new, new Item.Properties());
+	Item HALLOWED_INGOT = register("hallowed_ingot");
+	Item SAND_RUNE = register("sand_rune");
+	Item STARLIGHT_SOOT = register("starlight_soot");
+	Item GILDED_PURPUR_KEY = register("gilded_purpur_key");
+	Item PURPUR_KEY = register("purpur_key");
+	Item WINGED_KEY = register("winged_key");
 
 	Item PRISMATIC_PEARL = register("prismatic_pearl", PrismaticPearlItem::new, PrismaticPearlItem.PROPERTIES);
 	Item ENDONOMICON = register("endonomicon", Endonomicon::new, Endonomicon.PROPERTIES);
@@ -173,12 +174,17 @@ public interface StellarityItems {
 	Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
 	Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.PROPERTIES);
 
-	Item SHULKER_HELMET = register("shulker_helmet", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.HELMET).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.HELMET)));
-	Item SHULKER_CHESTPLATE = register("shulker_chestplate", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
-	Item SHULKER_LEGGINGS = register("shulker_leggings", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
-	Item SHULKER_BOOTS = register("shulker_boots", Item::new, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
+	Item SHULKER_HELMET = register("shulker_helmet", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.HELMET).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.HELMET)));
+	Item SHULKER_CHESTPLATE = register("shulker_chestplate", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
+	Item SHULKER_LEGGINGS = register("shulker_leggings", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
+	Item SHULKER_BOOTS = register("shulker_boots", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
 
 	Item ENDER_EGG = register("ender_egg", EggItem::new, new Item.Properties().stacksTo(16).delayedHolderComponent(DataComponents.CHICKEN_VARIANT, StellarityAnimalVariants.ENDER_CHICKEN));
+
+	Item VOIDED_ZOMBIE_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_ZOMBIE);
+	Item VOIDED_SKELETON_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SKELETON);
+	Item VOIDED_SILVERFISH_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SILVERFISH);
+	Item VOIDED_SLIME_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SLIME);
 
 
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
@@ -209,8 +215,20 @@ public interface StellarityItems {
 		return item;
 	}
 
+	private static Item registerSpawnEgg(final EntityType<?> type) {
+		return register(EntityType.getKey(type).withSuffix("_spawn_egg").getPath(), SpawnEggItem::new, (new Item.Properties()).spawnEgg(type));
+	}
+
 	static Item register(String name, Function<Item.Properties, Item> itemFactory) {
 		return register(name, itemFactory, new Item.Properties());
+	}
+
+	static Item register(String name) {
+		return register(name, Item::new);
+	}
+
+	static Item register(String name, Item.Properties properties) {
+		return register(name, Item::new, properties);
 	}
 
 	static Item register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {

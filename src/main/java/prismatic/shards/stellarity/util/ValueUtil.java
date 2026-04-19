@@ -48,7 +48,8 @@ public interface ValueUtil {
 		return WeightedList.of(weightList);
 	}
 
-	static <T> WeightedList<T> weightedEven(T[] values) {
+	@SafeVarargs
+	static <T> WeightedList<T> weightedEven(T... values) {
 		//noinspection unchecked
 		return WeightedList.of(Arrays.stream(values).map(value -> new Weighted<>(value, 1)).toArray(Weighted[]::new));
 	}

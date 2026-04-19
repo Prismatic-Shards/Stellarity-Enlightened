@@ -67,7 +67,11 @@ public class ModelProvider extends FabricModelProvider {
 		ROYAL_JELLY_II,
 		SATCHEL_OF_VOIDS,
 		DUSKBERRY,
-		ENDER_EGG
+		ENDER_EGG,
+		VOIDED_SILVERFISH_SPAWN_EGG,
+		VOIDED_ZOMBIE_SPAWN_EGG,
+		VOIDED_SKELETON_SPAWN_EGG,
+		VOIDED_SLIME_SPAWN_EGG
 	};
 
 	public void generateBush(BlockModelGenerators generators, Block block) {

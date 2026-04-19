@@ -45,6 +45,21 @@
       "stellarity:ashfall_deltas/water_deltas",
       "stellarity:ashfall_deltas/grass_deltas",
       "stellarity:ashfall_deltas/basalt_columns"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "stellarity:ashfall_deltas/seagrass",
+      "stellarity:ashfall_deltas/trees",
+      "stellarity:ashfall_deltas/vegetation",
+      "minecraft:patch_bush"
+    ],
+    [
+      "stellarity:ashfall_deltas/magma",
+      "stellarity:ashfall_deltas/ash_piles"
     ]
   ],
   "has_precipitation": false,
@@ -52,11 +67,32 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:frog",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 100
+      }
+    ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 2,
+        "minCount": 2,
+        "weight": 11
+      }
+    ],
     "underground_water_creature": [],
-    "water_ambient": [],
+    "water_ambient": [
+      {
+        "type": "minecraft:tropical_fish",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 100
+      }
+    ],
     "water_creature": []
   },
   "temperature": 0.8

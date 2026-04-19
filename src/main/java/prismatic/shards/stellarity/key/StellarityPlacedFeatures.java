@@ -29,6 +29,12 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_WATER_DELTAS = id("ashfall_deltas/water_deltas");
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_GRASS_DELTAS = id("ashfall_deltas/grass_deltas");
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_BASALT_COLUMNS = id("ashfall_deltas/basalt_columns");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_SEAGRASS = id("ashfall_deltas/seagrass");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_VEGETATION = id("ashfall_deltas/vegetation");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_TREES = id("ashfall_deltas/trees");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_GRASS = id("ashfall_deltas/grass");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_MAGMA = id("ashfall_deltas/magma");
+	ResourceKey<PlacedFeature> ASHFALL_DELTAS_ASH_PILES = id("ashfall_deltas/ash_piles");
 
 	static ResourceKey<PlacedFeature> id(String name) {
 		return Stellarity.key(Registries.PLACED_FEATURE, name);

@@ -82,13 +82,22 @@ public interface BiomeProvider {
 			.specialEffects(new BiomeSpecialEffects(
 				0xe5eeff, of(0xc2c2c2), empty(), of(0xdedede), BiomeSpecialEffects.GrassColorModifier.NONE
 			))
-			.mobSpawnSettings(new MobSpawnSettings.Builder().build())
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.MONSTER, 11, new MobSpawnSettings.SpawnerData(EntityType.SKELETON, 2, 2))
+				.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityType.FROG, 1, 4))
+				.addSpawn(MobCategory.WATER_AMBIENT, 100, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 1, 2))
+				.build())
 			.generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
 				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
 				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_WATER_DELTAS)
 				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_GRASS_DELTAS)
 				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, ASHFALL_DELTAS_BASALT_COLUMNS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ASHFALL_DELTAS_SEAGRASS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ASHFALL_DELTAS_TREES)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ASHFALL_DELTAS_VEGETATION)
 				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PATCH_BUSH)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ASHFALL_DELTAS_MAGMA)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, ASHFALL_DELTAS_ASH_PILES)
 				.build()
 			).build());
 
