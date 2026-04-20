@@ -35,6 +35,8 @@ mutable field net/minecraft/world/level/dimension/DimensionType logicalHeight I
 mutable field net/minecraft/world/level/dimension/DimensionType hasSkyLight Z
 accessible field net/minecraft/world/level/dimension/DimensionType ambientLight F
 mutable field net/minecraft/world/level/dimension/DimensionType ambientLight F
+accessible field net/minecraft/world/level/dimension/DimensionType$MonsterSettings monsterSpawnBlockLightLimit I
+mutable field net/minecraft/world/level/dimension/DimensionType$MonsterSettings monsterSpawnBlockLightLimit I
 
 accessible field net/minecraft/world/level/levelgen/NoiseSettings height I
 mutable field net/minecraft/world/level/levelgen/NoiseSettings height I

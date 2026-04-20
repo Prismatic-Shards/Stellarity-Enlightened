@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.dimension.v1.DimensionEvents;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -46,8 +47,8 @@ public interface StellarityWorldgenModifications {
 			DimensionType dimensionType = dimension.value();
 			dimensionType.logicalHeight = Math.max(dimensionType.logicalHeight, 384);
 			dimensionType.height = Math.max(dimensionType.height, 384);
-			dimensionType.hasSkyLight = false;
-			dimensionType.ambientLight = 0.35f;
+			dimensionType.monsterSettings().monsterSpawnBlockLightLimit = 15;
+
 		});
 
 
