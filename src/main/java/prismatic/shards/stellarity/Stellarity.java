@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.MixinEnvironment;
-import prismatic.shards.stellarity.key.StellarityBiomes;
 import prismatic.shards.stellarity.registry.*;
 import prismatic.shards.stellarity.registry.recipe.StellarityBiolithBiomes;
 
@@ -47,6 +46,7 @@ public class Stellarity implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		StellarityRegistryEntries.init();
+		StellarityFeatures.init();
 		StellarityWorldgenModifications.init();
 		StellarityBiolithBiomes.init();
 		StellarityDataAttachments.init();
@@ -59,7 +59,7 @@ public class Stellarity implements ModInitializer {
 		StellarityCreativeModeTabs.init();
 		StellarityEntities.init();
 		StellarityBlockEntityTypes.init();
-		StellarityLootTables.init();
+		StellarityLootTableModifications.init();
 		StellarityCriteriaTriggers.init();
 		StellarityRecipeTypes.init();
 		StellarityRecipeSerializers.init();

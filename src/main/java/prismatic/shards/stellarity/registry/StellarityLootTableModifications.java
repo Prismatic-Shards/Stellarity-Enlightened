@@ -3,18 +3,14 @@ package prismatic.shards.stellarity.registry;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import prismatic.shards.stellarity.Stellarity;
 
 import static prismatic.shards.stellarity.util.LootUtil.*;
 
 
-public interface StellarityLootTables {
+public interface StellarityLootTableModifications {
 	static void init() {
 		LootTableEvents.MODIFY.register((key, builder, source, provider) -> {
-
-
 			var id = key.identifier();
 
 			var endVariant = new CompoundTag();

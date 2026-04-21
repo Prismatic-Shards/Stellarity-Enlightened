@@ -9,6 +9,7 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> NOTHING = id("nothing");
 	ResourceKey<PlacedFeature> GLOBAL_STALACTITES = id("global/stalactites");
 	ResourceKey<PlacedFeature> GLOBAL_FOSSILS = id("global/fossils");
+	ResourceKey<PlacedFeature> GLOBAL_DUNGEONS = id("global/dungeons");
 
 	ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
@@ -24,6 +25,9 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> END_MIDLANDS_ROCKS = id("end_midlands/rocks");
 	ResourceKey<PlacedFeature> END_MIDLANDS_VEGETATION = id("end_midlands/vegetation");
 	ResourceKey<PlacedFeature> END_MIDLANDS_CHORUS_PLANTS = id("end_midlands/chorus_plants");
+
+	ResourceKey<PlacedFeature> END_HIGHLANDS_SMALL_DIRT_PATCHES = id("end_highlands/small_dirt_patches");
+	ResourceKey<PlacedFeature> END_HIGHLANDS_LARGE_DIRT_PATCHES = id("end_highlands/large_dirt_patches");
 
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_AMETHYST_GEODES = id("amethyst_forest/amethyst_geodes");

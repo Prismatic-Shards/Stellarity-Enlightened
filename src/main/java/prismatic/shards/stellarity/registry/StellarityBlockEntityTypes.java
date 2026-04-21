@@ -12,16 +12,10 @@ import prismatic.shards.stellarity.registry.block_entity.AltarOfTheAccursedBlock
 
 public interface StellarityBlockEntityTypes {
 	BlockEntityType<AltarOfTheAccursedBlockEntity> ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed", AltarOfTheAccursedBlockEntity::new, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
-
-
-	static <T extends BlockEntity> BlockEntityType<T> register(
-		String name,
-		FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
-		Block... blocks
-	) {
-		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Stellarity.id(name), FabricBlockEntityTypeBuilder.<T>create(entityFactory, blocks).build());
+	
+	static <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<T> entityFactory, Block... blocks) {
+		return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Stellarity.id(name), FabricBlockEntityTypeBuilder.create(entityFactory, blocks).build());
 	}
-
 
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Block Entities");

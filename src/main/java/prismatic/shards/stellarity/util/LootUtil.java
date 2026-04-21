@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
@@ -168,6 +169,10 @@ public interface LootUtil {
 
 	static LootItemCondition entityProperty(EntityPredicate.Builder predicate) {
 		return entityProperty(LootContext.EntityTarget.THIS, predicate);
+	}
+
+	static LootPoolSingletonContainer.Builder<?> empty() {
+		return EmptyLootItem.emptyItem();
 	}
 
 

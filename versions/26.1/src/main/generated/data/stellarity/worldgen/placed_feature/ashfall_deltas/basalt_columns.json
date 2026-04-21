@@ -1,5 +1,19 @@
 {
-  "feature": "stellarity:ashfall_deltas/basalt_columns",
+  "feature": {
+    "type": "minecraft:random_selector",
+    "config": {
+      "default": "stellarity:nothing",
+      "features": [
+        {
+          "chance": 0.12,
+          "feature": {
+            "feature": "stellarity:ashfall_deltas/basalt_columns",
+            "placement": []
+          }
+        }
+      ]
+    }
+  },
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",

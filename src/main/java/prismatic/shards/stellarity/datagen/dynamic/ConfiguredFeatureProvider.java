@@ -33,6 +33,8 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
+import prismatic.shards.stellarity.registry.StellarityFeatures;
+import prismatic.shards.stellarity.registry.feature.configuration.DungeonFeatureConfiguration;
 import prismatic.shards.stellarity.util.Constants;
 
 import java.util.Arrays;
@@ -53,6 +55,13 @@ public interface ConfiguredFeatureProvider {
 
 	}
 
+	/**
+	 * <h1>ABSOLUTELY DO NOT I REPEAT DO NOT USE RANDOM SELECTORS UNLESS YOU ARE PUTTING IT AS MULTIPLE CHOICES. IF A FEATURE HAS A CERTAIN CHANCE TO SPAWN, INLINE
+	 * THE RANDOM SELECTOR IN <code>StellarityPlacedFeatures.java</code></h1>
+	 * Why? It's shit for debugging via <code>/place feature</code> when your configured feature has a 1% chance to spawn.
+	 *
+	 * @param context context for registering stuff
+	 */
 	static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		var placed = context.lookup(Registries.PLACED_FEATURE);
 		var blocksGetter = context.lookup(Registries.BLOCK);
@@ -82,6 +91,7 @@ public interface ConfiguredFeatureProvider {
 			processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_rot")), processors.getOrThrow(Stellarity.mcKey(Registries.PROCESSOR_LIST, "fossil_coal")),
 			2
 		)));
+		context.register(GLOBAL_DUNGEON, new ConfiguredFeature<>(StellarityFeatures.DUNGEON, new DungeonFeatureConfiguration()));
 
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			false, Constants.OBSIDIAN_SPIKES, null
@@ -147,6 +157,15 @@ public interface ConfiguredFeatureProvider {
 			property(TALL_GRASS, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER), from(SHORT_GRASS)
 		}, new int[]{1, 14}))));
 
+		context.register(END_HIGHLANDS_LARGE_DIRT_PATCH, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT}, new int[]{39, 5}), NOTHING, CaveSurface.FLOOR, num(1),
+			0, 1, 0.1f, num(0, 5), 0.1f
+		)));
+		context.register(END_HIGHLANDS_SMALL_DIRT_PATCH, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT}, new int[]{11, 2}), NOTHING, CaveSurface.FLOOR, num(1),
+			0.25f, 5, 0f, num(3, 5), 0.15f
+		)));
+
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),
 			direct(new PlacedFeature(
@@ -199,9 +218,7 @@ public interface ConfiguredFeatureProvider {
 		context.register(ASHFALL_DELTAS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
 			from(ENDER_GRASS_BLOCK), from(MUD), num(8, 10), num(0)
 		)));
-		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
-			weightedPlaced(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BASALT_COLUMNS, new ColumnFeatureConfiguration(num(2, 3), num(3, 6)))), List.of()), 0.12f)
-		), NOTHING)));
+		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new ConfiguredFeature<>(Feature.BASALT_COLUMNS, new ColumnFeatureConfiguration(num(2, 3), num(3, 6))));
 		context.register(ASHFALL_DELTAS_SEAGRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
 			new BlockState[]{SEA_PICKLE.defaultBlockState().setValue(BlockStateProperties.PICKLES, 2), from(SEA_PICKLE), from(SEAGRASS)},
 			new int[]{2, 3, 100}

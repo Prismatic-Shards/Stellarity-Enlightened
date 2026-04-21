@@ -19,17 +19,17 @@ import net.minecraft.world.level.levelgen.feature.configurations.EndGatewayConfi
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EndGatewayFeature.class)
-public abstract class EndGatewayMixin extends Feature<EndGatewayConfiguration> {
+public abstract class EndGatewayFeatureMixin extends Feature<EndGatewayConfiguration> {
 
-	public EndGatewayMixin(Codec<EndGatewayConfiguration> codec) {
+	public EndGatewayFeatureMixin(Codec<EndGatewayConfiguration> codec) {
 		super(codec);
 	}
 
 	@WrapMethod(method = "place")
-	public boolean stellarityGateway(FeaturePlaceContext<EndGatewayConfiguration> featurePlaceContext, Operation<Boolean> original) {
-		if (!original.call(featurePlaceContext)) return false;
-		BlockPos blockPos = featurePlaceContext.origin();
-		WorldGenLevel level = featurePlaceContext.level();
+	public boolean stellarityGateway(FeaturePlaceContext<EndGatewayConfiguration> context, Operation<Boolean> original) {
+		if (!original.call(context)) return false;
+		BlockPos blockPos = context.origin();
+		WorldGenLevel level = context.level();
 
 		var wall = Blocks.END_STONE_BRICK_WALL.defaultBlockState();
 		var bricks = Blocks.END_STONE_BRICKS.defaultBlockState();

@@ -17,9 +17,11 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
+import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 
 import java.util.List;
 
+import static net.minecraft.core.Holder.direct;
 import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
@@ -52,6 +54,9 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(GLOBAL_FOSSILS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_FOSSIL), List.of(
 			rarity(40), inSquare(), heightPlace(height(aboveBottom(8), absolute(140))), biome()
+		)));
+		context.register(GLOBAL_DUNGEONS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_DUNGEON), List.of(
+			rarity(10), heightPlace(height(aboveBottom(8), absolute(140))), inSquare(), biome()
 		)));
 
 		context.register(MAIN_ISLAND_RING, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_RING), List.of(biome())));
@@ -97,6 +102,13 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(END_MIDLANDS_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(everyLayer(2), biome())));
 
+		context.register(END_HIGHLANDS_LARGE_DIRT_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_LARGE_DIRT_PATCH), List.of(
+			rarity(5), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), countPlace(16), biome()
+		)));
+		context.register(END_HIGHLANDS_SMALL_DIRT_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_SMALL_DIRT_PATCH), List.of(
+			countPlace(10), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 16), biome()
+		)));
+
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
 			countPlace(40), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),
 			envScan(Direction.UP, solid(), matchBlocks(AIR), 32), biome()
@@ -138,7 +150,9 @@ public interface PlacedFeatureProvider {
 		context.register(ASHFALL_DELTAS_GRASS_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_GRASS_DELTA), List.of(
 			everyLayer(3), biome()
 		)));
-		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_BASALT_COLUMNS), List.of(
+		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new PlacedFeature(direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+			weightedPlaced(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_BASALT_COLUMNS), List.of()), 0.12f)
+		), placed.getOrThrow(NOTHING)))), List.of(
 			everyLayer(2), biome()
 		)));
 		context.register(ASHFALL_DELTAS_SEAGRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_SEAGRASS), List.of(

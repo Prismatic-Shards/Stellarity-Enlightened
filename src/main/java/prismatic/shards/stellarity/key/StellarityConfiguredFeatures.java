@@ -9,6 +9,7 @@ public interface StellarityConfiguredFeatures {
 
 	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_STALACTITES = id("global/stalactites");
 	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_FOSSIL = id("global/fossil");
+	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_DUNGEON = id("global/dungeon");
 
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
@@ -20,6 +21,10 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_OBSIDIAN_SPIKE = id("end_midlands/obsidian_spike");
 	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_ROCK = id("end_midlands/rock");
 	ResourceKey<ConfiguredFeature<?, ?>> END_MIDLANDS_VEGETATION = id("end_midlands/vegetation");
+
+	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_LARGE_DIRT_PATCH = id("end_highlands/large_dirt_patch");
+	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_SMALL_DIRT_PATCH = id("end_highlands/small_dirt_patch");
+
 
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_AMETHYST_GEODE = id("amethyst_forest/amethyst_geode");

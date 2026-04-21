@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.dimension.v1.DimensionEvents;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -52,8 +51,10 @@ public interface StellarityWorldgenModifications {
 		});
 
 
+		Predicate<BiomeSelectionContext> outerVanilla = context -> context.getBiomeHolder().is(Biomes.END_BARRENS) || context.getBiomeHolder().is(Biomes.END_HIGHLANDS) || context.getBiomeHolder().is(Biomes.END_MIDLANDS);
 		BiomeModifications.addFeature(context -> context.getBiomeHolder().is(Biomes.THE_END) || context.getBiomeHolder().is(Biomes.END_BARRENS) || context.getBiomeHolder().is(Biomes.END_HIGHLANDS) || context.getBiomeHolder().is(Biomes.END_MIDLANDS), RAW_GENERATION, GLOBAL_STALACTITES);
-		BiomeModifications.addFeature(context -> context.getBiomeHolder().is(Biomes.END_BARRENS) || context.getBiomeHolder().is(Biomes.END_HIGHLANDS) || context.getBiomeHolder().is(Biomes.END_MIDLANDS), TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS);
+		BiomeModifications.addFeature(outerVanilla, TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS);
+		BiomeModifications.addFeature(outerVanilla, TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS);
 
 
 		Predicate<BiomeSelectionContext> mainIsland = context -> context.getBiomeHolder().is(Biomes.THE_END);
@@ -141,6 +142,8 @@ public interface StellarityWorldgenModifications {
 
 		Predicate<BiomeSelectionContext> endHighlands = context -> context.getBiomeHolder().is(Biomes.END_HIGHLANDS);
 		BiomeModifications.addFeature(endHighlands, LAKES, END_MIDLANDS_OBSIDIAN_SPIKES);
+		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_LARGE_DIRT_PATCHES);
+		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_SMALL_DIRT_PATCHES);
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
 			attributes.set(SKY_COLOR, 0x000000);
