@@ -115,6 +115,10 @@ public interface LootUtil {
 		return NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, location));
 	}
 
+	static LootPoolSingletonContainer.Builder<?> lootTable(ResourceKey<LootTable> location) {
+		return NestedLootTable.lootTableReference(location);
+	}
+
 	static LootTable.Builder lootTable() {
 		return LootTable.lootTable();
 	}

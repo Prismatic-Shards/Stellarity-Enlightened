@@ -39,7 +39,8 @@ public interface StellarityDataAttachments {
 
 	AttachmentType<StellarityConfig> CONFIG = AttachmentRegistry.create(Stellarity.id("config"), builder -> builder.persistent(StellarityConfig.CODEC).syncWith(StellarityConfig.STREAM_CODEC, AttachmentSyncPredicate.all()).initializer(() -> StellarityConfig.DEFAULT)
 	);
-	
+
+
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Data Attachments");
 	}

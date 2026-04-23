@@ -8,13 +8,14 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.jspecify.annotations.NonNull;
-import prismatic.shards.stellarity.Stellarity;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 import static net.minecraft.world.item.Items.*;
+import static prismatic.shards.stellarity.key.StellarityLootTables.DUNGEON;
+import static prismatic.shards.stellarity.key.StellarityLootTables.EXIT_PORTAL;
 import static prismatic.shards.stellarity.registry.StellarityItems.*;
 import static prismatic.shards.stellarity.util.LootUtil.*;
 
@@ -27,11 +28,11 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 	}
 
-	public static final HashMap<String, LootTable.Builder> LOOT_TABLES = new HashMap<>();
+	public static final HashMap<ResourceKey<LootTable>, LootTable.Builder> LOOT_TABLES = new HashMap<>();
 
 	public static void define(HolderLookup.Provider lookup) {
 		var enchantments = lookup.lookupOrThrow(Registries.ENCHANTMENT);
-		LOOT_TABLES.put("exit_portal", lootTable()
+		LOOT_TABLES.put(EXIT_PORTAL, lootTable()
 			.withPool(pool().add(item(END_CRYSTAL).apply(count(num(4)))))
 			.withPool(pool().add(item(BONE).apply(countAdd(range(2, 5)))))
 			.withPool(pool().add(item(STRING).apply(countAdd(range(2, 5)))))
@@ -43,7 +44,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.withPool(pool().add(item(ENCHANTED_BOOK)))
 		);
 
-		LOOT_TABLES.put("dungeon", lootTable()
+		LOOT_TABLES.put(DUNGEON, lootTable()
 			.withPool(pool().add(item(ENDERITE_SHARD).apply(count(range(1, 2)))))
 			.withPool(pool().setRolls(range(1, 2))
 				.add(item(IRON_INGOT).setWeight(12).apply(count(range(1, 2))))
@@ -67,7 +68,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 		define(registryLookup.join());
 		for (var entry : LOOT_TABLES.entrySet()) {
-			consumer.accept(Stellarity.key(Registries.LOOT_TABLE, entry.getKey()), entry.getValue());
+			consumer.accept(entry.getKey(), entry.getValue());
 		}
 	}
 }

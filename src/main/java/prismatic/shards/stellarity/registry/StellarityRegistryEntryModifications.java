@@ -4,13 +4,11 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.NoiseRouter;
-import org.jetbrains.annotations.Nullable;
 import prismatic.shards.stellarity.Stellarity;
-import prismatic.shards.stellarity.key.StellarityBiomes;
 
 import static prismatic.shards.stellarity.key.StellarityDensityFunctions.*;
 
-public class StellarityRegistryEntries {
+public class StellarityRegistryEntryModifications {
 	private static DensityFunction temperature;
 	private static DensityFunction vegetation;
 	private static DensityFunction continents;

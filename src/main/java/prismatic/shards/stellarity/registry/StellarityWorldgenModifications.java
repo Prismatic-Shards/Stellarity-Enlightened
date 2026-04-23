@@ -144,6 +144,7 @@ public interface StellarityWorldgenModifications {
 		BiomeModifications.addFeature(endHighlands, LAKES, END_MIDLANDS_OBSIDIAN_SPIKES);
 		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_LARGE_DIRT_PATCHES);
 		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_SMALL_DIRT_PATCHES);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_BUDS);
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
 			attributes.set(SKY_COLOR, 0x000000);

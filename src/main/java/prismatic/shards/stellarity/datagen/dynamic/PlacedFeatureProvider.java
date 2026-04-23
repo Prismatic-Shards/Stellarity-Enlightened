@@ -108,6 +108,10 @@ public interface PlacedFeatureProvider {
 		context.register(END_HIGHLANDS_SMALL_DIRT_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_SMALL_DIRT_PATCH), List.of(
 			countPlace(10), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 16), biome()
 		)));
+		context.register(END_HIGHLANDS_CHORUS_BUDS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_CHORUS_BUD), List.of(
+			rarity(10), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), biome()
+		)));
+
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
 			countPlace(40), inSquare(), noisePlace(10, 20, 0), heightPlace(height(aboveBottom(0), belowTop(0))),

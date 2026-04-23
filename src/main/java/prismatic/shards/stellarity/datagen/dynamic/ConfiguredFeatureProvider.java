@@ -19,15 +19,18 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FossilFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BushFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
+import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
@@ -96,10 +99,12 @@ public interface ConfiguredFeatureProvider {
 		context.register(MAIN_ISLAND_RING, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
 			false, Constants.OBSIDIAN_SPIKES, null
 		)));
-		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
-			true, List.of(new EndSpikeFeature.EndSpike(
+		var platform = new EndSpikeFeature.EndSpike(
 			0, 0, 16, 60, false
-		)), null
+		);
+		platform.stellarity$setHasCrystal(false);
+		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new ConfiguredFeature<>(Feature.END_SPIKE, new EndSpikeConfiguration(
+			true, List.of(platform), null
 		)));
 		context.register(MAIN_ISLAND_OBSIDIAN, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{END_STONE, CRYING_OBSIDIAN, OBSIDIAN}, new int[]{5, 1, 3}),
@@ -164,6 +169,16 @@ public interface ConfiguredFeatureProvider {
 		context.register(END_HIGHLANDS_SMALL_DIRT_PATCH, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_GRASS_BLOCK, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT}, new int[]{11, 2}), NOTHING, CaveSurface.FLOOR, num(1),
 			0.25f, 5, 0f, num(3, 5), 0.15f
+		)));
+		context.register(END_HIGHLANDS_CHORUS_BUD, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+			block(CHERRY_WOOD), new StraightTrunkPlacer(2, 0, 0),
+			weightedBlocks(new Block[]{ROOTED_ENDER_DIRT, COARSE_DIRT}, new int[]{7, 4}),
+			new BushFoliagePlacer(num(0), num(0), 6),
+			Optional.empty(), twoLayersSize(),
+			List.of(new LeaveVineDecorator(0.15f), new AttachedToLeavesDecorator(
+				0.35f, 0, 0,
+				block(property(property(ACACIA_LEAVES, BlockStateProperties.PERSISTENT, true), BlockStateProperties.DISTANCE, 1)), 1, List.of(Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
+			)), false, block(CHERRY_WOOD)
 		)));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(

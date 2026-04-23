@@ -17,9 +17,7 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
 	public BlockLootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
 		super(dataOutput, registryLookup);
-
 	}
-
 
 	private static final Block[] DROP_SELF = {
 		StellarityBlocks.ASHEN_FROGLIGHT,

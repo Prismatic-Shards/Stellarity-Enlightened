@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
@@ -21,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtEnderDragonFight;
+import prismatic.shards.stellarity.key.StellarityLootTables;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
 
 import java.util.List;
@@ -56,7 +55,7 @@ public abstract class EnderDragonFightMixin implements ExtEnderDragonFight {
 		var entity = level.getBlockEntity(chestPos);
 
 		if (entity instanceof ChestBlockEntity chestEntity) {
-			chestEntity.setLootTable(Stellarity.key(Registries.LOOT_TABLE, "exit_portal"), level.getSeed());
+			chestEntity.setLootTable(StellarityLootTables.EXIT_PORTAL, level.getSeed());
 			chestEntity.setAttached(StellarityDataAttachments.EXIT_PORTAL_CHEST, true);
 
 			stellarity$setPortalChestGenerated(true);

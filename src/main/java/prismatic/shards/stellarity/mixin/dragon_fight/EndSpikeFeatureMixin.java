@@ -3,6 +3,7 @@ package prismatic.shards.stellarity.mixin.dragon_fight;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -11,6 +12,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomSequence;
+import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.LevelWriter;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -94,6 +96,13 @@ public abstract class EndSpikeFeatureMixin extends Feature<EndSpikeConfiguration
 
 			Stellarity.LOGGER.error("Failed to place spike correctly", e);
 		}
+	}
+
+	@Definition(id = "endCrystal", local = @Local(type = EndCrystal.class, name = "endCrystal"))
+	@Expression("endCrystal != null")
+	@ModifyExpressionValue(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
+	private boolean conditionalCrystalGen(boolean original, @Local(argsOnly = true, name = "spike") EndSpikeFeature.EndSpike spike) {
+		return original && spike.stellarity$hasCrystal();
 	}
 
 

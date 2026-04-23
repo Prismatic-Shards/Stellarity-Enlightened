@@ -40,12 +40,9 @@ public class Stellarity implements ModInitializer {
 		return FabricLoader.getInstance().isModLoaded("modonomicon");
 	}
 
-	@SuppressWarnings("CanBeFinal")
-	boolean audit = true;
-
 	@Override
 	public void onInitialize() {
-		StellarityRegistryEntries.init();
+		StellarityRegistryEntryModifications.init();
 		StellarityFeatures.init();
 		StellarityWorldgenModifications.init();
 		StellarityBiolithBiomes.init();
@@ -68,7 +65,6 @@ public class Stellarity implements ModInitializer {
 		StellarityVillagerTypes.init();
 		StellarityVillagerProfessions.init();
 
-		if (FabricLoader.getInstance().isDevelopmentEnvironment() && audit)
-			MixinEnvironment.getCurrentEnvironment().audit();
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) MixinEnvironment.getCurrentEnvironment().audit();
 	}
 }

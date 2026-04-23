@@ -158,6 +158,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Implemented Stellarity exit portal chest particles
 
+**[+] Dungeons**
+
+- A new feature type `stellarity:dungeon` is available for use in datapacks.
+
 ## Versions
 
 **[+] 26.1.1**

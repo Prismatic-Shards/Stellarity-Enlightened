@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.PowerParticleOption;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -41,8 +40,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtFishingHook;
+import prismatic.shards.stellarity.key.StellarityLootTables;
 import prismatic.shards.stellarity.registry.StellarityCriteriaTriggers;
 import prismatic.shards.stellarity.registry.StellarityItems;
 
@@ -217,7 +216,7 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	@WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
 	private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> original, @Local Player player, @Local(argsOnly = true) ItemStack itemStack) {
 		if (isVoidFishing && level() instanceof ServerLevel level) {
-			instance = level.getServer().reloadableRegistries().getLootTable(Stellarity.key(Registries.LOOT_TABLE, "void_fishing/event"));
+			instance = level.getServer().reloadableRegistries().getLootTable(StellarityLootTables.VOID_FISHING_EVENT);
 		}
 		ObjectArrayList<ItemStack> list = original.call(instance, lootParams);
 		if (isVoidFishing) {

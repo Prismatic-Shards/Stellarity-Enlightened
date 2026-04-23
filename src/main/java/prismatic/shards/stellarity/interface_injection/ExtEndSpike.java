@@ -20,13 +20,22 @@ public interface ExtEndSpike {
 		throw new AssertionError("Not transformed");
 	}
 
-	static EndSpikeFeature.EndSpike apply(EndSpikeFeature.EndSpike spike, boolean hasAltar, boolean cryingObsidianTops) {
+	default boolean stellarity$hasCrystal() {
+		throw new AssertionError("Not transformed");
+	}
+
+	default void stellarity$setHasCrystal(boolean hasCrystal) {
+		throw new AssertionError("Not transformed");
+	}
+
+	static EndSpikeFeature.EndSpike apply(EndSpikeFeature.EndSpike spike, boolean hasAltar, boolean cryingObsidianTops, boolean hasCrystal) {
 		spike.stellarity$setAltar(hasAltar);
 		spike.stellarity$setCryingObsidianTops(cryingObsidianTops);
+		spike.stellarity$setHasCrystal(hasCrystal);
 		return spike;
 	}
 
 	static EndSpikeFeature.EndSpike applyDefaults(EndSpikeFeature.EndSpike spike) {
-		return apply(spike, false, false);
+		return apply(spike, false, false, true);
 	}
 }

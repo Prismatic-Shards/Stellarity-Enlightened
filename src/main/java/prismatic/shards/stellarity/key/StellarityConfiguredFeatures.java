@@ -24,6 +24,7 @@ public interface StellarityConfiguredFeatures {
 
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_LARGE_DIRT_PATCH = id("end_highlands/large_dirt_patch");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_SMALL_DIRT_PATCH = id("end_highlands/small_dirt_patch");
+	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_CHORUS_BUD = id("end_highlands/chorus_bud");
 
 
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");

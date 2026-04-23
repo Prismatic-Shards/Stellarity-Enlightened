@@ -3,8 +3,6 @@ package prismatic.shards.stellarity.registry.feature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -15,7 +13,7 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.key.StellarityLootTables;
 import prismatic.shards.stellarity.registry.feature.configuration.DungeonFeatureConfiguration;
 
 import java.util.ArrayList;
@@ -72,7 +70,7 @@ public class DungeonFeature extends Feature<DungeonFeatureConfiguration> {
 			var pos = possibleChestPositions.remove(random.nextInt(possibleChestPositions.size()));
 			setBlock(level, pos, Blocks.CHEST.defaultBlockState());
 			if (level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
-				chest.setLootTable(Stellarity.key(Registries.LOOT_TABLE, "dungeon"));
+				chest.setLootTable(StellarityLootTables.DUNGEON);
 			}
 		}
 
