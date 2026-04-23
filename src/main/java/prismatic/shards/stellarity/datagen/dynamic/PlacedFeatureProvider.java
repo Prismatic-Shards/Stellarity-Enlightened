@@ -109,7 +109,7 @@ public interface PlacedFeatureProvider {
 			countPlace(10), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 16), biome()
 		)));
 		context.register(END_HIGHLANDS_CHORUS_BUDS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_CHORUS_BUD), List.of(
-			rarity(10), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), biome()
+			rarity(10), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), placeRandom(num(0), num(1)), biome()
 		)));
 
 

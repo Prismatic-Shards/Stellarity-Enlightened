@@ -162,6 +162,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - A new feature type `stellarity:dungeon` is available for use in datapacks.
 
+**[*] Crystal Towers**
+
+- Added a new `stellarity:has_crystal` paramater to the feature, allowing disabling of the end crystal if needed
+
 ## Versions
 
 **[+] 26.1.1**
