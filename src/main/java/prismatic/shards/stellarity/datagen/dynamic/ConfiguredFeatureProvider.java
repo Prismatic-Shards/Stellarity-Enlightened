@@ -180,6 +180,7 @@ public interface ConfiguredFeatureProvider {
 				block(property(property(ACACIA_LEAVES, BlockStateProperties.PERSISTENT, true), BlockStateProperties.DISTANCE, 1)), 1, List.of(Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
 			)), false, block(CHERRY_WOOD)
 		)));
+		context.register(END_HIGHLANDS_PITCHER_PLANT, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(property(PITCHER_PLANT, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),

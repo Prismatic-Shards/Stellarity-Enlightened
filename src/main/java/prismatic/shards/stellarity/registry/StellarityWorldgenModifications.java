@@ -33,6 +33,7 @@ public interface StellarityWorldgenModifications {
 		return Stellarity.mcKey(Registries.PLACED_FEATURE, id);
 	}
 
+	@SuppressWarnings("DuplicatedCode")
 	static void init() {
 		DimensionEvents.MODIFY_ATTRIBUTES.register((dimension, attributes, registries) -> {
 			if (!dimension.is(BuiltinDimensionTypes.END)) return;
@@ -145,6 +146,9 @@ public interface StellarityWorldgenModifications {
 		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_LARGE_DIRT_PATCHES);
 		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_SMALL_DIRT_PATCHES);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_BUDS);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_PLANTS);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_PITCHER_PLANTS);
+		
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
 			attributes.set(SKY_COLOR, 0x000000);

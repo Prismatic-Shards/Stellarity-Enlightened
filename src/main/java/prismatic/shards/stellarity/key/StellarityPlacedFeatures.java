@@ -29,6 +29,8 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> END_HIGHLANDS_SMALL_DIRT_PATCHES = id("end_highlands/small_dirt_patches");
 	ResourceKey<PlacedFeature> END_HIGHLANDS_LARGE_DIRT_PATCHES = id("end_highlands/large_dirt_patches");
 	ResourceKey<PlacedFeature> END_HIGHLANDS_CHORUS_BUDS = id("end_highlands/chorus_buds");
+	ResourceKey<PlacedFeature> END_HIGHLANDS_CHORUS_PLANTS = id("end_highlands/chorus_plants");
+	ResourceKey<PlacedFeature> END_HIGHLANDS_PITCHER_PLANTS = id("end_highlands/pitcher_plants");
 
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_AMETHYST_GEODES = id("amethyst_forest/amethyst_geodes");

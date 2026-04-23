@@ -17,7 +17,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
-import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 
 import java.util.List;
 
@@ -109,7 +108,16 @@ public interface PlacedFeatureProvider {
 			countPlace(10), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 16), biome()
 		)));
 		context.register(END_HIGHLANDS_CHORUS_BUDS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_CHORUS_BUD), List.of(
-			rarity(10), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), placeRandom(num(0), num(1)), biome()
+			rarity(10), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE_WG), biome()
+		)));
+		context.register(END_HIGHLANDS_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(
+			noisePlace(80, 180, 0.7), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(
+				Direction.DOWN, all(replaceable(), matchBlocks(vec(0, -1, 0), END_STONE)), all(), 32
+			), rarity(1), biome()
+		)));
+		context.register(END_HIGHLANDS_PITCHER_PLANTS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_PITCHER_PLANT), List.of(
+			everyLayer(1), rarity(3), biome(), countPlace(96), placeRandom(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)),
+			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, -1, 0), ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT, COARSE_DIRT, GRASS_BLOCK, DIRT)))
 		)));
 
 
