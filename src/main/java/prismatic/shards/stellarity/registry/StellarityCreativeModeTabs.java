@@ -52,7 +52,8 @@ public interface StellarityCreativeModeTabs {
 		ROYAL_JELLY_II,
 		DUSKBERRY,
 		FROST_MINNOW,
-		GOOSH
+		GOOSH,
+		CHORUS_STEW,
 	};
 
 
@@ -83,6 +84,7 @@ public interface StellarityCreativeModeTabs {
 		LONG_REGENERAGA_POTION,
 		STRONG_REGENERAGA_POTION,
 		LUCK_POTION,
+		CHORUS_JUICE
 	};
 
 

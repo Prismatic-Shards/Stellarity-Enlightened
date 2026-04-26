@@ -41,6 +41,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Added the random effect feature to the item
 
+**[+] Chorus Stew**
+
 ## Blocks
 
 **[*] Altar of the Accursed**

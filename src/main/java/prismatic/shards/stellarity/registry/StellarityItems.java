@@ -84,6 +84,21 @@ public interface StellarityItems {
 		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
 	).usingConvertsTo(Items.BOWL));
+	Item FROST_MINNOW = register("frost_minnow", foodProperties(1, 0.2f,
+		new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
+	));
+	Item GOOSH = register("goosh", foodProperties(1, 0,
+		new MobEffectInstance(MobEffects.OOZING, 59 * 20),
+		new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
+		new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
+	));
+	Item CHORUS_STEW = register("chorus_stew", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+		new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
+		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
+		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
+		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
+	).usingConvertsTo(Items.BOWL));
+
 	Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
 	Item CHORUS_PLATING = register("chorus_plating");
 	Item ENDERITE_SHARD = register("enderite_shard");
@@ -161,6 +176,8 @@ public interface StellarityItems {
 
 	Supplier<ItemStack> LUCK_POTION = createPotion(StellarityPotions.LUCK);
 
+	Supplier<ItemStack> CHORUS_JUICE = createPotion(StellarityPotions.CHORUS_JUICE);
+
 	Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK), 6, 3.6f, true,
 		new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20)
 	).usingConvertsTo(Items.GLASS_BOTTLE));
@@ -183,21 +200,6 @@ public interface StellarityItems {
 	Item VOIDED_SKELETON_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SKELETON);
 	Item VOIDED_SILVERFISH_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SILVERFISH);
 	Item VOIDED_SLIME_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SLIME);
-
-	Item FROST_MINNOW = register("frost_minnow", foodProperties(1, 0.2f,
-		new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
-	));
-	Item GOOSH = register("goosh", foodProperties(1, 0,
-		new MobEffectInstance(MobEffects.OOZING, 59 * 20),
-		new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
-		new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
-	));
-	Item CHORUS_STEW = register("chorus_stew", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
-		new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
-		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
-		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
-		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
-	).usingConvertsTo(Items.BOWL));
 
 
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
