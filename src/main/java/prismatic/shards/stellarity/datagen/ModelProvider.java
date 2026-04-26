@@ -71,7 +71,9 @@ public class ModelProvider extends FabricModelProvider {
 		VOIDED_SILVERFISH_SPAWN_EGG,
 		VOIDED_ZOMBIE_SPAWN_EGG,
 		VOIDED_SKELETON_SPAWN_EGG,
-		VOIDED_SLIME_SPAWN_EGG
+		VOIDED_SLIME_SPAWN_EGG,
+		FROST_MINNOW,
+		GOOSH
 	};
 
 	public void generateBush(BlockModelGenerators generators, Block block) {

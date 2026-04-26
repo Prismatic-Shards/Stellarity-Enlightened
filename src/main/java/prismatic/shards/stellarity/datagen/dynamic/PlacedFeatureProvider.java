@@ -119,6 +119,14 @@ public interface PlacedFeatureProvider {
 			everyLayer(1), rarity(3), biome(), countPlace(96), placeRandom(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)),
 			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, -1, 0), ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT, COARSE_DIRT, GRASS_BLOCK, DIRT)))
 		)));
+		context.register(END_HIGHLANDS_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_GRASS), List.of(
+			everyLayer(3), biome(), countPlace(96), placeRandom(trapezoid(-7, 7, 0), trapezoid(-4, 4, 0)), blockFilter(all(wouldSurvive(SHORT_GRASS), matchBlocks(AIR)))
+		)));
+		context.register(END_HIGHLANDS_ROOTS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_ROOTS), List.of(
+			countPlace(87), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.UP, all(sturdyFace(Direction.DOWN), matchBlocks(DIRT, GRASS_BLOCK)), matchBlocks(AIR), 32),
+			placeRandom(num(0), num(-1)), biome(), countPlace(24), placeRandom(trapezoid(-5, 5, 0), trapezoid(-5, 5, 0)),
+			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, 1, 0), ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT, COARSE_DIRT)))
+		)));
 
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(

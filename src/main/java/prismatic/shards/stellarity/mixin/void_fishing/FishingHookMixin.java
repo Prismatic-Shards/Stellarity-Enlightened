@@ -214,13 +214,13 @@ public abstract class FishingHookMixin extends Projectile implements ExtFishingH
 	}
 
 	@WrapOperation(method = "retrieve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItems(Lnet/minecraft/world/level/storage/loot/LootParams;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;"))
-	private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams lootParams, Operation<ObjectArrayList<ItemStack>> original, @Local Player player, @Local(argsOnly = true) ItemStack itemStack) {
+	private ObjectArrayList<ItemStack> voidFishingRetrieve(LootTable instance, LootParams params, Operation<ObjectArrayList<ItemStack>> original, @Local(name = "owner") Player owner, @Local(argsOnly = true, name = "rod") ItemStack rod) {
 		if (isVoidFishing && level() instanceof ServerLevel level) {
 			instance = level.getServer().reloadableRegistries().getLootTable(StellarityLootTables.VOID_FISHING_EVENT);
 		}
-		ObjectArrayList<ItemStack> list = original.call(instance, lootParams);
+		ObjectArrayList<ItemStack> list = original.call(instance, params);
 		if (isVoidFishing) {
-			StellarityCriteriaTriggers.VOID_FISHED.trigger((ServerPlayer) player, itemStack, (FishingHook) (Object) this, list);
+			StellarityCriteriaTriggers.VOID_FISHED.trigger((ServerPlayer) owner, rod, (FishingHook) (Object) this, list);
 		}
 		return list;
 	}

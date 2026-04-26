@@ -50,7 +50,9 @@ public interface StellarityCreativeModeTabs {
 		PHO,
 		ROYAL_JELLY,
 		ROYAL_JELLY_II,
-		DUSKBERRY
+		DUSKBERRY,
+		FROST_MINNOW,
+		GOOSH
 	};
 
 

@@ -14,7 +14,9 @@ import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.effects.AllOf;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface LootUtil {
@@ -77,6 +80,10 @@ public interface LootUtil {
 
 	static LootPoolSingletonContainer.Builder<?> item(ItemLike i) {
 		return LootItem.lootTableItem(i);
+	}
+
+	static LootPoolSingletonContainer.Builder<?> tableLoot(ResourceKey<LootTable> key) {
+		return NestedLootTable.lootTableReference(key);
 	}
 
 	static LootItemConditionalFunction.Builder<?> count(NumberProvider provider) {
@@ -177,6 +184,22 @@ public interface LootUtil {
 
 	static LootPoolSingletonContainer.Builder<?> empty() {
 		return EmptyLootItem.emptyItem();
+	}
+
+	static LootItemCondition.Builder biome(Holder<Biome> biome) {
+		return LocationCheck.checkLocation(LocationPredicate.Builder.inBiome(biome));
+	}
+
+	static AllOfCondition all(LootItemCondition... conditions) {
+		return AllOfCondition.allOf(List.of(conditions));
+	}
+
+	static AllOfCondition.Builder all(LootItemCondition.Builder... conditions) {
+		return AllOfCondition.allOf(conditions);
+	}
+
+	static AnyOfCondition.Builder any(LootItemCondition.Builder... conditions) {
+		return AnyOfCondition.anyOf(conditions);
 	}
 
 

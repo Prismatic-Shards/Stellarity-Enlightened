@@ -62,7 +62,7 @@ public class Duskberry extends BlockItem {
 	}
 
 
-	public static final Properties PROPERTIES = StellarityItems.foodProperties(2, 0.4f, Arrays.stream(debuffs(3)).map((e) -> new StellarityItems.EffectChance(e, 1f)).toArray(StellarityItems.EffectChance[]::new))
+	public static final Properties PROPERTIES = StellarityItems.foodProperties(2, 0.4f, Arrays.stream(debuffs(3)).map(StellarityItems.EffectChance::new).toArray(StellarityItems.EffectChance[]::new))
 		.attributes(new ItemAttributeModifiers(List.of(
 			new ItemAttributeModifiers.Entry(
 				Attributes.ATTACK_DAMAGE, new AttributeModifier(Stellarity.id("duskberry_attack_damage"), 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.HAND

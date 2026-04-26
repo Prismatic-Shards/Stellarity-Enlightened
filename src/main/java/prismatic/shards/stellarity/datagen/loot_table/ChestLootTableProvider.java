@@ -28,11 +28,11 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 	}
 
-	public static final HashMap<ResourceKey<LootTable>, LootTable.Builder> LOOT_TABLES = new HashMap<>();
-
-	public static void define(HolderLookup.Provider lookup) {
+	@Override
+	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+		var lookup = registryLookup.join();
 		var enchantments = lookup.lookupOrThrow(Registries.ENCHANTMENT);
-		LOOT_TABLES.put(EXIT_PORTAL, lootTable()
+		consumer.accept(EXIT_PORTAL, lootTable()
 			.withPool(pool().add(item(END_CRYSTAL).apply(count(num(4)))))
 			.withPool(pool().add(item(BONE).apply(countAdd(range(2, 5)))))
 			.withPool(pool().add(item(STRING).apply(countAdd(range(2, 5)))))
@@ -44,7 +44,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.withPool(pool().add(item(ENCHANTED_BOOK)))
 		);
 
-		LOOT_TABLES.put(DUNGEON, lootTable()
+		consumer.accept(DUNGEON, lootTable()
 			.withPool(pool().add(item(ENDERITE_SHARD).apply(count(range(1, 2)))))
 			.withPool(pool().setRolls(range(1, 2))
 				.add(item(IRON_INGOT).setWeight(12).apply(count(range(1, 2))))
@@ -62,13 +62,5 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.withPool(pool().add(empty().setWeight(4)).add(item(SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE)))
 			.withPool(pool().add(empty().setWeight(9)).add(item(ENDERITE_UPGRADE_SMITHING_TEMPLATE)))
 		);
-	}
-
-	@Override
-	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
-		define(registryLookup.join());
-		for (var entry : LOOT_TABLES.entrySet()) {
-			consumer.accept(entry.getKey(), entry.getValue());
-		}
 	}
 }

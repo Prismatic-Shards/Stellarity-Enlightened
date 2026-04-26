@@ -181,6 +181,11 @@ public interface ConfiguredFeatureProvider {
 			)), false, block(CHERRY_WOOD)
 		)));
 		context.register(END_HIGHLANDS_PITCHER_PLANT, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(property(PITCHER_PLANT, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))));
+		context.register(END_HIGHLANDS_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
+			new BlockState[]{from(SHORT_GRASS), property(TALL_GRASS, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER), from(FERN), property(LARGE_FERN, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)},
+			new int[]{28, 18, 8, 4}
+		))));
+		context.register(END_HIGHLANDS_ROOTS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS))));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),

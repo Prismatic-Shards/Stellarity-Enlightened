@@ -27,7 +27,6 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
 	@Override
 	public void generate() {
-
 		for (Block block : DROP_SELF) {
 			dropSelf(block);
 		}

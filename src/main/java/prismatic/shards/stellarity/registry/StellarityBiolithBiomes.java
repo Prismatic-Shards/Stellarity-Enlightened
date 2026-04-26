@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.registry.recipe;
+package prismatic.shards.stellarity.registry;
 
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
 import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
@@ -8,6 +8,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityNoises;
+
+import java.util.List;
 
 import static net.minecraft.world.level.biome.Biomes.*;
 import static net.minecraft.world.level.biome.Climate.Parameter.point;
@@ -21,6 +23,8 @@ import static net.minecraft.world.level.levelgen.SurfaceRules.state;
 
 public interface StellarityBiolithBiomes {
 	static void init() {
+
+
 		BiomePlacement.addEnd(HALLOWED_TUNDRA, new Climate.ParameterPoint(
 			span(-1f, -0.405f),
 			span(-1f, 1f),
@@ -715,6 +719,7 @@ public interface StellarityBiolithBiomes {
 			0
 		));
 
+		BiomePlacement.removeEnd(SMALL_END_ISLANDS);
 
 		final var wildsDirtSequence = sequence(
 			ifTrue(stoneDepthCheck(1, false, 0, CaveSurface.FLOOR),

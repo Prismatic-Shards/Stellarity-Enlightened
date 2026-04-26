@@ -86,6 +86,7 @@ public interface StellarityWorldgenModifications {
 
 		Predicate<BiomeSelectionContext> endBarrens = context -> context.getBiomeHolder().is(Biomes.END_BARRENS);
 		BiomeModifications.addFeature(endBarrens, RAW_GENERATION, END_BARRENS_STALACTITES);
+		BiomeModifications.addFeature(endBarrens, UNDERGROUND_DECORATION, END_BARRENS_HILLS);
 		BiomeModifications.create(Stellarity.id("end_barrens_replacements")).add(ModificationPhase.REPLACEMENTS, endBarrens, (_, modification) -> {
 				var attributes = modification.getAttributes();
 				attributes.set(SKY_COLOR, 0x000000);
@@ -148,7 +149,9 @@ public interface StellarityWorldgenModifications {
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_BUDS);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_PLANTS);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_PITCHER_PLANTS);
-		
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_GRASS);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_ROOTS);
+
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
 			attributes.set(SKY_COLOR, 0x000000);

@@ -33,6 +33,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Voided Silverfish Spawn Egg**
 
+**[+] Frost Minnow**
+
+**[+] Goosh**
+
+**[*] Frozen Carpaccio**
+
+- Added the random effect feature to the item
+
 ## Blocks
 
 **[*] Altar of the Accursed**
@@ -56,9 +64,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 ## Mechanics
 
-**[*] Fabric API Data Attachment Hotfix**
+**[*] Void Fishing**
 
-- Fixed a bug where the data attachment system would desync when setting data attachments via `/data modify`
+- Updated with all correct biome loot
+- Warped marsh has extra loot, with ashen and verdant froglights now.
 
 ## Recipes
 

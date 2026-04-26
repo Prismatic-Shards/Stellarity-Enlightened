@@ -1,5 +1,6 @@
 package prismatic.shards.stellarity.registry;
 
+import com.google.common.collect.Streams;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -29,10 +30,12 @@ import prismatic.shards.stellarity.key.StellarityAnimalVariants;
 import prismatic.shards.stellarity.key.StellarityJukeboxSongs;
 import prismatic.shards.stellarity.registry.item.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public interface StellarityItems {
 	Item ENDER_DIRT = registerBlock("ender_dirt", StellarityBlocks.ENDER_DIRT);
@@ -48,42 +51,39 @@ public interface StellarityItems {
 	Item SUSHI = register("sushi", basicFood(4, 2.4f));
 	Item GOLDEN_CHORUS_FRUIT = register("golden_chorus_fruit", GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
 	Item FRIED_CHORUS_FRUIT = register("fried_chorus_fruit", FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
-	Item FROZEN_CARPACCIO = register("frozen_carpaccio", basicFood(7, 8.4f));
+	Item FROZEN_CARPACCIO = register("frozen_carpaccio", FrozenCarpaccio::new, FrozenCarpaccio.PROPERTIES);
 	Item ENDERMAN_FLESH = register("enderman_flesh", EndermanFlesh::new, EndermanFlesh.PROPERTIES);
 	Item CRYSTAL_HEARTFISH = register("crystal_heartfish", CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
 	Item GRILLED_ENDERMAN_FLESH = register("grilled_enderman_flesh", basicFood(6, 9.6f));
-	Item FLAREFIN_KOI = register("flarefin_koi", foodProperties(4, 0.8f, new EffectChance(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20))));
+	Item FLAREFIN_KOI = register("flarefin_koi", foodProperties(4, 0.8f, new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20)));
 	Item AMETHYST_BUDFISH = register("amethyst_budfish");
 	Item CRIMSON_TIGERFISH = register("crimson_tigerfish", foodProperties(1, 0.2f,
-		new EffectChance(new MobEffectInstance(MobEffects.HUNGER, 30 * 20)),
-		new EffectChance(new MobEffectInstance(MobEffects.POISON, 20 * 20))));
+		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
+		new MobEffectInstance(MobEffects.POISON, 20 * 20)));
 	Item ENDER_KOI = register("ender_koi", basicFood(1, 0.6f));
 	Item FLESHY_PIRANHA = register("fleshy_piranha", foodProperties(1, 0.2f,
-		new EffectChance(new MobEffectInstance(MobEffects.HUNGER, 30 * 20)),
-		new EffectChance(new MobEffectInstance(MobEffects.POISON, 20 * 20)))
-	);
-	Item BUBBLEFISH = register("bubblefish", foodProperties(0, 0, new EffectChance(new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20))));
-	Item PRISMITE = register("prismite", foodProperties(3, 1.8f, new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20))));
+		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
+		new MobEffectInstance(MobEffects.POISON, 20 * 20)
+	));
+	Item BUBBLEFISH = register("bubblefish", foodProperties(0, 0, new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20)));
+	Item PRISMITE = register("prismite", foodProperties(3, 1.8f, new MobEffectInstance(MobEffects.REGENERATION, 5 * 20)));
 	Item OVERGROWN_COD = register("overgrown_cod", Item::new,
-		foodProperties(1, 0.2f, new EffectChance(new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2))));
+		foodProperties(1, 0.2f, new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2)));
 	Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
-	Item PRISMATIC_SUSHI = register("prismatic_sushi", foodProperties(4, 2.4f, true, new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20))));
+	Item PRISMATIC_SUSHI = register("prismatic_sushi", foodProperties(4, 2.4f, true, new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20)));
 	Item SHEPHERDS_PIE = register("shepherds_pie", Item::new,
 		foodProperties(20, 20f, true,
-			new EffectChance(new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2)),
-			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1))
+			new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2),
+			new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1)
 		));
 	Item CHORUS_PIE = register("chorus_pie", foodProperties(8, 4.8f));
 	Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
-	Item PHO = register("pho",
-		Item::new,
-		foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL), new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
-			new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20)),
-			new EffectChance(new MobEffectInstance(MobEffects.STRENGTH, 150 * 20)),
-			new EffectChance(new MobEffectInstance(MobEffects.REGENERATION, 32 * 20))
-		)
-			.usingConvertsTo(Items.BOWL));
-
+	Item PHO = register("pho", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+		new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
+		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
+		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
+		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
+	).usingConvertsTo(Items.BOWL));
 	Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
 	Item CHORUS_PLATING = register("chorus_plating");
 	Item ENDERITE_SHARD = register("enderite_shard");
@@ -117,11 +117,9 @@ public interface StellarityItems {
 	Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.DEVIANTS_LIGHT_MUSIC_BOX)
 	);
-
 	Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
 	);
-
 	Item MUSIC_DISC_PRECIPICE_STEREO = register("music_disc_precipice_stereo",
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.PRECIPICE_STEREO)
 	);
@@ -164,11 +162,11 @@ public interface StellarityItems {
 	Supplier<ItemStack> LUCK_POTION = createPotion(StellarityPotions.LUCK);
 
 	Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK), 6, 3.6f, true,
-		new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20))
+		new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20)
 	).usingConvertsTo(Items.GLASS_BOTTLE));
 
 	Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood(), 6, 3.6f, true,
-		new EffectChance(new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2))
+		new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2)
 	).usingConvertsTo(Items.GLASS_BOTTLE));
 
 	Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
@@ -185,6 +183,21 @@ public interface StellarityItems {
 	Item VOIDED_SKELETON_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SKELETON);
 	Item VOIDED_SILVERFISH_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SILVERFISH);
 	Item VOIDED_SLIME_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SLIME);
+
+	Item FROST_MINNOW = register("frost_minnow", foodProperties(1, 0.2f,
+		new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
+	));
+	Item GOOSH = register("goosh", foodProperties(1, 0,
+		new MobEffectInstance(MobEffects.OOZING, 59 * 20),
+		new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
+		new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
+	));
+	Item CHORUS_STEW = register("chorus_stew", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+		new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
+		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
+		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
+		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
+	).usingConvertsTo(Items.BOWL));
 
 
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
@@ -278,6 +291,20 @@ public interface StellarityItems {
 
 	static Item.Properties foodProperties(int nutrition, float saturation, EffectChance... effectChances) {
 		return foodProperties(nutrition, saturation, false, effectChances);
+	}
+
+	static Item.Properties foodProperties(int nutrition, float saturation, MobEffectInstance first, MobEffectInstance... effects) {
+		return foodProperties(nutrition, saturation, false, Streams.concat(Stream.of(first), Arrays.stream(effects)).map(EffectChance::new).toArray(EffectChance[]::new));
+	}
+
+	static Item.Properties foodProperties(int nutrition, float saturation, boolean alwaysEat, MobEffectInstance first, MobEffectInstance... effects) {
+		return foodProperties(nutrition, saturation, alwaysEat, Streams.concat(Stream.of(first), Arrays.stream(effects)).map(EffectChance::new).toArray(EffectChance[]::new));
+	}
+
+	static Item.Properties foodProperties(Item.Properties properties, FoodProperties.Builder foodProperties, Consumable.Builder consumable, int nutrition, float saturation, boolean alwaysEat, MobEffectInstance first, MobEffectInstance... effects) {
+		return foodProperties(properties, foodProperties, consumable, nutrition, saturation, alwaysEat,
+			Streams.concat(Stream.of(first), Arrays.stream(effects)).map(EffectChance::new).toArray(EffectChance[]::new)
+		);
 	}
 
 	static Item.Properties basicFood(int nutrition, float saturation) {

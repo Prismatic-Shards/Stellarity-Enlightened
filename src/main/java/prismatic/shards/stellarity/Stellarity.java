@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import prismatic.shards.stellarity.registry.*;
-import prismatic.shards.stellarity.registry.recipe.StellarityBiolithBiomes;
+import prismatic.shards.stellarity.registry.StellarityBiolithBiomes;
 
 public class Stellarity implements ModInitializer {
 	public static final String VERSION = /*$ minecraft*/ "26.1.1";
