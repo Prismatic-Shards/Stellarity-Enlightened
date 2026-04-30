@@ -101,7 +101,42 @@ public interface BiomeProvider {
 				.build()
 			).build());
 
-		for (var biome : List.of(CRYSTAL_CRAGS, END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+		context.register(CRYSTAL_CRAGS, new Biome.BiomeBuilder()
+			.temperature(0.5f).downfall(0.5f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x5d2a6f)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1100, 6, 2)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.DRIPPING_OBSIDIAN_TEAR, 0.00022f)))
+			.specialEffects(new BiomeSpecialEffects(0xe499ff, of(0xdd90fe), empty(), of(0xdd90fe), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4))
+				.addMobCharge(EntityType.ENDERMAN, 0.7, 1)
+				.build())
+			.generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, CRYSTAL_CRAGS_HILLS)
+				.addFeature(GenerationStep.Decoration.LAKES, CRYSTAL_CRAGS_CRYSTAL_ROOTS)
+				.addFeature(GenerationStep.Decoration.LAKES, CRYSTAL_CRAGS_AMETHYST_CRYSTALS)
+				.addFeature(GenerationStep.Decoration.LAKES, CRYSTAL_CRAGS_AMETHYST_DELTAS)
+				.addFeature(GenerationStep.Decoration.LAKES, CRYSTAL_CRAGS_GRASS_DELTAS)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CRYSTAL_CRAGS_CHORUS_PLANTS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CRYSTAL_CRAGS_CRYSTAL_GRASS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, CRYSTAL_CRAGS_GRASS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.build()
+			).build()
+		);
+
+
+		for (var biome : List.of(END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)

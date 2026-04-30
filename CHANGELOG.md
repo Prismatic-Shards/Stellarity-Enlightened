@@ -150,6 +150,7 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] End Highlands**
 
 - Updated to use Stellarity's worldgen placed features
+- Does not use the stacked trees at the moment, quite janky and rare anyways, decided to remove them
 
 **[*] End Midlands**
 

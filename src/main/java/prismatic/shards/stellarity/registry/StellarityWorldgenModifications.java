@@ -148,9 +148,12 @@ public interface StellarityWorldgenModifications {
 		BiomeModifications.addFeature(endHighlands, LOCAL_MODIFICATIONS, END_HIGHLANDS_SMALL_DIRT_PATCHES);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_BUDS);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_PLANTS);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_CHORUS_LEAVES);
+		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_BUSHES);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_PITCHER_PLANTS);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_GRASS);
 		BiomeModifications.addFeature(endHighlands, VEGETAL_DECORATION, END_HIGHLANDS_ROOTS);
+
 
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();

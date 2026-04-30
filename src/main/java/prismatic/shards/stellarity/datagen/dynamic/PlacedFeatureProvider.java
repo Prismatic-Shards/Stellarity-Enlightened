@@ -11,12 +11,14 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
+import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 
 import java.util.List;
 
@@ -42,6 +44,7 @@ public interface PlacedFeatureProvider {
 		HolderGetter<PlacedFeature> placed = context.lookup(Registries.PLACED_FEATURE);
 
 		final var CHORUS_PLANT = configured.getOrThrow(mcConfig("chorus_plant"));
+		final var NONE = placed.getOrThrow(NOTHING);
 
 		context.register(GLOBAL_STALACTITES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_STALACTITES), List.of(
 			countPlace(weighted(14, 100, 28, 50, 56, 25, 80, 1)),
@@ -127,6 +130,14 @@ public interface PlacedFeatureProvider {
 			placeRandom(num(0), num(-1)), biome(), countPlace(24), placeRandom(trapezoid(-5, 5, 0), trapezoid(-5, 5, 0)),
 			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, 1, 0), ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT, COARSE_DIRT)))
 		)));
+		context.register(END_HIGHLANDS_CHORUS_LEAVES, new PlacedFeature(direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
+			new WeightedPlacedFeature(direct(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_CHORUS_LEAF), List.of())), 0.3f)), NONE
+		))), List.of(
+			noisePlace(40, 2, 1), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, all(replaceable(), matchBlocks(vec(0, -1, 0), END_STONE)), all(), 32), rarity(1), biome()
+		)));
+		context.register(END_HIGHLANDS_BUSHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_BUSH), List.of(
+			everyLayer(1), rarity(8), blockFilter(matchBlocks(vec(0, -1, 0), ENDER_GRASS_BLOCK)), biome()
+		)));
 
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_CALCITE_BOTTOM), List.of(
@@ -172,7 +183,7 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new PlacedFeature(direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
 			weightedPlaced(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_BASALT_COLUMNS), List.of()), 0.12f)
-		), placed.getOrThrow(NOTHING)))), List.of(
+		), NONE))), List.of(
 			everyLayer(2), biome()
 		)));
 		context.register(ASHFALL_DELTAS_SEAGRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_SEAGRASS), List.of(
@@ -182,8 +193,7 @@ public interface PlacedFeatureProvider {
 			everyLayer(30), biome(), countPlace(2), placeRandom(trapezoid(-5, 5, 0), trapezoid(-3, 3, 0)), blockFilter(BlockPredicate.allOf(matchBlocks(AIR), matchBlocks(vec(0, -1, 0), ENDER_GRASS_BLOCK, MUD)))
 		)));
 		context.register(ASHFALL_DELTAS_TREES, new PlacedFeature(Holder.direct(new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
-			List.of(weightedPlaced(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_TREE), List.of()), 0.8f)),
-			placed.getOrThrow(NOTHING)
+			List.of(weightedPlaced(new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_TREE), List.of()), 0.8f)), NONE
 		))), List.of(everyLayer(2), biome(), rarity(5))));
 		context.register(ASHFALL_DELTAS_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ASHFALL_DELTAS_GRASS), List.of(
 			everyLayer(30), biome(), countPlace(20), placeRandom(trapezoid(-5, 5, 0), trapezoid(-3, 3, 0)), blockFilter(all(matchBlocks(AIR), wouldSurvive(SHORT_GRASS)))
@@ -195,6 +205,30 @@ public interface PlacedFeatureProvider {
 			countPlace(25), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 12), biome()
 		)));
 
-
+		context.register(CRYSTAL_CRAGS_HILLS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_HILLS), List.of(
+			countPlace(num(2, 5)), inSquare(), noisePlace(65, 80, 0), heightPlace(height(aboveBottom(0), belowTop(0))), envScan(Direction.DOWN, solid(), matchBlocks(AIR), 32), biome()
+		)));
+		context.register(CRYSTAL_CRAGS_CRYSTAL_ROOTS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_CRYSTAL_ROOTS), List.of(
+			rarity(2), inSquare(), heightPlace(height(aboveBottom(0), absolute(170))), envScan(Direction.UP, all(matchBlocks(vec(0, 1, 0), END_STONE),
+				matchBlocks(AIR, CAVE_AIR)), all(), 32), biome()
+		)));
+		context.register(CRYSTAL_CRAGS_AMETHYST_CRYSTALS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_AMETHYST_CRYSTAL), List.of(
+			countPlace(200), inSquare(), heightmap(Heightmap.Types.OCEAN_FLOOR), biome(), countPlace(16), placeRandom(trapezoid(-4, 4, 0), trapezoid(-4, 4, 0)),
+			blockFilter(all(matchBlocks(AIR), any(matchBlocks(vec(0, 1, 0), AMETHYST_BLOCK), matchBlocks(vec(1, 0, 0), AMETHYST_BLOCK),
+				matchBlocks(vec(-1, 0, 0), AMETHYST_BLOCK), matchBlocks(vec(0, 0, 1), AMETHYST_BLOCK), matchBlocks(vec(0, 0, -1), AMETHYST_BLOCK)
+			)))
+		)));
+		context.register(CRYSTAL_CRAGS_GRASS_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_GRASS_DELTA), List.of(everyLayer(6), biome())));
+		context.register(CRYSTAL_CRAGS_AMETHYST_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_AMETHYST_DELTA), List.of(everyLayer(15), biome())));
+		context.register(CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE), List.of(
+			countPlace(40), inSquare(), heightPlace(height(aboveBottom(0), belowTop(0))), biome()
+		)));
+		context.register(CRYSTAL_CRAGS_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(everyLayer(num(0, 3)), biome(), rarity(2))));
+		context.register(CRYSTAL_CRAGS_CRYSTAL_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_CRYSTAL_GRASS), List.of(
+			everyLayer(4), biome(), countPlace(16), placeRandom(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(CRYSTAL_CRAGS_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_GRASS), List.of(
+			everyLayer(6), biome(), countPlace(64), placeRandom(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)), blockFilter(all(matchBlocks(AIR), wouldSurvive(SHORT_GRASS)))
+		)));
 	}
 }

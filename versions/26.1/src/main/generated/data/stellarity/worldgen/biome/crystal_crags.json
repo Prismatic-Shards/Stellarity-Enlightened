@@ -2,47 +2,92 @@
   "attributes": {
     "minecraft:audio/ambient_sounds": {
       "additions": {
-        "sound": {
-          "sound_id": "minecraft:ambient.underwater.loop.additions.ultra_rare"
-        },
-        "tick_chance": 0.001
+        "sound": "minecraft:ambient.basalt_deltas.additions",
+        "tick_chance": 0.0111
       },
       "loop": {
         "sound_id": "stellarity:ambient.heavenly_grim"
       },
       "mood": {
-        "block_search_extent": 4,
+        "block_search_extent": 6,
         "offset": 2.0,
-        "sound": {
-          "sound_id": "minecraft:ambient.underwater.loop.additions.rare"
-        },
-        "tick_delay": 1000
+        "sound": "minecraft:ambient.basalt_deltas.mood",
+        "tick_delay": 1100
       }
     },
-    "minecraft:visual/ambient_light_color": "#3f472f",
+    "minecraft:visual/ambient_light_color": "#3f473f",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:dripping_obsidian_tear"
+        },
+        "probability": 2.2E-4
+      }
+    ],
     "minecraft:visual/fog_color": "#000000",
     "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/water_fog_color": "#000000"
+    "minecraft:visual/water_fog_color": "#5d2a6f"
   },
   "carvers": [],
-  "downfall": 0.4,
+  "downfall": 0.5,
   "effects": {
-    "foliage_color": "#d494ff",
-    "grass_color": "#deadff",
-    "water_color": "#f3d1ff"
+    "foliage_color": "#dd90fe",
+    "grass_color": "#dd90fe",
+    "water_color": "#e499ff"
   },
-  "features": [],
+  "features": [
+    [
+      "stellarity:global/stalactites",
+      "stellarity:crystal_crags/hills"
+    ],
+    [
+      "stellarity:crystal_crags/crystal_roots",
+      "stellarity:crystal_crags/amethyst_crystals",
+      "stellarity:crystal_crags/amethyst_deltas",
+      "stellarity:crystal_crags/grass_deltas"
+    ],
+    [
+      "stellarity:crystal_crags/budding_amethyst_ore"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "stellarity:crystal_crags/chorus_plants",
+      "stellarity:crystal_crags/crystal_grass",
+      "stellarity:crystal_crags/grass"
+    ],
+    [
+      "stellarity:global/dungeons",
+      "stellarity:global/fossils"
+    ]
+  ],
   "has_precipitation": false,
-  "spawn_costs": {},
+  "spawn_costs": {
+    "minecraft:enderman": {
+      "charge": 0.7,
+      "energy_budget": 1.0
+    }
+  },
   "spawners": {
     "ambient": [],
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 20
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8
+  "temperature": 0.5
 }

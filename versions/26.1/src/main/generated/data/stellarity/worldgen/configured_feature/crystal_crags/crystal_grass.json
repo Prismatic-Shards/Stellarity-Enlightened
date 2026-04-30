@@ -22,7 +22,7 @@
               "waterlogged": "false"
             }
           },
-          "weight": 3
+          "weight": 1
         },
         {
           "data": {
@@ -32,7 +32,7 @@
               "waterlogged": "false"
             }
           },
-          "weight": 3
+          "weight": 1
         },
         {
           "data": {
@@ -42,7 +42,7 @@
               "waterlogged": "false"
             }
           },
-          "weight": 3
+          "weight": 1
         }
       ]
     }

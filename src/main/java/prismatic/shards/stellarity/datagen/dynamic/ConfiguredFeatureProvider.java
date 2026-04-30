@@ -33,6 +33,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPl
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
@@ -42,13 +43,14 @@ import prismatic.shards.stellarity.util.Constants;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static net.minecraft.core.Holder.direct;
 import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityConfiguredFeatures.*;
-import static prismatic.shards.stellarity.registry.StellarityBlocks.ENDER_GRASS_BLOCK;
-import static prismatic.shards.stellarity.registry.StellarityBlocks.ROOTED_ENDER_DIRT;
+import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
 import static prismatic.shards.stellarity.tags.StellarityBlockTags.*;
 import static prismatic.shards.stellarity.util.ValueUtil.*;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
@@ -72,12 +74,7 @@ public interface ConfiguredFeatureProvider {
 
 		final var NOTHING = placed.getOrThrow(StellarityPlacedFeatures.NOTHING);
 		final var UP_AMETHYST_CLUSTER = property(AMETHYST_CLUSTER, BlockStateProperties.FACING, Direction.UP);
-		final var AMETHYST_CRYSTALS_UP = new BlockState[]{
-			property(SMALL_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
-			property(MEDIUM_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
-			property(LARGE_AMETHYST_BUD, BlockStateProperties.FACING, Direction.UP),
-			UP_AMETHYST_CLUSTER
-		};
+		final var AMETHYST_CRYSTALS_UP = Stream.of(AMETHYST_CLUSTER, LARGE_AMETHYST_BUD, MEDIUM_AMETHYST_BUD, SMALL_AMETHYST_BUD).map(b -> property(b, BlockStateProperties.FACING, Direction.UP)).toArray(BlockState[]::new);
 
 		context.register(GLOBAL_STALACTITES, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_STALACTITE, block(END_STONE),
@@ -186,6 +183,18 @@ public interface ConfiguredFeatureProvider {
 			new int[]{28, 18, 8, 4}
 		))));
 		context.register(END_HIGHLANDS_ROOTS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS))));
+		context.register(END_HIGHLANDS_CHORUS_LEAF, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+			block(PEARLESCENT_FROGLIGHT), new ForkingTrunkPlacer(10, 0, 0),
+			block(AIR), new BlobFoliagePlacer(num(1), num(1), 0),
+			Optional.of(new MangroveRootPlacer(num(0), block(END_STONE), Optional.of(new AboveRootPlacement(block(END_STONE), 0.33f)), new MangroveRootPlacement(
+				blocksGetter.getOrThrow(WORLDGEN_REPLACEABLE_GRASS_BLOCK), HolderSet.direct(blocksGetter.getOrThrow(Stellarity.key(Registries.BLOCK, "ender_dirt"))), block(STONE), 1, 3, 0.1f
+			))), twoLayersSize(), List.of(), false, block(END_STONE)
+		)));
+		context.register(END_HIGHLANDS_BUSH, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+			block(CHERRY_WOOD), new StraightTrunkPlacer(1, 0, 0),
+			block(OAK_LEAVES), new BushFoliagePlacer(num(2), num(1), 2),
+			Optional.empty(), twoLayersSize(0, 0, 0), List.of(), false, block(ENDER_DIRT)
+		)));
 
 		context.register(AMETHYST_FOREST_CALCITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_REPLACEABLE_END_STONE, weightedBlocks(new Block[]{CALCITE, DIORITE}, new int[]{2, 1}),
@@ -223,7 +232,7 @@ public interface ConfiguredFeatureProvider {
 			new RandomSpreadFoliagePlacer(num(3, 4), num(0, 6), num(10, 13), 256),
 			Optional.empty(), threeLayersSize(), List.of(), false, block(Blocks.DIRT)
 		)));
-		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(AMETHYST_CRYSTALS_UP))));
+		context.register(AMETHYST_FOREST_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(AMETHYST_CRYSTALS_UP, new int[]{1, 3, 3, 3}))));
 		context.register(AMETHYST_FOREST_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(noiseBlocks(
 			12345, new NormalNoise.NoiseParameters(1, 1, 1), 1f,
 			from(ALLIUM), UP_AMETHYST_CLUSTER, from(PINK_TULIP),
@@ -233,12 +242,8 @@ public interface ConfiguredFeatureProvider {
 			from(ALLIUM), UP_AMETHYST_CLUSTER
 		))));
 
-		context.register(ASHFALL_DELTAS_WATER_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
-			from(WATER), from(MUD), num(8, 10), num(1, 4)
-		)));
-		context.register(ASHFALL_DELTAS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
-			from(ENDER_GRASS_BLOCK), from(MUD), num(8, 10), num(0)
-		)));
+		context.register(ASHFALL_DELTAS_WATER_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(WATER), from(MUD), num(8, 10), num(1, 4))));
+		context.register(ASHFALL_DELTAS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(ENDER_GRASS_BLOCK), from(MUD), num(8, 10), num(0))));
 		context.register(ASHFALL_DELTAS_BASALT_COLUMNS, new ConfiguredFeature<>(Feature.BASALT_COLUMNS, new ColumnFeatureConfiguration(num(2, 3), num(3, 6))));
 		context.register(ASHFALL_DELTAS_SEAGRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
 			new BlockState[]{SEA_PICKLE.defaultBlockState().setValue(BlockStateProperties.PICKLES, 2), from(SEA_PICKLE), from(SEAGRASS)},
@@ -270,5 +275,28 @@ public interface ConfiguredFeatureProvider {
 		)));
 		context.register(ASHFALL_DELTAS_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{SHORT_GRASS, FERN}, new int[]{16, 1}))));
 		context.register(ASHFALL_DELTAS_ASH_PILE, new ConfiguredFeature<>(Feature.BLOCK_PILE, new BlockPileConfiguration(block(LIGHT_GRAY_CONCRETE_POWDER))));
+
+		context.register(CRYSTAL_CRAGS_HILLS, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_REPLACEABLE_STALACTITE, block(BASALT),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+				List.of(new BlockColumnConfiguration.Layer(num(1), block(BASALT))), Direction.UP, matchBlocks(AIR), true
+			))), List.of())), CaveSurface.FLOOR, num(1), 0, 10, 1, num(3, 6), 0.5f
+		)));
+		context.register(CRYSTAL_CRAGS_CRYSTAL_ROOTS, new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(direct(new PlacedFeature(
+			direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(AMETHYST_BLOCK)))), List.of()
+		)), 1, 3, WORLDGEN_REPLACEABLE_STALACTITE, block(AMETHYST_BLOCK), 20, 100, 3, 2, block(AMETHYST_CLUSTER), 15, 1, all())));
+		context.register(CRYSTAL_CRAGS_AMETHYST_CRYSTAL, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+			blocks(Stream.of(AMETHYST_CLUSTER, LARGE_AMETHYST_BUD, MEDIUM_AMETHYST_BUD, SMALL_AMETHYST_BUD).flatMap(b ->
+				Stream.of(Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST).map(d -> property(b, BlockStateProperties.FACING, d))
+			).toArray(BlockState[]::new))
+		)));
+		context.register(CRYSTAL_CRAGS_AMETHYST_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(AMETHYST_BLOCK), from(SMOOTH_BASALT), num(0, 7), num(1, 3))));
+		context.register(CRYSTAL_CRAGS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(ENDER_GRASS_BLOCK), from(ENDER_GRASS_BLOCK), num(4, 7), num(1, 3))));
+		context.register(CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+			List.of(OreConfiguration.target(new BlockMatchTest(AMETHYST_BLOCK), from(BUDDING_AMETHYST))),
+			4, 0
+		)));
+		context.register(CRYSTAL_CRAGS_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(AMETHYST_CRYSTALS_UP))));
+		context.register(CRYSTAL_CRAGS_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{SHORT_GRASS, TALL_GRASS}, new int[]{4, 1}))));
 	}
 }

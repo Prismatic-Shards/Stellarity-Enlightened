@@ -28,6 +28,8 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_PITCHER_PLANT = id("end_highlands/pitcher_plant");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_GRASS = id("end_highlands/grass");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_ROOTS = id("end_highlands/roots");
+	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_CHORUS_LEAF = id("end_highlands/chorus_leaf");
+	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_BUSH = id("end_highlands/bush");
 
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<ConfiguredFeature<?, ?>> AMETHYST_FOREST_AMETHYST_GEODE = id("amethyst_forest/amethyst_geode");
@@ -46,6 +48,15 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_VEGETATION = id("ashfall_deltas/vegetation");
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_GRASS = id("ashfall_deltas/grass");
 	ResourceKey<ConfiguredFeature<?, ?>> ASHFALL_DELTAS_ASH_PILE = id("ashfall_deltas/ash_pile");
+
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_HILLS = id("crystal_crags/hills");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_CRYSTAL_ROOTS = id("crystal_crags/crystal_roots");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_AMETHYST_CRYSTAL = id("crystal_crags/amethyst_crystal");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_AMETHYST_DELTA = id("crystal_crags/amethyst_delta");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_GRASS_DELTA = id("crystal_crags/grass_delta");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE = id("crystal_crags/budding_amethyst_ore");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_CRYSTAL_GRASS = id("crystal_crags/crystal_grass");
+	ResourceKey<ConfiguredFeature<?, ?>> CRYSTAL_CRAGS_GRASS = id("crystal_crags/grass");
 
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);

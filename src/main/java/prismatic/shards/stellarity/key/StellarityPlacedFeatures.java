@@ -33,6 +33,8 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> END_HIGHLANDS_PITCHER_PLANTS = id("end_highlands/pitcher_plants");
 	ResourceKey<PlacedFeature> END_HIGHLANDS_GRASS = id("end_highlands/grass");
 	ResourceKey<PlacedFeature> END_HIGHLANDS_ROOTS = id("end_highlands/roots");
+	ResourceKey<PlacedFeature> END_HIGHLANDS_CHORUS_LEAVES = id("end_highlands/chorus_leaves");
+	ResourceKey<PlacedFeature> END_HIGHLANDS_BUSHES = id("end_highlands/bushes");
 
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_CALCITE_BOTTOM = id("amethyst_forest/calcite_bottom");
 	ResourceKey<PlacedFeature> AMETHYST_FOREST_AMETHYST_GEODES = id("amethyst_forest/amethyst_geodes");
@@ -53,6 +55,16 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_GRASS = id("ashfall_deltas/grass");
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_MAGMA = id("ashfall_deltas/magma");
 	ResourceKey<PlacedFeature> ASHFALL_DELTAS_ASH_PILES = id("ashfall_deltas/ash_piles");
+
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_HILLS = id("crystal_crags/hills");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_CRYSTAL_ROOTS = id("crystal_crags/crystal_roots");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_AMETHYST_CRYSTALS = id("crystal_crags/amethyst_crystals");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_AMETHYST_DELTAS = id("crystal_crags/amethyst_deltas");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_GRASS_DELTAS = id("crystal_crags/grass_deltas");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE = id("crystal_crags/budding_amethyst_ore");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_CHORUS_PLANTS = id("crystal_crags/chorus_plants");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_CRYSTAL_GRASS = id("crystal_crags/crystal_grass");
+	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_GRASS = id("crystal_crags/grass");
 
 	static ResourceKey<PlacedFeature> id(String name) {
 		return Stellarity.key(Registries.PLACED_FEATURE, name);
