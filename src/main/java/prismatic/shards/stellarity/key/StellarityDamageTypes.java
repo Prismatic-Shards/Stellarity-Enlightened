@@ -7,14 +7,11 @@ import prismatic.shards.stellarity.Stellarity;
 
 
 public interface StellarityDamageTypes {
-
-	ResourceKey<DamageType> FROSTBURN = id("dot/frostburn");
-	ResourceKey<DamageType> PRISMATIC_INFERNO = id("dot/prismatic_inferno");
 	ResourceKey<DamageType> BRITTLE = id("brittle");
+	ResourceKey<DamageType> FROSTBURN = id("frostburn");
 	ResourceKey<DamageType> TAMARIS_EXECUTE = id("tamaris_execute");
-	ResourceKey<DamageType> PRISMEMBER = id("prismember");
 
 	static ResourceKey<DamageType> id(String string) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, Stellarity.id(string));
+		return Stellarity.key(Registries.DAMAGE_TYPE, string);
 	}
 }

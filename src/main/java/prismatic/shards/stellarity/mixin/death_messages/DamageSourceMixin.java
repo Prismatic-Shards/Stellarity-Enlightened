@@ -19,13 +19,17 @@ public abstract class DamageSourceMixin {
 	public abstract String getMsgId();
 
 	@WrapOperation(method = "getLocalizedDeathMessage", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/chat/Component;translatable(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/network/chat/MutableComponent;"))
-	private MutableComponent specialStellarityDeathMessages(String string, Object[] objects, Operation<MutableComponent> original) {
+	private MutableComponent specialStellarityDeathMessages(String key, Object[] args, Operation<MutableComponent> original) {
 		String id = getMsgId();
-		if (id.equals("stellarity.tamaris_execute")) {
-			string += "." + random.nextInt(1, 4);
-		}
+		int max = 0;
+		if (id.equals("stellarity.frostburn") || id.equals("stellarity.prismatic_inferno") || id.equals("stellarity.natures_wrath"))
+			max = 2;
+		else if (id.equals("stellarity.dragonblade") || id.equals("stellarity.kaleidoscope") || id.equals("stellarity.spirit_dagger") || id.equals("stellarity.tamaris_execute"))
+			max = 3;
 
-		return original.call(string, objects);
+		if (max != 0) key += "." + random.nextInt(1, max + 1);
+
+		return original.call(key, args);
 	}
 
 }

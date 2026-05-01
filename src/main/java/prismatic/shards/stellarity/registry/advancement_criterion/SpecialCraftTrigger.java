@@ -2,11 +2,8 @@ package prismatic.shards.stellarity.registry.advancement_criterion;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.ContextAwarePredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.advancements.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,13 +15,14 @@ import net.minecraft.world.level.storage.loot.Validatable;
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.registry.StellarityCriteriaTriggers;
 
 import java.util.Optional;
 
 public class SpecialCraftTrigger extends SimpleCriterionTrigger<SpecialCraftTrigger.TriggerInstance> {
 	@Override
-	public Codec<TriggerInstance> codec() {
+	public @NonNull Codec<TriggerInstance> codec() {
 		return SpecialCraftTrigger.TriggerInstance.CODEC;
 	}
 

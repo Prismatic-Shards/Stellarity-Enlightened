@@ -18,8 +18,7 @@ public class FrostburnEffect extends MobEffect {
 		if (livingEntity.level().isClientSide()) return false;
 		float damage = 1f;
 		if (livingEntity.is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) damage *= 2;
-		livingEntity.hurtServer(serverLevel,
-			livingEntity.damageSources().source(StellarityDamageTypes.FROSTBURN), damage);
+		livingEntity.hurtServer(serverLevel, livingEntity.damageSources().source(StellarityDamageTypes.FROSTBURN), damage);
 
 		return true;
 	}

@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.registry.StellarityEntities;
 import prismatic.shards.stellarity.registry.StellaritySounds;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public interface BiomeProvider {
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-				of(direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)),
+				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_GRIM),
 				of(new AmbientMoodSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE), 1000, 4, 2)),
 				List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE), 0.001))
 			)).specialEffects(new BiomeSpecialEffects(0xf3d1ff, of(0xd494ff), empty(), of(0xdeadff), BiomeSpecialEffects.GrassColorModifier.NONE))
@@ -71,7 +72,7 @@ public interface BiomeProvider {
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xc4c4cf)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-				of(direct(StellaritySounds.AMBIENT_DARK)),
+				of(StellaritySounds.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1250, 3, 2)),
 				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0033))
 			))
@@ -108,7 +109,7 @@ public interface BiomeProvider {
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x5d2a6f)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-				of(direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)),
+				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_GRIM),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1100, 6, 2)),
 				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_BASALT_DELTAS_ADDITIONS, 0.0111))
 			))
@@ -135,8 +136,42 @@ public interface BiomeProvider {
 			).build()
 		);
 
+		context.register(END_SHRUBLAND, new Biome.BiomeBuilder()
+			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.SPORE_BLOSSOM_AIR, 0.002f)))
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_GRIM),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 1000, 2, 1)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.0111))
+			)).specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0xffed75), empty(), of(0xfaf389), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.MONSTER, 60, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 30, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_ZOMBIE, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(EntityType.PHANTOM, 4, 4))
+				.addSpawn(MobCategory.CREATURE, 12, new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.PIG, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.COW, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 1, 4))
+				.addMobCharge(EntityType.ENDERMAN, 0.7, 1)
+				.addMobCharge(StellarityEntities.VOIDED_ZOMBIE, 0.7, 1)
+				.addMobCharge(EntityType.PHANTOM, 0.7, 1)
+				.creatureGenerationProbability(0.9999f)
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.build()
+			).build()
+		);
 
-		for (var biome : List.of(END_SHRUBLAND, END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+
+		for (var biome : List.of(END_WILDS, ENDER_WASTES, ENDLESS_DUNES, FIERY_HILLS, FLESH_TUNDRA, FROSTED_VALLEY, FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
@@ -144,7 +179,7 @@ public interface BiomeProvider {
 				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)
 				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-					of(direct(StellaritySounds.AMBIENT_HEAVENLY_GRIM)),
+					of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_GRIM),
 					of(new AmbientMoodSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE), 1000, 4, 2)),
 					List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE), 0.001))
 				)).specialEffects(new BiomeSpecialEffects(0xf3d1ff, of(0xd494ff), empty(), of(0xdeadff), BiomeSpecialEffects.GrassColorModifier.NONE))

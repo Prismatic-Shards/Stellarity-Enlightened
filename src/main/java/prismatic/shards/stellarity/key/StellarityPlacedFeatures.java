@@ -66,6 +66,9 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_CRYSTAL_GRASS = id("crystal_crags/crystal_grass");
 	ResourceKey<PlacedFeature> CRYSTAL_CRAGS_GRASS = id("crystal_crags/grass");
 
+	ResourceKey<PlacedFeature> END_SHRUBLAND_GRASS = id("end_shrubland/grass");
+	ResourceKey<PlacedFeature> END_SHRUBLAND_SHRUBS = id("end_shrubland/shrubs");
+
 	static ResourceKey<PlacedFeature> id(String name) {
 		return Stellarity.key(Registries.PLACED_FEATURE, name);
 	}

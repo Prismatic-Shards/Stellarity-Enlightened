@@ -19,21 +19,26 @@ public interface StellaritySounds {
 	SoundEvent AMBUSH_LEVEL_2 = register("enchantment.ambush.level_2");
 	SoundEvent AMBUSH_LEVEL_3 = register("enchantment.ambush.level_3");
 
-	SoundEvent FIRES_OF_HOKKAI = register("music_disc.fires_of_hokkai");
-	SoundEvent DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc.deviants_light_music_box");
-	SoundEvent PRECIPICE_STEREO = register("music_disc.precipice_stereo");
-
-	SoundEvent AMBIENT_DARK = register("ambient.dark");
-	SoundEvent AMBIENT_DARK_CALM = register("ambient.dark_calm");
-	SoundEvent AMBIENT_HEAVENLY_BLESSED = register("ambient.heavenly_blessed");
-	SoundEvent AMBIENT_HEAVENLY_GRIM = register("ambient.heavenly_grim");
-
-
 	SoundEvent PRISMATIC_PEARL_THROW = register("item.prismatic_pearl.throw");
+
+	Holder<SoundEvent> FIRES_OF_HOKKAI = registerHolder("music_disc.fires_of_hokkai");
+	Holder<SoundEvent> DEVIANTS_LIGHT_MUSIC_BOX = registerHolder("music_disc.deviants_light_music_box");
+	Holder<SoundEvent> PRECIPICE_STEREO = registerHolder("music_disc.precipice_stereo");
+
+	Holder<SoundEvent> AMBIENT_THE_END_DARK = registerHolder("ambient.the_end.dark");
+	Holder<SoundEvent> AMBIENT_THE_END_DARK_CALM = registerHolder("ambient.the_end.dark_calm");
+	Holder<SoundEvent> AMBIENT_THE_END_HEAVENLY_BLESSED = registerHolder("ambient.the_end.heavenly_blessed");
+	Holder<SoundEvent> AMBIENT_THE_END_HEAVENLY_GRIM = registerHolder("ambient.the_end.heavenly_grim");
+
 
 	private static SoundEvent register(String id) {
 		var location = Stellarity.id(id);
 		return Registry.register(BuiltInRegistries.SOUND_EVENT, location, SoundEvent.createVariableRangeEvent(location));
+	}
+
+	private static Holder<SoundEvent> registerHolder(String id) {
+		var location = Stellarity.id(id);
+		return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, location, SoundEvent.createVariableRangeEvent(location));
 	}
 
 	static void init() {

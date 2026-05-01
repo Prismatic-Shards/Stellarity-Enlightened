@@ -5,9 +5,7 @@
         "sound": "minecraft:ambient.basalt_deltas.additions",
         "tick_chance": 0.0111
       },
-      "loop": {
-        "sound_id": "stellarity:ambient.heavenly_grim"
-      },
+      "loop": "stellarity:ambient.the_end.heavenly_grim",
       "mood": {
         "block_search_extent": 6,
         "offset": 2.0,

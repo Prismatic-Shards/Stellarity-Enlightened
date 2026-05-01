@@ -1,0 +1,15 @@
+package prismatic.shards.stellarity.datagen.dynamic;
+
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.damagesource.DamageEffects;
+import net.minecraft.world.damagesource.DamageScaling;
+import net.minecraft.world.damagesource.DamageType;
+import prismatic.shards.stellarity.key.StellarityDamageTypes;
+
+public interface DamageTypeProvider {
+	static void boostrap(BootstrapContext<DamageType> context) {
+		context.register(StellarityDamageTypes.BRITTLE, new DamageType("stellarity.brittle", DamageScaling.NEVER, 0.1f, DamageEffects.FREEZING));
+		context.register(StellarityDamageTypes.FROSTBURN, new DamageType("stellarity.frostburn", DamageScaling.NEVER, 0.1f, DamageEffects.FREEZING));
+		context.register(StellarityDamageTypes.TAMARIS_EXECUTE, new DamageType("stellarity.tamaris_execute", DamageScaling.NEVER, 0.1f));
+	}
+}

@@ -483,7 +483,7 @@
 			}
 		]
 	},
-	"ambient.heavenly_blessed": {
+	"ambient.the_end.heavenly_blessed": {
 		"sounds": [
 			{
 				"name": "stellarity:ambient/heavenly_blessed",
@@ -492,7 +492,7 @@
 			}
 		]
 	},
-	"ambient.heavenly_grim": {
+	"ambient.the_end.heavenly_grim": {
 		"sounds": [
 			{
 				"name": "stellarity:ambient/heavenly_grim",
@@ -501,7 +501,7 @@
 			}
 		]
 	},
-	"ambient.dark": {
+	"ambient.the_end.dark": {
 		"sounds": [
 			{
 				"name": "stellarity:ambient/dark",
@@ -510,7 +510,7 @@
 			}
 		]
 	},
-	"ambient.dark_calm": {
+	"ambient.the_end.dark_calm": {
 		"sounds": [
 			{
 				"name": "stellarity:ambient/dark_calm",

@@ -5,10 +5,9 @@ import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.datagen.*;
-import prismatic.shards.stellarity.datagen.dynamic.*;
 import prismatic.shards.stellarity.datagen.book.EndonomiconBookProvider;
 import prismatic.shards.stellarity.datagen.loot_table.BlockLootTableProvider;
 import prismatic.shards.stellarity.datagen.loot_table.ChestLootTableProvider;
@@ -17,22 +16,8 @@ import prismatic.shards.stellarity.datagen.tags.*;
 
 public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.NOISE, NoiseProvider::bootstrap);
-		registryBuilder.add(Registries.PAINTING_VARIANT, PaintingProvider::bootstrap);
-		registryBuilder.add(Registries.CHICKEN_VARIANT, AnimalVariantProvider::bootstrapChicken);
-		registryBuilder.add(Registries.CAT_VARIANT, AnimalVariantProvider::bootstrapCat);
-		registryBuilder.add(Registries.WOLF_VARIANT, AnimalVariantProvider::bootstrapWolf);
-		registryBuilder.add(Registries.COW_VARIANT, AnimalVariantProvider::bootstrapCow);
-		registryBuilder.add(Registries.FROG_VARIANT, AnimalVariantProvider::bootstrapFrog);
-		registryBuilder.add(Registries.PIG_VARIANT, AnimalVariantProvider::bootstrapPig);
-
-		registryBuilder.add(Registries.BIOME, BiomeProvider::bootstrap);
-		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrapEarly);
-		registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureProvider::bootstrap);
-		registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeatureProvider::bootstrap);
-		registryBuilder.add(Registries.VILLAGER_TRADE, VillagerTradeProvider::bootstrap);
-		registryBuilder.add(Registries.TRADE_SET, TradeSetProvider::bootstrap);
+	public void buildRegistry(@NonNull RegistrySetBuilder builder) {
+		DynamicRegistriesProvider.buildRegistry(builder);
 	}
 
 	@SuppressWarnings("DuplicatedCode")
