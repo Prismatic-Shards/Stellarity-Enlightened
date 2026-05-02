@@ -39,7 +39,6 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.@NonNull Provider provider) {
 		addTags(StellarityBlockTags.DIRT).add(ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT);
-		addTags(StellarityBlockTags.DIRT).add(ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT);
 		addTags(MINEABLE_WITH_SHOVEL).add(ENDER_DIRT_PATH, ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT);
 		addTags(MINEABLE_WITH_PICKAXE).add(ALTAR_OF_THE_ACCURSED);
 		addTags(NEEDS_DIAMOND_TOOL).add(ALTAR_OF_THE_ACCURSED);

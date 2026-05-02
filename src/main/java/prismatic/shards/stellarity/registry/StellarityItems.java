@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityAnimalVariants;
+import prismatic.shards.stellarity.key.StellarityItemIds;
 import prismatic.shards.stellarity.key.StellarityJukeboxSongs;
 import prismatic.shards.stellarity.registry.item.*;
 
@@ -38,71 +39,71 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public interface StellarityItems {
-	Item ENDER_DIRT = registerBlock("ender_dirt", StellarityBlocks.ENDER_DIRT);
-	Item ENDER_GRASS_BLOCK = registerBlock("ender_grass_block", StellarityBlocks.ENDER_GRASS_BLOCK);
-	Item ASHEN_FROGLIGHT = registerBlock("ashen_froglight", StellarityBlocks.ASHEN_FROGLIGHT);
-	Item ROOTED_ENDER_DIRT = registerBlock("rooted_ender_dirt", StellarityBlocks.ROOTED_ENDER_DIRT);
-	Item ENDER_DIRT_PATH = registerBlock("ender_dirt_path", StellarityBlocks.ENDER_DIRT_PATH);
-	Item ALTAR_OF_THE_ACCURSED = registerBlock("altar_of_the_accursed", StellarityBlocks.ALTAR_OF_THE_ACCURSED);
-	
-	Item CALL_OF_THE_VOID = register("call_of_the_void", CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
-	Item FISHER_OF_VOIDS = register("fisher_of_voids", FisherOfVoids::new, FisherOfVoids.PROPERTIES);
+	Item ENDER_DIRT = registerBlock(StellarityItemIds.ENDER_DIRT, StellarityBlocks.ENDER_DIRT);
+	Item ENDER_GRASS_BLOCK = registerBlock(StellarityItemIds.ENDER_GRASS_BLOCK, StellarityBlocks.ENDER_GRASS_BLOCK);
+	Item ASHEN_FROGLIGHT = registerBlock(StellarityItemIds.ASHEN_FROGLIGHT, StellarityBlocks.ASHEN_FROGLIGHT);
+	Item ROOTED_ENDER_DIRT = registerBlock(StellarityItemIds.ROOTED_ENDER_DIRT, StellarityBlocks.ROOTED_ENDER_DIRT);
+	Item ENDER_DIRT_PATH = registerBlock(StellarityItemIds.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT_PATH);
+	Item ALTAR_OF_THE_ACCURSED = registerBlock(StellarityItemIds.ALTAR_OF_THE_ACCURSED, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-	Item SUSHI = register("sushi", basicFood(4, 2.4f));
-	Item GOLDEN_CHORUS_FRUIT = register("golden_chorus_fruit", GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
-	Item FRIED_CHORUS_FRUIT = register("fried_chorus_fruit", FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
-	Item FROZEN_CARPACCIO = register("frozen_carpaccio", FrozenCarpaccio::new, FrozenCarpaccio.PROPERTIES);
-	Item ENDERMAN_FLESH = register("enderman_flesh", EndermanFlesh::new, EndermanFlesh.PROPERTIES);
-	Item CRYSTAL_HEARTFISH = register("crystal_heartfish", CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
-	Item GRILLED_ENDERMAN_FLESH = register("grilled_enderman_flesh", basicFood(6, 9.6f));
-	Item FLAREFIN_KOI = register("flarefin_koi", foodProperties(4, 0.8f, new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20)));
-	Item AMETHYST_BUDFISH = register("amethyst_budfish");
-	Item CRIMSON_TIGERFISH = register("crimson_tigerfish", foodProperties(1, 0.2f,
+	Item CALL_OF_THE_VOID = register(StellarityItemIds.CALL_OF_THE_VOID, CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
+	Item FISHER_OF_VOIDS = register(StellarityItemIds.FISHER_OF_VOIDS, FisherOfVoids::new, FisherOfVoids.PROPERTIES);
+
+	Item SUSHI = register(StellarityItemIds.SUSHI, basicFood(4, 2.4f));
+	Item GOLDEN_CHORUS_FRUIT = register(StellarityItemIds.GOLDEN_CHORUS_FRUIT, GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
+	Item FRIED_CHORUS_FRUIT = register(StellarityItemIds.FRIED_CHORUS_FRUIT, FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
+	Item FROZEN_CARPACCIO = register(StellarityItemIds.FROZEN_CARPACCIO, FrozenCarpaccio::new, FrozenCarpaccio.PROPERTIES);
+	Item ENDERMAN_FLESH = register(StellarityItemIds.ENDERMAN_FLESH, EndermanFlesh::new, EndermanFlesh.PROPERTIES);
+	Item CRYSTAL_HEARTFISH = register(StellarityItemIds.CRYSTAL_HEARTFISH, CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
+	Item GRILLED_ENDERMAN_FLESH = register(StellarityItemIds.GRILLED_ENDERMAN_FLESH, basicFood(6, 9.6f));
+	Item FLAREFIN_KOI = register(StellarityItemIds.FLAREFIN_KOI, foodProperties(4, 0.8f, new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20)));
+	Item AMETHYST_BUDFISH = register(StellarityItemIds.AMETHYST_BUDFISH);
+	Item CRIMSON_TIGERFISH = register(StellarityItemIds.CRIMSON_TIGERFISH, foodProperties(1, 0.2f,
 		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
 		new MobEffectInstance(MobEffects.POISON, 20 * 20)));
-	Item ENDER_KOI = register("ender_koi", basicFood(1, 0.6f));
-	Item FLESHY_PIRANHA = register("fleshy_piranha", foodProperties(1, 0.2f,
+	Item ENDER_KOI = register(StellarityItemIds.ENDER_KOI, basicFood(1, 0.6f));
+	Item FLESHY_PIRANHA = register(StellarityItemIds.FLESHY_PIRANHA, foodProperties(1, 0.2f,
 		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
 		new MobEffectInstance(MobEffects.POISON, 20 * 20)
 	));
-	Item BUBBLEFISH = register("bubblefish", foodProperties(0, 0, new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20)));
-	Item PRISMITE = register("prismite", foodProperties(3, 1.8f, new MobEffectInstance(MobEffects.REGENERATION, 5 * 20)));
-	Item OVERGROWN_COD = register("overgrown_cod", Item::new,
+	Item BUBBLEFISH = register(StellarityItemIds.BUBBLEFISH, foodProperties(0, 0, new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20)));
+	Item PRISMITE = register(StellarityItemIds.PRISMITE, foodProperties(3, 1.8f, new MobEffectInstance(MobEffects.REGENERATION, 5 * 20)));
+	Item OVERGROWN_COD = register(StellarityItemIds.OVERGROWN_COD, Item::new,
 		foodProperties(1, 0.2f, new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2)));
-	Item SHULKER_BODY = register("shulker_body", ShulkerBody::new, ShulkerBody.PROPERTIES);
-	Item PRISMATIC_SUSHI = register("prismatic_sushi", foodProperties(4, 2.4f, true, new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20)));
-	Item SHEPHERDS_PIE = register("shepherds_pie", Item::new,
+	Item SHULKER_BODY = register(StellarityItemIds.SHULKER_BODY, ShulkerBody::new, ShulkerBody.PROPERTIES);
+	Item PRISMATIC_SUSHI = register(StellarityItemIds.PRISMATIC_SUSHI, foodProperties(4, 2.4f, true, new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20)));
+	Item SHEPHERDS_PIE = register(StellarityItemIds.SHEPHERDS_PIE, Item::new,
 		foodProperties(20, 20f, true,
 			new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2),
 			new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1)
 		));
-	Item CHORUS_PIE = register("chorus_pie", foodProperties(8, 4.8f));
-	Item PHANTOM_ITEM_FRAME = register("phantom_item_frame", PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
-	Item PHO = register("pho", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+	Item CHORUS_PIE = register(StellarityItemIds.CHORUS_PIE, foodProperties(8, 4.8f));
+	Item PHANTOM_ITEM_FRAME = register(StellarityItemIds.PHANTOM_ITEM_FRAME, PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
+	Item PHO = register(StellarityItemIds.PHO, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
 		new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
 		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
 		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
 	).usingConvertsTo(Items.BOWL));
-	Item FROST_MINNOW = register("frost_minnow", foodProperties(1, 0.2f,
+	Item FROST_MINNOW = register(StellarityItemIds.FROST_MINNOW, foodProperties(1, 0.2f,
 		new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
 	));
-	Item GOOSH = register("goosh", foodProperties(1, 0,
+	Item GOOSH = register(StellarityItemIds.GOOSH, foodProperties(1, 0,
 		new MobEffectInstance(MobEffects.OOZING, 59 * 20),
 		new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
 		new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
 	));
-	Item CHORUS_STEW = register("chorus_stew", Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+	Item CHORUS_STEW = register(StellarityItemIds.CHORUS_STEW, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
 		new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
 		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
 		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
 	).usingConvertsTo(Items.BOWL));
 
-	Item TAMARIS = register("tamaris", Tamaris::new, Tamaris.PROPERTIES);
-	Item CHORUS_PLATING = register("chorus_plating");
-	Item ENDERITE_SHARD = register("enderite_shard");
-	Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register("enderite_upgrade_smithing_template", (properties) -> new SmithingTemplateItem(
+	Item TAMARIS = register(StellarityItemIds.TAMARIS, Tamaris::new, Tamaris.PROPERTIES);
+	Item CHORUS_PLATING = register(StellarityItemIds.CHORUS_PLATING);
+	Item ENDERITE_SHARD = register(StellarityItemIds.ENDERITE_SHARD);
+	Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register(StellarityItemIds.ENDERITE_UPGRADE_SMITHING_TEMPLATE, (properties) -> new SmithingTemplateItem(
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.applies_to").withStyle(ChatFormatting.BLUE),
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.hallowed_ingot")).withStyle(ChatFormatting.BLUE),
 		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.upgrade").withStyle(ChatFormatting.GRAY),
@@ -119,23 +120,23 @@ public interface StellarityItems {
 		}
 	}, new Item.Properties());
 
-	Item HALLOWED_INGOT = register("hallowed_ingot");
-	Item SAND_RUNE = register("sand_rune");
-	Item STARLIGHT_SOOT = register("starlight_soot");
-	Item GILDED_PURPUR_KEY = register("gilded_purpur_key");
-	Item PURPUR_KEY = register("purpur_key");
-	Item WINGED_KEY = register("winged_key");
+	Item HALLOWED_INGOT = register(StellarityItemIds.HALLOWED_INGOT);
+	Item SAND_RUNE = register(StellarityItemIds.SAND_RUNE);
+	Item STARLIGHT_SOOT = register(StellarityItemIds.STARLIGHT_SOOT);
+	Item GILDED_PURPUR_KEY = register(StellarityItemIds.GILDED_PURPUR_KEY);
+	Item PURPUR_KEY = register(StellarityItemIds.PURPUR_KEY);
+	Item WINGED_KEY = register(StellarityItemIds.WINGED_KEY);
 
-	Item PRISMATIC_PEARL = register("prismatic_pearl", PrismaticPearlItem::new, PrismaticPearlItem.PROPERTIES);
-	Item ENDONOMICON = register("endonomicon", Endonomicon::new, Endonomicon.PROPERTIES);
+	Item PRISMATIC_PEARL = register(StellarityItemIds.PRISMATIC_PEARL, PrismaticPearlItem::new, PrismaticPearlItem.PROPERTIES);
+	Item ENDONOMICON = register(StellarityItemIds.ENDONOMICON, Endonomicon::new, Endonomicon.PROPERTIES);
 
-	Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register("music_disc_deviants_light_music_box",
+	Item MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX = register(StellarityItemIds.MUSIC_DISC_DEVIANTS_LIGHT_MUSIC_BOX,
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.DEVIANTS_LIGHT_MUSIC_BOX)
 	);
-	Item MUSIC_DISC_FIRES_OF_HOKKAI = register("music_disc_fires_of_hokkai",
+	Item MUSIC_DISC_FIRES_OF_HOKKAI = register(StellarityItemIds.MUSIC_DISC_FIRES_OF_HOKKAI,
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.FIRES_OF_HOKKAI)
 	);
-	Item MUSIC_DISC_PRECIPICE_STEREO = register("music_disc_precipice_stereo",
+	Item MUSIC_DISC_PRECIPICE_STEREO = register(StellarityItemIds.MUSIC_DISC_PRECIPICE_STEREO,
 		Item::new, new Item.Properties().stacksTo(1).jukeboxPlayable(StellarityJukeboxSongs.PRECIPICE_STEREO)
 	);
 
@@ -178,28 +179,28 @@ public interface StellarityItems {
 
 	Supplier<ItemStack> CHORUS_JUICE = createPotion(StellarityPotions.CHORUS_JUICE);
 
-	Item ROYAL_JELLY = register("royal_jelly", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK), 6, 3.6f, true,
+	Item ROYAL_JELLY = register(StellarityItemIds.ROYAL_JELLY, RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood().sound(SoundEvents.HONEY_DRINK), 6, 3.6f, true,
 		new MobEffectInstance(MobEffects.ABSORPTION, 60 * 20)
 	).usingConvertsTo(Items.GLASS_BOTTLE));
 
-	Item ROYAL_JELLY_II = register("royal_jelly_ii", RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood(), 6, 3.6f, true,
+	Item ROYAL_JELLY_II = register(StellarityItemIds.ROYAL_JELLY_II, RoyalJelly::new, foodProperties(RoyalJelly.PROPERTIES, new FoodProperties.Builder(), Consumables.defaultFood(), 6, 3.6f, true,
 		new MobEffectInstance(MobEffects.ABSORPTION, 30 * 20, 2)
 	).usingConvertsTo(Items.GLASS_BOTTLE));
 
-	Item SATCHEL_OF_VOIDS = register("satchel_of_voids", SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
-	Item DUSKBERRY = register("duskberry", Duskberry::new, Duskberry.PROPERTIES);
+	Item SATCHEL_OF_VOIDS = register(StellarityItemIds.SATCHEL_OF_VOIDS, SatchelOfVoids::new, SatchelOfVoids.PROPERTIES);
+	Item DUSKBERRY = register(StellarityItemIds.DUSKBERRY, Duskberry::new, Duskberry.PROPERTIES);
 
-	Item SHULKER_HELMET = register("shulker_helmet", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.HELMET).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.HELMET)));
-	Item SHULKER_CHESTPLATE = register("shulker_chestplate", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
-	Item SHULKER_LEGGINGS = register("shulker_leggings", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
-	Item SHULKER_BOOTS = register("shulker_boots", new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
+	Item SHULKER_HELMET = register(StellarityItemIds.SHULKER_HELMET, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.HELMET).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.HELMET)));
+	Item SHULKER_CHESTPLATE = register(StellarityItemIds.SHULKER_CHESTPLATE, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.CHESTPLATE)));
+	Item SHULKER_LEGGINGS = register(StellarityItemIds.SHULKER_LEGGINGS, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.LEGGINGS)));
+	Item SHULKER_BOOTS = register(StellarityItemIds.SHULKER_BOOTS, new Item.Properties().humanoidArmor(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS).attributes(StellarityArmorMaterials.createShulkerAttributes(StellarityArmorMaterials.SHULKER, ArmorType.BOOTS)));
 
-	Item ENDER_EGG = register("ender_egg", EggItem::new, new Item.Properties().stacksTo(16).delayedHolderComponent(DataComponents.CHICKEN_VARIANT, StellarityAnimalVariants.ENDER_CHICKEN));
+	Item ENDER_EGG = register(StellarityItemIds.ENDER_EGG, EggItem::new, new Item.Properties().stacksTo(16).delayedHolderComponent(DataComponents.CHICKEN_VARIANT, StellarityAnimalVariants.ENDER_CHICKEN));
 
-	Item VOIDED_ZOMBIE_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_ZOMBIE);
-	Item VOIDED_SKELETON_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SKELETON);
-	Item VOIDED_SILVERFISH_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SILVERFISH);
-	Item VOIDED_SLIME_SPAWN_EGG = registerSpawnEgg(StellarityEntities.VOIDED_SLIME);
+	Item VOIDED_ZOMBIE_SPAWN_EGG = registerSpawnEgg(StellarityItemIds.VOIDED_ZOMBIE_SPAWN_EGG, StellarityEntities.VOIDED_ZOMBIE);
+	Item VOIDED_SKELETON_SPAWN_EGG = registerSpawnEgg(StellarityItemIds.VOIDED_SKELETON_SPAWN_EGG, StellarityEntities.VOIDED_SKELETON);
+	Item VOIDED_SILVERFISH_SPAWN_EGG = registerSpawnEgg(StellarityItemIds.VOIDED_SILVERFISH_SPAWN_EGG, StellarityEntities.VOIDED_SILVERFISH);
+	Item VOIDED_SLIME_SPAWN_EGG = registerSpawnEgg(StellarityItemIds.VOIDED_SLIME_SPAWN_EGG, StellarityEntities.VOIDED_SLIME);
 
 
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
@@ -214,46 +215,40 @@ public interface StellarityItems {
 		return () -> PotionContents.createItemStack(Items.LINGERING_POTION, potion);
 	}
 
-	static Item registerBlock(String name, Block block) {
-		return registerBlock(name, block, new Item.Properties());
+	static Item registerBlock(ResourceKey<Item> key, Block block) {
+		return registerBlock(key, block, new Item.Properties());
 	}
 
-	static Item registerBlock(String name, Block block, Item.Properties settings) {
-		ResourceKey<Item> itemKey = Stellarity.key(Registries.ITEM, name);
-
-		settings = settings.useBlockDescriptionPrefix().setId(itemKey);
-
+	static Item registerBlock(ResourceKey<Item> key, Block block, Item.Properties settings) {
+		settings = settings.useBlockDescriptionPrefix().setId(key);
 		Item item = new BlockItem(block, settings);
 
-		Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+		Registry.register(BuiltInRegistries.ITEM, key, item);
 
 		return item;
 	}
 
-	private static Item registerSpawnEgg(final EntityType<?> type) {
-		return register(EntityType.getKey(type).withSuffix("_spawn_egg").getPath(), SpawnEggItem::new, (new Item.Properties()).spawnEgg(type));
+	private static Item registerSpawnEgg(ResourceKey<Item> key, final EntityType<?> type) {
+		return register(key, SpawnEggItem::new, (new Item.Properties()).spawnEgg(type));
 	}
 
-	static Item register(String name, Function<Item.Properties, Item> itemFactory) {
-		return register(name, itemFactory, new Item.Properties());
+	static Item register(ResourceKey<Item> key, Function<Item.Properties, Item> itemFactory) {
+		return register(key, itemFactory, new Item.Properties());
 	}
 
-	static Item register(String name) {
-		return register(name, Item::new);
+	static Item register(ResourceKey<Item> key) {
+		return register(key, Item::new);
 	}
 
-	static Item register(String name, Item.Properties properties) {
-		return register(name, Item::new, properties);
+	static Item register(ResourceKey<Item> key, Item.Properties properties) {
+		return register(key, Item::new, properties);
 	}
 
-	static Item register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
-		ResourceKey<Item> itemKey = Stellarity.key(Registries.ITEM, name);
-
-		settings.setId(itemKey);
-
+	static Item register(ResourceKey<Item> key, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
+		settings.setId(key);
 
 		Item item = itemFactory.apply(settings);
-		Registry.register(BuiltInRegistries.ITEM, itemKey, item);
+		Registry.register(BuiltInRegistries.ITEM, key, item);
 
 		return item;
 	}
