@@ -1,18 +1,14 @@
 package prismatic.shards.stellarity.registry;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
+import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.animal.frog.FrogVariant;
-import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.level.GameType;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.StellarityConfig;
@@ -21,6 +17,7 @@ import prismatic.shards.stellarity.interface_injection.ExtItemEntity;
 import prismatic.shards.stellarity.registry.entity.ThrownPrismaticPearl;
 import prismatic.shards.stellarity.registry.entity.variant.VoidedSkeletonVariant;
 
+import java.util.List;
 import java.util.Map;
 
 public interface StellarityDataAttachments {
@@ -54,8 +51,11 @@ public interface StellarityDataAttachments {
   AttachmentType<Holder<VoidedSkeletonVariant>> VOIDED_SKELETON_VARIANT = AttachmentRegistry.create(Stellarity.id("voided_skeleton_variant"), builder -> builder.persistent(VoidedSkeletonVariant.REFERENCE_CODEC).syncWith(VoidedSkeletonVariant.REFERENCE_STREAM_CODEC, AttachmentSyncPredicate.all())
   );
 
+  AttachmentType<List<BlockPos>> CRYSTAL_PLACEMENTS = AttachmentRegistry.create(Stellarity.id("exit_portal_location"), builder -> builder.persistent(BlockPos.CODEC.listOf()).syncWith(ByteBufCodecs.<ByteBuf, BlockPos>list().apply(BlockPos.STREAM_CODEC), AttachmentSyncPredicate.all()));
+
 
   static void init() {
     Stellarity.LOGGER.info("Registering Stellarity Data Attachments");
+
   }
 }

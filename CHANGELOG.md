@@ -119,6 +119,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Voided Skeleton**
 
+- Has variants `stellarity:normal`, `stellarity:flesh`, `stellarity:cold` and `stellarity:ash`
+- New registry `voided_skeleton_variant` for use in datapacks. Is the exact same as a frog variant besides the texture
+  differences
+
 **[+] Voided Silverfish**
 
 ## Mechanics
@@ -163,6 +167,14 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Amethyst Forest**
 
 **[+] Ashfall Deltas**
+
+**[+] Crystal Crags**
+
+**[+] End Shrubland**
+
+**[+] End Wilds**
+
+**[+] Ender Wastes**
 
 ## Structures
 

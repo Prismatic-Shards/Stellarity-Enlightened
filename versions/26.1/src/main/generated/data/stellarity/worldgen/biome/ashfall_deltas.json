@@ -76,7 +76,7 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:skeleton",
+        "type": "stellarity:voided_skeleton",
         "maxCount": 2,
         "minCount": 2,
         "weight": 11

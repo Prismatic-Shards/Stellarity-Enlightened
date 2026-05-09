@@ -10,6 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import org.jspecify.annotations.NonNull;
 import prismatic.shards.stellarity.registry.StellarityDataAttachments;
+import prismatic.shards.stellarity.registry.entity.variant.VoidedSkeletonVariant;
 
 import java.util.Objects;
 
@@ -33,7 +34,7 @@ public class VoidedSkeletonRenderer extends AbstractSkeletonRenderer<Skeleton, V
   @Override
   public void extractRenderState(@NonNull Skeleton entity, @NonNull VoidedSkeletonRenderState state, float partialTicks) {
     super.extractRenderState(entity, state, partialTicks);
-    state.texture = Objects.requireNonNull(entity.getAttached(StellarityDataAttachments.VOIDED_SKELETON_VARIANT)).value().assetInfo().texturePath();
+    state.texture = Objects.requireNonNullElseGet(entity.getAttached(StellarityDataAttachments.VOIDED_SKELETON_VARIANT), () -> entity.registryAccess().getOrThrow(VoidedSkeletonVariant.DEFAULT_VARIANT)).value().assetInfo().texturePath();
   }
 
   @Override

@@ -14,26 +14,26 @@ import prismatic.shards.stellarity.registry.StellarityMobEffects;
 
 public class VoidedZombie extends Zombie {
 
-	public VoidedZombie(EntityType<? extends VoidedZombie> type, Level level) {
-		super(type, level);
-	}
+  public VoidedZombie(EntityType<? extends VoidedZombie> type, Level level) {
+    super(type, level);
+  }
 
-	public VoidedZombie(Level level) {
-		this(StellarityEntities.VOIDED_ZOMBIE, level);
-	}
+  public VoidedZombie(Level level) {
+    this(StellarityEntities.VOIDED_ZOMBIE, level);
+  }
 
-	public static AttributeSupplier.Builder createAttributes() {
-		return Zombie.createAttributes();
-	}
+  public static AttributeSupplier.@NonNull Builder createAttributes() {
+    return Zombie.createAttributes();
+  }
 
-	@Override
-	public boolean doHurtTarget(@NonNull ServerLevel level, @NonNull Entity target) {
-		if (!super.doHurtTarget(level, target)) return false;
+  @Override
+  public boolean doHurtTarget(@NonNull ServerLevel level, @NonNull Entity target) {
+    if (!super.doHurtTarget(level, target)) return false;
 
-		if (target instanceof LivingEntity entity) {
-			entity.addEffect(new MobEffectInstance(StellarityMobEffects.VOIDED, 10 * 20));
-		}
+    if (target instanceof LivingEntity entity) {
+      entity.addEffect(new MobEffectInstance(StellarityMobEffects.VOIDED, 10 * 20));
+    }
 
-		return true;
-	}
+    return true;
+  }
 }

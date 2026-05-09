@@ -38,81 +38,83 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public interface StellarityItems {
-  Item ENDER_DIRT = registerBlock(StellarityItemIds.ENDER_DIRT, StellarityBlocks.ENDER_DIRT);
-  Item ENDER_GRASS_BLOCK = registerBlock(StellarityItemIds.ENDER_GRASS_BLOCK, StellarityBlocks.ENDER_GRASS_BLOCK);
-  Item ASHEN_FROGLIGHT = registerBlock(StellarityItemIds.ASHEN_FROGLIGHT, StellarityBlocks.ASHEN_FROGLIGHT);
-  Item ROOTED_ENDER_DIRT = registerBlock(StellarityItemIds.ROOTED_ENDER_DIRT, StellarityBlocks.ROOTED_ENDER_DIRT);
-  Item ENDER_DIRT_PATH = registerBlock(StellarityItemIds.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT_PATH);
-  Item ALTAR_OF_THE_ACCURSED = registerBlock(StellarityItemIds.ALTAR_OF_THE_ACCURSED, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
+	Item ENDER_DIRT = registerBlock(StellarityItemIds.ENDER_DIRT, StellarityBlocks.ENDER_DIRT);
+	Item ENDER_GRASS_BLOCK = registerBlock(StellarityItemIds.ENDER_GRASS_BLOCK, StellarityBlocks.ENDER_GRASS_BLOCK);
+	Item ASHEN_FROGLIGHT = registerBlock(StellarityItemIds.ASHEN_FROGLIGHT, StellarityBlocks.ASHEN_FROGLIGHT);
+	Item ROOTED_ENDER_DIRT = registerBlock(StellarityItemIds.ROOTED_ENDER_DIRT, StellarityBlocks.ROOTED_ENDER_DIRT);
+	Item ENDER_DIRT_PATH = registerBlock(StellarityItemIds.ENDER_DIRT_PATH, StellarityBlocks.ENDER_DIRT_PATH);
+	Item ALTAR_OF_THE_ACCURSED = registerBlock(StellarityItemIds.ALTAR_OF_THE_ACCURSED, StellarityBlocks.ALTAR_OF_THE_ACCURSED);
 
-  Item CALL_OF_THE_VOID = register(StellarityItemIds.CALL_OF_THE_VOID, CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
-  Item FISHER_OF_VOIDS = register(StellarityItemIds.FISHER_OF_VOIDS, FisherOfVoids::new, FisherOfVoids.PROPERTIES);
+	Item CALL_OF_THE_VOID = register(StellarityItemIds.CALL_OF_THE_VOID, CallOfTheVoid::new, CallOfTheVoid.PROPERTIES);
+	Item FISHER_OF_VOIDS = register(StellarityItemIds.FISHER_OF_VOIDS, FisherOfVoids::new, FisherOfVoids.PROPERTIES);
 
-  Item SUSHI = register(StellarityItemIds.SUSHI, basicFood(4, 2.4f));
-  Item GOLDEN_CHORUS_FRUIT = register(StellarityItemIds.GOLDEN_CHORUS_FRUIT, GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
-  Item FRIED_CHORUS_FRUIT = register(StellarityItemIds.FRIED_CHORUS_FRUIT, FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
-  Item FROZEN_CARPACCIO = register(StellarityItemIds.FROZEN_CARPACCIO, FrozenCarpaccio::new, FrozenCarpaccio.PROPERTIES);
-  Item ENDERMAN_FLESH = register(StellarityItemIds.ENDERMAN_FLESH, EndermanFlesh::new, EndermanFlesh.PROPERTIES);
-  Item CRYSTAL_HEARTFISH = register(StellarityItemIds.CRYSTAL_HEARTFISH, CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
-  Item GRILLED_ENDERMAN_FLESH = register(StellarityItemIds.GRILLED_ENDERMAN_FLESH, basicFood(6, 9.6f));
-  Item FLAREFIN_KOI = register(StellarityItemIds.FLAREFIN_KOI, foodProperties(4, 0.8f, new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20)));
-  Item AMETHYST_BUDFISH = register(StellarityItemIds.AMETHYST_BUDFISH);
-  Item CRIMSON_TIGERFISH = register(StellarityItemIds.CRIMSON_TIGERFISH, foodProperties(1, 0.2f,
-    new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
-    new MobEffectInstance(MobEffects.POISON, 20 * 20)));
-  Item ENDER_KOI = register(StellarityItemIds.ENDER_KOI, basicFood(1, 0.6f));
-  Item FLESHY_PIRANHA = register(StellarityItemIds.FLESHY_PIRANHA, foodProperties(1, 0.2f,
-    new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
-    new MobEffectInstance(MobEffects.POISON, 20 * 20)
-  ));
-  Item BUBBLEFISH = register(StellarityItemIds.BUBBLEFISH, foodProperties(0, 0, new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20)));
-  Item PRISMITE = register(StellarityItemIds.PRISMITE, foodProperties(3, 1.8f, new MobEffectInstance(MobEffects.REGENERATION, 5 * 20)));
-  Item OVERGROWN_COD = register(StellarityItemIds.OVERGROWN_COD, Item::new,
-    foodProperties(1, 0.2f, new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2)));
-  Item SHULKER_BODY = register(StellarityItemIds.SHULKER_BODY, ShulkerBody::new, ShulkerBody.PROPERTIES);
-  Item PRISMATIC_SUSHI = register(StellarityItemIds.PRISMATIC_SUSHI, foodProperties(4, 2.4f, true, new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20)));
-  Item SHEPHERDS_PIE = register(StellarityItemIds.SHEPHERDS_PIE, Item::new,
-    foodProperties(20, 20f, true,
-      new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2),
-      new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1)
-    ));
-  Item CHORUS_PIE = register(StellarityItemIds.CHORUS_PIE, foodProperties(8, 4.8f));
-  Item PHANTOM_ITEM_FRAME = register(StellarityItemIds.PHANTOM_ITEM_FRAME, PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
-  Item PHO = register(StellarityItemIds.PHO, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
-    new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
-    new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
-    new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
-    new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
-  ).usingConvertsTo(Items.BOWL));
-  Item FROST_MINNOW = register(StellarityItemIds.FROST_MINNOW, foodProperties(1, 0.2f,
-    new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
-  ));
-  Item GOOSH = register(StellarityItemIds.GOOSH, foodProperties(1, 0,
-    new MobEffectInstance(MobEffects.OOZING, 59 * 20),
-    new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
-    new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
-  ));
-  Item CHORUS_STEW = register(StellarityItemIds.CHORUS_STEW, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
-    new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
-    new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
-    new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
-    new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
-  ).usingConvertsTo(Items.BOWL));
+	Item SUSHI = register(StellarityItemIds.SUSHI, basicFood(4, 2.4f));
+	Item GOLDEN_CHORUS_FRUIT = register(StellarityItemIds.GOLDEN_CHORUS_FRUIT, GoldenChorusFruit::new, GoldenChorusFruit.PROPERTIES);
+	Item FRIED_CHORUS_FRUIT = register(StellarityItemIds.FRIED_CHORUS_FRUIT, FriedChorusFruit::new, FriedChorusFruit.PROPERTIES);
+	Item FROZEN_CARPACCIO = register(StellarityItemIds.FROZEN_CARPACCIO, FrozenCarpaccio::new, FrozenCarpaccio.PROPERTIES);
+	Item ENDERMAN_FLESH = register(StellarityItemIds.ENDERMAN_FLESH, EndermanFlesh::new, EndermanFlesh.PROPERTIES);
+	Item CRYSTAL_HEARTFISH = register(StellarityItemIds.CRYSTAL_HEARTFISH, CrystalHeartfish::new, CrystalHeartfish.PROPERTIES);
+	Item GRILLED_ENDERMAN_FLESH = register(StellarityItemIds.GRILLED_ENDERMAN_FLESH, basicFood(6, 9.6f));
+	Item FLAREFIN_KOI = register(StellarityItemIds.FLAREFIN_KOI, foodProperties(4, 0.8f, new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 16 * 20)));
+	Item AMETHYST_BUDFISH = register(StellarityItemIds.AMETHYST_BUDFISH);
+	Item CRIMSON_TIGERFISH = register(StellarityItemIds.CRIMSON_TIGERFISH, foodProperties(1, 0.2f,
+    		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
+    		new MobEffectInstance(MobEffects.POISON, 20 * 20)));
+	Item ENDER_KOI = register(StellarityItemIds.ENDER_KOI, basicFood(1, 0.6f));
+	Item FLESHY_PIRANHA = register(StellarityItemIds.FLESHY_PIRANHA, foodProperties(1, 0.2f,
+    		new MobEffectInstance(MobEffects.HUNGER, 30 * 20),
+    		new MobEffectInstance(MobEffects.POISON, 20 * 20)
+    	));
+	Item BUBBLEFISH = register(StellarityItemIds.BUBBLEFISH, foodProperties(0, 0, new MobEffectInstance(MobEffects.WATER_BREATHING, 20 * 20)));
+	Item PRISMITE = register(StellarityItemIds.PRISMITE, foodProperties(3, 1.8f, new MobEffectInstance(MobEffects.REGENERATION, 5 * 20)));
+	Item OVERGROWN_COD = register(StellarityItemIds.OVERGROWN_COD, Item::new,
+    		foodProperties(1, 0.2f, new MobEffectInstance(MobEffects.SLOWNESS, 3 * 20, 2)));
+	Item SHULKER_BODY = register(StellarityItemIds.SHULKER_BODY, ShulkerBody::new, ShulkerBody.PROPERTIES);
+	Item PRISMATIC_SUSHI = register(StellarityItemIds.PRISMATIC_SUSHI, foodProperties(4, 2.4f, true, new MobEffectInstance(MobEffects.HEALTH_BOOST, 40 * 20)));
+	Item SHEPHERDS_PIE = register(StellarityItemIds.SHEPHERDS_PIE, Item::new,
+    		foodProperties(20, 20f, true,
+      			new MobEffectInstance(MobEffects.HEALTH_BOOST, 20, 2),
+      			new MobEffectInstance(MobEffects.REGENERATION, 64 * 20, 1)
+      		));
+	Item CHORUS_PIE = register(StellarityItemIds.CHORUS_PIE, foodProperties(8, 4.8f));
+	Item PHANTOM_ITEM_FRAME = register(StellarityItemIds.PHANTOM_ITEM_FRAME, PhantomItemFrameItem::new, PhantomItemFrameItem.PROPERTIES);
+	Item PHO = register(StellarityItemIds.PHO, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+    		new FoodProperties.Builder(), Consumables.defaultFood(), 13, 20f, true,
+    		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
+    		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
+    		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
+    	).usingConvertsTo(Items.BOWL));
+	Item FROST_MINNOW = register(StellarityItemIds.FROST_MINNOW, foodProperties(1, 0.2f,
+    		new MobEffectInstance(MobEffects.SLOWNESS, 20 * 20)
+    	));
+	Item GOOSH = register(StellarityItemIds.GOOSH, foodProperties(1, 0,
+    		new MobEffectInstance(MobEffects.OOZING, 59 * 20),
+    		new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 20),
+    		new MobEffectInstance(MobEffects.NAUSEA, 5 * 20)
+    	));
+	Item CHORUS_STEW = register(StellarityItemIds.CHORUS_STEW, Item::new, foodProperties(new Item.Properties().stacksTo(1).craftRemainder(Items.BOWL),
+    		new FoodProperties.Builder(), Consumables.defaultFood().consumeSeconds(1.6f), 13, 20f, true,
+    		new MobEffectInstance(MobEffects.ABSORPTION, 150 * 20),
+    		new MobEffectInstance(MobEffects.STRENGTH, 150 * 20),
+    		new MobEffectInstance(MobEffects.REGENERATION, 32 * 20)
+    	).usingConvertsTo(Items.BOWL));
 
-  Item TAMARIS = register(StellarityItemIds.TAMARIS, Tamaris::new, Tamaris.PROPERTIES);
-  Item CHORUS_PLATING = register(StellarityItemIds.CHORUS_PLATING);
-  Item ENDERITE_SHARD = register(StellarityItemIds.ENDERITE_SHARD);
-  Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register(StellarityItemIds.ENDERITE_UPGRADE_SMITHING_TEMPLATE, (properties) -> new SmithingTemplateItem(
-    Component.translatable("item.stellarity.enderite_upgrade_smithing_template.applies_to").withStyle(ChatFormatting.BLUE),
-    Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.hallowed_ingot")).withStyle(ChatFormatting.BLUE),
-    Component.translatable("item.stellarity.enderite_upgrade_smithing_template.upgrade").withStyle(ChatFormatting.GRAY),
-    Component.empty(),
-    List.of(),
-    List.of(), properties
-  ) {
-    @Override
-    public void appendHoverText(@NonNull ItemStack itemStack, @NonNull TooltipContext tooltipContext, @NonNull TooltipDisplay tooltipDisplay, @NonNull Consumer<Component> consumer, @NonNull TooltipFlag tooltipFlag) {
-      super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
+	Item TAMARIS = register(StellarityItemIds.TAMARIS, Tamaris::new, Tamaris.PROPERTIES);
+	Item CHORUS_PLATING = register(StellarityItemIds.CHORUS_PLATING);
+	Item ENDERITE_SHARD = register(StellarityItemIds.ENDERITE_SHARD);
+	Item ENDERITE_UPGRADE_SMITHING_TEMPLATE = register(StellarityItemIds.ENDERITE_UPGRADE_SMITHING_TEMPLATE, (properties) -> new SmithingTemplateItem(
+    		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.applies_to").withStyle(ChatFormatting.BLUE),
+    		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.hallowed_ingot")).withStyle(ChatFormatting.BLUE),
+    		Component.translatable("item.stellarity.enderite_upgrade_smithing_template.upgrade").withStyle(ChatFormatting.GRAY),
+    		Component.empty(),
+    		List.of(),
+    		List.of(), properties
+    	) {
+		@Override
+		public
+
+    void appendHoverText(@NonNull ItemStack itemStack, @NonNull TooltipContext tooltipContext, @NonNull TooltipDisplay tooltipDisplay, @NonNull Consumer<Component> consumer, @NonNull TooltipFlag tooltipFlag) {
+		 super.appendHoverText(itemStack, tooltipContext, tooltipDisplay, consumer, tooltipFlag);
       consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.stellarity.chorus_plating")).withStyle(ChatFormatting.BLUE)));
       consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.4"), Component.translatable("item.minecraft.shulker_shell")).withStyle(ChatFormatting.BLUE)));
       consumer.accept(CommonComponents.space().append(Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients", Component.translatable("item.stellarity.enderite_upgrade_smithing_template.ingredients.count.8"), Component.translatable("block.minecraft.cherry_leaves")).withStyle(ChatFormatting.BLUE)));
