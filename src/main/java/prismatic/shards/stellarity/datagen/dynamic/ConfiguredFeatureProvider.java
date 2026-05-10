@@ -35,7 +35,6 @@ import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 import prismatic.shards.stellarity.registry.StellarityFeatures;
 import prismatic.shards.stellarity.registry.feature.configuration.DungeonFeatureConfiguration;
-import prismatic.shards.stellarity.tags.StellarityBlockTags;
 import prismatic.shards.stellarity.util.Constants;
 
 import java.util.Arrays;

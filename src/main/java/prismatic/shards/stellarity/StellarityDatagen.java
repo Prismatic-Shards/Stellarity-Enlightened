@@ -20,6 +20,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 		DynamicRegistriesProvider.buildRegistry(builder);
 	}
 
+
 	@SuppressWarnings("DuplicatedCode")
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {

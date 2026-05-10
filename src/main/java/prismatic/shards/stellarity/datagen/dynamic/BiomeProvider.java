@@ -13,6 +13,7 @@ import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import prismatic.shards.stellarity.Stellarity;
+import prismatic.shards.stellarity.key.StellarityConfiguredCarvers;
 import prismatic.shards.stellarity.registry.StellarityEntities;
 import prismatic.shards.stellarity.registry.StellaritySounds;
 
@@ -22,6 +23,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static net.minecraft.core.Holder.direct;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.PATCH_BUSH;
+import static net.minecraft.data.worldgen.placement.VegetationPlacements.PATCH_DRY_GRASS_DESERT;
 import static prismatic.shards.stellarity.key.StellarityBiomes.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 
@@ -246,7 +248,11 @@ public interface BiomeProvider {
 			.mobSpawnSettings(new MobSpawnSettings.Builder()
 				.build()
 			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addCarver(StellarityConfiguredCarvers.RAVINE)
+				.addCarver(StellarityConfiguredCarvers.CRACK)
 				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PATCH_DRY_GRASS_DESERT)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
 				.build()

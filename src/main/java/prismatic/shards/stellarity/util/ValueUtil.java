@@ -38,6 +38,15 @@ public interface ValueUtil {
 		return UniformInt.of(min, max);
 	}
 
+	static ConstantFloat numf(float num) {
+		return ConstantFloat.of(num);
+	}
+
+	static UniformFloat numf(float min, float max) {
+		return UniformFloat.of(min, max);
+	}
+
+
 	static <T> WeightedList<T> weighted(T[] values, int[] weights) {
 		if (values.length != weights.length)
 			throw new IllegalArgumentException("Blockstates must correspond to weights");
@@ -55,7 +64,7 @@ public interface ValueUtil {
 		return WeightedList.of(Arrays.stream(values).map(value -> new Weighted<>(value, 1)).toArray(Weighted[]::new));
 	}
 
-	static TrapezoidFloat trapezoid(float min, float max, float plateau) {
+	static TrapezoidFloat trapezoidf(float min, float max, float plateau) {
 		return new TrapezoidFloat(min, max, plateau);
 	}
 
