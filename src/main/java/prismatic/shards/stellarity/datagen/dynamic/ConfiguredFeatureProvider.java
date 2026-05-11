@@ -425,14 +425,14 @@ public interface ConfiguredFeatureProvider {
 		var endlessDunesOasisVegetationLake = context.register(ENDLESS_DUNES_OASIS_VEGETATION_LAKE, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
 			new WeightedPlacedFeature(direct(new PlacedFeature(
 				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
-					List.of(new BlockColumnConfiguration.Layer(num(1, 4), randIntState(SUGAR_CANE, BlockStateProperties.AGE_15, num(1, 12)))), Direction.UP, all(), false
+					List.of(new BlockColumnConfiguration.Layer(num(1), block(ENDER_GRASS_BLOCK)), new BlockColumnConfiguration.Layer(num(1, 4), randIntState(SUGAR_CANE, BlockStateProperties.AGE_15, num(1, 12)))), Direction.UP, all(), false
 				))), List.of()
-			)), 0.2f),
+			)), 0.1f),
 			new WeightedPlacedFeature(direct(new PlacedFeature(
 				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
 					List.of(new BlockColumnConfiguration.Layer(biasBottom(2, 3), block(persistAzaleaLeaves))), Direction.UP, matchBlocks(vec(0, 1, 0), AIR), false
 				))), List.of()
-			)), 0.25f),
+			)), 0.2f),
 			new WeightedPlacedFeature(direct(new PlacedFeature(
 				direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
 					Stream.concat(
@@ -441,16 +441,18 @@ public interface ConfiguredFeatureProvider {
 					).toArray(BlockState[]::new),
 					new int[]{5, 5, 14, 1, 1, 1, 1}
 				)))), List.of()
-			)), 0.8f)
-		), direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
-			List.of(new BlockColumnConfiguration.Layer(num(1), block(WATER)), new BlockColumnConfiguration.Layer(num(1), block(LILY_PAD))),
-			Direction.UP, all(), false
-		))), List.of(randOffset(num(0), num(-1))))))));
+			)), 0.25f),
+			new WeightedPlacedFeature(direct(new PlacedFeature(
+				direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+					List.of(new BlockColumnConfiguration.Layer(num(1), block(WATER)), new BlockColumnConfiguration.Layer(num(1), block(LILY_PAD))),
+					Direction.UP, all(), false
+				))), List.of())), 0.35f)
+		), nothing)));
 		var endlessDunesOasisLake = context.register(ENDLESS_DUNES_OASIS_LAKE, new ConfiguredFeature<>(Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_ENDLESS_DUNES_OASIS, block(CLAY),
 			direct(new PlacedFeature(endlessDunesOasisVegetationLake, List.of(
-				countPlace(12), randOffset(trapezoid(-6, 6, 0), trapezoid(-3, 3, 0)), blockFilter(all(wouldSurvive(SUGAR_CANE), matchBlocks(AIR))))
-			)), CaveSurface.FLOOR, num(2), 0.8f, 5, 0.4f, num(4, 6), 0.7f
+				countPlace(12), randOffset(trapezoid(-6, 6, 0), num(0)), blockFilter(matchBlocks(WATER)))
+			)), CaveSurface.FLOOR, num(2), 0.8f, 5, 0.1f, num(5, 8), 0.7f
 		)));
 		var endlessDunesOasisRock = context.register(ENDLESS_DUNES_OASIS_ROCK, new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
 			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(
@@ -460,7 +462,6 @@ public interface ConfiguredFeatureProvider {
 				from(MOSSY_COBBLESTONE), all()
 			))), List.of()))
 		))));
-
 		context.register(ENDLESS_DUNES_OASIS, new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
 			direct(new PlacedFeature(endlessDunesOasisDirt, List.of())),
 			direct(new PlacedFeature(endlessDunesOasisVegetation, List.of(

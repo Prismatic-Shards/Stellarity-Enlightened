@@ -12,7 +12,7 @@
     },
     "replaceable": "#stellarity:worldgen/endless_dunes/oasis",
     "surface": "floor",
-    "vegetation_chance": 0.4,
+    "vegetation_chance": 0.1,
     "vegetation_feature": {
       "feature": "stellarity:endless_dunes/oasis/vegetation_lake",
       "placement": [
@@ -28,32 +28,13 @@
             "min": -6,
             "plateau": 0
           },
-          "y_spread": {
-            "type": "minecraft:trapezoid",
-            "max": 3,
-            "min": -3,
-            "plateau": 0
-          }
+          "y_spread": 0
         },
         {
           "type": "minecraft:block_predicate_filter",
           "predicate": {
-            "type": "minecraft:all_of",
-            "predicates": [
-              {
-                "type": "minecraft:would_survive",
-                "state": {
-                  "Name": "minecraft:sugar_cane",
-                  "Properties": {
-                    "age": "0"
-                  }
-                }
-              },
-              {
-                "type": "minecraft:matching_blocks",
-                "blocks": "minecraft:air"
-              }
-            ]
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
           }
         }
       ]
@@ -61,8 +42,8 @@
     "vertical_range": 5,
     "xz_radius": {
       "type": "minecraft:uniform",
-      "max_inclusive": 6,
-      "min_inclusive": 4
+      "max_inclusive": 8,
+      "min_inclusive": 5
     }
   }
 }
