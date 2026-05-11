@@ -445,7 +445,7 @@ public interface ConfiguredFeatureProvider {
 		), direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
 			List.of(new BlockColumnConfiguration.Layer(num(1), block(WATER)), new BlockColumnConfiguration.Layer(num(1), block(LILY_PAD))),
 			Direction.UP, all(), false
-		))), List.of())))));
+		))), List.of(randOffset(num(0), num(-1))))))));
 		var endlessDunesOasisLake = context.register(ENDLESS_DUNES_OASIS_LAKE, new ConfiguredFeature<>(Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_ENDLESS_DUNES_OASIS, block(CLAY),
 			direct(new PlacedFeature(endlessDunesOasisVegetationLake, List.of(

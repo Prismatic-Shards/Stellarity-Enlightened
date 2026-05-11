@@ -271,10 +271,10 @@ public interface PlacedFeatureProvider {
 		context.register(ENDLESS_DUNES_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ENDLESS_DUNES_VEGETATION), List.of(everyLayer(num(1, 4)), rarity(5), biome())));
 		context.register(ENDLESS_DUNES_CHORUS_PLANTS, new PlacedFeature(CHORUS_PLANT, List.of(everyLayer(num(2, 3)), rarity(2), biome())));
 		context.register(ENDLESS_DUNES_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ENDLESS_DUNES_GRASS), List.of(
-			noiseCount(7, 220, -0.8), countPlace(4), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
+			noiseCount(7, 90, -0.7), countPlace(4), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
 		)));
 		context.register(ENDLESS_DUNES_OASIS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.ENDLESS_DUNES_OASIS), List.of(
-			noiseCount(7, 150, -0.8), countPlace(64), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
+			noiseCount(7, 130, -0.8), countPlace(64), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
 		)));
 	}
 }

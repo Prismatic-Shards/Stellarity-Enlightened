@@ -210,14 +210,14 @@ public interface BiomeProvider {
 		context.register(ENDER_WASTES, new Biome.BiomeBuilder()
 			.temperature(0.5f).downfall(0.5f).hasPrecipitation(false)
 			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x78a7ff)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x302947)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySounds.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_CAVE, 1000, 4, 2)),
 				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.0111))
-			)).specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0x75ae1c), empty(), of(0x91bf4a), BiomeSpecialEffects.GrassColorModifier.NONE))
+			)).specialEffects(new BiomeSpecialEffects(0x504771, of(0x553a5f), empty(), of(0x4c3654), BiomeSpecialEffects.GrassColorModifier.NONE))
 			.mobSpawnSettings(new MobSpawnSettings.Builder()
 				.addSpawn(MobCategory.MONSTER, 40, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4))
 				.addSpawn(MobCategory.MONSTER, 5, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_SKELETON, 2, 3))
@@ -237,14 +237,14 @@ public interface BiomeProvider {
 		context.register(ENDLESS_DUNES, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x78a7ff)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_GRIM),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_CAVE, 1000, 4, 2)),
 				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CAVE, 0.001))
-			)).specialEffects(new BiomeSpecialEffects(0xf3d1ff, of(0xd494ff), empty(), of(0xdeadff), BiomeSpecialEffects.GrassColorModifier.NONE))
+			)).specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0x75ae1c), empty(), of(0x91bf4a), BiomeSpecialEffects.GrassColorModifier.NONE))
 			.mobSpawnSettings(new MobSpawnSettings.Builder()
 				.build()
 			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)

@@ -35,7 +35,13 @@
           "prioritize_tip": false
         }
       },
-      "placement": []
+      "placement": [
+        {
+          "type": "minecraft:random_offset",
+          "xz_spread": 0,
+          "y_spread": -1
+        }
+      ]
     },
     "features": [
       {
