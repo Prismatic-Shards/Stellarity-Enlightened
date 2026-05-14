@@ -68,6 +68,7 @@ public interface StellarityItemIds {
 	ResourceKey<Item> VOIDED_SKELETON_SPAWN_EGG = id(StellarityEntityIds.VOIDED_SKELETON);
 	ResourceKey<Item> VOIDED_SILVERFISH_SPAWN_EGG = id(StellarityEntityIds.VOIDED_SILVERFISH);
 	ResourceKey<Item> VOIDED_SLIME_SPAWN_EGG = id(StellarityEntityIds.VOIDED_SLIME);
+	ResourceKey<Item> POTASSIFISH = id("potassifish");
 
 	static ResourceKey<Item> id(String id) {
 		return Stellarity.key(Registries.ITEM, id);

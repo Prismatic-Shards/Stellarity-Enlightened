@@ -10,11 +10,11 @@
         "Name": "minecraft:clay"
       }
     },
-    "replaceable": "#stellarity:worldgen/endless_dunes/oasis",
+    "replaceable": "#stellarity:worldgen/endless_dunes/oasis_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.1,
     "vegetation_feature": {
-      "feature": "stellarity:endless_dunes/oasis/vegetation_lake",
+      "feature": "stellarity:endless_dunes/oasis/lake_vegetation",
       "placement": [
         {
           "type": "minecraft:count",

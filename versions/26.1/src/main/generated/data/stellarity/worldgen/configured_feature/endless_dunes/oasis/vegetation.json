@@ -13,7 +13,7 @@
         }
       }
     },
-    "replaceable": "#stellarity:worldgen/endless_dunes/dune",
+    "replaceable": "#stellarity:worldgen/endless_dunes/dune_replaceable",
     "surface": "floor",
     "vegetation_chance": 0.15,
     "vegetation_feature": {

@@ -43,6 +43,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Chorus Stew**
 
+**[+] Potassifish**
+
 ## Blocks
 
 **[*] Altar of the Accursed**
@@ -184,6 +186,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Flesh Tundra**
 
 **[+] Frosted Valley**
+
+**[+] Frozen Marsh**
 
 ## Structures
 

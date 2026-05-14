@@ -24,7 +24,7 @@
       "absolute": 0
     },
     "probability": 0.02,
-    "replaceable": "#stellarity:worldgen/carver",
+    "replaceable": "#stellarity:worldgen/carver_replaceable",
     "shape": {
       "distance_factor": {
         "type": "minecraft:uniform",

@@ -373,8 +373,37 @@ public interface BiomeProvider {
 			).build()
 		);
 
+		context.register(FROZEN_MARSH, new Biome.BiomeBuilder()
+			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_DARK),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 800, 4, 4)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.01111))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.WHITE_ASH, 0.0094f)))
+			.specialEffects(new BiomeSpecialEffects(0x3d57d6, of(0xffffff), empty(), of(0xffffff), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addCarver(StellarityConfiguredCarvers.RAVINE)
+				.addCarver(StellarityConfiguredCarvers.CRACK)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, FROZEN_SPIKES_LARGE_DRIPSTONE)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_STRUCTURES, FROZEN_MARSH_PONDS)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FROZEN_SPIKES_BLUE_ICE_ORE)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FROZEN_MARSH_VEGETATION)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, FROZEN_MARSH_ICE_CHUNKS)
+				.build()
+			).build());
 
-		for (var biome : List.of(FROZEN_MARSH, FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+
+		for (var biome : List.of(FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)

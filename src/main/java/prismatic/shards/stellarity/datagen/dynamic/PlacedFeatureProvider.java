@@ -360,6 +360,15 @@ public interface PlacedFeatureProvider {
 			countPlace(num(5, 7)), inSquare(), noiseCount(25, 130, -0.4), aboveBelow0, scanDownSolidAir32, biome()
 		)));
 
+		context.register(FROZEN_MARSH_PONDS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_POND), List.of(
+			everyLayer(20), biome()
+		)));
+		context.register(FROZEN_MARSH_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_POND), List.of(
+			everyLayer(3), biome(), countPlace(40), randOffset(trapezoid(-6, 6, 0), trapezoid(-3, 3, 0)),
+			blockFilter(all(matchBlocks(vec(0, -1, 0), SNOW_BLOCK), matchBlocks(AIR)))
+		)));
+		context.register(FROZEN_MARSH_ICE_CHUNKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_ICE_CHUNK), List.of(countPlace(60), biome())));
+
 
 		context.register(FROZEN_SPIKES_LARGE_DRIPSTONE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_LARGE_DRIPSTONE), List.of(
 			countPlace(num(1, 5)), randOffset(num(6, 12), num(0)), aboveBelow0, biome()

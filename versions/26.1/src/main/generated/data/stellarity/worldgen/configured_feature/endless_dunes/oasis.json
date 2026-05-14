@@ -63,7 +63,7 @@
         ]
       },
       {
-        "feature": "stellarity:endless_dunes/oasis/vegetation_middle",
+        "feature": "stellarity:endless_dunes/oasis/middle_vegetation",
         "placement": [
           {
             "type": "minecraft:count",
@@ -119,7 +119,7 @@
                 -1,
                 0
               ],
-              "tag": "stellarity:worldgen/endless_dunes/oasis"
+              "tag": "stellarity:worldgen/endless_dunes/oasis_replaceable"
             }
           }
         ]

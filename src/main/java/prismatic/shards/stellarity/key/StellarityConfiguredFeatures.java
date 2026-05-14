@@ -74,8 +74,8 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS = id("endless_dunes/oasis");
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_PALM_TREE = id("endless_dunes/oasis/palm_tree");
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_LAKE = id("endless_dunes/oasis/lake");
-	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_VEGETATION_LAKE = id("endless_dunes/oasis/vegetation_lake");
-	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_VEGETATION_MIDDLE = id("endless_dunes/oasis/vegetation_middle");
+	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_LAKE_VEGETATION = id("endless_dunes/oasis/lake_vegetation");
+	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_MIDDLE_VEGETATION = id("endless_dunes/oasis/middle_vegetation");
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_ROCK = id("endless_dunes/oasis/rock");
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_DIRT = id("endless_dunes/oasis/dirt");
 	ResourceKey<ConfiguredFeature<?, ?>> ENDLESS_DUNES_OASIS_VEGETATION = id("endless_dunes/oasis/vegetation");
@@ -104,6 +104,11 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> FLESH_TUNDRA_ROOTS = id("flesh_tundra/roots");
 
 	ResourceKey<ConfiguredFeature<?, ?>> FROSTED_VALLEY_HILLS = id("frosted_valley/hills");
+
+	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_POND = id("frozen_marsh/pond");
+	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_POND_VEGETATION = id("frozen_marsh/pond_vegetation");
+	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_VEGETATION = id("frozen_marsh/vegetation");
+	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_ICE_CHUNK = id("frozen_marsh/ice_chunk");
 
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_SPIKES_LARGE_DRIPSTONE = id("frozen_spikes/large_dripstone");
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_SPIKES_BLUE_ICE_ORE = id("frozen_spikes/blue_ice_ore");

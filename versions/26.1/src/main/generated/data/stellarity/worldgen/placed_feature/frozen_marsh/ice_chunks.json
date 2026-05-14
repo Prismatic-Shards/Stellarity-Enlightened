@@ -1,0 +1,12 @@
+{
+  "feature": "stellarity:frozen_marsh/ice_chunk",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 60
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
