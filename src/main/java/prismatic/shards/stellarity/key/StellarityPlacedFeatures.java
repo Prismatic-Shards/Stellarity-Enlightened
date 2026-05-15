@@ -10,6 +10,7 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> GLOBAL_STALACTITES = id("global/stalactites");
 	ResourceKey<PlacedFeature> GLOBAL_FOSSILS = id("global/fossils");
 	ResourceKey<PlacedFeature> GLOBAL_DUNGEONS = id("global/dungeons");
+	ResourceKey<PlacedFeature> GLOBAL_FREEZE_WATER = id("global/freeze_water");
 
 	ResourceKey<PlacedFeature> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<PlacedFeature> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
@@ -112,7 +113,6 @@ public interface StellarityPlacedFeatures {
 
 	ResourceKey<PlacedFeature> FROZEN_MARSH_PONDS = id("frozen_marsh/ponds");
 	ResourceKey<PlacedFeature> FROZEN_MARSH_VEGETATION = id("frozen_marsh/vegetation");
-	ResourceKey<PlacedFeature> FROZEN_MARSH_ICE_CHUNKS = id("frozen_marsh/ice_chunks");
 
 	ResourceKey<PlacedFeature> FROZEN_SPIKES_LARGE_DRIPSTONE = id("frozen_spikes/large_dripstone");
 	ResourceKey<PlacedFeature> FROZEN_SPIKES_BLUE_ICE_ORE = id("frozen_spikes/blue_ice_ore");

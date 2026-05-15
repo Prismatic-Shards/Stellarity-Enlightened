@@ -59,7 +59,7 @@
     [
       "stellarity:global/dungeons",
       "stellarity:global/fossils",
-      "stellarity:frozen_marsh/ice_chunks"
+      "stellarity:global/freeze_water"
     ]
   ],
   "has_precipitation": false,

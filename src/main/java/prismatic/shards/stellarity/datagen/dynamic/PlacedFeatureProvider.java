@@ -20,6 +20,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.key.StellarityConfiguredFeatures;
+import prismatic.shards.stellarity.registry.StellarityFeatures;
 import prismatic.shards.stellarity.util.ValueUtil;
 import prismatic.shards.stellarity.util.tuple.Tuple2;
 import prismatic.shards.stellarity.util.tuple.Tuple3;
@@ -64,6 +65,7 @@ public interface PlacedFeatureProvider {
 		context.register(GLOBAL_DUNGEONS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_DUNGEON), List.of(
 			rarity(10), heightRange(height(aboveBottom(8), absolute(140))), inSquare(), biome()
 		)));
+		context.register(GLOBAL_FREEZE_WATER, new PlacedFeature(direct(new ConfiguredFeature<>(StellarityFeatures.FREEZE_WATER, NoneFeatureConfiguration.INSTANCE)), List.of(biome())));
 
 		context.register(MAIN_ISLAND_RING, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_RING), List.of(biome())));
 		context.register(MAIN_ISLAND_PORTAL_PLATFORM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.MAIN_ISLAND_PORTAL_PLATFORM), List.of(biome())));
@@ -363,11 +365,10 @@ public interface PlacedFeatureProvider {
 		context.register(FROZEN_MARSH_PONDS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_POND), List.of(
 			everyLayer(20), biome()
 		)));
-		context.register(FROZEN_MARSH_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_POND), List.of(
+		context.register(FROZEN_MARSH_VEGETATION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_VEGETATION), List.of(
 			everyLayer(3), biome(), countPlace(40), randOffset(trapezoid(-6, 6, 0), trapezoid(-3, 3, 0)),
 			blockFilter(all(matchBlocks(vec(0, -1, 0), SNOW_BLOCK), matchBlocks(AIR)))
 		)));
-		context.register(FROZEN_MARSH_ICE_CHUNKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_MARSH_ICE_CHUNK), List.of(countPlace(60), biome())));
 
 
 		context.register(FROZEN_SPIKES_LARGE_DRIPSTONE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_LARGE_DRIPSTONE), List.of(

@@ -637,9 +637,6 @@ public interface ConfiguredFeatureProvider {
 				)), 0.28f)
 			).map(t -> new WeightedPlacedFeature(direct(new PlacedFeature(direct(t._1()), List.of())), t._2())).toList(), nothing
 		)));
-		context.register(FROZEN_MARSH_ICE_CHUNK, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			List.of(OreConfiguration.target(new BlockMatchTest(WATER), from(ICE))), 64, 0
-		)));
 
 
 		context.register(FROZEN_SPIKES_LARGE_DRIPSTONE, new ConfiguredFeature<>(Feature.LARGE_DRIPSTONE, ExtLargeDripstoneConfiguration.apply(new LargeDripstoneConfiguration(

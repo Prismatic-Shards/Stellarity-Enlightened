@@ -1,5 +1,5 @@
 {
-  "feature": "stellarity:frozen_marsh/pond",
+  "feature": "stellarity:frozen_marsh/vegetation",
   "placement": [
     {
       "type": "minecraft:count_on_every_layer",

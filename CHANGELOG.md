@@ -187,7 +187,11 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Frosted Valley**
 
+- Modified the `minecraft:large_dripstone` feature to accept `stellarity:block_state` for ice dripstone generation
+
 **[+] Frozen Marsh**
+
+- Added a new `stellarity:freeze_water` feature to freeze the entire biome
 
 ## Structures
 

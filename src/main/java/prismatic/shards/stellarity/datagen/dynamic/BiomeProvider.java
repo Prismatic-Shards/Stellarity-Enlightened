@@ -398,7 +398,7 @@ public interface BiomeProvider {
 				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FROZEN_MARSH_VEGETATION)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
-				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, FROZEN_MARSH_ICE_CHUNKS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FREEZE_WATER)
 				.build()
 			).build());
 

@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.mixin.configured_features;
+package prismatic.shards.stellarity.mixin.features;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;

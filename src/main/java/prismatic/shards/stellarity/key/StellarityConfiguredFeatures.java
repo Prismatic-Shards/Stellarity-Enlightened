@@ -108,7 +108,6 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_POND = id("frozen_marsh/pond");
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_POND_VEGETATION = id("frozen_marsh/pond_vegetation");
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_VEGETATION = id("frozen_marsh/vegetation");
-	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_MARSH_ICE_CHUNK = id("frozen_marsh/ice_chunk");
 
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_SPIKES_LARGE_DRIPSTONE = id("frozen_spikes/large_dripstone");
 	ResourceKey<ConfiguredFeature<?, ?>> FROZEN_SPIKES_BLUE_ICE_ORE = id("frozen_spikes/blue_ice_ore");
