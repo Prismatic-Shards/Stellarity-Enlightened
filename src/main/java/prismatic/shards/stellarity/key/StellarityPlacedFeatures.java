@@ -114,8 +114,15 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> FROZEN_MARSH_PONDS = id("frozen_marsh/ponds");
 	ResourceKey<PlacedFeature> FROZEN_MARSH_VEGETATION = id("frozen_marsh/vegetation");
 
+	ResourceKey<PlacedFeature> FROZEN_SHRUBLAND_DIRT = id("frozen_shrubland/dirt");
+	ResourceKey<PlacedFeature> FROZEN_SHRUBLAND_CHORUS_PLANTS = id("frozen_shrubland/chorus_plants");
+	ResourceKey<PlacedFeature> FROZEN_SHRUBLAND_SHRUBS = id("frozen_shrubland/shrubs");
+
 	ResourceKey<PlacedFeature> FROZEN_SPIKES_LARGE_DRIPSTONE = id("frozen_spikes/large_dripstone");
 	ResourceKey<PlacedFeature> FROZEN_SPIKES_BLUE_ICE_ORE = id("frozen_spikes/blue_ice_ore");
+	ResourceKey<PlacedFeature> FROZEN_SPIKES_HILLS = id("frozen_spikes/hills");
+	ResourceKey<PlacedFeature> FROZEN_SPIKES_POWDER_SNOW_ORE = id("frozen_spikes/powder_snow_ore");
+	ResourceKey<PlacedFeature> FROZEN_SPIKES_ICE_SPIKES = id("frozen_spikes/ice_spikes");
 
 
 	static ResourceKey<PlacedFeature> id(String name) {

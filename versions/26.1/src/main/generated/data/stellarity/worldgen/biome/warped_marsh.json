@@ -5,7 +5,7 @@
         "sound": "minecraft:ambient.soul_sand_valley.additions",
         "tick_chance": 0.00111
       },
-      "loop": "stellarity:ambient.the_end.dark_calm",
+      "loop": "stellarity:ambient.the_end.dark",
       "mood": {
         "block_search_extent": 10,
         "offset": 100.0,

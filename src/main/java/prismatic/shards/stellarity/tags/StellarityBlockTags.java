@@ -23,6 +23,7 @@ public interface StellarityBlockTags {
 	TagKey<Block> WORLDGEN_FLESH_TUNDRA_SURFACE = id("worldgen/flesh_tundra/surface");
 	TagKey<Block> WORLDGEN_FROZEN_SPIKES_SURFACE = id("worldgen/frozen_spikes/surface");
 	TagKey<Block> WORLDGEN_FROZEN_MARSH_POND_REPLACEABLE = id("worldgen/frozen_marsh/pond_replaceable");
+	TagKey<Block> WORLDGEN_SNOW_BLOCK = id("worldgen/snow_block");
 
 	static TagKey<Block> id(String id) {
 		return TagKey.create(Registries.BLOCK, Stellarity.id(id));

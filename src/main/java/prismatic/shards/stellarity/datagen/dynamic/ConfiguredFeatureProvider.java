@@ -31,6 +31,7 @@ import prismatic.shards.stellarity.interface_injection.ExtLargeDripstoneConfigur
 import prismatic.shards.stellarity.key.StellarityPlacedFeatures;
 import prismatic.shards.stellarity.registry.StellarityFeatures;
 import prismatic.shards.stellarity.registry.feature.configuration.DungeonFeatureConfiguration;
+import prismatic.shards.stellarity.registry.feature.configuration.SpikeFeatureConfiguration;
 import prismatic.shards.stellarity.util.Constants;
 import prismatic.shards.stellarity.util.ValueUtil;
 import prismatic.shards.stellarity.util.tuple.Tuple2;
@@ -143,17 +144,8 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.FLOOR, num(1), 0, 10, 1, num(3, 6), 0.5f
 		)));
 
-		context.register(END_MIDLANDS_OBSIDIAN_SPIKE, new ConfiguredFeature<>(Feature.ROOT_SYSTEM, new RootSystemConfiguration(direct(
-			new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{14, 1})))), List.of(
-				countPlace(num(128, 256)), countPlace(num(6, 8)),
-				randOffset(num(-1, 1), num(0)), randOffset(num(-1, 1), num(0)), randOffset(num(-1, 1), num(0)), randOffset(num(-1, 1), num(0)), randOffset(num(-1, 1), num(0)),
-				randOffset(normal(0, 0.65f, -1, 1), num(0)), randOffset(normal(0, 0.65f, -1, 1), num(0)),
-				envScan(Direction.DOWN, not(replaceable()), all(), 32), envScan(Direction.UP, replaceable(), all(), 32),
-				blockFilter(not(any(
-					matchBlocks(vec(-1, -4, 0), AIR, WATER), matchBlocks(vec(1, -4, 0), AIR, WATER), matchBlocks(vec(0, -4, 1), AIR, WATER), matchBlocks(vec(0, -4, -1), AIR, WATER)
-				)))))
-		), 1, 3, WORLDGEN_STALACTITE_REPLACEABLE, block(OBSIDIAN), 20, 100,
-			3, 2, block(CRYING_OBSIDIAN), 15, 1, all()
+		context.register(END_MIDLANDS_OBSIDIAN_SPIKE, new ConfiguredFeature<>(StellarityFeatures.SPIKE, new SpikeFeatureConfiguration(
+			weightedBlocks(new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{8, 1}), Optional.empty(), numf(5, 8), numf(25, 30), trapezoidf(-0.5f, 0.5f, 0.5f), trapezoidf(-0.5f, 0.5f, 0.5f)
 		)));
 		context.register(END_MIDLANDS_ROCK, new ConfiguredFeature<>(Feature.BLOCK_BLOB, new BlockBlobConfiguration(from(SMOOTH_BASALT), all())));
 		context.register(END_MIDLANDS_VEGETATION, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
@@ -638,6 +630,10 @@ public interface ConfiguredFeatureProvider {
 			).map(t -> new WeightedPlacedFeature(direct(new PlacedFeature(direct(t._1()), List.of())), t._2())).toList(), nothing
 		)));
 
+		context.register(FROZEN_SHRUBLANDS_DIRT, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_SNOW_BLOCK, weightedBlocks(new Block[]{WHITE_CONCRETE_POWDER, SNOW_BLOCK}, new int[]{3, 25}), nothing,
+			CaveSurface.FLOOR, num(2), 0, 5, 0, num(1, 3), 0.5f
+		)));
 
 		context.register(FROZEN_SPIKES_LARGE_DRIPSTONE, new ConfiguredFeature<>(Feature.LARGE_DRIPSTONE, ExtLargeDripstoneConfiguration.apply(new LargeDripstoneConfiguration(
 			70, num(4, 8), numf(0.4f, 3), 0.2f, numf(0.1f, 0.4f), numf(0.1f, 0.3f), trapezoidf(0, 0.06f, 0), 0, 0.25f
@@ -645,5 +641,33 @@ public interface ConfiguredFeatureProvider {
 		context.register(FROZEN_SPIKES_BLUE_ICE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
 			List.of(OreConfiguration.target(new BlockMatchTest(PACKED_ICE), from(BLUE_ICE))), 40, 0
 		)));
+		context.register(FROZEN_SHRUBLANDS_SHRUB, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+			Stream.of(new Tuple2<>(1, 0.1f), new Tuple2<>(2, 0.25f)
+			).map(t -> new WeightedPlacedFeature(direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+				block(OAK_LOG), new StraightTrunkPlacer(t._1(), 0, 0),
+				block(OAK_LEAVES), new BushFoliagePlacer(num(2), num(2 - t._1()), 3 - t._1()),
+				Optional.empty(), twoLayersSize(0, 0, 0), List.of(), false, block(COARSE_DIRT)
+			))), List.of())), t._2())).toList(),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+				block(OAK_LOG), new StraightTrunkPlacer(1, 0, 0),
+				block(OAK_LEAVES), new BushFoliagePlacer(num(2), num(0), 1),
+				Optional.empty(), twoLayersSize(0, 0, 0), List.of(), false, block(COARSE_DIRT)
+			))), List.of()))
+		)));
+		context.register(FROZEN_SPIKES_HILLS, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_FROZEN_SPIKES_SURFACE, block(SNOW_BLOCK),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+				List.of(new BlockColumnConfiguration.Layer(num(1), block(SNOW_BLOCK))), Direction.UP, matchBlocks(AIR), true
+			))), List.of())),
+			CaveSurface.FLOOR, num(1), 0, 10, 1, num(5, 7), 0.5f
+		)));
+		context.register(FROZEN_SPIKES_POWDER_SNOW_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
+			new BlockMatchTest(SNOW_BLOCK), from(POWDER_SNOW), 40, 0
+		)));
+		context.register(FROZEN_SPIKES_ICE_SPIKE, new ConfiguredFeature<>(StellarityFeatures.SPIKE, new SpikeFeatureConfiguration(
+			block(PACKED_ICE), Optional.empty(), numf(3, 6), numf(15, 25), numf(-0.15f, 0.15f), numf(-0.15f, 0.15f)
+		)));
+
+
 	}
 }

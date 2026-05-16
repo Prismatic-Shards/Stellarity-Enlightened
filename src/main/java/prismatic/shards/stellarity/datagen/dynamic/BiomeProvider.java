@@ -69,7 +69,7 @@ public interface BiomeProvider {
 		);
 
 		context.register(ASHFALL_DELTAS, new Biome.BiomeBuilder()
-			.temperature(0.8f).downfall(0.9f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.NONE)
+			.temperature(0.8f).downfall(0.9f).hasPrecipitation(false)
 			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
 			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xc4c4cf)
@@ -369,6 +369,7 @@ public interface BiomeProvider {
 				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FROZEN_SPIKES_BLUE_ICE_ORE)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
 				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FREEZE_WATER)
 				.build()
 			).build()
 		);
@@ -402,8 +403,82 @@ public interface BiomeProvider {
 				.build()
 			).build());
 
+		context.register(FROZEN_SHRUBLAND, new Biome.BiomeBuilder()
+			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_DARK),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 200, 4, 4)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.011111))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.WHITE_ASH, 0.0094f)))
+			.specialEffects(new BiomeSpecialEffects(0x3d57d6, of(0xffffff), empty(), of(0xffffff), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.MONSTER, 45, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 35, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_SKELETON, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_SILVERFISH, 2, 2))
+				.addSpawn(MobCategory.MONSTER, 15, new MobSpawnSettings.SpawnerData(EntityType.PHANTOM, 2, 2))
+				.addMobCharge(EntityType.ENDERMAN, 1, 0.6)
+				.addMobCharge(StellarityEntities.VOIDED_SKELETON, 1, 0.4)
+				.addMobCharge(StellarityEntities.VOIDED_SILVERFISH, 1, 0.5)
+				.addMobCharge(EntityType.PHANTOM, 1, 0.3)
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, FROZEN_SPIKES_LARGE_DRIPSTONE)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, FROZEN_SHRUBLAND_DIRT)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FROZEN_SPIKES_BLUE_ICE_ORE)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FROZEN_SHRUBLAND_CHORUS_PLANTS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FROZEN_SHRUBLAND_SHRUBS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FREEZE_WATER)
+				.build()
+			).build()
+		);
 
-		for (var biome : List.of(FROZEN_SHRUBLAND, FROZEN_SPIKES, HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+		context.register(FROZEN_SPIKES, new Biome.BiomeBuilder()
+			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_DARK),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 200, 4, 4)),
+				List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.011111))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.WHITE_ASH, 0.0094f)))
+			.specialEffects(new BiomeSpecialEffects(0x3d57d6, of(0xffffff), empty(), of(0xffffff), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.MONSTER, 60, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 40, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_SKELETON, 4, 4))
+				.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(StellarityEntities.VOIDED_SILVERFISH, 2, 2))
+				.addMobCharge(EntityType.ENDERMAN, 1, 0.4)
+				.addMobCharge(StellarityEntities.VOIDED_SKELETON, 1, 0.4)
+				.addMobCharge(StellarityEntities.VOIDED_SILVERFISH, 1, 0.5)
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addCarver(StellarityConfiguredCarvers.RAVINE)
+				.addCarver(StellarityConfiguredCarvers.CRACK)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, FROZEN_SPIKES_LARGE_DRIPSTONE)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, FROZEN_SPIKES_HILLS)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FROZEN_SPIKES_BLUE_ICE_ORE)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FROZEN_SPIKES_POWDER_SNOW_ORE)
+				.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, FROZEN_SPIKES_ICE_SPIKES)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FREEZE_WATER)
+				.build()
+			).build()
+		);
+
+
+		for (var biome : List.of(HALLOWED_TUNDRA, PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
@@ -411,7 +486,7 @@ public interface BiomeProvider {
 				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
 				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
 				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-					of(StellaritySounds.AMBIENT_THE_END_DARK_CALM),
+					of(StellaritySounds.AMBIENT_THE_END_DARK),
 					of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 3000, 10, 100)),
 					List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.00111))
 				))

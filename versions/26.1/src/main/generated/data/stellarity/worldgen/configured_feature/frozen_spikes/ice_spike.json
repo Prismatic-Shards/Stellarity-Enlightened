@@ -1,0 +1,31 @@
+{
+  "type": "stellarity:spike",
+  "config": {
+    "height": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 25.0,
+      "min_inclusive": 15.0
+    },
+    "radius": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 6.0,
+      "min_inclusive": 3.0
+    },
+    "state_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_ice"
+      }
+    },
+    "wind_x": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.15,
+      "min_inclusive": -0.15
+    },
+    "wind_z": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.15,
+      "min_inclusive": -0.15
+    }
+  }
+}

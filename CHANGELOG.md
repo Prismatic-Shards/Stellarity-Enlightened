@@ -162,6 +162,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[*] End Midlands**
 
 - Updated to use Stellarity's worldgen placed features
+- New feature `stellarity:spike` used in replacement of an old janky spike feature. It accepts paramaters for `height`,
+  `radius`, `block_state`, `can_replace`, `wind_x` and `wind_z`.
 
 **[*] End Barrens**
 
@@ -192,6 +194,10 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 **[+] Frozen Marsh**
 
 - Added a new `stellarity:freeze_water` feature to freeze the entire biome
+
+**[+] Frozen Shrubland**
+
+**[+] Frozen Spikes**
 
 ## Structures
 

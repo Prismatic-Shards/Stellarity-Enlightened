@@ -99,7 +99,7 @@ public interface PlacedFeatureProvider {
 
 		context.register(END_MIDLANDS_OBSIDIAN_SPIKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_MIDLANDS_OBSIDIAN_SPIKE), List.of(
 			rarity(3), inSquare(), heightRange(height(aboveBottom(0), absolute(170))),
-			envScan(Direction.UP, all(matchBlocks(vec(0, 1, 0), END_STONE), matchBlocks(AIR, CAVE_AIR)), all(), 32), biome()
+			envScan(Direction.UP, all(matchBlocks(vec(0, 1, 0), END_STONE, ENDER_GRASS_BLOCK, ENDER_DIRT), matchBlocks(vec(0, 2, 0), AIR, CAVE_AIR)), all(), 32), biome()
 		)));
 		context.register(END_MIDLANDS_ROCKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_MIDLANDS_ROCK), List.of(
 			everyLayer(1), rarity(7), biome()
@@ -370,12 +370,29 @@ public interface PlacedFeatureProvider {
 			blockFilter(all(matchBlocks(vec(0, -1, 0), SNOW_BLOCK), matchBlocks(AIR)))
 		)));
 
+		context.register(FROZEN_SHRUBLAND_DIRT, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SHRUBLANDS_DIRT), List.of(
+			countPlace(40), inSquare(), noiseCount(40, 100, -0.22), aboveBelow0, envScan(Direction.DOWN, solid(), matchBlocks(AIR), 16), biome()
+		)));
+		context.register(FROZEN_SHRUBLAND_CHORUS_PLANTS, new PlacedFeature(chorusPlant, List.of(everyLayer(1), biome())));
+		context.register(FROZEN_SHRUBLAND_SHRUBS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SHRUBLANDS_SHRUB), List.of(
+			everyLayer(num(1, 3)), biome(), blockFilter(matchBlocks(vec(0, -1, 0), SNOW_BLOCK))
+		)));
+
 
 		context.register(FROZEN_SPIKES_LARGE_DRIPSTONE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_LARGE_DRIPSTONE), List.of(
 			countPlace(num(1, 5)), randOffset(num(6, 12), num(0)), aboveBelow0, biome()
 		)));
 		context.register(FROZEN_SPIKES_BLUE_ICE_ORE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_BLUE_ICE_ORE), List.of(
 			countPlace(45), inSquare(), aboveBelow0, biome()
+		)));
+		context.register(FROZEN_SPIKES_HILLS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_HILLS), List.of(
+			countPlace(num(5, 7)), inSquare(), noiseCount(30, 135, 0), aboveBelow0, scanDownSolidAir32, biome()
+		)));
+		context.register(FROZEN_SPIKES_POWDER_SNOW_ORE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_POWDER_SNOW_ORE), List.of(
+			countPlace(60), inSquare(), aboveBelow0, biome()
+		)));
+		context.register(FROZEN_SPIKES_ICE_SPIKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.FROZEN_SPIKES_ICE_SPIKE), List.of(
+			countPlace(10), rarity(2), inSquare(), heightRange(height(aboveBottom(0), absolute(180))), envScan(Direction.UP, matchBlocks(AIR), solid(), 32), biome()
 		)));
 	}
 }

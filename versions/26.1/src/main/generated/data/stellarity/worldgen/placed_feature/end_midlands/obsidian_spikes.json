@@ -29,7 +29,11 @@
         "predicates": [
           {
             "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:end_stone",
+            "blocks": [
+              "minecraft:end_stone",
+              "stellarity:ender_grass_block",
+              "stellarity:ender_dirt"
+            ],
             "offset": [
               0,
               1,
@@ -41,6 +45,11 @@
             "blocks": [
               "minecraft:air",
               "minecraft:cave_air"
+            ],
+            "offset": [
+              0,
+              2,
+              0
             ]
           }
         ]

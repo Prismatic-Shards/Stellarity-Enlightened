@@ -3,5 +3,9 @@
     "type": "stellarity:freeze_water",
     "config": {}
   },
-  "placement": []
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
 }
