@@ -112,23 +112,25 @@ public class HangingColumnDecorator extends TreeDecorator {
 		var level = context.level();
 		var random = context.random();
 
+
 		HashSet<BlockPos> invalid = new HashSet<>();
 
 		Stream<BlockPos> combined = Stream.concat(placeUnderLeaves ? leaves.stream() : Stream.empty(), placeUnderTrunk ? logs.stream() : Stream.empty());
 		invalid.addAll(leaves);
 		invalid.addAll(logs);
 
+		int minY = level.getMinY();
 		for (var toPlace : (Iterable<BlockPos>) combined::iterator) {
 			BlockPos pointer = toPlace;
 			ArrayList<BlockPos> belowCandidates = new ArrayList<>();
 			while (true) {
 				pointer = pointer.below();
-				if (pointer.getY() < level.getMinY()) break;
 				if (invalid.contains(pointer) || !level.getBlockState(pointer).isAir()) {
 					invalid.add(pointer);
 					break;
 				}
 				belowCandidates.add(pointer);
+				if (pointer.getY() <= minY) break;
 			}
 
 			int columnSize = belowCandidates.size();
