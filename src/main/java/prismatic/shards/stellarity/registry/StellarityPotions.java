@@ -16,59 +16,33 @@ public interface StellarityPotions {
 	Holder<Potion> BLIND_RAGE = register("blind_rage", "blind_rage",
 		new MobEffectInstance(MobEffects.DARKNESS, 15 * 20, 0),
 		new MobEffectInstance(MobEffects.STRENGTH, 15 * 20, 2));
+	Holder<Potion> LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage",
+		new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
+		new MobEffectInstance(MobEffects.STRENGTH, 22 * 20, 2)
+	);
 
-	Holder<Potion> LONG_BLIND_RAGE = register("long_blind_rage", "blind_rage", new MobEffectInstance(MobEffects.DARKNESS, 22 * 20, 0),
-		new MobEffectInstance(MobEffects.STRENGTH, 22 * 20, 2));
+	Holder<Potion> ENDURANCE = register("endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 2 * 60 * 20));
+	Holder<Potion> LONG_ENDURANCE = register("long_endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 4 * 60 * 20));
+	Holder<Potion> STRONG_ENDURANCE = register("strong_endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 60 * 20, 1));
 
-	Holder<Potion> ENDURANCE = register("endurance", "endurance", new MobEffectInstance(MobEffects.RESISTANCE, 2 * 60 * 20
-	));
+	Holder<Potion> ENTANGLEMENT = register("entanglement", "entanglement", new MobEffectInstance(MobEffects.SLOWNESS, 11 * 20, 4));
+	Holder<Potion> LONG_ENTANGLEMENT = register("long_entanglement", "entanglement", new MobEffectInstance(MobEffects.SLOWNESS, 14 * 20, 4));
+	Holder<Potion> STRONG_ENTANGLEMENT = register("strong_entanglement", "entanglement", new MobEffectInstance(MobEffects.SLOWNESS, 8 * 20, 5));
 
-	Holder<Potion> LONG_ENDURANCE = register("long_endurance", "endurance", new MobEffectInstance(
-		MobEffects.RESISTANCE, 4 * 60 * 20
-	));
+	Holder<Potion> FROST_CLOUD = register("frost_cloud", "frost_cloud", new MobEffectInstance(MobEffects.SLOWNESS, 6, 98));
 
-	Holder<Potion> STRONG_ENDURANCE = register("strong_endurance", "endurance", new MobEffectInstance(
-		MobEffects.RESISTANCE, 60 * 20, 1
-	));
-
-	Holder<Potion> ENTANGLEMENT = register("entanglement", "entanglement", new MobEffectInstance(
-		MobEffects.SLOWNESS, 11 * 20, 4
-	));
-
-	Holder<Potion> LONG_ENTANGLEMENT = register("long_entanglement", "entanglement", new MobEffectInstance(
-		MobEffects.SLOWNESS, 14 * 20, 4
-	));
-
-	Holder<Potion> STRONG_ENTANGLEMENT = register("strong_entanglement", "entanglement", new MobEffectInstance(
-		MobEffects.SLOWNESS, 8 * 20, 5
-	));
-
-	Holder<Potion> FROST_CLOUD = register("frost_cloud", "frost_cloud", new MobEffectInstance(
-		MobEffects.SLOWNESS, 6, 98
-	));
-
-	Holder<Potion> HELLFIRE_TREADER = register("hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		MobEffects.SPEED, 4 * 60 * 20, 0
-	), new MobEffectInstance(
-		MobEffects.FIRE_RESISTANCE
-		, 4 * 60 * 20, 0
-	));
-
-	Holder<Potion> LONG_HELLFIRE_TREADER = register("long_hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		MobEffects.SPEED
-		, 8 * 60 * 20, 0
-	), new MobEffectInstance(
-		MobEffects.FIRE_RESISTANCE
-		, 8 * 60 * 20, 0
-	));
-
-	Holder<Potion> STRONG_HELLFIRE_TREADER = register("strong_hellfire_treader", "hellfire_treader", new MobEffectInstance(
-		MobEffects.SPEED, 2 * 60 * 20, 1
-	), new MobEffectInstance(
-		MobEffects.FIRE_RESISTANCE
-		, 2 * 60 * 20, 1
-	));
-
+	Holder<Potion> HELLFIRE_TREADER = register("hellfire_treader", "hellfire_treader",
+		new MobEffectInstance(MobEffects.SPEED, 4 * 60 * 20, 0),
+		new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 4 * 60 * 20, 0)
+	);
+	Holder<Potion> LONG_HELLFIRE_TREADER = register("long_hellfire_treader", "hellfire_treader",
+		new MobEffectInstance(MobEffects.SPEED, 8 * 60 * 20, 0),
+		new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 8 * 60 * 20, 0)
+	);
+	Holder<Potion> STRONG_HELLFIRE_TREADER = register("strong_hellfire_treader", "hellfire_treader",
+		new MobEffectInstance(MobEffects.SPEED, 2 * 60 * 20, 1),
+		new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2 * 60 * 20, 1)
+	);
 
 	Holder<Potion> AMARENE = register("amarene", "amarene",
 		new MobEffectInstance(MobEffects.SPEED, 48 * 20, 1),
@@ -82,12 +56,10 @@ public interface StellarityPotions {
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 3 * 60 * 20)
 	);
-
 	Holder<Potion> LONG_LIFEFORCE = register("long_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.REGENERATION, 6 * 60 * 20)
 	);
-
 	Holder<Potion> STRONG_LIFEFORCE = register("strong_lifeforce", "lifeforce",
 		new MobEffectInstance(MobEffects.HEALTH_BOOST, 90 * 20, 1),
 		new MobEffectInstance(MobEffects.REGENERATION, 90 * 20, 1)
@@ -97,12 +69,10 @@ public interface StellarityPotions {
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 3 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 3 * 60 * 20)
 	);
-
 	Holder<Potion> LONG_SPELUNKER = register("long_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 6 * 60 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 6 * 60 * 20)
 	);
-
 	Holder<Potion> STRONG_SPELUNKER = register("strong_spelunker", "spelunker",
 		new MobEffectInstance(MobEffects.NIGHT_VISION, 90 * 20),
 		new MobEffectInstance(MobEffects.HASTE, 90 * 20, 1)
@@ -118,12 +88,10 @@ public interface StellarityPotions {
 		new MobEffectInstance(MobEffects.REGENERATION, 140, 2),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)
 	);
-
 	Holder<Potion> LONG_REGENERAGA = register("long_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 210, 2),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)
 	);
-
 	Holder<Potion> STRONG_REGENERAGA = register("strong_regeneraga", "regeneraga",
 		new MobEffectInstance(MobEffects.REGENERATION, 70, 4),
 		new MobEffectInstance(MobEffects.INSTANT_HEALTH, 1, 1)

@@ -14,7 +14,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import prismatic.shards.stellarity.key.StellarityEnchantments;
-import prismatic.shards.stellarity.registry.StellarityParticles;
+import prismatic.shards.stellarity.registry.StellarityParticleTypes;
 import prismatic.shards.stellarity.registry.StellaritySounds;
 
 @Mixin(EnchantmentHelper.class)
@@ -32,7 +32,7 @@ public class EnchantmentHelperMixin {
 			target.playSound(StellaritySounds.CRITICAL_STRIKE);
 			float height = target.getBbHeight() * 0.7f;
 			float width = target.getBbWidth() * 0.7f;
-			level.sendParticles(StellarityParticles.CRITICAL_STRIKE, target.getX(), target.getY(0.5), target.getZ(), 50, width, height, width, 0.3);
+			level.sendParticles(StellarityParticleTypes.CRITICAL_STRIKE, target.getX(), target.getY(0.5), target.getZ(), 50, width, height, width, 0.3);
 			return;
 		}
 

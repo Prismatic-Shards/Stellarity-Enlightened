@@ -6,7 +6,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import prismatic.shards.stellarity.Stellarity;
 
-public interface StellarityParticles {
+public interface StellarityParticleTypes {
 	SimpleParticleType CRITICAL_STRIKE = register("critical_strike", FabricParticleTypes.simple());
 	SimpleParticleType CREATIVE_SHOCK = register("creative_shock", FabricParticleTypes.simple(false));
 
