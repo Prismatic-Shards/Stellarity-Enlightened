@@ -72,7 +72,26 @@ else and must be defined there and there only.
 
 ## Datagen
 
+All providers go in the root of `datagen` except if:
+
+- If you are generating tags, they must go in `datagen.tags`
+- If you are generating modnomicon book related assets, they must go in `datagen.book`
+- If you are generating loot table related assets, they must go in `datagen.loot_table`
+- If you are generating any other data-driven registry, they can go inside `datagen.dynamic` and should have relevant
+  methods added to `DynamicRegistryProvider.buildRegistry` and `DynamicRegistryProvider.configure`
+
 ## Client
+
+All client generally follow the same conventions mentioned above, but the "root" now is
+`prismatic.shards.stellarity.client`
+
+## Util
+
+Utilities can go in `util`.
+
+## Further Questions
+
+If you have further questions, feel free to ask Amber or any experienced dev on the team. 
 
 
 

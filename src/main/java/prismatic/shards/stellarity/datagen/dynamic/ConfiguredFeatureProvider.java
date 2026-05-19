@@ -417,7 +417,7 @@ public interface ConfiguredFeatureProvider {
 		)));
 		var endlessDunesOasisPalmTree = context.register(ENDLESS_DUNES_OASIS_PALM_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
 			block(JUNGLE_LOG), new ForkingTrunkPlacer(5, 3, 2),
-			block(JUNGLE_LEAVES), new RandomSpreadFoliagePlacer(num(3, 4), num(0), num(2, 3), 48),
+			block(property(JUNGLE_LEAVES, LeavesBlock.PERSISTENT, true)), new RandomSpreadFoliagePlacer(num(3, 4), num(0), num(2, 3), 48),
 			Optional.empty(), twoLayersSize(), List.of(new LeaveVineDecorator(0.08f), new AttachedToLeavesDecorator(0.1f, 2, 1, block(SHROOMLIGHT), 1, List.of(Direction.DOWN))),
 			false, block(ROOTED_ENDER_DIRT)
 		)));
