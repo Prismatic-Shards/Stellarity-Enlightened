@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -23,6 +25,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 public class Pixie extends PathfinderMob {
 	public Pixie(EntityType<? extends PathfinderMob> type, Level level) {
@@ -74,6 +77,13 @@ public class Pixie extends PathfinderMob {
 	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.storeNullable("origin_biome", Biome.CODEC, getOriginBiome());
+	}
+
+	@Override
+	public boolean teleportTo(ServerLevel level, double x, double y, double z, Set<Relative> relatives, float newYRot, float newXRot, boolean resetCamera) {
+		if (!super.teleportTo(level, x, y, z, relatives, newYRot, newXRot, resetCamera)) return false;
+		moveControl.setWantedPosition(x, y, z, 0.25);
+		return true;
 	}
 
 	@Override
@@ -162,13 +172,12 @@ public class Pixie extends PathfinderMob {
 					if (Pixie.this.getTarget() == null) {
 						Vec3 movement = Pixie.this.getDeltaMovement();
 						Pixie.this.setYRot(-((float) Mth.atan2(movement.x, movement.z)) * (180.0F / (float) Math.PI));
-						Pixie.this.yBodyRot = Pixie.this.getYRot();
 					} else {
 						double tx = Pixie.this.getTarget().getX() - Pixie.this.getX();
 						double tz = Pixie.this.getTarget().getZ() - Pixie.this.getZ();
 						Pixie.this.setYRot(-((float) Mth.atan2(tx, tz)) * (180.0F / (float) Math.PI));
-						Pixie.this.yBodyRot = Pixie.this.getYRot();
 					}
+					Pixie.this.yBodyRot = Pixie.this.getYRot();
 				}
 			}
 		}

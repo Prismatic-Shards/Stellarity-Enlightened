@@ -2,32 +2,47 @@
   "attributes": {
     "minecraft:audio/ambient_sounds": {
       "additions": {
-        "sound": "minecraft:ambient.soul_sand_valley.additions",
-        "tick_chance": 0.0111
+        "sound": {
+          "sound_id": "minecraft:ambient.underwater.loop.additions.rare"
+        },
+        "tick_chance": 5.499999970197678E-4
       },
-      "loop": "stellarity:ambient.the_end.dark",
+      "loop": "stellarity:ambient.the_end.heavenly_blessed",
       "mood": {
-        "block_search_extent": 10,
-        "offset": 100.0,
+        "block_search_extent": 2,
+        "offset": 2.0,
         "sound": "minecraft:ambient.soul_sand_valley.mood",
-        "tick_delay": 3000
+        "tick_delay": 900
       }
     },
     "minecraft:visual/ambient_light_color": "#3f472f",
-    "minecraft:visual/fog_color": "#000000",
-    "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/water_fog_color": "#041f33"
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:white_ash"
+        },
+        "probability": 0.002
+      }
+    ],
+    "minecraft:visual/fog_color": "#c0d8ff",
+    "minecraft:visual/sky_color": "#7ba4ff",
+    "minecraft:visual/water_fog_color": "#e566ff"
   },
   "carvers": [],
-  "downfall": 0.4,
+  "downfall": 0.6,
   "effects": {
-    "foliage_color": "#75ae1c",
-    "grass_color": "#91bf4a",
-    "water_color": "#43d5ee"
+    "foliage_color": "#58ccfe",
+    "grass_color": "#5cc0ff",
+    "water_color": "#ea80ff"
   },
   "features": [
     [
-      "stellarity:global/stalactites"
+      "stellarity:the_hallow/diorite_bottom",
+      "stellarity:crystal_crags/amethyst_crystals"
+    ],
+    [
+      "stellarity:the_hallow/crystal_roots",
+      "stellarity:prismatic_dunes/glass_spikes"
     ],
     [],
     [],
@@ -36,17 +51,25 @@
     [],
     [],
     [],
-    [],
-    [],
     [
-      "stellarity:global/dungeons",
+      "stellarity:prismatic_dunes/crystal_grass",
+      "stellarity:prismatic_dunes/grass_patches"
+    ],
+    [
       "stellarity:global/fossils"
     ]
   ],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {
-    "ambient": [],
+    "ambient": [
+      {
+        "type": "stellarity:pixie",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 20
+      }
+    ],
     "axolotls": [],
     "creature": [],
     "misc": [],
@@ -55,5 +78,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.8
+  "temperature": 0.6
 }

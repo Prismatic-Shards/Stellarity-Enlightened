@@ -29,7 +29,7 @@ better with vars (if we get versions worth multiversioning)
 Registries are in the format `Stellarity[TypeName]s` such as `StellarityBlocks` for **Block** registry in the `registry`
 package.
 
-For custom Stellarity definitions for registries, use `singular_case.CustomType`
+For custom Stellarity definitions for registries, use `block.CustomBlock` for example. Note the package is singular.
 
 ## Resource Keys
 

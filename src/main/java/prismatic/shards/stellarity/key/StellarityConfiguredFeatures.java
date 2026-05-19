@@ -165,11 +165,16 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_WHITE_JUNGLE_TREE = id("the_hallow/white_jungle_tree");
 	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_WHITE_PINE_TREE = id("the_hallow/white_pine_tree");
 	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_LANTERN = id("the_hallow/lantern");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_DIORITE_BOTTOM = id("the_hallow/diorite_bottom");
 
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_LAKE = id("prismarine_forest/lake");
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_FLOWER = id("prismarine_forest/flower");
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_GRASS = id("prismarine_forest/grass");
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_TREE = id("prismarine_forest/tree");
+
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMATIC_DUNES_DELTA = id("prismatic_dunes/delta");
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMATIC_DUNES_GLASS_SPIKE = id("prismatic_dunes/glass_spike");
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMATIC_DUNES_GRASS_PATCH = id("prismatic_dunes/grass_patch");
 
 
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String id) {

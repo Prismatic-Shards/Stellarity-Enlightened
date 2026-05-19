@@ -33,6 +33,31 @@ public interface BiomeProvider {
 		var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 		var worldCarvers = context.lookup(Registries.CONFIGURED_CARVER);
 
+		for (var biome : List.of(THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+			context.register(biome, new Biome.BiomeBuilder()
+				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
+				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+				.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
+				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
+				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+					of(StellaritySounds.AMBIENT_THE_END_DARK),
+					of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 3000, 10, 100)),
+					List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.0111))
+				))
+				.specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0x75ae1c), empty(), of(0x91bf4a), BiomeSpecialEffects.GrassColorModifier.NONE))
+				.mobSpawnSettings(new MobSpawnSettings.Builder()
+					.build()
+				).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+					.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
+					.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+					.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+					.build()
+				).build()
+			);
+		}
+		;
+
 		context.register(AMETHYST_FOREST, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
@@ -545,29 +570,32 @@ public interface BiomeProvider {
 			).build()
 		);
 
-
-		for (var biome : List.of(PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
-			context.register(biome, new Biome.BiomeBuilder()
-				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-				.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-				.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-				.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
-				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
-					of(StellaritySounds.AMBIENT_THE_END_DARK),
-					of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 3000, 10, 100)),
-					List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.0111))
-				))
-				.specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0x75ae1c), empty(), of(0x91bf4a), BiomeSpecialEffects.GrassColorModifier.NONE))
-				.mobSpawnSettings(new MobSpawnSettings.Builder()
-					.build()
-				).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
-					.addFeature(GenerationStep.Decoration.RAW_GENERATION, GLOBAL_STALACTITES)
-					.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
-					.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
-					.build()
-				).build()
-			);
-		}
+		context.register(PRISMATIC_DUNES, new Biome.BiomeBuilder()
+			.temperature(0.6f).downfall(0.6f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x7ba4ff)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xe566ff)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_BLESSED),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 900, 2, 2)),
+				List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE), 0.00055f))
+			))
+			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.WHITE_ASH, 0.002f)))
+			.specialEffects(new BiomeSpecialEffects(0xea80ff, of(0x58ccfe), empty(), of(0x5cc0ff), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.addSpawn(MobCategory.AMBIENT, 20, new MobSpawnSettings.SpawnerData(StellarityEntityTypes.PIXIE, 1, 2))
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, THE_HALLOW_DIORITE_BOTTOM)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, CRYSTAL_CRAGS_AMETHYST_CRYSTALS)
+				.addFeature(GenerationStep.Decoration.LAKES, THE_HALLOW_CRYSTAL_ROOTS)
+				.addFeature(GenerationStep.Decoration.LAKES, PRISMATIC_DUNES_GLASS_SPIKES)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PRISMATIC_DUNES_CRYSTAL_GRASS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PRISMATIC_DUNES_GRASS_PATCHES)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.build()
+			).build()
+		);
 	}
 }

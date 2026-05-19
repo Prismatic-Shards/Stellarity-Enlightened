@@ -21,7 +21,7 @@ public record StellarityConfig(
 		Codec.BOOL.optionalFieldOf("enable_end_crystal_drop", true).forGetter(StellarityConfig::enableEndCrystalDrop),
 		Codec.BOOL.optionalFieldOf("enable_totem_void_saving", true).forGetter(StellarityConfig::enableTotemVoidSaving),
 		Codec.BOOL.optionalFieldOf("always_generate_egg", true).forGetter(StellarityConfig::alwaysGenerateEgg),
-		Codec.INT.optionalFieldOf("dragon_health", 300).forGetter(StellarityConfig::dragonHealth),
+		Codec.INT.optionalFieldOf("dragon_health", 500).forGetter(StellarityConfig::dragonHealth),
 		Codec.INT.optionalFieldOf("empress_of_light_health", 750).forGetter(StellarityConfig::empressOfLightHealth),
 		Codec.INT.optionalFieldOf("shulking_health", 900).forGetter(StellarityConfig::shulkingHealth)
 	).apply(instance, StellarityConfig::new));

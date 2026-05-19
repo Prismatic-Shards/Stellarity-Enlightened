@@ -775,6 +775,14 @@ public interface ConfiguredFeatureProvider {
 			if (template == null) throw new AssertionError("Must contain a type for this loop");
 			context.register(tree, new ConfiguredFeature<>(Feature.TREE, template.apply(leaves)));
 		}
+		context.register(THE_HALLOW_DIORITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_STALACTITE_REPLACEABLE, block(DIORITE),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+				List.of(new BlockColumnConfiguration.Layer(num(1, 2), block(DIORITE))),
+				Direction.DOWN, matchBlocks(vec(0, 1, 0), AIR), true
+			))), List.of())),
+			CaveSurface.CEILING, num(1), 0, 10, 1, num(3, 6), 0.5f
+		)));
 
 		context.register(HALLOWED_TUNDRA_PINE_TREE, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
 			block(STRIPPED_OAK_LOG), new StraightTrunkPlacer(15, 6, 9),
@@ -830,6 +838,26 @@ public interface ConfiguredFeatureProvider {
 				block(ACACIA_LEAVES), new BushFoliagePlacer(num(2), num(1), 2),
 				Optional.empty(), twoLayersSize(), List.of(), false, block(ROOTED_ENDER_DIRT)
 			))), List.of()))
+		)));
+
+
+		context.register(PRISMATIC_DUNES_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(
+			from(WHITE_CONCRETE_POWDER), from(CALCITE), num(4, 16), num(1, 4)
+		)));
+		context.register(PRISMATIC_DUNES_GLASS_SPIKE, new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
+			Stream.of(
+				RED_STAINED_GLASS, ORANGE_STAINED_GLASS, YELLOW_STAINED_GLASS, LIME_STAINED_GLASS, GREEN_STAINED_GLASS, CYAN_STAINED_GLASS,
+				LIGHT_BLUE_STAINED_GLASS, BLUE_STAINED_GLASS, PURPLE_STAINED_GLASS, MAGENTA_STAINED_GLASS, PINK_STAINED_GLASS
+			).map(b -> direct(new PlacedFeature(direct(new ConfiguredFeature<>(StellarityFeatures.SPIKE, new SpikeFeatureConfiguration(
+				block(b), Optional.of(matchBlocks(AIR)), numf(2, 5), numf(10, 20), numf(-0.15f, 0.15f), numf(-0.15f, 0.15f)
+			))), List.of()))).toList()
+		))));
+		context.register(PRISMATIC_DUNES_GRASS_PATCH, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			BlockTags.CONCRETE_POWDER, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, WHITE_CONCRETE_POWDER, CALCITE, AMETHYST_BLOCK}, new int[]{20, 60, 12, 5}),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+				weightedBlocks(new Block[]{SHORT_GRASS, SMALL_AMETHYST_BUD, AMETHYST_CLUSTER}, new int[]{24, 10, 5})
+			))), List.of())),
+			CaveSurface.FLOOR, num(1), 0, 3, 0.186f, num(2, 3), 0.3f
 		)));
 
 

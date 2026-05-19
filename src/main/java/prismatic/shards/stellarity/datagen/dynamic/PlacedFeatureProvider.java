@@ -31,6 +31,7 @@ import static net.minecraft.core.Holder.direct;
 import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
+import static prismatic.shards.stellarity.tags.StellarityBlockTags.WORLDGEN_PRISMATIC_DUNES_SURFACE;
 import static prismatic.shards.stellarity.util.ValueUtil.*;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
@@ -415,6 +416,10 @@ public interface PlacedFeatureProvider {
 		context.register(THE_HALLOW_ROCKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_ROCK), List.of(
 			countPlace(1), inSquare(), biome(), rarity(3), aboveBelow0
 		)));
+		context.register(THE_HALLOW_DIORITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_DIORITE_BOTTOM), List.of(
+			countPlace(weightedInts(14, 100, 28, 50, 56, 25, 80, 1)), inSquare(), noiseCount(10, 55, 0),
+			aboveBelow0, envScan(Direction.UP, solid(), matchBlocks(AIR), 32), biome()
+		)));
 
 		context.register(PRISMARINE_FOREST_LAKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_LAKE), List.of(
 			everyLayer(1), biome()
@@ -427,6 +432,22 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(PRISMARINE_FOREST_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_GRASS), List.of(
 			everyLayer(6), biome(), countPlace(16), randOffset(trapezoid(-5, 5, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
+		)));
+
+		context.register(PRISMATIC_DUNES_DELTAS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMATIC_DUNES_DELTA), List.of(
+			everyLayer(40), blockFilter(matchBlocks(vec(0, -1, 0), DIORITE)), biome()
+		)));
+		context.register(PRISMATIC_DUNES_CRYSTAL_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_CRYSTAL_GRASS), List.of(
+			everyLayer(num(1, 4)), rarity(3), biome(), countPlace(24), randOffset(trapezoid(-7, 7, 0), trapezoid(-4, 4, 0)),
+			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, -1, 0), WHITE_CONCRETE_POWDER, DIORITE, CALCITE)))
+		)));
+		context.register(PRISMATIC_DUNES_GLASS_SPIKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMATIC_DUNES_GLASS_SPIKE), List.of(
+			countPlace(3), inSquare(), aboveBelow0,
+			envScan(Direction.UP, all(matchBlocks(AIR), matchTag(vec(0, -1, 0), WORLDGEN_PRISMATIC_DUNES_SURFACE)), solid(), 32),
+			biome()
+		)));
+		context.register(PRISMATIC_DUNES_GRASS_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMATIC_DUNES_GRASS_PATCH), List.of(
+			noiseCount(4, 120, -0.7), countPlace(4), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
 		)));
 	}
 }
