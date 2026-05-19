@@ -3,7 +3,7 @@
     "minecraft:audio/ambient_sounds": {
       "additions": {
         "sound": "minecraft:ambient.soul_sand_valley.additions",
-        "tick_chance": 0.00111
+        "tick_chance": 0.0111
       },
       "loop": "stellarity:ambient.the_end.dark",
       "mood": {

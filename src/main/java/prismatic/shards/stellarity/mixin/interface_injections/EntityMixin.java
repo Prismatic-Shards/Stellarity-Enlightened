@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.mixin.extend_classes;
+package prismatic.shards.stellarity.mixin.interface_injections;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

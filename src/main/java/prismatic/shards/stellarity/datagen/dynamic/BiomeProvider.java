@@ -509,8 +509,44 @@ public interface BiomeProvider {
 			).build()
 		);
 
+		context.register(PRISMARINE_FOREST, new Biome.BiomeBuilder()
+			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x16395a)
+			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
+				of(StellaritySounds.AMBIENT_THE_END_HEAVENLY_BLESSED),
+				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 800, 4, 4)),
+				List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE), 0.0111))
+			)).setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.DRIPPING_DRIPSTONE_WATER, 0.001f)))
+			.specialEffects(new BiomeSpecialEffects(0x58c9ee, of(0xadfeff), empty(), of(0x94fff8), BiomeSpecialEffects.GrassColorModifier.NONE))
+			.mobSpawnSettings(new MobSpawnSettings.Builder()
+				.creatureGenerationProbability(0.99f)
+				.addSpawn(MobCategory.CREATURE, 12, new MobSpawnSettings.SpawnerData(EntityType.SHEEP, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.PIG, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityType.CHICKEN, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.COW, 1, 4))
+				.addSpawn(MobCategory.CREATURE, 8, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 1, 4))
+				.build()
+			).generationSettings(new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers)
+				.addCarver(StellarityConfiguredCarvers.RAVINE)
+				.addCarver(StellarityConfiguredCarvers.CRACK)
+				.addFeature(GenerationStep.Decoration.RAW_GENERATION, AMETHYST_FOREST_CALCITE_BOTTOM)
+				.addFeature(GenerationStep.Decoration.LAKES, PRISMARINE_FOREST_LAKES)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PRISMARINE_FOREST_TREES)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PRISMARINE_FOREST_FLOWERS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PRISMARINE_FOREST_GRASS)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PATCH_BUSH)
+				.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AMETHYST_FOREST_ROOTS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_DUNGEONS)
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS)
+				.build()
+			).build()
+		);
 
-		for (var biome : List.of(PRISMARINE_FOREST, PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
+
+		for (var biome : List.of(PRISMATIC_DUNES, THE_HALLOW, THE_NEST, WARPED_MARSH)) {
 			context.register(biome, new Biome.BiomeBuilder()
 				.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
 				.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
@@ -520,7 +556,7 @@ public interface BiomeProvider {
 				.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 					of(StellaritySounds.AMBIENT_THE_END_DARK),
 					of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 3000, 10, 100)),
-					List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.00111))
+					List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_ADDITIONS, 0.0111))
 				))
 				.specialEffects(new BiomeSpecialEffects(0x43d5ee, of(0x75ae1c), empty(), of(0x91bf4a), BiomeSpecialEffects.GrassColorModifier.NONE))
 				.mobSpawnSettings(new MobSpawnSettings.Builder()

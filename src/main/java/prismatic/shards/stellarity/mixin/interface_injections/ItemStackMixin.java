@@ -1,5 +1,5 @@
 
-package prismatic.shards.stellarity.mixin.extend_classes;
+package prismatic.shards.stellarity.mixin.interface_injections;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;

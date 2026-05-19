@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.mixin.extend_classes;
+package prismatic.shards.stellarity.mixin.interface_injections;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

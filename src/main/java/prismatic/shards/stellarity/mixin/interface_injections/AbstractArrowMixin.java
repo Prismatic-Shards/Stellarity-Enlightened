@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.mixin.extend_classes;
+package prismatic.shards.stellarity.mixin.interface_injections;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.effect.MobEffectInstance;

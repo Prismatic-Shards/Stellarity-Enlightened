@@ -5,7 +5,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.block.*;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.*;
 import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
@@ -36,10 +36,12 @@ import prismatic.shards.stellarity.registry.StellarityFeatures;
 import prismatic.shards.stellarity.registry.feature.configuration.DungeonFeatureConfiguration;
 import prismatic.shards.stellarity.registry.feature.configuration.SpikeFeatureConfiguration;
 import prismatic.shards.stellarity.registry.tree_decorator.HangingColumnDecorator;
+import prismatic.shards.stellarity.tags.StellarityBlockTags;
 import prismatic.shards.stellarity.util.Constants;
 import prismatic.shards.stellarity.util.ValueUtil;
 import prismatic.shards.stellarity.util.tuple.Tuple2;
 import prismatic.shards.stellarity.util.tuple.Tuple3;
+import prismatic.shards.stellarity.util.tuple.Tuple7;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -185,7 +187,7 @@ public interface ConfiguredFeatureProvider {
 			new Block[]{SHORT_GRASS, TALL_GRASS, FERN, LARGE_FERN},
 			new int[]{28, 18, 8, 4}
 		))));
-		context.register(END_HIGHLANDS_ROOTS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS))));
+		context.register(GLOBAL_HANGING_ROOTS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS))));
 		context.register(END_HIGHLANDS_CHORUS_LEAF, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
 			block(PEARLESCENT_FROGLIGHT), new ForkingTrunkPlacer(10, 0, 0),
 			block(AIR), new BlobFoliagePlacer(num(1), num(1), 0),
@@ -466,10 +468,10 @@ public interface ConfiguredFeatureProvider {
 		context.register(ENDLESS_DUNES_OASIS, new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(
 			direct(new PlacedFeature(endlessDunesOasisDirt, List.of())),
 			direct(new PlacedFeature(endlessDunesOasisVegetation, List.of(
-				countPlace(10), randOffset(trapezoid(-12, 12, 0), trapezoid(-2, 2, 0))
+				countPlace(8), randOffset(trapezoid(-8, 8, 0), trapezoid(-2, 2, 0))
 			))),
 			direct(new PlacedFeature(endlessDunesOasisPalmTree, List.of(
-				countPlace(1), randOffset(trapezoid(-11, 11, 0), trapezoid(-4, 4, 0)), envScan(Direction.DOWN, solid(), all(), 10)
+				countPlace(1), randOffset(trapezoid(-8, 8, 0), trapezoid(-4, 4, 0)), envScan(Direction.DOWN, solid(), all(), 10)
 			))),
 			direct(new PlacedFeature(endlessDunesOasisVegetationMiddle, List.of(
 				countPlace(12), randOffset(trapezoid(-8, 8, 0), trapezoid(-2, 2, 0)), blockFilter(all(matchBlocks(AIR, SHORT_GRASS), wouldSurvive(SHORT_GRASS)))
@@ -789,6 +791,46 @@ public interface ConfiguredFeatureProvider {
 				THE_HALLOW_MAGENTA_PINE_TREE, THE_HALLOW_PINK_PINE_TREE, THE_HALLOW_WHITE_PINE_TREE, HALLOWED_TUNDRA_PINE_TREE
 			).map(c -> direct(new PlacedFeature(configured.getOrThrow(c), List.of()))).toList()
 		))));
+
+
+		context.register(PRISMARINE_FOREST_LAKE, new ConfiguredFeature<>(Feature.WATERLOGGED_VEGETATION_PATCH, new VegetationPatchConfiguration(
+			StellarityBlockTags.DIRT, weightedBlocks(new Block[]{ENDER_GRASS_BLOCK, PRISMARINE}, new int[]{8, 2}),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
+				Stream.concat(
+					Stream.of(BRAIN_CORAL, BRAIN_CORAL_FAN, BUBBLE_CORAL, BUBBLE_CORAL_FAN, FIRE_CORAL, FIRE_CORAL_FAN, HORN_CORAL, HORN_CORAL_FAN, TUBE_CORAL, TUBE_CORAL_FAN, SEAGRASS).map(ValueUtil::from),
+					Stream.of(1, 2, 3, 4).map(i -> property(SEA_PICKLE, SeaPickleBlock.PICKLES, i))
+				).toArray(BlockState[]::new),
+				new int[]{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 16, 1, 1, 1, 1}
+			)))), List.of())),
+			CaveSurface.FLOOR, num(1), 0, 6, 0.4f, num(4, 7), 0.44f
+		)));
+		context.register(PRISMARINE_FOREST_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new DualNoiseProvider(
+			inclusive(1, 1), new NormalNoise.NoiseParameters(-3, 1, 1, 1), 1, 14112006,
+			new NormalNoise.NoiseParameters(-2, 1, 1, 1), 1,
+			Stream.of(PITCHER_PLANT, AZURE_BLUET, CORNFLOWER, OXEYE_DAISY, LILY_OF_THE_VALLEY, WHITE_TULIP, BLUE_ORCHID).map(ValueUtil::from).toList()
+		))));
+		context.register(PRISMARINE_FOREST_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
+			new Block[]{SHORT_GRASS, TALL_GRASS, NETHER_SPROUTS, WARPED_ROOTS}, new int[]{5, 1, 2, 2}
+		))));
+		var prismarineForestTreeLeaves = weightedBlocks(Stream.of(OAK_LEAVES, JUNGLE_LEAVES).map(b -> property(b, LeavesBlock.PERSISTENT, true)).toArray(BlockState[]::new), new int[]{32, 15});
+		context.register(PRISMARINE_FOREST_TREE, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
+			Stream.of(
+				// baseHeight, heightRandA, heightRandB, radius, height, minSize, chance
+				new Tuple7<>(9, 4, 9, 4, 5, threeLayersSize(), 0.66f),
+				new Tuple7<>(6, 1, 4, 4, 5, twoLayersSize(), 0.15f),
+				new Tuple7<>(4, 0, 3, 3, 4, twoLayersSize(), 0.3f)
+			).map(t -> new WeightedPlacedFeature(direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+				block(STRIPPED_BIRCH_LOG), new DarkOakTrunkPlacer(t._1(), t._2(), t._3()),
+				prismarineForestTreeLeaves, new CherryFoliagePlacer(num(t._4()), num(0), num(t._5()), 0.25f, 0.25f, 0.24f, 0.37f),
+				Optional.empty(), t._6(),
+				List.of(new LeaveVineDecorator(0.0555f), new AttachedToLeavesDecorator(0.08f, 3, 2, block(SEA_LANTERN), 2, List.of(Direction.DOWN))), false, block(ENDER_DIRT)
+			))), List.of())), t._7())).toList(),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration(
+				block(STRIPPED_BIRCH_LOG), new StraightTrunkPlacer(1, 0, 0),
+				block(ACACIA_LEAVES), new BushFoliagePlacer(num(2), num(1), 2),
+				Optional.empty(), twoLayersSize(), List.of(), false, block(ROOTED_ENDER_DIRT)
+			))), List.of()))
+		)));
 
 
 	}

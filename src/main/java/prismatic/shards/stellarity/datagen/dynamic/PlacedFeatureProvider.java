@@ -55,6 +55,7 @@ public interface PlacedFeatureProvider {
 		final var scanDownSolidAir32 = envScan(Direction.DOWN, solid(), matchBlocks(AIR), 32);
 		final var scanUpSolidAir32 = envScan(Direction.UP, solid(), matchBlocks(AIR), 32);
 		final var crystalCragsAmethystCrystal = configured.getOrThrow(StellarityConfiguredFeatures.CRYSTAL_CRAGS_AMETHYST_CRYSTAL);
+		final var hangingRoots = configured.getOrThrow(StellarityConfiguredFeatures.GLOBAL_HANGING_ROOTS);
 
 		context.register(GLOBAL_STALACTITES, new PlacedFeature(stalactites, List.of(
 			countPlace(ValueUtil.weightedInts(14, 100, 28, 50, 56, 25, 80, 1)), inSquare(), noiseCount(10, 55, 0),
@@ -132,7 +133,7 @@ public interface PlacedFeatureProvider {
 		context.register(END_HIGHLANDS_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_GRASS), List.of(
 			everyLayer(3), biome(), countPlace(96), randOffset(trapezoid(-7, 7, 0), trapezoid(-4, 4, 0)), blockFilter(all(wouldSurvive(SHORT_GRASS), matchBlocks(AIR)))
 		)));
-		context.register(END_HIGHLANDS_ROOTS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.END_HIGHLANDS_ROOTS), List.of(
+		context.register(END_HIGHLANDS_ROOTS, new PlacedFeature(hangingRoots, List.of(
 			countPlace(87), inSquare(), aboveBelow0, envScan(Direction.UP, all(sturdyFace(Direction.DOWN), matchBlocks(DIRT, GRASS_BLOCK)), matchBlocks(AIR), 32),
 			randOffset(num(0), num(-1)), biome(), countPlace(24), randOffset(trapezoid(-5, 5, 0), trapezoid(-5, 5, 0)),
 			blockFilter(all(matchBlocks(AIR), matchBlocks(vec(0, 1, 0), ENDER_DIRT, ENDER_GRASS_BLOCK, ROOTED_ENDER_DIRT, COARSE_DIRT)))
@@ -174,7 +175,7 @@ public interface PlacedFeatureProvider {
 		context.register(AMETHYST_FOREST_FLOWERS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.AMETHYST_FOREST_FLOWER), List.of(
 			everyLayer(1), biome(), countPlace(40), randOffset(trapezoid(-5, 5, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
 		)));
-		context.register(AMETHYST_FOREST_ROOTS, new PlacedFeature(Holder.direct(new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(block(HANGING_ROOTS)))), List.of(
+		context.register(AMETHYST_FOREST_ROOTS, new PlacedFeature(hangingRoots, List.of(
 			countPlace(87), inSquare(), aboveBelow0, envScan(Direction.UP, all(
 				sturdyFace(Direction.DOWN), matchBlocks(ENDER_DIRT, ENDER_GRASS_BLOCK)
 			), matchBlocks(AIR), 32), randOffset(num(0), num(-1)), biome(), countPlace(24), randOffset(
@@ -413,6 +414,19 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(THE_HALLOW_ROCKS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_ROCK), List.of(
 			countPlace(1), inSquare(), biome(), rarity(3), aboveBelow0
+		)));
+
+		context.register(PRISMARINE_FOREST_LAKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_LAKE), List.of(
+			everyLayer(1), biome()
+		)));
+		context.register(PRISMARINE_FOREST_FLOWERS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_FLOWER), List.of(
+			everyLayer(4), biome(), countPlace(12), randOffset(trapezoid(-6, 6, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(PRISMARINE_FOREST_TREES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_TREE), List.of(
+			everyLayer(5), blockFilter(all(matchBlocks(AIR), wouldSurvive(DARK_OAK_SAPLING))), biome()
+		)));
+		context.register(PRISMARINE_FOREST_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_GRASS), List.of(
+			everyLayer(6), biome(), countPlace(16), randOffset(trapezoid(-5, 5, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
 		)));
 	}
 }

@@ -131,8 +131,12 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> THE_HALLOW_ROCKS = id("the_hallow/rocks");
 	ResourceKey<PlacedFeature> THE_HALLOW_LANTERNS = id("the_hallow/lanterns");
 
+	ResourceKey<PlacedFeature> PRISMARINE_FOREST_LAKES = id("prismarine_forest/lakes");
+	ResourceKey<PlacedFeature> PRISMARINE_FOREST_TREES = id("prismarine_forest/trees");
+	ResourceKey<PlacedFeature> PRISMARINE_FOREST_GRASS = id("prismarine_forest/grass");
+	ResourceKey<PlacedFeature> PRISMARINE_FOREST_FLOWERS = id("prismarine_forest/flowers");
 
-	static ResourceKey<PlacedFeature> id(String name) {
-		return Stellarity.key(Registries.PLACED_FEATURE, name);
+	static ResourceKey<PlacedFeature> id(String id) {
+		return Stellarity.key(Registries.PLACED_FEATURE, id);
 	}
 }

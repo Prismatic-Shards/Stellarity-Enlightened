@@ -10,10 +10,10 @@ import prismatic.shards.stellarity.Stellarity;
 public interface StellarityVillagerTypes {
 	ResourceKey<VillagerType> END = register("end");
 
-	private static ResourceKey<VillagerType> register(String name) {
-		ResourceKey<VillagerType> key = Stellarity.key(Registries.VILLAGER_TYPE, name);
+	private static ResourceKey<VillagerType> register(String id) {
+		ResourceKey<VillagerType> key = Stellarity.key(Registries.VILLAGER_TYPE, id);
 		//noinspection InstantiationOfUtilityClass
-		Registry.register(BuiltInRegistries.VILLAGER_TYPE, Stellarity.id(name), new VillagerType());
+		Registry.register(BuiltInRegistries.VILLAGER_TYPE, Stellarity.id(id), new VillagerType());
 		return key;
 	}
 

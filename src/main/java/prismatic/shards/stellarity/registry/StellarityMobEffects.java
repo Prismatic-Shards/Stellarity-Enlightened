@@ -19,8 +19,8 @@ public interface StellarityMobEffects {
 	Holder<MobEffect> PRISMATIC_INFERNO = register("prismatic_inferno", new PrismaticInfernoEffect());
 
 
-	static Holder<MobEffect> register(String name, MobEffect effect) {
-		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Stellarity.id(name), effect);
+	static Holder<MobEffect> register(String id, MobEffect effect) {
+		return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, Stellarity.id(id), effect);
 	}
 
 	static void init() {

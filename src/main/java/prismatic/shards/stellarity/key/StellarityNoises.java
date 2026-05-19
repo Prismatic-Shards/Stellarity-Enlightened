@@ -32,7 +32,7 @@ public interface StellarityNoises {
 	ResourceKey<NormalNoise.NoiseParameters> SURFACE_4X = id("surface_4x");
 
 
-	static ResourceKey<NormalNoise.NoiseParameters> id(String string) {
-		return ResourceKey.create(Registries.NOISE, Stellarity.id(string));
+	static ResourceKey<NormalNoise.NoiseParameters> id(String id) {
+		return ResourceKey.create(Registries.NOISE, Stellarity.id(id));
 	}
 }

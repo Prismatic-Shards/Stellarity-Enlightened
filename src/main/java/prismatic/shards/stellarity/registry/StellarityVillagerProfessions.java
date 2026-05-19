@@ -169,11 +169,11 @@ public interface StellarityVillagerProfessions {
 	}
 
 
-	static Holder.Reference<VillagerProfession> register(String name, boolean vanilla, final ResourceKey<PoiType> jobSite, final @Nullable SoundEvent workSound, final Int2ObjectMap<ResourceKey<TradeSet>> trades) {
-		var key = Stellarity.key(Registries.VILLAGER_PROFESSION, name);
+	static Holder.Reference<VillagerProfession> register(String id, boolean vanilla, final ResourceKey<PoiType> jobSite, final @Nullable SoundEvent workSound, final Int2ObjectMap<ResourceKey<TradeSet>> trades) {
+		var key = Stellarity.key(Registries.VILLAGER_PROFESSION, id);
 
 		return Registry.registerForHolder(BuiltInRegistries.VILLAGER_PROFESSION, key, new VillagerProfession(
-			Component.translatable("entity." + (vanilla ? "minecraft" : Stellarity.MOD_ID) + ".villager." + name),
+			Component.translatable("entity." + (vanilla ? "minecraft" : Stellarity.MOD_ID) + ".villager." + id),
 			(site) -> site.is(jobSite),
 			(site) -> site.is(jobSite),
 			ImmutableSet.of(), ImmutableSet.of(),

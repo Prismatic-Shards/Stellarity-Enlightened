@@ -15,8 +15,8 @@ public interface StellarityEnchantments {
 	ResourceKey<Enchantment> VOID_SHOT = id("void_shot");
 	ResourceKey<Enchantment> VOID_STRIKE = id("void_strike");
 
-	static ResourceKey<Enchantment> id(String name) {
-		return Stellarity.key(Registries.ENCHANTMENT, name);
+	static ResourceKey<Enchantment> id(String id) {
+		return Stellarity.key(Registries.ENCHANTMENT, id);
 	}
 }
 

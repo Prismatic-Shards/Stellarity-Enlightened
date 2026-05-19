@@ -87,7 +87,7 @@ public interface StellarityVillagerTradeSets {
 	ResourceKey<TradeSet> WEAPONSMITH_LEVEL_4 = id("weaponsmith/level_4");
 	ResourceKey<TradeSet> WEAPONSMITH_LEVEL_5 = id("weaponsmith/level_5");
 
-	static ResourceKey<TradeSet> id(String name) {
-		return Stellarity.key(Registries.TRADE_SET, name);
+	static ResourceKey<TradeSet> id(String id) {
+		return Stellarity.key(Registries.TRADE_SET, id);
 	}
 }

@@ -1,4 +1,4 @@
-package prismatic.shards.stellarity.mixin.extend_classes;
+package prismatic.shards.stellarity.mixin.interface_injections;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.LargeDripstoneFeature;

@@ -18,7 +18,7 @@ public interface StellarityPaintings {
 	ResourceKey<PaintingVariant> SNATCH = id("snatch");
 	ResourceKey<PaintingVariant> THE_OBSIDIAN_RELIQUARY = id("the_obsidian_reliquary");
 
-	static ResourceKey<PaintingVariant> id(String string) {
-		return ResourceKey.create(Registries.PAINTING_VARIANT, Stellarity.id(string));
+	static ResourceKey<PaintingVariant> id(String id) {
+		return ResourceKey.create(Registries.PAINTING_VARIANT, Stellarity.id(id));
 	}
 }

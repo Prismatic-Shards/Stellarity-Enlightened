@@ -213,6 +213,8 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 - Added a new `stellarity:hanging_column` decorator for block columns hanging from trees
 
+**[+] Prismarine Forest**
+
 ## Structures
 
 **[*] Exit Portal**

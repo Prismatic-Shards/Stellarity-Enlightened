@@ -116,5 +116,9 @@ public interface ValueUtil {
 		return new Vec3(x, y, z);
 	}
 
+	static <T extends Comparable<T>> InclusiveRange<T> inclusive(T first, T second) {
+		return new InclusiveRange<>(first, second);
+	}
+
 
 }

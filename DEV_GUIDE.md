@@ -1,0 +1,79 @@
+# Stellarity Enlightened Dev Guide
+
+## Basic Project Tooling Info
+
+This project uses deobfuscated Mojmap, and may be inconsistent with old Fabric tutorials using yarn. Should you ever
+need to apply an old fabric tutorial to implement something,
+use [Linkie](https://linkie.shedaniel.dev/mappings?namespace=yarn&translateMode=ns&translateAs=mojang_raw&search=) for
+Mojmap and Yarn conversions (or general lookups).
+
+This project also uses [Stonecutter](https://stonecutter.kikugie.dev/). For the most part you will likely NOT need to
+modify any of this, but if you do you should reach out. `build.gradle.kts` resides the file for configuration datagen,
+run tasks, publishing, dependencies, etc. `settings.gradle.kts` carries info related to Stonecutter. We mostly will not
+use this file unless upgrading versions. `stonecutter.gradle.kts` SHOULD NOT BE touched, unless cleared.
+
+## General Project Structure
+
+Use `prismatic.shards.stellarity.snake_case_for_packages.PascalCaseForClasses`
+
+If you know a class will only contain `static final` fields and `static` methods, we use an `interface` to implement the
+class.
+
+If you know that a class will mostly be an initialize one, never write class, we will implement it as a `record`.
+
+Use explicit types, implicit `var` idgaf tbh cuz at the end of the day we all have IDEs. And plus, multiversion works
+better with vars (if we get versions worth multiversioning)
+
+## Registries
+
+Registries are in the format `Stellarity[TypeName]s` such as `StellarityBlocks` for **Block** registry in the `registry`
+package.
+
+For custom Stellarity definitions for registries, use `singular_case.CustomType`
+
+## Resource Keys
+
+We track resource keys for data driven definitions in `key` package. Name formatting is mostly the same, except they
+should be in this format instead
+
+```java
+public interface StellarityExampleTypes {
+  ResourceKey<Type> AN_EXAMPLE = id("an_example");
+
+  static ResourceKey<Type> id(String id) {
+    return Stellarity.key(Registries.TYPE, id);
+  }
+}
+```
+
+## Tag Keys
+
+This is the exact same as Resource Keys except it is now `TagKey.create(Registries.TYPE, Stellarity.id(id))`
+
+## Mixins
+
+All mixins are defined in the format `mixin.purpose_or_targetted_noun.[VanillaClassName]Mixin`
+
+This is to keep code clean and easy to find relevant mixins corresponding to a purpose. DO NOT add these to
+`fabric.mod.json` despite the warning. Stonecutter's Fletching Table tool handles registration.
+
+In the event you get an `Not transformed` exception, run the clean task. Then check to see if your code has gone wrong
+if it persists.
+
+## Interface Injections
+
+These are used for extending vanilla classes with extra definitions. They must be in `Ext[VanillaClass]` and
+`Ext[VanillaClass][InnerClass]` if inner classes are ambigious.
+
+Methods MUST be `default`, `throw AssertionError("Not transformed!")`, and be prefixed with `stellarity$`
+
+They should then be implemented in mixins in `mixin.interface_injections`. Injection mixins should NOT contain anything
+else and must be defined there and there only.
+
+## Datagen
+
+## Client
+
+
+
+

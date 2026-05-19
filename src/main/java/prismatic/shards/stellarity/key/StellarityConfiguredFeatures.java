@@ -10,6 +10,7 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_STALACTITES = id("global/stalactites");
 	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_FOSSIL = id("global/fossil");
 	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_DUNGEON = id("global/dungeon");
+	ResourceKey<ConfiguredFeature<?, ?>> GLOBAL_HANGING_ROOTS = id("end_highlands/roots");
 
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_RING = id("main_island/ring");
 	ResourceKey<ConfiguredFeature<?, ?>> MAIN_ISLAND_PORTAL_PLATFORM = id("main_island/portal_platform");
@@ -27,7 +28,6 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_CHORUS_BUD = id("end_highlands/chorus_bud");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_PITCHER_PLANT = id("end_highlands/pitcher_plant");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_GRASS = id("end_highlands/grass");
-	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_ROOTS = id("end_highlands/roots");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_CHORUS_LEAF = id("end_highlands/chorus_leaf");
 	ResourceKey<ConfiguredFeature<?, ?>> END_HIGHLANDS_BUSH = id("end_highlands/bush");
 
@@ -166,8 +166,13 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_WHITE_PINE_TREE = id("the_hallow/white_pine_tree");
 	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_LANTERN = id("the_hallow/lantern");
 
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_LAKE = id("prismarine_forest/lake");
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_FLOWER = id("prismarine_forest/flower");
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_GRASS = id("prismarine_forest/grass");
+	ResourceKey<ConfiguredFeature<?, ?>> PRISMARINE_FOREST_TREE = id("prismarine_forest/tree");
 
-	static ResourceKey<ConfiguredFeature<?, ?>> id(String name) {
-		return Stellarity.key(Registries.CONFIGURED_FEATURE, name);
+
+	static ResourceKey<ConfiguredFeature<?, ?>> id(String id) {
+		return Stellarity.key(Registries.CONFIGURED_FEATURE, id);
 	}
 }

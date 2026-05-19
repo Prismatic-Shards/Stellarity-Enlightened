@@ -1,18 +1,5 @@
 {
-  "feature": {
-    "type": "minecraft:simple_block",
-    "config": {
-      "to_place": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "Name": "minecraft:hanging_roots",
-          "Properties": {
-            "waterlogged": "false"
-          }
-        }
-      }
-    }
-  },
+  "feature": "stellarity:end_highlands/roots",
   "placement": [
     {
       "type": "minecraft:count",

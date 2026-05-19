@@ -32,7 +32,7 @@ public interface StellarityVillagerTrades {
 	ResourceKey<VillagerTrade> BUTCHER_4_ENDERITE_SHARD_DRIED_KELP_BLOCK = id("butcher/4/enderite_shard_dried_kelp_block");
 	ResourceKey<VillagerTrade> BUTCHER_5_ENDERITE_SHARD_SHEPHERDS_PIE = id("butcher/5/enderite_shard_shepherds_pie");
 
-	static ResourceKey<VillagerTrade> id(String name) {
-		return Stellarity.key(Registries.VILLAGER_TRADE, name);
+	static ResourceKey<VillagerTrade> id(String id) {
+		return Stellarity.key(Registries.VILLAGER_TRADE, id);
 	}
 }

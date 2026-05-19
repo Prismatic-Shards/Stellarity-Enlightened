@@ -10,8 +10,8 @@ public interface StellarityParticleTypes {
 	SimpleParticleType CRITICAL_STRIKE = register("critical_strike", FabricParticleTypes.simple());
 	SimpleParticleType CREATIVE_SHOCK = register("creative_shock", FabricParticleTypes.simple(false));
 
-	static SimpleParticleType register(String name, SimpleParticleType particle) {
-		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Stellarity.id(name), particle);
+	static SimpleParticleType register(String id, SimpleParticleType particle) {
+		return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Stellarity.id(id), particle);
 	}
 
 	static void init() {
