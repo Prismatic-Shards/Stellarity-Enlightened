@@ -32,6 +32,7 @@ import static net.minecraft.world.level.block.Blocks.*;
 import static prismatic.shards.stellarity.key.StellarityPlacedFeatures.*;
 import static prismatic.shards.stellarity.registry.StellarityBlocks.*;
 import static prismatic.shards.stellarity.tags.StellarityBlockTags.WORLDGEN_PRISMATIC_DUNES_SURFACE;
+import static prismatic.shards.stellarity.tags.StellarityBlockTags.WORLDGEN_THE_NEST_SURFACE;
 import static prismatic.shards.stellarity.util.ValueUtil.*;
 import static prismatic.shards.stellarity.util.WorldgenUtil.*;
 
@@ -477,7 +478,7 @@ public interface PlacedFeatureProvider {
 			rarity(12), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
 		)));
 		context.register(THE_NEST_DEAD_CORAL, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_DEAD_CORAL), List.of(
-			countPlace(75), inSquare(), aboveBelow0, envScan(Direction.DOWN, solid(), matchBlocks(AIR), 12), biome(),
+			countPlace(75), inSquare(), aboveBelow0, envScan(Direction.DOWN, matchTag(WORLDGEN_THE_NEST_SURFACE), matchBlocks(AIR), 12), biome(),
 			countPlace(32), randOffset(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)), blockFilter(matchBlocks(AIR))
 		)));
 		context.register(THE_NEST_TRANSITION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_TRANSITION), List.of(
