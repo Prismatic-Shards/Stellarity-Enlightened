@@ -418,7 +418,7 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(THE_HALLOW_DIORITE_BOTTOM, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_DIORITE_BOTTOM), List.of(
 			countPlace(weightedInts(14, 100, 28, 50, 56, 25, 80, 1)), inSquare(), noiseCount(10, 55, 0),
-			aboveBelow0, envScan(Direction.UP, solid(), matchBlocks(AIR), 32), biome()
+			aboveBelow0, scanUpSolidAir32, biome()
 		)));
 
 		context.register(PRISMARINE_FOREST_LAKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMARINE_FOREST_LAKE), List.of(
@@ -448,6 +448,40 @@ public interface PlacedFeatureProvider {
 		)));
 		context.register(PRISMATIC_DUNES_GRASS_PATCHES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.PRISMATIC_DUNES_GRASS_PATCH), List.of(
 			noiseCount(4, 120, -0.7), countPlace(4), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
+		)));
+
+		context.register(THE_HALLOW_LAKES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_LAKE), List.of(
+			rarity(8), biome(), heightmap(Heightmap.Types.WORLD_SURFACE)
+		)));
+		context.register(THE_HALLOW_TREES, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_TREE), List.of(
+			everyLayer(weightedInts(2, 5, 3, 4, 5, 1)), blockFilter(wouldSurvive(BIRCH_SAPLING)), biome()
+		)));
+		context.register(THE_HALLOW_GROUND_FLOWERS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_GROUND_FLOWER), List.of(
+			countPlace(biasBottom(1, 2)), noiseThresholdCount(-0.8, 5, 10), inSquare(), aboveBelow0, envScan(Direction.DOWN, solid(), matchBlocks(AIR), 24),
+			biome(), countPlace(64), randOffset(trapezoid(-6, 6, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(THE_HALLOW_FLOWERS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_FLOWER), List.of(
+			everyLayer(2), biome(), countPlace(10), randOffset(trapezoid(-6, 6, 0), trapezoid(-2, 2, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(THE_HALLOW_GRASS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_HALLOW_GRASS), List.of(
+			everyLayer(4), biome(), countPlace(72), randOffset(trapezoid(-6, 6, 0), trapezoid(-2, 2, 0)), blockFilter(all(matchBlocks(AIR), wouldSurvive(SHORT_GRASS)))
+		)));
+
+		context.register(THE_NEST_DEEPSLATE, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_DEEPSLATE), List.of(
+			countPlace(50), inSquare(), noiseCount(30, 100, 0), aboveBelow0, scanDownSolidAir32, biome()
+		)));
+		context.register(THE_NEST_TUFF, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_TUFF), List.of(
+			countPlace(30), inSquare(), noiseCount(1, 100, 1), aboveBelow0, scanDownSolidAir32, biome()
+		)));
+		context.register(THE_NEST_DRAGON_EGGS, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_DRAGON_EGG), List.of(
+			rarity(12), inSquare(), heightmap(Heightmap.Types.WORLD_SURFACE), biome()
+		)));
+		context.register(THE_NEST_DEAD_CORAL, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_DEAD_CORAL), List.of(
+			countPlace(75), inSquare(), aboveBelow0, envScan(Direction.DOWN, solid(), matchBlocks(AIR), 12), biome(),
+			countPlace(32), randOffset(trapezoid(-7, 7, 0), trapezoid(-3, 3, 0)), blockFilter(matchBlocks(AIR))
+		)));
+		context.register(THE_NEST_TRANSITION, new PlacedFeature(configured.getOrThrow(StellarityConfiguredFeatures.THE_NEST_TRANSITION), List.of(
+			countPlace(256), inSquare(), aboveBelow0, scanUpSolidAir32, biome(), randOffset(num(0), num(1))
 		)));
 	}
 }

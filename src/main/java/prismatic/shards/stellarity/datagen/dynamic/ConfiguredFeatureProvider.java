@@ -20,14 +20,12 @@ import net.minecraft.world.level.levelgen.feature.rootplacers.AboveRootPlacement
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacement;
 import net.minecraft.world.level.levelgen.feature.rootplacers.MangroveRootPlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.DualNoiseProvider;
-import net.minecraft.world.level.levelgen.feature.treedecorators.AttachedToLeavesDecorator;
-import net.minecraft.world.level.levelgen.feature.treedecorators.BeehiveDecorator;
-import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
-import net.minecraft.world.level.levelgen.feature.treedecorators.TrunkVineDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.*;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.*;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import prismatic.shards.stellarity.Stellarity;
 import prismatic.shards.stellarity.interface_injection.ExtLargeDripstoneConfiguration;
@@ -47,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -290,8 +289,7 @@ public interface ConfiguredFeatureProvider {
 		context.register(CRYSTAL_CRAGS_AMETHYST_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(AMETHYST_BLOCK), from(SMOOTH_BASALT), num(0, 7), num(1, 3))));
 		context.register(CRYSTAL_CRAGS_GRASS_DELTA, new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(ENDER_GRASS_BLOCK), from(ENDER_GRASS_BLOCK), num(4, 7), num(1, 3))));
 		context.register(CRYSTAL_CRAGS_BUDDING_AMETHYST_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			List.of(OreConfiguration.target(new BlockMatchTest(AMETHYST_BLOCK), from(BUDDING_AMETHYST))),
-			4, 0
+			new BlockMatchTest(AMETHYST_BLOCK), from(BUDDING_AMETHYST), 4
 		)));
 		context.register(CRYSTAL_CRAGS_CRYSTAL_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(amethystCrystalsUp))));
 		context.register(CRYSTAL_CRAGS_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(new Block[]{SHORT_GRASS, TALL_GRASS}, new int[]{4, 1}))));
@@ -499,12 +497,10 @@ public interface ConfiguredFeatureProvider {
 		))
 			context.register(delta._1(), new ConfiguredFeature<>(Feature.DELTA_FEATURE, new DeltaFeatureConfiguration(from(delta._2()), from(delta._3()), num(5, 9), num(0))));
 		context.register(FIERY_HILLS_GOLD_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			List.of(OreConfiguration.target(new BlockMatchTest(BLACKSTONE), from(GILDED_BLACKSTONE))),
-			10, 0
+			new BlockMatchTest(BLACKSTONE), from(GILDED_BLACKSTONE), 10
 		)));
 		context.register(FIERY_HILLS_MAGMA_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			Stream.of(END_STONE, RED_SAND, BASALT, SMOOTH_BASALT, BLACKSTONE).map(b -> OreConfiguration.target(new BlockMatchTest(b), from(MAGMA_BLOCK))).toList(),
-			33, 0
+			Stream.of(END_STONE, RED_SAND, BASALT, SMOOTH_BASALT, BLACKSTONE).map(b -> OreConfiguration.target(new BlockMatchTest(b), from(MAGMA_BLOCK))).toList(), 33
 		)));
 		context.register(FIERY_HILLS_SAND, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_FIERY_HILLS_END_STONE, block(SAND), nothing, CaveSurface.FLOOR, num(7), 0.15f, 15, 0, num(4, 5), 0.15f
@@ -649,7 +645,7 @@ public interface ConfiguredFeatureProvider {
 			70, num(4, 8), numf(0.4f, 3), 0.2f, numf(0.1f, 0.4f), numf(0.1f, 0.3f), trapezoidf(0, 0.06f, 0), 0, 0.25f
 		), from(PACKED_ICE))));
 		context.register(FROZEN_SPIKES_BLUE_ICE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			List.of(OreConfiguration.target(new BlockMatchTest(PACKED_ICE), from(BLUE_ICE))), 40, 0
+			new BlockMatchTest(PACKED_ICE), from(BLUE_ICE), 40
 		)));
 		context.register(FROZEN_SHRUBLANDS_SHRUB, new ConfiguredFeature<>(Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(
 			Stream.of(new Tuple2<>(1, 0.1f), new Tuple2<>(2, 0.25f)
@@ -672,7 +668,7 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.FLOOR, num(1), 0, 10, 1, num(5, 7), 0.5f
 		)));
 		context.register(FROZEN_SPIKES_POWDER_SNOW_ORE, new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(
-			new BlockMatchTest(SNOW_BLOCK), from(POWDER_SNOW), 40, 0
+			new BlockMatchTest(SNOW_BLOCK), from(POWDER_SNOW), 40
 		)));
 		context.register(FROZEN_SPIKES_ICE_SPIKE, new ConfiguredFeature<>(StellarityFeatures.SPIKE, new SpikeFeatureConfiguration(
 			block(PACKED_ICE), Optional.empty(), numf(3, 6), numf(15, 25), numf(-0.15f, 0.15f), numf(-0.15f, 0.15f)
@@ -720,28 +716,36 @@ public interface ConfiguredFeatureProvider {
 			List.of(new LeaveVineDecorator(0.1f), new BeehiveDecorator(0.3f), hangingLanternDecor),
 			true, block(ROOTED_ENDER_DIRT)
 		)));
-		Function<Tuple2<Block, Block>, TreeConfiguration> regular = (leaves) -> new TreeConfiguration(
+		BiFunction<Boolean, List<TreeDecorator>, List<TreeDecorator>> optionalVineDecor = (add, list) -> {
+			if (!add) return list;
+			var newList = new ArrayList<>(list);
+			newList.add(new HangingColumnDecorator(0.2f, 4, false, true, List.of(
+				new BlockColumnConfiguration.Layer(num(3, 8), block(WEEPING_VINES_PLANT)), new BlockColumnConfiguration.Layer(num(1), randIntState(WEEPING_VINES, WeepingVinesBlock.AGE, num(21, 25)))
+			), true));
+			return newList;
+		};
+		Function<Tuple3<Block, Block, Boolean>, TreeConfiguration> regular = (leaves) -> new TreeConfiguration(
 			block(STRIPPED_BIRCH_LOG), new FancyTrunkPlacer(15, 6, 9),
 			weightedBlocks(new Block[]{leaves._1(), leaves._2()}, new int[]{5, 2}), new FancyFoliagePlacer(num(2, 3), num(4), 4),
 			Optional.of(new MangroveRootPlacer(
 				num(0), block(STRIPPED_BIRCH_WOOD), Optional.of(new AboveRootPlacement(block(STRIPPED_BIRCH_WOOD), 0.5f)),
 				new MangroveRootPlacement(worldGenGrassBlock, worldGenDirt, block(STONE), 1, 3, 0.1f)
-			)), twoLayersSize(), List.of(new BeehiveDecorator(0.06f), hangingLanternDecor), true, block(ENDER_DIRT)
+			)), twoLayersSize(), optionalVineDecor.apply(leaves._3(), List.of(new BeehiveDecorator(0.06f), hangingLanternDecor)), true, block(ENDER_DIRT)
 		);
-		Function<Tuple2<Block, Block>, TreeConfiguration> pine = (leaves) -> new TreeConfiguration(
+		Function<Tuple3<Block, Block, Boolean>, TreeConfiguration> pine = (leaves) -> new TreeConfiguration(
 			block(STRIPPED_SPRUCE_LOG), new StraightTrunkPlacer(17, 6, 9),
 			weightedBlocks(new Block[]{leaves._1(), leaves._2()}, new int[]{5, 2}), new MegaPineFoliagePlacer(num(0, 1), num(0), num(12, 24)),
 			Optional.of(new MangroveRootPlacer(
 				num(0), block(STRIPPED_SPRUCE_WOOD), Optional.of(new AboveRootPlacement(block(STRIPPED_SPRUCE_WOOD), 0.5f)),
 				new MangroveRootPlacement(worldGenGrassBlock, worldGenDirt, block(STONE), 1, 3, 0.1f)
-			)), twoLayersSize(), List.of(), true, block(ENDER_DIRT)
+			)), twoLayersSize(), optionalVineDecor.apply(leaves._3(), List.of()), true, block(ENDER_DIRT)
 		);
-		Function<Tuple2<Block, Block>, TreeConfiguration> jungle = (leaves) -> new TreeConfiguration(
+		Function<Tuple3<Block, Block, Boolean>, TreeConfiguration> jungle = (leaves) -> new TreeConfiguration(
 			block(STRIPPED_JUNGLE_LOG), new MegaJungleTrunkPlacer(12, 7, 10),
 			weightedBlocks(new Block[]{leaves._1(), leaves._2()}, new int[]{5, 2}), new RandomSpreadFoliagePlacer(num(3, 7), num(0, 12), num(6, 18), 256),
-			Optional.empty(), twoLayersSize(), List.of(), true, block(ENDER_DIRT)
+			Optional.empty(), twoLayersSize(), optionalVineDecor.apply(leaves._3(), List.of()), true, block(ENDER_DIRT)
 		);
-		for (var tree : List.of(
+		var hallowTrees = List.of(
 			THE_HALLOW_RED_REGULAR_TREE, THE_HALLOW_RED_JUNGLE_TREE, THE_HALLOW_RED_PINE_TREE,
 			THE_HALLOW_ORANGE_REGULAR_TREE, THE_HALLOW_ORANGE_JUNGLE_TREE, THE_HALLOW_ORANGE_PINE_TREE,
 			THE_HALLOW_YELLOW_REGULAR_TREE, THE_HALLOW_YELLOW_JUNGLE_TREE, THE_HALLOW_YELLOW_PINE_TREE,
@@ -754,9 +758,11 @@ public interface ConfiguredFeatureProvider {
 			THE_HALLOW_MAGENTA_REGULAR_TREE, THE_HALLOW_MAGENTA_JUNGLE_TREE, THE_HALLOW_MAGENTA_PINE_TREE,
 			THE_HALLOW_PINK_REGULAR_TREE, THE_HALLOW_PINK_JUNGLE_TREE, THE_HALLOW_PINK_PINE_TREE,
 			THE_HALLOW_WHITE_REGULAR_TREE, THE_HALLOW_WHITE_JUNGLE_TREE, THE_HALLOW_WHITE_PINE_TREE
-		)) {
+		);
+		for (var tree : hallowTrees) {
 			var string = tree.identifier().getPath();
-			Tuple2<Block, Block> leaves = string.contains("red") ? new Tuple2<>(RED_WOOL, RED_STAINED_GLASS) :
+			var isRed = string.contains("red");
+			Tuple2<Block, Block> leaves = isRed ? new Tuple2<>(RED_WOOL, RED_STAINED_GLASS) :
 				string.contains("orange") ? new Tuple2<>(ORANGE_WOOL, ORANGE_STAINED_GLASS) :
 				string.contains("yellow") ? new Tuple2<>(YELLOW_WOOL, YELLOW_STAINED_GLASS) :
 				string.contains("lime") ? new Tuple2<>(LIME_WOOL, LIME_STAINED_GLASS) :
@@ -773,7 +779,7 @@ public interface ConfiguredFeatureProvider {
 				string.contains("jungle") ? jungle :
 				string.contains("pine") ? pine : null;
 			if (template == null) throw new AssertionError("Must contain a type for this loop");
-			context.register(tree, new ConfiguredFeature<>(Feature.TREE, template.apply(leaves)));
+			context.register(tree, new ConfiguredFeature<>(Feature.TREE, template.apply(Tuple3.from(leaves, isRed))));
 		}
 		context.register(THE_HALLOW_DIORITE_BOTTOM, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
 			WORLDGEN_STALACTITE_REPLACEABLE, block(DIORITE),
@@ -860,6 +866,51 @@ public interface ConfiguredFeatureProvider {
 			CaveSurface.FLOOR, num(1), 0, 3, 0.186f, num(2, 3), 0.3f
 		)));
 
+
+		context.register(THE_HALLOW_LAKE, new ConfiguredFeature<>(Feature.LAKE, new LakeFeature.Configuration(block(WATER), block(CALCITE))));
+		context.register(THE_HALLOW_TREE, new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(
+			HolderSet.direct(Stream.concat(Stream.of(THE_HALLOW_OAK_TREE, THE_HALLOW_SCATTERED_BUSH), hallowTrees.stream())
+				.map(c -> direct(new PlacedFeature(configured.getOrThrow(c), List.of()))).toList())
+		)));
+		context.register(THE_HALLOW_GROUND_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(
+			Stream.of(WILDFLOWERS, PINK_PETALS).flatMap(b -> Direction.Plane.HORIZONTAL.stream().flatMap(d -> Stream.of(1, 2, 3, 4).map(i -> property(property(b, FlowerBedBlock.FACING, d), FlowerBedBlock.AMOUNT, i))
+			)).toArray(BlockState[]::new)
+		))));
+		context.register(THE_HALLOW_FLOWER, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(noiseBlocks(
+			2137, new NormalNoise.NoiseParameters(1, 0.9, 1.1, 1.5, 0.5, 1), 0.010416667f,
+			Stream.of(POPPY, OXEYE_DAISY, AZURE_BLUET, POPPY, ALLIUM, ROSE_BUSH, POPPY, DANDELION, LILAC, PITCHER_PLANT, AZURE_BLUET, CORNFLOWER, LILAC, POPPY, ALLIUM)
+				.toArray(Block[]::new)
+		))));
+		context.register(THE_HALLOW_GRASS, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(weightedBlocks(
+			Stream.concat(Stream.of(SHORT_GRASS, TALL_GRASS, ACACIA_LEAVES, DEAD_BUSH, WARPED_ROOTS, NETHER_SPROUTS).map(ValueUtil::from), Arrays.stream(amethystCrystalsUp)).toArray(BlockState[]::new),
+			new int[]{88, 23, 8, 1, 19, 18, 3, 3, 3, 3}
+		))));
+
+
+		context.register(THE_NEST_DEEPSLATE, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_THE_NEST_SURFACE, block(DEEPSLATE),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
+				List.of(new BlockColumnConfiguration.Layer(num(1), block(DEEPSLATE))), Direction.UP, matchBlocks(AIR), true
+			))), List.of())), CaveSurface.FLOOR, num(1), 0, 40, 1, num(3, 6), 0.5f
+		)));
+		context.register(THE_NEST_TUFF, new ConfiguredFeature<>(Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(
+			WORLDGEN_END_STONE, weightedBlocks(new Block[]{END_STONE, COBBLESTONE, ANDESITE}, new int[]{4, 1, 1}),
+			direct(new PlacedFeature(direct(new ConfiguredFeature<>(Feature.REPLACE_BLOBS, new ReplaceSphereConfiguration(
+				from(END_STONE), from(TUFF), num(0, 1)
+			))), List.of())), CaveSurface.FLOOR, num(1, 2), 0.5f, 3, 0.05f, num(2, 5), 0.5f
+		)));
+		context.register(THE_NEST_DRAGON_EGG, new ConfiguredFeature<>(StellarityFeatures.DRAGON_EGG, new SimpleBlockConfiguration(weightedBlocks(
+			new Block[]{OBSIDIAN, CRYING_OBSIDIAN}, new int[]{15, 1}
+		))));
+		context.register(THE_NEST_DEAD_CORAL, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(blocks(
+			Stream.of(
+				DEAD_TUBE_CORAL, DEAD_HORN_CORAL, DEAD_FIRE_CORAL, DEAD_BUBBLE_CORAL, DEAD_BRAIN_CORAL,
+				DEAD_TUBE_CORAL_FAN, DEAD_HORN_CORAL_FAN, DEAD_FIRE_CORAL_FAN, DEAD_BUBBLE_CORAL_FAN, DEAD_BRAIN_CORAL_FAN
+			).map(b -> property(b, CoralFanBlock.WATERLOGGED, false)).toArray(BlockState[]::new)
+		))));
+		context.register(THE_NEST_TRANSITION, new ConfiguredFeature<>(Feature.SCATTERED_ORE, new OreConfiguration(
+			new BlockMatchTest(END_STONE), from(COBBLED_DEEPSLATE), 64
+		)));
 
 	}
 }

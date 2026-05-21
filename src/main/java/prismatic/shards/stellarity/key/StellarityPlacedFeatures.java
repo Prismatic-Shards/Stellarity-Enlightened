@@ -142,6 +142,18 @@ public interface StellarityPlacedFeatures {
 	ResourceKey<PlacedFeature> PRISMATIC_DUNES_GLASS_SPIKES = id("prismatic_dunes/glass_spikes");
 	ResourceKey<PlacedFeature> PRISMATIC_DUNES_GRASS_PATCHES = id("prismatic_dunes/grass_patches");
 
+	ResourceKey<PlacedFeature> THE_HALLOW_LAKES = id("the_hallow/lakes");
+	ResourceKey<PlacedFeature> THE_HALLOW_TREES = id("the_hallow/trees");
+	ResourceKey<PlacedFeature> THE_HALLOW_GRASS = id("the_hallow/grass");
+	ResourceKey<PlacedFeature> THE_HALLOW_GROUND_FLOWERS = id("the_hallow/ground_flowers");
+	ResourceKey<PlacedFeature> THE_HALLOW_FLOWERS = id("the_hallow/flowers");
+
+	ResourceKey<PlacedFeature> THE_NEST_DEEPSLATE = id("the_nest/deepslate");
+	ResourceKey<PlacedFeature> THE_NEST_TUFF = id("the_nest/tuff");
+	ResourceKey<PlacedFeature> THE_NEST_DRAGON_EGGS = id("the_nest/dragon_eggs");
+	ResourceKey<PlacedFeature> THE_NEST_DEAD_CORAL = id("the_nest/dead_coral");
+	ResourceKey<PlacedFeature> THE_NEST_TRANSITION = id("the_nest/transition");
+
 	static ResourceKey<PlacedFeature> id(String id) {
 		return Stellarity.key(Registries.PLACED_FEATURE, id);
 	}

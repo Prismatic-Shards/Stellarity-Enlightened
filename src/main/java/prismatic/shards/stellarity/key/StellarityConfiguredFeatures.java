@@ -176,6 +176,18 @@ public interface StellarityConfiguredFeatures {
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMATIC_DUNES_GLASS_SPIKE = id("prismatic_dunes/glass_spike");
 	ResourceKey<ConfiguredFeature<?, ?>> PRISMATIC_DUNES_GRASS_PATCH = id("prismatic_dunes/grass_patch");
 
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_TREE = id("the_hallow/tree");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_LAKE = id("the_hallow/lake");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_GROUND_FLOWER = id("the_hallow/ground_flower");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_FLOWER = id("the_hallow/flower");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_HALLOW_GRASS = id("the_hallow/grass");
+
+	ResourceKey<ConfiguredFeature<?, ?>> THE_NEST_DEEPSLATE = id("the_nest/deepslate");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_NEST_TUFF = id("the_nest/tuff");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_NEST_DRAGON_EGG = id("the_nest/dragon_egg");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_NEST_DEAD_CORAL = id("the_nest/dead_coral");
+	ResourceKey<ConfiguredFeature<?, ?>> THE_NEST_TRANSITION = id("the_nest/transition");
+
 
 	static ResourceKey<ConfiguredFeature<?, ?>> id(String id) {
 		return Stellarity.key(Registries.CONFIGURED_FEATURE, id);

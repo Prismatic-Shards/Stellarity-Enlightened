@@ -215,6 +215,15 @@ the [wiki](https://koharasbasement.wiki.gg/wiki/Stellarity) and the [datapack](h
 
 **[+] Prismarine Forest**
 
+**[+] The Hallow**
+
+**[+] The Nest**
+
+- Added a new `stellarity:dragon_egg` feature for an exact pixel to block generation of a giant dragon egg. Egg material
+  can be configured.
+
+**[+] Warped Marsh**
+
 ## Structures
 
 **[*] Exit Portal**

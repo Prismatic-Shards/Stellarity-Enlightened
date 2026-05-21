@@ -54,6 +54,10 @@ public interface WorldgenUtil {
 		return NoiseBasedCountPlacement.of(noiseToCountRatio, noiseFactor, noiseOffset);
 	}
 
+	static NoiseThresholdCountPlacement noiseThresholdCount(final double noiseLevel, final int belowNoise, final int noiseOffset) {
+		return NoiseThresholdCountPlacement.of(noiseLevel, belowNoise, noiseOffset);
+	}
+
 	static HeightRangePlacement heightRange(HeightProvider heightProvider) {
 		return HeightRangePlacement.of(heightProvider);
 	}

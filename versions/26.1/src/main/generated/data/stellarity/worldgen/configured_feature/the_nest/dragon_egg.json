@@ -1,0 +1,22 @@
+{
+  "type": "stellarity:dragon_egg",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:obsidian"
+          },
+          "weight": 15
+        },
+        {
+          "data": {
+            "Name": "minecraft:crying_obsidian"
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

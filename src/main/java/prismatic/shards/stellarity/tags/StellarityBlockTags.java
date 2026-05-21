@@ -26,6 +26,7 @@ public interface StellarityBlockTags {
 	TagKey<Block> WORLDGEN_FROZEN_MARSH_POND_REPLACEABLE = id("worldgen/frozen_marsh/pond_replaceable");
 	TagKey<Block> WORLDGEN_SNOW_BLOCK = id("worldgen/snow_block");
 	TagKey<Block> WORLDGEN_PRISMATIC_DUNES_SURFACE = id("worldgen/prismatic_dunes/surface");
+	TagKey<Block> WORLDGEN_THE_NEST_SURFACE = id("worldgen/the_nest/surface");
 
 	static TagKey<Block> id(String id) {
 		return TagKey.create(Registries.BLOCK, Stellarity.id(id));
