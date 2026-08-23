@@ -348,18 +348,19 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			)
 		);
 
-		consumer.accept(VILLAGE_HOUSE_COMMON, lootTable().withPool(pool().setRolls(num(3, 4))
+		// todo: inline loot table when fabric fix
+		var villageHouseCommon = lootTable().withPool(pool().setRolls(num(3, 4))
 			.add(item(GOLD_NUGGET).apply(count(1, 3)))
 			.add(item(DANDELION).setWeight(2)).add(item(POPPY))
 			.add(item(POTATO).setWeight(10).apply(count(1, 3)))
 			.add(item(BREAD).setWeight(10).apply(count(1, 4)))
 			.add(item(APPLE).setWeight(10).apply(count(1, 3)))
 			.add(item(BOOK)).add(item(FEATHER)).add(item(FEATHER).setWeight(2).apply(count(1, 3)))
-		));
+		);
 
 		consumer.accept(VILLAGE_HOUSE_BOOKWORM, lootTable()
 			.withPool(pool().setRolls(num(3)).add(item(BOOK).apply(count(1, 2))))
-			.withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
+			.withPool(pool().setRolls(num(1)).add(lootTable(villageHouseCommon)))
 		);
 
 		consumer.accept(VILLAGE_HOUSE_LUSH, lootTable()
@@ -367,22 +368,22 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 				.add(item(MOSS_BLOCK).apply(count(1, 2)))
 				.add(item(PALE_MOSS_BLOCK).apply(count(1, 2)))
 				.add(item(GLOW_BERRIES).apply(count(2, 3)))
-			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(villageHouseCommon)))
 		);
 		consumer.accept(VILLAGE_HOUSE_MUSIC, lootTable()
 			.withPool(pool().setRolls(num(3))
 				.add(item(MUSIC_DISC_STRAD)).add(item(MUSIC_DISC_CAT)).add(item(MUSIC_DISC_WAIT)).add(item(MUSIC_DISC_MALL)).add(empty().setWeight(3))
-			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(villageHouseCommon)))
 		);
-		consumer.accept(VILLAGE_HOUSE_REGULAR, lootTable().withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON))));
+		consumer.accept(VILLAGE_HOUSE_REGULAR, lootTable().withPool(pool().setRolls(num(1)).add(lootTable(villageHouseCommon))));
 		consumer.accept(VILLAGE_HOUSE_REGULAR_SHULKER_BOX, lootTable().withPool(pool().setRolls(num(2))
-			.add(lootTable(lookup, VILLAGE_HOUSE_COMMON).setWeight(37))
+			.add(lootTable(villageHouseCommon).setWeight(37))
 			.add(item(EMERALD).setWeight(2).apply(count(1, 3)))
 		));
 		consumer.accept(VILLAGE_HOUSE_WARPED, lootTable()
 			.withPool(pool().setRolls(num(3))
 				.add(item(WARPED_WART_BLOCK).apply(count(1, 2))).add(item(WARPED_FUNGUS).apply(count(2, 3)))
-			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(villageHouseCommon)))
 		);
 		consumer.accept(VILLAGE_CENTER_AETHER, lootTable()
 			.withPool(pool().setRolls(num(4, 6)).add(item(WOOL.lightBlue()).apply(count(1, 3))).add(item(WARPED_FENCE)))

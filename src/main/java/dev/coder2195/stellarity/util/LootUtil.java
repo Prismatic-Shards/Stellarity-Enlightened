@@ -25,7 +25,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.saveddata.maps.MapDecorationType;
@@ -174,6 +173,14 @@ public interface LootUtil {
 
 	static UniformContainerBase.Builder<?> lootTable(HolderGetter.Provider provider, ResourceKey<LootTable> table) {
 		return lootTable(provider.getOrThrow(table));
+	}
+
+	static UniformContainerBase.Builder<?> lootTable(LootTable table) {
+		return NestedLootTable.inlineLootTable(table);
+	}
+
+	static UniformContainerBase.Builder<?> lootTable(LootTable.Builder table) {
+		return NestedLootTable.inlineLootTable(table.build());
 	}
 
 	static LootTable.Builder lootTable() {
