@@ -4,16 +4,17 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -39,13 +40,13 @@ public class DashTrigger extends SimpleCriterionTrigger<DashTrigger.TriggerInsta
 		this.trigger(player, /* lambda$trigger$0 */ t -> t.matches(victimContexts, entityTypes.size(), weapon));
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player, List<ContextAwarePredicate> victims,
+	public record TriggerInstance(Optional<Holder<LootItemCondition>> player, List<Holder<LootItemCondition>> victims,
 	                              MinMaxBounds.Ints uniqueEntityTypes, MinMaxBounds.Ints victimCount,
 	                              Optional<ItemPredicate> weapon) implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
 			/* lambda$static$0 */ i -> i.group(
-					EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-					EntityPredicate.ADVANCEMENT_CODEC.listOf().optionalFieldOf("victims", List.of()).forGetter(TriggerInstance::victims),
+					LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+					LootItemCondition.CODEC.listOf().optionalFieldOf("victims", List.of()).forGetter(TriggerInstance::victims),
 					MinMaxBounds.Ints.CODEC.optionalFieldOf("unique_entity_types", MinMaxBounds.Ints.ANY).forGetter(TriggerInstance::uniqueEntityTypes),
 					MinMaxBounds.Ints.CODEC.optionalFieldOf("victim_count", MinMaxBounds.Ints.ANY).forGetter(TriggerInstance::victimCount),
 					ItemPredicate.CODEC.optionalFieldOf("weapon").forGetter(TriggerInstance::weapon)
@@ -62,20 +63,22 @@ public class DashTrigger extends SimpleCriterionTrigger<DashTrigger.TriggerInsta
 
 				List<LootContext> victimsCopy = Lists.<LootContext>newArrayList(victims);
 
-				for (ContextAwarePredicate predicate : this.victims) {
+				for (Holder<LootItemCondition> predicate : this.victims) {
 					boolean found = false;
 					Iterator<LootContext> iterator = victimsCopy.iterator();
 
 					while (iterator.hasNext()) {
-						LootContext entity = iterator.next();
-						if (predicate.matches(entity)) {
+						LootContext entity = (LootContext)iterator.next();
+						if (predicate.value().test(entity)) {
 							iterator.remove();
 							found = true;
 							break;
 						}
 					}
 
-					if (!found) return false;
+					if (!found) {
+						return false;
+					}
 				}
 
 				return true;

@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:block_column",
+  "allowed_placement": {
+    "type": "minecraft:true"
+  },
+  "direction": "up",
+  "layers": [
+    {
+      "height": 1,
+      "provider": {
+        "type": "minecraft:weighted_state_provider",
+        "entries": [
+          {
+            "data": "minecraft:netherrack",
+            "weight": 1
+          },
+          {
+            "data": "minecraft:magma_block",
+            "weight": 1
+          },
+          {
+            "data": "minecraft:obsidian",
+            "weight": 1
+          },
+          {
+            "data": "minecraft:crying_obsidian",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    {
+      "height": 1,
+      "provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": "minecraft:fire"
+      }
+    }
+  ],
+  "prioritize_tip": false
+}

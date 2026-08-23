@@ -7,6 +7,7 @@ import dev.coder2195.stellarity.mixin.accessor.NoiseRouterAccessor;
 import dev.coder2195.stellarity.mixin.accessor.NoiseSettingsAccessor;
 import dev.coder2195.stellarity.util.WorldgenData;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistrySetupCallback;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.Biome;
@@ -116,10 +117,12 @@ public class StellarityRegistryEntryModifications {
 				if (!Stellarity.hasBiolith() && !surfaceRulesDone) {
 					try {
 
-						generatorSettingsAccessor.stellarity$setSurfaceRule(SurfaceRules.sequence(
-							WorldgenData.stellaritySurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
-							WorldgenData.vanillaSurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
-							generatorSettings.surfaceRule()
+						generatorSettingsAccessor.stellarity$setMaterialRule(Holder.direct(
+							SurfaceRules.sequence(
+								WorldgenData.stellaritySurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+								WorldgenData.vanillaSurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+								generatorSettings.materialRule().value()
+							)
 						));
 
 						surfaceRulesDone = true;
@@ -169,11 +172,11 @@ public class StellarityRegistryEntryModifications {
 					try {
 						//noinspection DataFlowIssue
 						var cachedNoiseSettingsAccessor = (NoiseGeneratorSettingsAccessor) (Object) cachedNoiseSettings;
-						cachedNoiseSettingsAccessor.stellarity$setSurfaceRule(SurfaceRules.sequence(
+						cachedNoiseSettingsAccessor.stellarity$setMaterialRule(Holder.direct(SurfaceRules.sequence(
 							WorldgenData.stellaritySurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
 							WorldgenData.vanillaSurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
-							cachedNoiseSettings.surfaceRule()
-						));
+							cachedNoiseSettings.materialRule().value()
+						)));
 						Stellarity.LOGGER.info("biome registry is mature for surface rules (biome)");
 						surfaceRulesDone = true;
 					} catch (Exception e) {

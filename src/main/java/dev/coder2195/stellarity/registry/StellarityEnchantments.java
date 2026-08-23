@@ -1,11 +1,13 @@
 package dev.coder2195.stellarity.registry;
 
+import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.tags.StellarityBlockTags;
 import dev.coder2195.stellarity.tags.StellarityDamageTypeTags;
 import dev.coder2195.stellarity.tags.StellarityEntityTypeTags;
 import dev.coder2195.stellarity.tags.StellarityItemTags;
 import dev.coder2195.stellarity.util.tuple.Tuple2;
 import net.minecraft.advancements.predicates.TagPredicate;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,11 +24,11 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.enchantment.*;
-import dev.coder2195.stellarity.Stellarity;
 import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
 import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.minecraft.world.item.enchantment.effects.MultiplyValue;
 import net.minecraft.world.item.enchantment.effects.SpawnParticlesEffect;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,13 +36,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static dev.coder2195.stellarity.util.EnchantmentUtil.*;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.applyEffect;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.attribute;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.changeItemDamage;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.cost;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.inBoundingBox;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.particleVelocity;
-import static dev.coder2195.stellarity.util.EnchantmentUtil.playSound;
 import static dev.coder2195.stellarity.util.LootUtil.*;
 import static dev.coder2195.stellarity.util.ValueUtil.numf;
 import static net.minecraft.world.item.enchantment.EnchantmentEffectComponents.DAMAGE;
@@ -61,16 +56,16 @@ public interface StellarityEnchantments {
 		var items = context.lookup(Registries.ITEM);
 		var entities = context.lookup(Registries.ENTITY_TYPE);
 		var blocks = context.lookup(Registries.BLOCK);
-		var mobEffects = context.lookup(Registries.MOB_EFFECT);
+		var damageTypes = context.lookup(Registries.DAMAGE_TYPE);
 
 		var noAI = new CompoundTag();
 		noAI.putBoolean("NoAI", true);
-		var ambushRequirements = not(any(
+		Holder<LootItemCondition> ambushRequirements = not(Holder.direct(any(
 			entityProperty(predicate().nbt(nbt(noAI))),
 			entityProperty(predicate().entityType(entityType(EntityTypes.PLAYER))),
 			entityProperty(predicate().entityType(entityType(entities, StellarityEntityTypeTags.INVALID_TARGETS))),
 			entityProperty(predicate().targetedEntity(predicate().entityType(entityType(EntityTypes.PLAYER))))
-		).build());
+		).build()));
 		context.register(AMBUSH, new Enchantment(
 			Component.translatable("enchantment.stellarity.ambush"),
 			new Enchantment.EnchantmentDefinition(
@@ -93,7 +88,8 @@ public interface StellarityEnchantments {
 						new Tuple2<>(StellaritySoundEvents.AMBUSH_LEVEL_3, 3)
 					).map(tuple -> new TargetedConditionalEffect<>(
 						EnchantmentTarget.ATTACKER, EnchantmentTarget.VICTIM, playSound(tuple._1(), numf(0.7f), numf(1)
-					), Optional.of(all(ambushRequirements, valueCheck(enchantNum(levelBasedLinear(1, 1)), intRange(tuple._2()))))))
+					), Optional.of(all(ambushRequirements, valueCheck(enchantNum(levelBasedLinear(1, 1)), intRange(tuple._2()))))
+					))
 				).toList())
 				.build()
 		));
@@ -115,7 +111,7 @@ public interface StellarityEnchantments {
 				.set(EnchantmentEffectComponents.LOCATION_CHANGED, List.of(
 					new ConditionalEffect<>(
 						attribute(Stellarity.id("enchantment.dune_speed"), Attributes.MOVEMENT_SPEED, levelBasedLinear(0.025f, 0.009f), AttributeModifier.Operation.ADD_VALUE),
-						Optional.of(all(
+						Optional.of(Holder.direct(all(
 							not(entityProperty(predicate().vehicle(predicate()))),
 							any(
 								all(
@@ -129,14 +125,14 @@ public interface StellarityEnchantments {
 									enchantInactive(), entityProperty(predicate().flags(flags().setIsFlying(false)).steppingOn(isDuneSpeedBlock))
 								)
 							)
-						).build())
+						).build()))
 					),
 					new ConditionalEffect<>(
 						changeItemDamage(levelBasedConstant(1)),
-						Optional.of(all(
+						Optional.of(Holder.direct(all(
 							randomChance(enchantNum(levelBasedConstant(0.04f))),
 							entityProperty(predicate().steppingOn(isDuneSpeedBlock).flags(flags().setOnGround(true)))
-						).build())
+						).build()))
 					)
 				))
 				.build()
@@ -195,7 +191,7 @@ public interface StellarityEnchantments {
 							HolderSet.direct(StellarityMobEffects.VOIDED), levelBasedConstant(160), levelBasedConstant(160),
 							levelBasedConstant(0), levelBasedConstant(0)
 						),
-						Optional.of(damageSource(damage().tag(isTag(StellarityDamageTypeTags.MELEE)).tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY)).isDirect(true)).build())
+						Optional.of(Holder.direct(damageSource(damage().tag(isTag(damageTypes.getOrThrow(StellarityDamageTypeTags.MELEE))).tag(TagPredicate.isNot(damageTypes.getOrThrow(DamageTypeTags.BYPASSES_INVULNERABILITY))).isDirect(true)).build()))
 					)
 				))
 				.build()

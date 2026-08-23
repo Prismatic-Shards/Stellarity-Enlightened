@@ -105,7 +105,7 @@ public class ObstructSpellBlock extends Entity implements Attackable {
 
 	@Override
 	public @NonNull PushReaction getPistonPushReaction() {
-		return PushReaction.IGNORE;
+		return PushReaction.IGNORE_ENTITY;
 	}
 
 	@Override

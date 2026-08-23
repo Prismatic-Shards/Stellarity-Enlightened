@@ -33,7 +33,7 @@ public abstract class TheEndBiomeSourceMixin extends BiomeSource {
 
 	@WrapMethod(method = "getNoiseBiome")
 	private Holder<Biome> getNoiseBiomeOverride(int quartX, int quartY, int quartZ, Climate.Sampler sampler, Operation<Holder<Biome>> original) {
-		if (biomeSource != null) return biomeSource.getNoiseBiome(quartX, quartY, quartZ, sampler);
+		if (biomeSource != null) return biomeSource.getNoiseBiome(sampler.sample(quartX, quartY, quartZ));
 		return original.call(quartX, quartY, quartZ, sampler);
 	}
 

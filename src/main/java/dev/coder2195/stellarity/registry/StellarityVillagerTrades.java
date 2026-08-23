@@ -268,12 +268,13 @@ public interface StellarityVillagerTrades {
 		var trimPatterns = context.lookup(Registries.TRIM_PATTERN);
 		var enchants = context.lookup(Registries.ENCHANTMENT);
 		var paintings = context.lookup(Registries.PAINTING_VARIANT);
+		var structures = context.lookup(Registries.STRUCTURE);
 
-		List<LootItemFunction> ironArmorModifier = List.of(
+		Holder<LootItemFunction> ironArmorModifier = sequence(
 			component(DataComponents.TRIM, new ArmorTrim(trimMaterials.getOrThrow(TrimMaterials.EMERALD), trimPatterns.getOrThrow(TrimPatterns.SPIRE))).when(chance(0.5f)).build(),
 			enchant().when(chance(0.5f)).build()
 		);
-		List<LootItemFunction> diamondArmorModifier = List.of(
+		Holder<LootItemFunction> diamondArmorModifier = sequence(
 			component(DataComponents.TRIM, new ArmorTrim(trimMaterials.getOrThrow(TrimMaterials.EMERALD), trimPatterns.getOrThrow(TrimPatterns.EYE))).when(chance(0.5f)).build(),
 			component(DataComponents.TRIM, new ArmorTrim(trimMaterials.getOrThrow(TrimMaterials.AMETHYST), trimPatterns.getOrThrow(TrimPatterns.EYE))).when(chance(0.5f)).build(),
 			enchant(enchants, 15, 31).build()
@@ -314,7 +315,7 @@ public interface StellarityVillagerTrades {
 		context.register(BUTCHER_2_ENDERMAN_FLESH_ENDERITE_SHARD_FROZEN_CARPACCIO, simpleShardToSimple(ENDERMAN_FLESH, 2, 2, FROZEN_CARPACCIO, 2, 5, 8, 0.05f));
 		context.register(BUTCHER_3_SHULKER_BODY_ENDERITE_SHARD, simpleToShard(SHULKER_BODY, 2, 1, 12, 14, 0.05f));
 		context.register(BUTCHER_3_ENDERITE_SHARD_SHULKER_BODY, shardToSimple(1, SHULKER_BODY, 1, 12, 14, 0.05f));
-		context.register(BUTCHER_3_ENDERITE_SHARD_IRON_AXE, shardToModifierItem(num(16, 24), IRON_AXE, List.of(
+		context.register(BUTCHER_3_ENDERITE_SHARD_IRON_AXE, shardToModifierItem(num(16, 24), IRON_AXE, Holder.direct(
 			new SetEnchantmentsFunction.Builder().withEnchantment(enchants.getOrThrow(Enchantments.LOOTING), num(2)).build()
 		), 1, 15, 3, 0.2f));
 		context.register(BUTCHER_4_BEEF_LEATHER_ENDERITE_SHARD, simpleSimpleToShard(BEEF, num(5, 10), LEATHER, num(5, 10), 1, 20, 8, 0.05f));
@@ -326,20 +327,22 @@ public interface StellarityVillagerTrades {
 		context.register(BUTCHER_5_ENDERITE_SHARD_DRIED_KELP_BLOCK, shardToSimple(5, DRIED_KELP_BLOCK, 2, 20, 8, 0.05f));
 
 
+		var explorationMapEndCity = structures.getOrThrow(StellarityStructureTags.EXPLORATION_MAP_END_CITY);
+		//TODO: Update with actual chapel of light
+		var explorationMapChapelOfLight = structures.getOrThrow(StellarityStructureTags.EXPLORATION_MAP_VILLAGE);
 		context.register(CARTOGRAPHER_1_PAPER_ENDERITE_SHARD, simpleToShard(PAPER, num(24, 30), 1, 2, 12, 0.05f));
 		context.register(CARTOGRAPHER_1_ENDERITE_SHARD_MAP, shardToSimple(num(6, 8), MAP, 1, 1, 10, 0.05f));
 		context.register(CARTOGRAPHER_2_GLASS_PANE_ENDERITE_SHARD, simpleToShard(GLASS_PANE, num(14, 20), 1, 8, 14, 0.05f));
-		context.register(CARTOGRAPHER_2_MAP_ENDERITE_SHARD_END_CITY_EXPLORER_MAP, simpleShardToModifierItem(MAP, num(1), num(40, 50), MAP, List.of(
-			explorationMap(MapDecorationTypes.PURPLE_BANNER, StellarityStructureTags.EXPLORATION_MAP_END_CITY, (byte) 3, 96, true),
+		context.register(CARTOGRAPHER_2_MAP_ENDERITE_SHARD_END_CITY_EXPLORER_MAP, simpleShardToModifierItem(MAP, num(1), num(40, 50), MAP, sequence(
+			explorationMap(MapDecorationTypes.PURPLE_BANNER, explorationMapEndCity, (byte) 3, 96, true),
 			setName(Component.translatable("filled_map.stellarity.end_city").setStyle(Style.EMPTY.withItalic(false)), SetNameFunction.Target.CUSTOM_NAME),
 			setComponents(DataComponentPatch.builder().set(DataComponents.RARITY, Rarity.RARE).set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).build())
 		), 1, 40, 1, 0.2f));
 		context.register(CARTOGRAPHER_3_ENDERITE_SHARD_ITEM_FRAME, shardToSimple(2, ITEM_FRAME, 4, 12, 8, 0.05f));
-		//TODO: Update with actual chapel of light
-		context.register(CARTOGRAPHER_3_MAP_ENDERITE_SHARD_CHAPEL_OF_LIGHT_MAP, simpleShardToModifierItem(MAP, num(1), num(50, 60), MAP, List.of(
-			ExplorationMapFunction.makeExplorationMap().setMapDecoration(MapDecorationTypes.PURPLE_BANNER).setZoom((byte) 3).setSearchRadius(96).setSkipKnownStructures(false).setDestination(StellarityStructureTags.EXPLORATION_MAP_END_CITY).build(),
-			SetNameFunction.setName(Component.translatable("filled_map.stellarity.chapel_of_light").setStyle(Style.EMPTY.withItalic(false)), SetNameFunction.Target.CUSTOM_NAME).build(),
-			SetComponentsFunctionAccessor.create(List.of(), DataComponentPatch.builder().set(DataComponents.RARITY, Rarity.RARE).set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).build())
+		context.register(CARTOGRAPHER_3_MAP_ENDERITE_SHARD_CHAPEL_OF_LIGHT_MAP, simpleShardToModifierItem(MAP, num(1), num(50, 60), MAP, sequence(
+			explorationMap(MapDecorationTypes.PURPLE_BANNER, explorationMapChapelOfLight, (byte) 3, 96, false),
+			setName(Component.translatable("filled_map.stellarity.chapel_of_light").setStyle(Style.EMPTY.withItalic(false)), SetNameFunction.Target.CUSTOM_NAME),
+			setComponents(DataComponentPatch.builder().set(DataComponents.RARITY, Rarity.RARE).set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).build())
 		), 1, 40, 1, 0.2f));
 		context.register(CARTOGRAPHER_4_ENDERITE_SHARD_GLOW_ITEM_FRAME, shardToSimple(3, GLOW_ITEM_FRAME, 2, 18, 8, 0.05f));
 		context.register(CARTOGRAPHER_4_ENDERITE_SHARD_PHANTOM_ITEM_FRAME, shardToSimple(num(4, 6), PHANTOM_ITEM_FRAME, 3, 20, 4, 0.05f));
@@ -354,15 +357,15 @@ public interface StellarityVillagerTrades {
 		context.register(CLERIC_2_GOLD_INGOT_ENDERITE_SHARD, simpleToShard(GOLD_INGOT, 3, 1, 5, 10, 0.05f));
 		context.register(CLERIC_2_ENDERITE_SHARD_LAPIS_LAZULI, shardToSimple(1, LAPIS_LAZULI, 3, 5, 10, 0.05f));
 		context.register(CLERIC_2_ENDERITE_SHARD_NETHER_WART, shardToSimple(1, NETHER_WART, 2, 3, 12, 0.05f));
-		context.register(CLERIC_3_ENDERITE_SHARD_LEVEL_3_POTION, shardToModifierItem(num(7, 11), POTION, List.of(
+		context.register(CLERIC_3_ENDERITE_SHARD_LEVEL_3_POTION, shardToModifierItem(num(7, 11), POTION, Holder.direct(
 			SetRandomPotionFunction.fromTagKey(HolderSet.direct(Potions.HEALING, Potions.SWIFTNESS, Potions.LEAPING)).build()
 		), 1, 10, 3, 0.05f));
 		context.register(CLERIC_3_ENDERITE_SHARD_GLOWSTONE, shardToSimple(1, GLOWSTONE, 1, 5, 12, 0.05f));
 		context.register(CLERIC_4_ENDER_PEARL_ENDERITE_SHARD, simpleSimpleToShard(ENDER_PEARL, num(16), ENDER_PEARL, num(1, 16), 1, 6, 12, 0.05f));
-		context.register(CLERIC_4_ENDERITE_SHARD_LEVEL_4_POTION, shardToModifierItem(num(7, 11), POTION, List.of(
+		context.register(CLERIC_4_ENDERITE_SHARD_LEVEL_4_POTION, shardToModifierItem(num(7, 11), POTION, Holder.direct(
 			SetRandomPotionFunction.fromTagKey(HolderSet.direct(Potions.STRENGTH, StellarityPotions.ENDURANCE)).build()
 		), 1, 15, 3, 0.2f));
-		context.register(CLERIC_5_ENDERITE_SHARD_LEVEL_5_POTION, shardToModifierItem(num(11, 18), POTION, List.of(
+		context.register(CLERIC_5_ENDERITE_SHARD_LEVEL_5_POTION, shardToModifierItem(num(11, 18), POTION, Holder.direct(
 			SetRandomPotionFunction.fromTagKey(HolderSet.direct(StellarityPotions.RED, StellarityPotions.LIFEFORCE)).build()
 		), 1, 25, 2, 0.2f));
 		context.register(CLERIC_5_DRAGONS_BREATH_ENDERITE_SHARD, simpleToShard(DRAGON_BREATH, 3, 1, 15, 10, 0.05f));
@@ -381,13 +384,13 @@ public interface StellarityVillagerTrades {
 		context.register(FARMER_3_ENDERITE_SHARD_CANDIED_CHORUS_FRUIT, shardToSimple(2, CANDIED_CHORUS_FRUIT, 1, 20, 3, 0.2f));
 		context.register(FARMER_3_WHEAT_SEEDS_ENDERITE_SHARD_TORCHFLOWER_SEEDS, simpleShardToSimple(WHEAT_SEEDS, num(12, 16), num(1), TORCHFLOWER_SEEDS, 4, 5, 12, 0.05f));
 		context.register(FARMER_3_WHEAT_SEEDS_ENDERITE_SHARD_PITCHER_POD, simpleShardToSimple(WHEAT_SEEDS, num(8, 11), num(1), PITCHER_POD, 3, 5, 8, 0.05f));
-		context.register(FARMER_4_ENDERITE_SHARD_CHORUS_JUICE, shardToModifierItem(3, POTION, List.of(
+		context.register(FARMER_4_ENDERITE_SHARD_CHORUS_JUICE, shardToModifierItem(3, POTION, Holder.direct(
 			SetPotionFunction.setPotion(StellarityPotions.CHORUS_JUICE).build()
 		), 1, 15, 8, 0.2f));
 		context.register(FARMER_4_ENDERITE_SHARD_CHORUS_STEW, shardToSimple(4, CHORUS_STEW, 1, 15, 6, 0.2f));
 		context.register(FARMER_4_ENDERITE_SHARD_FRIED_CHORUS_FRUIT, shardToSimple(num(5, 6), FRIED_CHORUS_FRUIT, 2, 15, 8, 0.2f));
 		context.register(FARMER_5_ENDERITE_SHARD_PHO, shardToSimple(num(12, 18), PHO, 1, 25, 3, 0.2f));
-		context.register(FARMER_5_BREAD_ENDERITE_SHARD_LOAF_OF_PLENTY, simpleShardToSimplePredicate(BREAD, 10, 64, LOAF_OF_PLENTY, 1, 50, 2, 0.2f, LootItemRandomChanceCondition.randomChance(0.2f).build()));
+		context.register(FARMER_5_BREAD_ENDERITE_SHARD_LOAF_OF_PLENTY, simpleShardToSimplePredicate(BREAD, 10, 64, LOAF_OF_PLENTY, 1, 50, 2, 0.2f, Holder.direct(randomChance(0.2f).build())));
 
 		context.register(FISHERMAN_1_FISHING_ROD_ENDERITE_SHARD, simpleToShard(FISHING_ROD, 1, 2, 10, 1, 0.05f));
 		context.register(FISHERMAN_1_ENDERITE_SHARD_FISHING_ROD, shardToSimple(3, FISHING_ROD, 1, 4, 2, 0.05f));
@@ -406,17 +409,15 @@ public interface StellarityVillagerTrades {
 			new Tuple2<>(FISHERMAN_3_POTASSIFISH_ENDERITE_SHARD, POTASSIFISH)
 		))
 			context.register(fishTrade._1(), simpleToShard(fishTrade._2(), num(4, 6), 1, 4, 8, 0.05f));
-		List<LootItemFunction> enchant15To29 = List.of(
+		Holder<LootItemFunction> enchant15To29 = Holder.direct(
 			enchant(enchants, 15, 29).build()
 		);
-		List<LootItemFunction> enchant21To35 = List.of(
-			enchant(enchants, 21, 35).build()
-		);
+		var enchant21To35 = Holder.direct(enchant(enchants, 21, 35).build());
 		context.register(FISHERMAN_3_ENDERITE_SHARD_FISHING_ROD, shardToModifierItem(num(5, 8), FISHING_ROD, enchant15To29, 1, 4, 2, 0.05f));
-		context.register(FISHERMAN_4_ENDERITE_SHARD_LURE_BOOK, shardToModifierItem(num(10, 14), BOOK, List.of(
+		context.register(FISHERMAN_4_ENDERITE_SHARD_LURE_BOOK, shardToModifierItem(num(10, 14), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.LURE).build()
 		), 1, 10, 2, 0.2f));
-		context.register(FISHERMAN_4_ENDERITE_SHARD_LUCK_OF_THE_SEA_BOOK, shardToModifierItem(num(10, 14), BOOK, List.of(
+		context.register(FISHERMAN_4_ENDERITE_SHARD_LUCK_OF_THE_SEA_BOOK, shardToModifierItem(num(10, 14), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.LUCK_OF_THE_SEA).build()
 		), 1, 10, 2, 0.2f));
 		context.register(FISHERMAN_4_ENDERITE_SHARD_FISHER_OF_VOIDS, shardToSimple(num(14, 20), FISHER_OF_VOIDS, 1, 15, 6, 0.2f));
@@ -432,10 +433,10 @@ public interface StellarityVillagerTrades {
 		context.register(FLETCHER_3_STRING_ENDERITE_SHARD, simpleToShard(STRING, num(12, 20), 1, 4, 12, 0.05f));
 		context.register(FLETCHER_3_FEATHER_ENDERITE_SHARD, simpleToShard(FEATHER, num(7, 15), 1, 6, 6, 0.05f));
 		context.register(FLETCHER_3_ENDERITE_SHARD_CROSSBOW, shardToModifierItem(num(10, 17), CROSSBOW, enchant15To29, 1, 12, 2, 0.2f));
-		context.register(FLETCHER_4_ARROW_ENDERITE_SHARD_LEVITATION_TIPPED_ARROW, simpleShardToModifierItem(ARROW, num(8), num(9, 17), TIPPED_ARROW, List.of(
+		context.register(FLETCHER_4_ARROW_ENDERITE_SHARD_LEVITATION_TIPPED_ARROW, simpleShardToModifierItem(ARROW, num(8), num(9, 17), TIPPED_ARROW, Holder.direct(
 			component(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), List.of(new MobEffectInstance(MobEffects.LEVITATION, 90 * 20)), Optional.empty())).build()
 		), 8, 8, 6, 0.05f));
-		context.register(FLETCHER_4_ARROW_ENDERITE_SHARD_LUCK_TIPPED_ARROW, simpleShardToModifierItem(ARROW, 8, 64, TIPPED_ARROW, List.of(
+		context.register(FLETCHER_4_ARROW_ENDERITE_SHARD_LUCK_TIPPED_ARROW, simpleShardToModifierItem(ARROW, 8, 64, TIPPED_ARROW, Holder.direct(
 			potion(Potions.LUCK).build()
 		), 8, 8, 5, 0.05f));
 		context.register(FLETCHER_5_BOW_ENDERITE_SHARD_SHARANGA, simpleShardToSimple(BOW, 1, 64, SHARANGA, 1, 25, 2, 0.2f));
@@ -455,17 +456,17 @@ public interface StellarityVillagerTrades {
 		context.register(LIBRARIAN_1_PAPER_ENDERITE_SHARD, simpleToShard(PAPER, num(24, 36), 1, 2, 6, 0.05f));
 		context.register(LIBRARIAN_1_BOOK_ENDERITE_SHARD, simpleToShard(BOOK, 3, 1, 3, 8, 0.05f));
 		context.register(LIBRARIAN_1_ENDERITE_SHARD_BOOKSHELF, shardToSimple(num(4, 6), BOOKSHELF, 1, 4, 8, 0.05f));
-		context.register(LIBRARIAN_1_BOOK_ENDERITE_SHARD_LEVEL_1_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, List.of(
+		context.register(LIBRARIAN_1_BOOK_ENDERITE_SHARD_LEVEL_1_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.FIRE_ASPECT, Enchantments.FLAME, Enchantments.KNOCKBACK, Enchantments.AQUA_AFFINITY).build()
 		), 1, 8, 3, 0.2f));
 		context.register(LIBRARIAN_2_ENDERITE_SHARD_LANTERN, shardToSimple(1, LANTERN, 3, 4, 8, 0.05f));
-		context.register(LIBRARIAN_2_BOOK_ENDERITE_SHARD_LEVEL_2_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, List.of(
+		context.register(LIBRARIAN_2_BOOK_ENDERITE_SHARD_LEVEL_2_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.PROTECTION, Enchantments.FIRE_PROTECTION, Enchantments.BLAST_PROTECTION, Enchantments.SILK_TOUCH, Enchantments.FEATHER_FALLING, Enchantments.UNBREAKING).build()
 		), 1, 15, 3, 0.2f));
 		context.register(LIBRARIAN_3_ENDERITE_SHARD_INK_SAC, shardToSimple(1, INK_SAC, 2, 4, 8, 0.05f));
 		context.register(LIBRARIAN_3_ENDERITE_SHARD_GLOW_INK_SAC, shardToSimple(1, GLOW_INK_SAC, 1, 5, 6, 0.05f));
 		context.register(LIBRARIAN_3_ENDERITE_SHARD_GLASS, shardToSimple(1, GLASS, 6, 3, 8, 0.05f));
-		context.register(LIBRARIAN_4_BOOK_ENDERITE_SHARD_LEVEL_4_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, List.of(
+		context.register(LIBRARIAN_4_BOOK_ENDERITE_SHARD_LEVEL_4_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(15, 24), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.MENDING, Enchantments.FORTUNE, Enchantments.KNOCKBACK, Enchantments.DEPTH_STRIDER, Enchantments.BREACH, Enchantments.DENSITY, Enchantments.SHARPNESS).build()
 		), 1, 20, 2, 0.2f));
 		context.register(LIBRARIAN_4_ENDERITE_SHARD_WRITABLE_BOOK, shardToSimple(1, WRITABLE_BOOK, 1, 6, 6, 0.05f));
@@ -541,7 +542,7 @@ public interface StellarityVillagerTrades {
 			new Tuple2<>(SHEPHERD_5_ENDERITE_SHARD_SNATCH_PAINTING, StellarityPaintings.SNATCH),
 			new Tuple2<>(SHEPHERD_5_ENDERITE_SHARD_THE_OBSIDIAN_RELIQUARY_PAINTING, StellarityPaintings.THE_OBSIDIAN_RELIQUARY)
 		))
-			context.register(paintingTrade._1(), shardToModifierItem(num(4, 6), PAINTING, List.of(
+			context.register(paintingTrade._1(), shardToModifierItem(num(4, 6), PAINTING, Holder.direct(
 				SetComponentsFunction.setComponent(DataComponents.PAINTING_VARIANT, paintings.getOrThrow(paintingTrade._2())).build()
 			), 1, 20, 2, 0.2f));
 
@@ -550,7 +551,7 @@ public interface StellarityVillagerTrades {
 		context.register(TOOLSMITH_1_ENDERITE_SHARD_IRON_SHOVEL, shardToModifierItem(num(4, 7), IRON_SHOVEL, enchant15To29, 1, 8, 3, 0.05f));
 		context.register(TOOLSMITH_2_ENDERITE_SHARD_IRON_AXE, shardToModifierItem(num(6, 10), IRON_AXE, enchant15To29, 1, 10, 3, 0.05f));
 		context.register(TOOLSMITH_2_ENDERITE_SHARD_IRON_PICKAXE, shardToModifierItem(num(6, 10), IRON_PICKAXE, enchant15To29, 1, 10, 3, 0.05f));
-		context.register(TOOLSMITH_3_BOOK_ENDERITE_SHARD_LEVEL_3_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(18, 22), BOOK, List.of(
+		context.register(TOOLSMITH_3_BOOK_ENDERITE_SHARD_LEVEL_3_ENCHANTED_BOOK, simpleShardToModifierItem(BOOK, num(1), num(18, 22), BOOK, Holder.direct(
 			enchant(enchants, Enchantments.EFFICIENCY, Enchantments.SILK_TOUCH, Enchantments.UNBREAKING).build()
 		), 1, 12, 4, 0.05f));
 		context.register(TOOLSMITH_4_ENDERITE_SHARD_DIAMOND_HOE, shardToModifierItem(num(11, 18), DIAMOND_HOE, enchant21To35, 1, 20, 2, 0.2f));

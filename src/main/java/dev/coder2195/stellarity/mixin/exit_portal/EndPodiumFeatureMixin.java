@@ -2,18 +2,17 @@ package dev.coder2195.stellarity.mixin.exit_portal;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.EndPodiumFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
@@ -22,14 +21,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(EndPodiumFeature.class)
-public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfiguration> {
+public abstract class EndPodiumFeatureMixin implements Feature {
 	@Shadow
 	@Final
 	private boolean active;
-
-	public EndPodiumFeatureMixin(Codec<NoneFeatureConfiguration> codec) {
-		super(codec);
-	}
 
 	@Unique
 	private void printRow(WorldGenLevel worldGenLevel, BlockState[] palette, int[][] blueprint, BlockPos start) {
@@ -42,17 +37,15 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 	}
 
 	@WrapMethod(method = "place")
-	private boolean stellarityPortal(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext, Operation<Boolean> original) {
-		BlockPos blockPos = featurePlaceContext.origin();
-		WorldGenLevel level = featurePlaceContext.level();
+	private boolean stellarityPortal(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin, Operation<Boolean> original) {
 
 		for (int dx = -6; dx <= 6; dx++) {
 			for (int dz = -6; dz <= 6; dz++) {
-				setBlock(level, blockPos.offset(dx, 0, dz), Blocks.OBSIDIAN.defaultBlockState());
+				setBlock(level, origin.offset(dx, 0, dz), Blocks.OBSIDIAN.defaultBlockState());
 			}
 		}
 
-		for (EndCrystal crystal : level.getEntitiesOfClass(EndCrystal.class, new AABB(Vec3.atCenterOf(blockPos).add(-2, 1, -2), Vec3.atCenterOf(blockPos).add(2, 5, 2)))) {
+		for (EndCrystal crystal : level.getEntitiesOfClass(EndCrystal.class, new AABB(Vec3.atCenterOf(origin).add(-2, 1, -2), Vec3.atCenterOf(origin).add(2, 5, 2)))) {
 			crystal.discard();
 		}
 
@@ -78,7 +71,7 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 				{0, 0, 2, 1, 3, 3, 3, 3, 3, 1, 2, 0, 0},
 				{0, 1, 0, 0, 1, 1, 2, 1, 1, 0, 0, 1, 0},
 				{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-			}, blockPos.offset(-6, 1, -6)
+			}, origin.offset(-6, 1, -6)
 		);
 
 
@@ -106,13 +99,13 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 				{0, 0, 0, 0, 3, 5, 1, 4, 3, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			}, blockPos.offset(-6, 2, -6)
+			}, origin.offset(-6, 2, -6)
 		);
 
 		for (int dy = 3; dy <= 6; dy++)
 			for (int dx = -6; dx <= 6; dx++) {
 				for (int dz = -6; dz <= 6; dz++) {
-					setBlock(level, blockPos.offset(dx, dy, dz), Blocks.AIR.defaultBlockState());
+					setBlock(level, origin.offset(dx, dy, dz), Blocks.AIR.defaultBlockState());
 				}
 			}
 
@@ -123,7 +116,7 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 			{1, 0, 1},
 			{0, 0, 0},
 			{1, 0, 1}
-		}, blockPos.offset(-1, 3, -1));
+		}, origin.offset(-1, 3, -1));
 
 		printRow(level, new BlockState[]{
 			Blocks.BEDROCK.defaultBlockState(),
@@ -136,10 +129,10 @@ public abstract class EndPodiumFeatureMixin extends Feature<NoneFeatureConfigura
 			{1, 4, 1},
 			{3, 0, 2},
 			{1, 5, 1}
-		}, blockPos.offset(-1, 4, -1));
+		}, origin.offset(-1, 4, -1));
 
-		setBlock(level, blockPos.above(5), Blocks.BEDROCK.defaultBlockState());
-		setBlock(level, blockPos.above(6), Blocks.BEDROCK.defaultBlockState());
+		setBlock(level, origin.above(5), Blocks.BEDROCK.defaultBlockState());
+		setBlock(level, origin.above(6), Blocks.BEDROCK.defaultBlockState());
 
 		return true;
 	}

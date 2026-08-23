@@ -18,6 +18,7 @@ public interface ValueUtil {
 		return ConstantInt.of(value);
 	}
 
+
 	/**
 	 * DATA THEN WEIGHT I MADE A JAVADOC CUZ OF THIS REASON
 	 *
@@ -45,6 +46,10 @@ public interface ValueUtil {
 
 	static BiasedToBottomInt biasBottom(int min, int max) {
 		return BiasedToBottomInt.of(min, max);
+	}
+
+	static VeryBiasedToBottomInt veryBiasBottom(int min, int max) {
+		return VeryBiasedToBottomInt.of(min, max);
 	}
 
 	static ConstantFloat numf(float num) {

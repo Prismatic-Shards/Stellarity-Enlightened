@@ -1,0 +1,379 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:red_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:orange_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:yellow_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:lime_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:green_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:cyan_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:light_blue_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:blue_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:purple_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:magenta_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "stellarity:spike",
+        "can_replace": {
+          "type": "minecraft:matching_blocks",
+          "blocks": "minecraft:air"
+        },
+        "height": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 20.0,
+          "min_inclusive": 10.0
+        },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
+        "state_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": "minecraft:pink_stained_glass"
+        },
+        "wind_x": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        },
+        "wind_z": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 0.15,
+          "min_inclusive": -0.15
+        }
+      },
+      "placement": []
+    }
+  ]
+}

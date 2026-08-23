@@ -23,6 +23,7 @@ import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.advancements.predicates.entity.PlayerPredicate;
 import net.minecraft.advancements.triggers.*;
 import net.minecraft.commands.arguments.NbtPathArgument;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -34,8 +35,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
 import org.jspecify.annotations.NonNull;
 
 import java.util.*;
@@ -77,7 +78,8 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var items = registryLookup.lookupOrThrow(Registries.ITEM);
 		final var entities = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
 		final var structures = registryLookup.lookupOrThrow(Registries.STRUCTURE);
-
+		final var blocks = registryLookup.lookupOrThrow(Registries.BLOCK);
+		final var damageTypes = registryLookup.lookupOrThrow(Registries.DAMAGE_TYPE);
 
 		final var ENTER_END_GATEWAY = dummy(Stellarity.mcId("end/enter_end_gateway"));
 		final var ENTER_END = dummy(Stellarity.mcId("story/enter_the_end"));
@@ -90,7 +92,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var VOID_REELS = advancement()
 			.display(StellarityItems.FISHER_OF_VOIDS,
 				Component.translatable("advancements.stellarity.void_reels"), Component.translatable("advancements.stellarity.void_reels.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			)
 			.parent(ENTER_END_GATEWAY)
 			.addCriterion("fishing", VoidFishedTrigger.TriggerInstance.fishedItem(
@@ -102,7 +104,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.display(
 				StellarityItems.CRYSTAL_HEARTFISH,
 				Component.translatable("advancements.stellarity.topped_off"), Component.translatable("advancements.stellarity.topped_off.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			)
 			.parent(VOID_REELS)
 			.addCriterion("eat", CriteriaTriggers.CONSUME_ITEM.createCriterion(new ConsumeItemTrigger.TriggerInstance(
@@ -123,7 +125,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.display(
 				StellarityItems.DUSKBERRY,
 				Component.translatable("advancements.stellarity.duskberry_find"), Component.translatable("advancements.stellarity.duskberry_find.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			)
 			.parent(ENTER_END)
 			.addCriterion("get_item", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.DUSKBERRY))
@@ -134,13 +136,14 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 			.display(
 				StellarityItems.DUSKBERRY,
 				Component.translatable("advancements.stellarity.poor_life_choices"), Component.translatable("advancements.stellarity.poor_life_choices.description"),
-				null, CHALLENGE, true, true, false
+				CHALLENGE, true, true, false
 			)
 			.addCriterion("eat", ConsumeItemTrigger.TriggerInstance.usedItem(items, StellarityItems.DUSKBERRY))
 			.addCriterion("feed", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ItemPredicate.Builder.item().of(items, StellarityItems.DUSKBERRY),
-				Optional.of(ContextAwarePredicate.create(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entities, EntityTypes.FOX).build()).build())
-				)))
-			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(StellarityBlocks.DUSKBERRY_BUSH))
+				Optional.of(Holder.direct(
+					LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().of(entities, EntityTypes.FOX).build()).build()
+				))))
+			.addCriterion("place", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(blocks,StellarityBlocks.DUSKBERRY_BUSH))
 			.parent(FIND_DUSKBERRY)
 			.requirements(requires("eat", "feed", "place"))
 			.build(Stellarity.id("exploration/duskberry/poor_life_choices"));
@@ -148,7 +151,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var SACRIFICAL_RITUAL = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.stellarity.sacrificial_ritual"), Component.translatable("advancements.stellarity.sacrificial_ritual.description"),
-				null, GOAL, true, true, false
+				GOAL, true, true, false
 			).parent(END_ROOT)
 			.addCriterion("summon", SummonedEntityTrigger.TriggerInstance.summonedEntity(new EntityPredicate.Builder().entityType(EntityTypePredicate.of(entities, EntityTypes.ENDER_DRAGON))))
 			.requirements(requires("summon"))
@@ -157,7 +160,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var RESPAWN_DRAGON = advancement().display(
 				Items.END_CRYSTAL,
 				Component.translatable("advancements.end.respawn_dragon.title"), Component.translatable("advancements.end.respawn_dragon.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(KILL_DRAGON)
 			.addCriterion("summon", CriteriaTriggers.SUMMONED_ENTITY.createCriterion(new SummonedEntityTrigger.TriggerInstance(
 				Optional.of(EntityPredicate.wrap(new EntityPredicate.Builder().player(
@@ -172,11 +175,13 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var ALTAR_OF_THE_ACCURSED_INTRO = advancement().display(
 				StellarityItems.ENDONOMICON,
 				Component.translatable("advancements.stellarity.altar_of_the_accursed_intro"), Component.translatable("advancements.stellarity.altar_of_the_accursed_intro.description"),
-				null, GOAL, true, true, false
+				GOAL, true, true, false
 			).parent(KILL_DRAGON)
 			.addCriterion("craft", SpecialCraftTrigger.triggerInstance(
 				Optional.empty(),
-				Optional.of(ContextAwarePredicate.create(new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build())),
+				Optional.of(Holder.direct(
+					MatchBlock.blockMatches(blocks, StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
+				)),
 				Optional.of(ItemPredicate.Builder.item().of(items, StellarityItems.ENDONOMICON).build())
 			))
 			.requirements(requires("craft"))
@@ -185,12 +190,12 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var CURSED_CRAFTING = advancement().display(
 				StellarityItems.ALTAR_OF_THE_ACCURSED,
 				Component.translatable("advancements.stellarity.cursed_crafting"), Component.translatable("advancements.stellarity.cursed_crafting.description"),
-				null, GOAL, true, true, false
+				GOAL, true, true, false
 			).parent(ALTAR_OF_THE_ACCURSED_INTRO)
 			.addCriterion("craft", SpecialCraftTrigger.triggerInstance(
 				Optional.empty(),
-				Optional.of(ContextAwarePredicate.create(
-					new LootItemBlockStatePropertyCondition.Builder(StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
+				Optional.of(Holder.direct(
+					MatchBlock.blockMatches(blocks, StellarityBlocks.ALTAR_OF_THE_ACCURSED).build()
 				)),
 				Optional.empty()
 			))
@@ -200,7 +205,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var CRAFT_FULL_SHULKER_ARMOR = advancement().display(
 				StellarityItems.SHULKER_CHESTPLATE,
 				Component.translatable("advancements.stellarity.craft_full_shulker_armor"), Component.translatable("advancements.stellarity.craft_full_shulker_armor.description"),
-				null, CHALLENGE, true, true, false
+				CHALLENGE, true, true, false
 			).parent(CURSED_CRAFTING)
 			.addCriterion("helmet", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_HELMET))
 			.addCriterion("chestplate", InventoryChangeTrigger.TriggerInstance.hasItems(StellarityItems.SHULKER_CHESTPLATE))
@@ -212,7 +217,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var ELECTRIFIED = advancement().display(
 				StellarityItems.COPPER_ELEKTRA_SHIELD,
 				Component.translatable("advancements.stellarity.electrified"), Component.translatable("advancements.stellarity.electrified.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(ADVENTURE_ROOT)
 			.addCriterion("dash", StellarityCriteriaTriggers.DASH.createCriterion(new DashTrigger.TriggerInstance(
 				Optional.empty(), List.of(), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.atLeast(5),
@@ -224,10 +229,10 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var BLOOD_FOR_BLOOD = advancement().display(
 				StellarityItems.TAMARIS,
 				Component.translatable("advancements.stellarity.blood_for_blood"), Component.translatable("advancements.stellarity.blood_for_blood.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(CURSED_CRAFTING)
 			.addCriterion("kill", KilledTrigger.TriggerInstance.playerKilledEntity(Optional.empty(), new DamageSourcePredicate.Builder().tag(
-				new TagPredicate<>(StellarityDamageTypeTags.BLOOD_FOR_BLOOD, true)
+				TagPredicate.is(damageTypes, StellarityDamageTypeTags.BLOOD_FOR_BLOOD)
 			)))
 			.requirements(requires("kill"))
 			.build(Stellarity.id("altar_of_the_accursed/blood_for_blood"));
@@ -235,7 +240,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var NIGHT_SKY_STALKERS = advancement().display(
 				Items.PHANTOM_MEMBRANE,
 				Component.translatable("advancements.stellarity.night_sky_stalkers"), Component.translatable("advancements.stellarity.night_sky_stalkers.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(KILL_A_MOB)
 			.addCriterion("kill", KilledTrigger.TriggerInstance.playerKilledEntity(new EntityPredicate.Builder().of(entities, EntityTypes.PHANTOM)))
 			.requirements(requires("kill"))
@@ -250,7 +255,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		final var KILL_LARGE_PHANTOM = advancement().display(
 				Items.PHANTOM_SPAWN_EGG,
 				Component.translatable("advancements.stellarity.kill_large_phantom"), Component.translatable("advancements.stellarity.kill_large_phantom.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(NIGHT_SKY_STALKERS)
 			.addCriterion("kill_large", KilledTrigger.TriggerInstance.playerKilledEntity(
 				new EntityPredicate.Builder().of(entities, EntityTypes.PHANTOM).put(NbtNumberPredicate.CODEC, new NbtNumberPredicate(largePhantomData))
@@ -261,7 +266,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var DISCOVER_ALL_BIOMES_BUILDER = advancement().display(
 			Items.LEATHER_BOOTS,
 			Component.translatable("advancements.stellarity.discover_all_biomes"), Component.translatable("advancements.stellarity.discover_all_biomes.description"),
-			null, CHALLENGE, true, true, false
+			CHALLENGE, true, true, false
 		).parent(ENTER_END_GATEWAY).rewards(new AdvancementRewards.Builder().addExperience(4500).build());
 		List<String> biomes = new ArrayList<>();
 		for (var biome : (Iterable<ResourceKey<Biome>>) () -> Stream.concat(BiomeTagProvider.outerVanilla(), BiomeTagProvider.stellarity()).iterator()) {
@@ -274,7 +279,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var FIND_END_VILLAGE = advancement().display(
 				StellarityItems.ENDERITE_SHARD,
 				Component.translatable("advancements.stellarity.find_end_village"), Component.translatable("advancements.stellarity.find_end_village.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(ENTER_END_GATEWAY)
 			.addCriterion("find_village", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inStructure(structures.getOrThrow(StellarityStructures.VILLAGE))))
 			.requirements(requires("find_village")).build(Stellarity.id("exploration/find_end_village"));
@@ -282,7 +287,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var HALLELUJAH = advancement().display(
 				StellarityItems.HALLOWED_CHESTPLATE,
 				Component.translatable("advancements.stellarity.hallelujah"), Component.translatable("advancements.stellarity.hallelujah.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(CURSED_CRAFTING)
 			.addCriterion("holy_protection", HolyProtectionDodgeTrigger.trigger())
 			.requirements(requires("holy_protection")).build(Stellarity.id("altar_of_the_accursed/hallelujah"));
@@ -306,7 +311,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var ENTER_HALLOW = advancement().display(
 				Items.AMETHYST_CLUSTER,
 				Component.translatable("advancements.stellarity.enter_hallow"), ENTER_HALLOW_DESCRIPTION,
-				null, TASK, true, true, true
+				TASK, true, true, true
 			).parent(ENTER_END_GATEWAY)
 			.addCriterion("enter_hallow", PlayerTrigger.TriggerInstance.located(LocationPredicate.Builder.inBiome(registryLookup.getOrThrow(StellarityBiomes.THE_HALLOW))))
 			.requirements(requires("enter_hallow"))
@@ -315,7 +320,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 		var KEEP_WARM = advancement().display(
 				Items.LEATHER_CHESTPLATE,
 				Component.translatable("advancements.stellarity.keep_warm"), Component.translatable("advancements.stellarity.keep_warm.description"),
-				null, TASK, true, true, false
+				TASK, true, true, false
 			).parent(ENTER_END_GATEWAY)
 			.addCriterion("keep_warm", PlayerTrigger.TriggerInstance
 				.located(EntityPredicate.Builder.entity()

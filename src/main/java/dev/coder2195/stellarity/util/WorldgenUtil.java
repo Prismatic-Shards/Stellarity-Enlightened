@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.*;
 import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
+import net.minecraft.world.level.levelgen.heightproviders.VeryBiasedToBottomHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
@@ -66,6 +67,10 @@ public interface WorldgenUtil {
 
 	static UniformHeight height(VerticalAnchor min, VerticalAnchor max) {
 		return UniformHeight.of(min, max);
+	}
+
+	static VeryBiasedToBottomHeight veryBiasBottomHeight(VerticalAnchor min, VerticalAnchor max, int offset) {
+		return VeryBiasedToBottomHeight.of(min, max, offset);
 	}
 
 	static ConstantHeight height(VerticalAnchor anchor) {

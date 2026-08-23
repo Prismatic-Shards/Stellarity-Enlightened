@@ -15,7 +15,6 @@ import dev.coder2195.stellarity.block_entity.ColoredBlockEntity;
 
 public class ColoredLeavesBlock extends TintedParticleLeavesBlock implements EntityBlock {
 	public static final int DEFAULT_COLOR = 0x00ff00;
-	public static final MapCodec<ColoredLeavesBlock> CODEC = simpleCodec(ColoredLeavesBlock::new);
 
 	public ColoredLeavesBlock(Properties properties) {
 		super(1f, properties);
@@ -27,10 +26,6 @@ public class ColoredLeavesBlock extends TintedParticleLeavesBlock implements Ent
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends TintedParticleLeavesBlock> codec() {
-		return CODEC;
-	}
-
 	protected boolean triggerEvent(final @NonNull BlockState state, final @NonNull Level level, final @NonNull BlockPos pos, final int b0, final int b1) {
 		super.triggerEvent(state, level, pos, b0, b1);
 		BlockEntity blockEntity = level.getBlockEntity(pos);

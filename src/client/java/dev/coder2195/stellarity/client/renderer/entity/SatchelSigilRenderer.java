@@ -28,7 +28,7 @@ public class SatchelSigilRenderer extends EntityRenderer<SatchelSigil, SatchelSi
 	@Override
 	public void submit(@NonNull SatchelSigilRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, @NonNull CameraRenderState camera) {
 		poseStack.pushPose();
-		submitNodeCollector.submitModel(this.model, state, poseStack, model.renderType(TEXTURE), state.lightCoords, OverlayTexture.NO_OVERLAY, 0xffbb00ff, null, state.outlineColor, null);
+		submitNodeCollector.submitModel(this.model, state, poseStack, model.renderType(TEXTURE), state.lightCoords, OverlayTexture.NO_OVERLAY, 0xffbb00ff, null, state.outlineColor);
 		poseStack.popPose();
 		super.submit(state, poseStack, submitNodeCollector, camera);
 	}

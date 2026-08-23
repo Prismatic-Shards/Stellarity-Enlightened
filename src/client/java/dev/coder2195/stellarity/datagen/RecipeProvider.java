@@ -10,6 +10,7 @@ import dev.coder2195.stellarity.util.tuple.Tuple2;
 import dev.coder2195.stellarity.util.tuple.Tuple3;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -17,14 +18,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
-import net.minecraft.world.item.crafting.BlastingRecipe;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.CookingBookCategory;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import org.jspecify.annotations.NonNull;
 
@@ -64,9 +63,8 @@ public class RecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public net.minecraft.data.recipes.@NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider provider, @NonNull RecipeOutput recipeOutput) {
-
-		return new net.minecraft.data.recipes.RecipeProvider(provider, recipeOutput) {
+	protected net.minecraft.data.recipes.@NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull BootstrapContext<Recipe<?>> recipes, @NonNull BootstrapContext<Advancement> advancements) {
+		return new net.minecraft.data.recipes.RecipeProvider(recipes, advancements) {
 			@Override
 			public void buildRecipes() {
 				shapeless(RecipeCategory.BUILDING_BLOCKS, ENDERITE_BLOCK)
@@ -178,8 +176,8 @@ public class RecipeProvider extends FabricRecipeProvider {
 					.unlockedBy(getHasName(BROWN_MUSHROOM), this.has(BROWN_MUSHROOM))
 					.save(this.output, "crafting/suspicious_stew_from_pitcher_plant");
 
-				provider.allRegistriesLifecycle().add(Lifecycle.stable());
-				RecipeProvider.this.buildRecipes(provider, output);
+				registries.allRegistriesLifecycle().add(Lifecycle.stable());
+				RecipeProvider.this.buildRecipes(registries, output);
 			}
 		};
 	}

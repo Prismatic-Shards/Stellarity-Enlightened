@@ -144,9 +144,10 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.withPool(campsiteTentEmeraldBooks)
 			.withPool(campsiteTentArmor)
 			.withPool(pool().add(item(MAP)
-				.apply(() -> explorationMap(MapDecorationTypes.WOODLAND_MANSION, StellarityStructureTags.EXPLORATION_MAP_VILLAGE, (byte) 3, 96, false))
-				.apply(() -> setName(Component.translatable("filled_map.stellarity.end_village"), SetNameFunction.Target.CUSTOM_NAME))
-				.apply(() -> setComponents(DataComponentPatch.builder().set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).set(DataComponents.RARITY, Rarity.RARE).build()))
+				.apply(sequence(explorationMap(MapDecorationTypes.WOODLAND_MANSION, lookup.getOrThrow(StellarityStructureTags.EXPLORATION_MAP_VILLAGE), (byte) 3, 96, false),
+					setName(Component.translatable("filled_map.stellarity.end_village"), SetNameFunction.Target.CUSTOM_NAME),
+					setComponents(DataComponentPatch.builder().set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).set(DataComponents.RARITY, Rarity.RARE).build())
+				))
 			))
 			.withPool(campsiteTentTools)
 			.withPool(campsiteTentArrows)
@@ -198,9 +199,11 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 				.add(item(SHEARS))
 				.add(item(GLASS_PANE).setWeight(4).apply(count(1, 2)))
 			).withPool(pool().setRolls(num(-1, 1)).add(item(MAP)
-				.apply(() -> explorationMap(MapDecorationTypes.PURPLE_BANNER, StellarityStructureTags.EXPLORATION_MAP_END_CITY, (byte) 3, 96, true))
-				.apply(() -> setName(Component.translatable("filled_map.stellarity.end_city").setStyle(Style.EMPTY.withItalic(false)), SetNameFunction.Target.CUSTOM_NAME))
-				.apply(() -> setComponents(DataComponentPatch.builder().set(DataComponents.RARITY, Rarity.RARE).set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).build()))
+				.apply(sequence(
+					explorationMap(MapDecorationTypes.PURPLE_BANNER, lookup.getOrThrow(StellarityStructureTags.EXPLORATION_MAP_END_CITY), (byte) 3, 96, true),
+					setName(Component.translatable("filled_map.stellarity.end_city").setStyle(Style.EMPTY.withItalic(false)), SetNameFunction.Target.CUSTOM_NAME),
+					setComponents(DataComponentPatch.builder().set(DataComponents.RARITY, Rarity.RARE).set(StellarityDataComponents.MARKED_ITEM, Unit.INSTANCE).build())
+				))
 			))
 		);
 		consumer.accept(VILLAGE_CARTOGRAPHER_SHULKER_BOX, lootTable().withPool(pool().setRolls(num(2, 3))
@@ -344,10 +347,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 				.apply(count(1, 3))
 			)
 		);
-		consumer.accept(VILLAGE_HOUSE_BOOKWORM, lootTable()
-			.withPool(pool().setRolls(num(3)).add(item(BOOK).apply(count(1, 2))))
-			.withPool(pool().setRolls(num(1)).add(lootTable(VILLAGE_HOUSE_COMMON)))
-		);
+
 		consumer.accept(VILLAGE_HOUSE_COMMON, lootTable().withPool(pool().setRolls(num(3, 4))
 			.add(item(GOLD_NUGGET).apply(count(1, 3)))
 			.add(item(DANDELION).setWeight(2)).add(item(POPPY))
@@ -356,27 +356,33 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.add(item(APPLE).setWeight(10).apply(count(1, 3)))
 			.add(item(BOOK)).add(item(FEATHER)).add(item(FEATHER).setWeight(2).apply(count(1, 3)))
 		));
+
+		consumer.accept(VILLAGE_HOUSE_BOOKWORM, lootTable()
+			.withPool(pool().setRolls(num(3)).add(item(BOOK).apply(count(1, 2))))
+			.withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
+		);
+
 		consumer.accept(VILLAGE_HOUSE_LUSH, lootTable()
 			.withPool(pool().setRolls(num(3))
 				.add(item(MOSS_BLOCK).apply(count(1, 2)))
 				.add(item(PALE_MOSS_BLOCK).apply(count(1, 2)))
 				.add(item(GLOW_BERRIES).apply(count(2, 3)))
-			).withPool(pool().setRolls(num(1)).add(lootTable(VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
 		);
 		consumer.accept(VILLAGE_HOUSE_MUSIC, lootTable()
 			.withPool(pool().setRolls(num(3))
 				.add(item(MUSIC_DISC_STRAD)).add(item(MUSIC_DISC_CAT)).add(item(MUSIC_DISC_WAIT)).add(item(MUSIC_DISC_MALL)).add(empty().setWeight(3))
-			).withPool(pool().setRolls(num(1)).add(lootTable(VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
 		);
-		consumer.accept(VILLAGE_HOUSE_REGULAR, lootTable().withPool(pool().setRolls(num(1)).add(lootTable(VILLAGE_HOUSE_COMMON))));
+		consumer.accept(VILLAGE_HOUSE_REGULAR, lootTable().withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON))));
 		consumer.accept(VILLAGE_HOUSE_REGULAR_SHULKER_BOX, lootTable().withPool(pool().setRolls(num(2))
-			.add(lootTable(VILLAGE_HOUSE_COMMON).setWeight(37))
+			.add(lootTable(lookup, VILLAGE_HOUSE_COMMON).setWeight(37))
 			.add(item(EMERALD).setWeight(2).apply(count(1, 3)))
 		));
 		consumer.accept(VILLAGE_HOUSE_WARPED, lootTable()
 			.withPool(pool().setRolls(num(3))
 				.add(item(WARPED_WART_BLOCK).apply(count(1, 2))).add(item(WARPED_FUNGUS).apply(count(2, 3)))
-			).withPool(pool().setRolls(num(1)).add(lootTable(VILLAGE_HOUSE_COMMON)))
+			).withPool(pool().setRolls(num(1)).add(lootTable(lookup, VILLAGE_HOUSE_COMMON)))
 		);
 		consumer.accept(VILLAGE_CENTER_AETHER, lootTable()
 			.withPool(pool().setRolls(num(4, 6)).add(item(WOOL.lightBlue()).apply(count(1, 3))).add(item(WARPED_FENCE)))
@@ -415,6 +421,11 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.add(item(PAPER).setQuality(-2).setWeight(15).apply(count(1, 3)))
 			.add(item(COMPASS).setWeight(5))
 		));
+
+	}
+
+	@Override
+	public void run() {
 
 	}
 }

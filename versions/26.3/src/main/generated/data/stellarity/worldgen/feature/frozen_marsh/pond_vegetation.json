@@ -1,0 +1,111 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "features": [
+    {
+      "feature": {
+        "type": "minecraft:block_column",
+        "allowed_placement": {
+          "type": "minecraft:matching_blocks",
+          "blocks": [
+            "minecraft:air",
+            "minecraft:water"
+          ]
+        },
+        "direction": "up",
+        "layers": [
+          {
+            "height": 1,
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": "minecraft:ice"
+            }
+          },
+          {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 3,
+              "min_inclusive": 1
+            },
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": "minecraft:spruce_fence"
+            }
+          },
+          {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 3,
+              "min_inclusive": 1
+            },
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "id": "minecraft:oak_leaves",
+                "properties": {
+                  "distance": "7",
+                  "persistent": "true",
+                  "waterlogged": "false"
+                }
+              }
+            }
+          }
+        ],
+        "prioritize_tip": false
+      },
+      "placement": []
+    },
+    {
+      "feature": {
+        "type": "minecraft:block_column",
+        "allowed_placement": {
+          "type": "minecraft:matching_blocks",
+          "blocks": [
+            "minecraft:air",
+            "minecraft:water"
+          ]
+        },
+        "direction": "up",
+        "layers": [
+          {
+            "height": 1,
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": "minecraft:ice"
+            }
+          },
+          {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 3,
+              "min_inclusive": 1
+            },
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": "minecraft:dark_oak_fence"
+            }
+          },
+          {
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": 3,
+              "min_inclusive": 1
+            },
+            "provider": {
+              "type": "minecraft:simple_state_provider",
+              "state": {
+                "id": "minecraft:mangrove_leaves",
+                "properties": {
+                  "distance": "7",
+                  "persistent": "true",
+                  "waterlogged": "false"
+                }
+              }
+            }
+          }
+        ],
+        "prioritize_tip": false
+      },
+      "placement": []
+    }
+  ]
+}

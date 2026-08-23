@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.advancements.predicates.entity.EntitySubPredicate;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -43,7 +43,7 @@ public record EntityAttributeModifiersPredicate(List<EntryPredicate> entries) im
 	                             Optional<AttributeModifier.Operation> operation) {
 		public static final Codec<EntryPredicate> CODEC = RecordCodecBuilder.create(
 			/* lambda$static$0 */ i -> i.group(
-					RegistryCodecs.homogeneousList(Registries.ATTRIBUTE).fieldOf("attribute").forGetter(EntryPredicate::attribute),
+					RegistryCodecs.holderSet(Registries.ATTRIBUTE).fieldOf("attribute").forGetter(EntryPredicate::attribute),
 					Identifier.CODEC.optionalFieldOf("id").forGetter(EntryPredicate::id),
 					MinMaxBounds.Doubles.CODEC.optionalFieldOf("amount", MinMaxBounds.Doubles.ANY).forGetter(EntryPredicate::amount),
 					AttributeModifier.Operation.CODEC.optionalFieldOf("operation").forGetter(EntryPredicate::operation)

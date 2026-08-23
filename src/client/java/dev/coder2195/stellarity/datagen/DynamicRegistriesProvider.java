@@ -31,10 +31,10 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 		builder.add(FROG_VARIANT, StellarityMobVariants::bootstrapFrog);
 		builder.add(PIG_VARIANT, StellarityMobVariants::bootstrapPig);
 		builder.add(VOIDED_SKELETON_VARIANT, StellarityMobVariants::bootstrapVoidedSkeleton);
-		builder.add(CONFIGURED_CARVER, StellarityConfiguredCarvers::bootstrap);
+		builder.add(CARVER, StellarityConfiguredCarvers::bootstrap);
 		builder.add(BIOME, StellarityBiomes::bootstrap);
 		builder.add(PLACED_FEATURE, StellarityPlacedFeatures::bootstrapEarly);
-		builder.add(CONFIGURED_FEATURE, StellarityFeatures::bootstrap);
+		builder.add(FEATURE, StellarityFeatures::bootstrap);
 		builder.add(PLACED_FEATURE, StellarityPlacedFeatures::bootstrap);
 		builder.add(PROCESSOR_LIST, StellarityProcessorLists::bootstrap);
 		builder.add(TEMPLATE_POOL, StellarityTemplatePools::bootstrap);
@@ -47,7 +47,7 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	public void configure(HolderLookup.@NonNull Provider provider, @NonNull Entries entries) {
-		for (var registry : List.of(JUKEBOX_SONG, NOISE, PAINTING_VARIANT, COW_VARIANT, FROG_VARIANT, CAT_VARIANT, WOLF_VARIANT, PIG_VARIANT, CHICKEN_VARIANT, VOIDED_SKELETON_VARIANT, CONFIGURED_CARVER, CONFIGURED_FEATURE, PLACED_FEATURE, BIOME, PROCESSOR_LIST, TEMPLATE_POOL, ENCHANTMENT, STRUCTURE, STRUCTURE_SET, VILLAGER_TRADE, TRADE_SET, DAMAGE_TYPE)) {
+		for (var registry : List.of(JUKEBOX_SONG, NOISE, PAINTING_VARIANT, COW_VARIANT, FROG_VARIANT, CAT_VARIANT, WOLF_VARIANT, PIG_VARIANT, CHICKEN_VARIANT, VOIDED_SKELETON_VARIANT, CARVER, FEATURE, PLACED_FEATURE, BIOME, PROCESSOR_LIST, TEMPLATE_POOL, ENCHANTMENT, STRUCTURE, STRUCTURE_SET, VILLAGER_TRADE, TRADE_SET, DAMAGE_TYPE)) {
 			entries.addAll(provider.lookupOrThrow(registry));
 		}
 	}

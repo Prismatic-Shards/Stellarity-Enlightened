@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.coder2195.stellarity.mixin.accessor.EndSpikeFeatureAccessor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -53,7 +54,7 @@ public abstract class EnderDragonFightMixin {
 	private void tick(CallbackInfo ci) {
 		crystalsRemaining.setVisible(!dragonKilled);
 		if (!dragonKilled) {
-			crystalsRemaining.setProgress(Math.min((float) aliveCrystals / EndSpikeFeature.NUMBER_OF_SPIKES, 1.0f));
+			crystalsRemaining.setProgress(Math.min((float) aliveCrystals / EndSpikeFeatureAccessor.getNumberOfSpikes(), 1.0f));
 			crystalsRemaining.setName(Component.translatable("bossbar.stellarity.crystals_left", aliveCrystals).withStyle(Style.EMPTY.withColor(0x4C0081)));
 		}
 	}

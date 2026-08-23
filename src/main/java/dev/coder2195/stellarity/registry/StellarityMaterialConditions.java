@@ -7,6 +7,6 @@ import dev.coder2195.stellarity.material_condition.LegacyBiomeConditionSource;
 
 public interface StellarityMaterialConditions {
 	static void init() {
-		Registry.register(BuiltInRegistries.MATERIAL_CONDITION, Stellarity.id("legacy_biome"), LegacyBiomeConditionSource.CODEC);
+		Registry.register(BuiltInRegistries.MATERIAL_CONDITION_TYPE, Stellarity.id("legacy_biome"), LegacyBiomeConditionSource.CODEC);
 	}
 }

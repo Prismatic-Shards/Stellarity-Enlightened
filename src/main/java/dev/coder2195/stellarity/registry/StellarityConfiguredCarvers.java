@@ -18,28 +18,22 @@ public interface StellarityConfiguredCarvers {
 	ResourceKey<WorldCarver> CRACK = id("crack");
 
 	static void bootstrap(BootstrapContext<WorldCarver> context) {
-		var blocks = context.lookup(Registries.BLOCK);
-		final var orangeGlass = from(STAINED_GLASS.orange());
-		final var candle = property(property(CANDLE, BlockStateProperties.LIT, false), BlockStateProperties.CANDLES, 1);
-		final var whiteGlass = from(STAINED_GLASS.white());
-		final var glass = from(GLASS);
-		final var carverDebug = CarverDebugSettings.of(whiteGlass, candle, orangeGlass, glass);
-		final var replaceable = blocks.getOrThrow(StellarityBlockTags.WORLDGEN_CARVER_REPLACEABLE);
-
 		context.register(CAVE, new CaveWorldCarver(
-			0.15f, height(aboveBottom(8), belowTop(8)), numf(0.4f, 1.5f), absolute(0), carverDebug, replaceable, numf(1, 2.2f), numf(1, 2.2f), numf(-1, -0.4f)
+			0.15f, height(aboveBottom(8), belowTop(8)), veryBiasBottom(0, 9), trapezoidf(0, 6, 2), false, numf(0.4f, 1.5f), numf(1, 2.2f), numf(1, 2.2f), numf(1), numf(-1, -0.4f)
 		));
 
-		context.register(CRACK, new ConfiguredWorldCarver<>(WorldCarver.CANYON, new CanyonCarverConfiguration(0.066f, height(aboveBottom(16), belowTop(16)), numf(6, 8), absolute(0), carverDebug, replaceable, numf(-0.125f, 0.125f), new CanyonCarverConfiguration.CanyonShapeConfiguration(
-			numf(0.5f, 1), numf(0, 1), 6, numf(0.25f, 1), 0, 5
-		))));
+		context.register(CRACK, new CanyonWorldCarver(
+			0.066f, height(aboveBottom(16), belowTop(16)), numf(-0.125f, 0.125f),
+			new CanyonWorldCarver.Shape(numf(0.5f, 1), numf(0, 1), 6, numf(0.25f, 1), 0, 0, numf(6, 8)
+		)));
 
-		context.register(RAVINE, new ConfiguredWorldCarver<>(WorldCarver.CANYON, new CanyonCarverConfiguration(0.02f, height(aboveBottom(16), belowTop(16)), numf(4), absolute(0), carverDebug, replaceable, numf(-0.125f, 0.125f), new CanyonCarverConfiguration.CanyonShapeConfiguration(
-			numf(0.75f, 1), trapezoidf(0f, 4f, 2f), 3, numf(0.5f, 0.75f), 1, 0
-		))));
+		context.register(RAVINE, new CanyonWorldCarver(
+			0.02f, height(aboveBottom(16), belowTop(16)), numf(-0.125f, 0.125f),
+			new CanyonWorldCarver.Shape(numf(0.75f, 1), trapezoidf(0, 4, 2), 3, numf(0.5f, 0.75f), 1, 0, numf(4))
+		));
 	}
 
 	private static ResourceKey<WorldCarver> id(String id) {
-		return Stellarity.key(Registries.CONFIGURED_CARVER, id);
+		return Stellarity.key(Registries.CARVER, id);
 	}
 }

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import static dev.coder2195.stellarity.util.ValueUtil.num;
 import static net.minecraft.world.attribute.EnvironmentAttributes.*;
 import static net.minecraft.world.level.biome.Biomes.END_BARRENS;
 import static net.minecraft.world.level.levelgen.GenerationStep.Decoration.*;
@@ -33,7 +34,7 @@ public interface StellarityVanillaWorldgenModifications {
 		DimensionEvents.MODIFY_ATTRIBUTES.register((dimension, attributes, _) -> {
 			if (!dimension.is(BuiltinDimensionTypes.END)) return;
 
-			attributes.set(BED_RULE, new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.ALWAYS, false, Optional.empty()));
+			attributes.set(BED_RULE, new BedRule(BedRule.Rule.ALWAYS, BedRule.Rule.ALWAYS, false, false, Optional.empty()));
 			attributes.set(RESPAWN_ANCHOR_WORKS, true);
 			attributes.set(CAN_START_RAID, true);
 			attributes.set(PIGLINS_ZOMBIFY, false);
@@ -74,7 +75,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 				var mobSpawns = modification.getMobSpawnSettings();
 				mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 4, 4), 10);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)),10);
 				mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 				mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.75, 1);
 			}
@@ -101,8 +102,8 @@ public interface StellarityVanillaWorldgenModifications {
 
 				var mobSpawns = modification.getMobSpawnSettings();
 				mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 4, 4), 30);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(StellarityEntityTypes.VOIDED_ZOMBIE, 4, 4), 30);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 30);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(StellarityEntityTypes.VOIDED_ZOMBIE, num(4)), 30);
 				mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 				mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.8, 1);
 				mobSpawns.addMobCharge(StellarityEntityTypes.VOIDED_ZOMBIE, 0.68, 1);
@@ -133,7 +134,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 			var mobSpawns = modification.getMobSpawnSettings();
 			mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 4, 4), 10);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 10);
 			mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 			mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.7, 1);
 		});
@@ -169,7 +170,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 			var mobSpawns = modification.getMobSpawnSettings();
 			mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 4, 4), 20);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 20);
 		});
 	}
 }

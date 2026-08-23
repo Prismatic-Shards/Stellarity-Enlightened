@@ -75,13 +75,6 @@ public class AltarOfTheAccursed extends Block implements EntityBlock {
 		return SHAPE;
 	}
 
-	public static final MapCodec<AltarOfTheAccursed> CODEC = BaseEntityBlock.simpleCodec(AltarOfTheAccursed::new);
-
-	@Override
-	public @NonNull MapCodec<AltarOfTheAccursed> codec() {
-		return CODEC;
-	}
-
 	@Override
 	public @NonNull RenderShape getRenderShape(@NonNull BlockState blockState) {
 		return RenderShape.MODEL;

@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static dev.coder2195.stellarity.registry.StellarityItems.*;
@@ -194,37 +195,14 @@ public class ModelProvider extends FabricModelProvider {
 			generators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
 
-		for (Item elytra: List.of(PHANTOM_WINGS, DRAGON_WINGS, EMPRESS_WINGS))
+		for (Item elytra : List.of(PHANTOM_WINGS, DRAGON_WINGS, EMPRESS_WINGS))
 			generators.generateElytra(elytra);
 
-		for (var helmet : List.of(
-			new Tuple2<>(CHAMPION_HELMET, StellarityEquipmentAssets.CHAMPION),
-			new Tuple2<>(SHULKER_HELMET, StellarityEquipmentAssets.SHULKER),
-			new Tuple2<>(HALLOWED_HELMET, StellarityEquipmentAssets.HALLOWED),
-			new Tuple2<>(FLORAL_HELMET, StellarityEquipmentAssets.FLORAL)
-		))
-			generators.generateTrimmableItem(helmet._1(), helmet._2(), ItemModelGenerators.TRIM_PREFIX_HELMET, false);
-		for (var chestplate: List.of(
-			new Tuple2<>(CHAMPION_CHESTPLATE, StellarityEquipmentAssets.CHAMPION),
-			new Tuple2<>(SHULKER_CHESTPLATE, StellarityEquipmentAssets.SHULKER),
-			new Tuple2<>(HALLOWED_CHESTPLATE, StellarityEquipmentAssets.HALLOWED),
-			new Tuple2<>(FLORAL_CHESTPLATE, StellarityEquipmentAssets.FLORAL)
-		))
-			generators.generateTrimmableItem(chestplate._1(), chestplate._2(), ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
-		for (var leggings : List.of(
-			new Tuple2<>(CHAMPION_LEGGINGS, StellarityEquipmentAssets.CHAMPION),
-			new Tuple2<>(SHULKER_LEGGINGS, StellarityEquipmentAssets.SHULKER),
-			new Tuple2<>(HALLOWED_LEGGINGS, StellarityEquipmentAssets.HALLOWED),
-			new Tuple2<>(FLORAL_LEGGINGS, StellarityEquipmentAssets.FLORAL)
-		))
-			generators.generateTrimmableItem(leggings._1(), leggings._2(), ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
-		for (var boots : List.of(
-			new Tuple2<>(CHAMPION_BOOTS, StellarityEquipmentAssets.CHAMPION),
-			new Tuple2<>(SHULKER_BOOTS, StellarityEquipmentAssets.SHULKER),
-			new Tuple2<>(HALLOWED_BOOTS, StellarityEquipmentAssets.HALLOWED),
-			new Tuple2<>(FLORAL_BOOTS, StellarityEquipmentAssets.FLORAL)
-		))
-			generators.generateTrimmableItem(boots._1(), boots._2(), ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
+		generators.generateTrimmableArmorSet(CHAMPION_HELMET, CHAMPION_CHESTPLATE, CHAMPION_LEGGINGS, CHAMPION_BOOTS, false, Map.of());
+		generators.generateTrimmableArmorSet(HALLOWED_HELMET, HALLOWED_CHESTPLATE, HALLOWED_LEGGINGS, HALLOWED_BOOTS, false, Map.of());
+		generators.generateTrimmableArmorSet(FLORAL_HELMET, FLORAL_CHESTPLATE, FLORAL_LEGGINGS, FLORAL_BOOTS, false, Map.of());
+		generators.generateTrimmableArmorSet(SHULKER_HELMET, SHULKER_CHESTPLATE, SHULKER_LEGGINGS, SHULKER_BOOTS, false, Map.of());
+
 
 		generators.generateShield(COPPER_ELEKTRA_SHIELD);
 		SHIELD_TEMPLATE.create(Stellarity.id("item/copper_elektra_shield"), new TextureMapping()

@@ -15,7 +15,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.TagKey;
@@ -42,6 +41,7 @@ import net.minecraft.world.level.storage.loot.providers.number.*;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface LootUtil {
@@ -53,8 +53,8 @@ public interface LootUtil {
 		return DamageSourceCondition.hasDamageSource(predicate);
 	}
 
-	static InvertedLootItemCondition not(LootItemCondition term) {
-		return new InvertedLootItemCondition(term);
+	static Holder<LootItemCondition> not(Holder<LootItemCondition> term) {
+		return Holder.direct(new InvertedLootItemCondition(term));
 	}
 
 	static LootItemCondition.Builder not(LootItemCondition.Builder term) {
@@ -97,27 +97,28 @@ public interface LootUtil {
 		return UniformGenerator.between(min, max);
 	}
 
-	static Holder<SequenceFunction> sequence(List<Holder<LootItemFunction>> functions) {
+	static Holder<LootItemFunction> sequence(List<Holder<LootItemFunction>> functions) {
 		return Holder.direct(SequenceFunction.of(functions));
 	}
+	@SafeVarargs
+	static Holder<LootItemFunction> sequence(Holder<LootItemFunction>... functions) {
+		return sequence(List.of(functions));
+	}
 
-	static BinomialDistributionGenerator binomial(int n, float p) {
+	static Holder<LootItemFunction> sequence(LootItemFunction... functions) {
+		return sequence(Stream.of(functions).map(Holder::direct).toList());
+	}
+
+
+	static Holder<NumberProvider> binomial(int n, float p) {
 		return BinomialDistributionGenerator.binomial(n, p);
 	}
 
-	static LootPoolSingletonContainer.Builder<?> item(ItemLike i) {
+	static UniformContainerBase.Builder<?> item(ItemLike i) {
 		return LootItem.lootTableItem(i);
 	}
 
-	static LootItemFunction itemModifier(ResourceKey<LootItemFunction> key) {
-		return FunctionReference.functionReference(key).build();
-	}
-
-	static LootPoolSingletonContainer.Builder<?> tableLoot(ResourceKey<LootTable> key) {
-		return NestedLootTable.lootTableReference(key);
-	}
-
-	static LootItemConditionalFunction.Builder<?> count(NumberProvider provider) {
+	static LootItemConditionalFunction.Builder<?> count(Holder<NumberProvider> provider) {
 		return SetItemCountFunction.setCount(provider);
 	}
 
@@ -129,7 +130,7 @@ public interface LootUtil {
 		return SetItemCountFunction.setCount(num(min, max));
 	}
 
-	static LootItemConditionalFunction.Builder<?> countAdd(NumberProvider provider) {
+	static LootItemConditionalFunction.Builder<?> countAdd(Holder<NumberProvider> provider) {
 		return SetItemCountFunction.setCount(provider, true);
 	}
 
@@ -141,20 +142,18 @@ public interface LootUtil {
 		return SetItemCountFunction.setCount(num(min, max), true);
 	}
 
-
-
 	static <T> LootItemConditionalFunction.Builder<?> component(DataComponentType<T> type, T obj) {
 		return SetComponentsFunction.setComponent(type, obj);
-	}
-
-
-	static EnchantWithLevelsFunction.Builder enchant(HolderLookup.Provider provider, int min, int max) {
-		return EnchantWithLevelsFunction.enchantWithLevels(provider, num(min, max));
 	}
 
 	static EnchantWithLevelsFunction.Builder enchant(HolderGetter<Enchantment> enchantments, int min, int max) {
 		return new EnchantWithLevelsFunction.Builder(num(min, max)).withOptions(enchantments.getOrThrow(EnchantmentTags.ON_RANDOM_LOOT));
 	}
+
+	static EnchantWithLevelsFunction.Builder enchant(HolderGetter.Provider provider, int min, int max) {
+		return new EnchantWithLevelsFunction.Builder(num(min, max)).withOptions(provider.getOrThrow(EnchantmentTags.ON_RANDOM_LOOT));
+	}
+
 
 	static LootItemConditionalFunction.Builder<?> potion(Holder<Potion> potion) {
 		return SetPotionFunction.setPotion(potion);
@@ -169,29 +168,24 @@ public interface LootUtil {
 	}
 
 
-	static LootPoolSingletonContainer.Builder<?> lootTable(Identifier location) {
-
-		return NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, location));
+	static UniformContainerBase.Builder<?> lootTable(Holder<LootTable> table) {
+		return NestedLootTable.lootTableReference(table);
 	}
 
-	static LootPoolSingletonContainer.Builder<?> lootTable(ResourceKey<LootTable> location) {
-		return NestedLootTable.lootTableReference(location);
+	static UniformContainerBase.Builder<?> lootTable(HolderGetter.Provider provider, ResourceKey<LootTable> table) {
+		return lootTable(provider.getOrThrow(table));
 	}
 
 	static LootTable.Builder lootTable() {
 		return LootTable.lootTable();
 	}
 
-	static LootItemBlockStatePropertyCondition.Builder blockState(Block block) {
-		return new LootItemBlockStatePropertyCondition.Builder(block);
-	}
-
 	static BlockPredicate.Builder blockPredicate() {
 		return BlockPredicate.Builder.block();
 	}
 
-	static ValueCheckCondition valueCheck(NumberProvider value, IntRange range) {
-		return new ValueCheckCondition(value, range);
+	static Holder<LootItemCondition> valueCheck(Holder<NumberProvider> value, IntRange range) {
+		return Holder.direct(new ValueCheckCondition(value, range));
 	}
 	
 	static EntryGroup.Builder group(LootPoolEntryContainer.Builder<?>... entries) {
@@ -199,7 +193,7 @@ public interface LootUtil {
 	}
 
 
-	static EnchantmentLevelProvider enchantNum(LevelBasedValue amount) {
+	static Holder<NumberProvider> enchantNum(LevelBasedValue amount) {
 		return EnchantmentLevelProvider.forEnchantmentLevel(amount);
 	}
 
@@ -223,7 +217,7 @@ public interface LootUtil {
 		return new LevelBasedValue.Constant(level);
 	}
 
-	static LootItemCondition.Builder randomChance(NumberProvider numberProvider) {
+	static LootItemCondition.Builder randomChance(Holder<NumberProvider> numberProvider) {
 		return LootItemRandomChanceCondition.randomChance(numberProvider);
 	}
 
@@ -260,19 +254,20 @@ public interface LootUtil {
 		return ApplyBonusCount.addUniformBonusCount(enchantment, i);
 	}
 
-	static SequenceFunction modifiers(LootItemFunction... functions) {
+	@SafeVarargs
+	static SequenceFunction modifiers(Holder<LootItemFunction>... functions) {
 		return SequenceFunction.of(List.of(functions));
 	}
 
 	static LootItemFunction setComponents(DataComponentPatch components) {
-		return SetComponentsFunctionAccessor.create(List.of(), components);
+		return SetComponentsFunctionAccessor.create(Optional.empty(), components);
 	}
 
 	static LootItemCondition.Builder chance(float chance) {
 		return LootItemRandomChanceCondition.randomChance(chance);
 	}
 
-	static LootItemCondition.Builder chance(NumberProvider numberProvider) {
+	static LootItemCondition.Builder chance(Holder<NumberProvider> numberProvider) {
 		return LootItemRandomChanceCondition.randomChance(numberProvider);
 	}
 
@@ -285,11 +280,6 @@ public interface LootUtil {
 		return enchant().withOptions(HolderSet.direct(Stream.of(enchantments).map(holderGetter::getOrThrow).toList()));
 	}
 
-
-	static LootItemFunction modifier(ResourceKey<LootItemFunction> key) {
-		return FunctionReference.functionReference(key).build();
-	}
-
 	static LootItemCondition.Builder entityProperty(LootContext.EntityTarget target, EntityPredicate.Builder predicate) {
 		return LootItemEntityPropertyCondition.hasProperties(target, predicate.build());
 	}
@@ -298,19 +288,27 @@ public interface LootUtil {
 		return DamageSourceCondition.hasDamageSource(sourcePredicate);
 	}
 
-	static <T> TagPredicate<T> isTag(TagKey<T> tagKey) {
-		return TagPredicate.is(tagKey);
+	static <T> TagPredicate<T> isTag(HolderGetter<T> holderGetter, TagKey<T> tagKey) {
+		return TagPredicate.is(holderGetter, tagKey);
 	}
 
-	static <T> TagPredicate<T> notTag(TagKey<T> tagKey) {
-		return TagPredicate.isNot(tagKey);
+	static <T> TagPredicate<T> isTag(HolderSet<T> holderSet) {
+		return TagPredicate.is(holderSet);
+	}
+
+	static <T> TagPredicate<T> notTag(HolderGetter<T> holderGetter, TagKey<T> tagKey) {
+		return TagPredicate.isNot(holderGetter, tagKey);
+	}
+
+	static <T> TagPredicate<T> notTag(HolderSet<T> holderSet) {
+		return TagPredicate.isNot(holderSet);
 	}
 
 	static LootItemCondition.Builder entityProperty(EntityPredicate.Builder predicate) {
 		return entityProperty(LootContext.EntityTarget.THIS, predicate);
 	}
 
-	static LootPoolSingletonContainer.Builder<?> empty() {
+	static UniformContainerBase.Builder<?> empty() {
 		return EmptyLootItem.emptyItem();
 	}
 
@@ -318,32 +316,33 @@ public interface LootUtil {
 		return LocationCheck.checkLocation(LocationPredicate.Builder.inBiome(biome));
 	}
 
-	static AllOfCondition all(LootItemCondition... conditions) {
-		return AllOfCondition.allOf(List.of(conditions));
+	@SafeVarargs
+	static Holder<LootItemCondition> all(Holder<LootItemCondition>... conditions) {
+		return Holder.direct(AllOfCondition.allOf(HolderSet.direct(conditions)));
 	}
 
-	static AllOfCondition.Builder all(LootItemCondition.Builder... conditions) {
+	static LootItemCondition.Builder all(LootItemCondition.Builder... conditions) {
 		return AllOfCondition.allOf(conditions);
 	}
 
-	static AnyOfCondition.Builder any(LootItemCondition.Builder... conditions) {
+	static LootItemCondition.Builder any(LootItemCondition.Builder... conditions) {
 		return AnyOfCondition.anyOf(conditions);
 	}
 
-	static EnchantedCountIncreaseFunction.Builder enchantCount(Holder<Enchantment> enchant, NumberProvider count) {
+	static EnchantedCountIncreaseFunction.Builder enchantCount(Holder<Enchantment> enchant, Holder<NumberProvider> count) {
 		return new EnchantedCountIncreaseFunction.Builder(enchant, count);
 	}
 
-	static EnchantedCountIncreaseFunction.Builder enchantCount(HolderLookup.Provider provider, NumberProvider count) {
-		return EnchantedCountIncreaseFunction.lootingMultiplier(provider, count);
+	static EnchantedCountIncreaseFunction.Builder enchantCount(HolderLookup.Provider provider, Holder<NumberProvider> count) {
+		return EnchantedCountIncreaseFunction.lootingMultiplier( provider.lookupOrThrow(Registries.ENCHANTMENT), count);
 	}
 
 	static LootItemCondition.Builder playerKill() {
 		return LootItemKilledByPlayerCondition.killedByPlayer();
 	}
 
-	static LootItemCondition.Builder chanceEnchanted(HolderLookup.Provider provider, float chance, float perLevel) {
-		return LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(provider, chance, perLevel);
+	static LootItemCondition.Builder chanceEnchanted(HolderGetter.Provider provider, float chance, float perLevel) {
+		return LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(provider.getOrThrow(Registries.ENCHANTMENT).value(), chance, perLevel);
 	}
 
 

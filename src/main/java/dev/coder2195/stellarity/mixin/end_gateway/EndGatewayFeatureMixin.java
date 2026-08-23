@@ -2,9 +2,9 @@ package dev.coder2195.stellarity.mixin.end_gateway;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
@@ -12,24 +12,16 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.EndGatewayFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.EndGatewayConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EndGatewayFeature.class)
-public abstract class EndGatewayFeatureMixin extends Feature<EndGatewayConfiguration> {
-
-	public EndGatewayFeatureMixin(Codec<EndGatewayConfiguration> codec) {
-		super(codec);
-	}
-
+public abstract class EndGatewayFeatureMixin implements Feature {
 	@WrapMethod(method = "place")
-	public boolean stellarityGateway(FeaturePlaceContext<EndGatewayConfiguration> context, Operation<Boolean> original) {
-		if (!original.call(context)) return false;
-		BlockPos blockPos = context.origin();
-		WorldGenLevel level = context.level();
+	public boolean stellarityGateway(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin, Operation<Boolean> original) {
+		if (!original.call(level, chunkGenerator, random, origin)) return false;
 
 		var wall = Blocks.END_STONE_BRICK_WALL.defaultBlockState();
 		var bricks = Blocks.END_STONE_BRICKS.defaultBlockState();
@@ -51,20 +43,20 @@ public abstract class EndGatewayFeatureMixin extends Feature<EndGatewayConfigura
 				var pSlab = (b ? pbSlab : ptSlab);
 
 
-				setBlock(level, blockPos.offset(new BlockPos(0, i * 3, 1).rotate(rot)), stairs);
-				setBlock(level, blockPos.offset(new BlockPos(1, i * 2, 1).rotate(rot)), eSlab);
-				setBlock(level, blockPos.offset(new BlockPos(0, i, 2).rotate(rot)), stairs);
-				setBlock(level, blockPos.offset(new BlockPos(1, i, 2).rotate(rot)), pSlab);
-				setBlock(level, blockPos.offset(new BlockPos(2, i, 1).rotate(rot)), pSlab);
-				setBlock(level, blockPos.offset(new BlockPos(1, i, 1).rotate(rot)), bricks);
-				setBlock(level, blockPos.offset(new BlockPos(0, i * 2, 1).rotate(rot)), pillar);
+				setBlock(level, origin.offset(new BlockPos(0, i * 3, 1).rotate(rot)), stairs);
+				setBlock(level, origin.offset(new BlockPos(1, i * 2, 1).rotate(rot)), eSlab);
+				setBlock(level, origin.offset(new BlockPos(0, i, 2).rotate(rot)), stairs);
+				setBlock(level, origin.offset(new BlockPos(1, i, 2).rotate(rot)), pSlab);
+				setBlock(level, origin.offset(new BlockPos(2, i, 1).rotate(rot)), pSlab);
+				setBlock(level, origin.offset(new BlockPos(1, i, 1).rotate(rot)), bricks);
+				setBlock(level, origin.offset(new BlockPos(0, i * 2, 1).rotate(rot)), pillar);
 
 				if (i == -1) {
-					setBlock(level, blockPos.offset(new BlockPos(1, 0, 1).rotate(rot)), wall);
+					setBlock(level, origin.offset(new BlockPos(1, 0, 1).rotate(rot)), wall);
 				}
 			}
-			setBlock(level, blockPos.above(i * 5), wall);
-			setBlock(level, blockPos.above(i * 4), bricks);
+			setBlock(level, origin.above(i * 5), wall);
+			setBlock(level, origin.above(i * 4), bricks);
 		}
 
 		return true;

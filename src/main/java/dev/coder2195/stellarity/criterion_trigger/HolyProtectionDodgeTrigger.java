@@ -3,13 +3,13 @@ package dev.coder2195.stellarity.criterion_trigger;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.DamagePredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
@@ -28,10 +28,10 @@ public class HolyProtectionDodgeTrigger extends SimpleCriterionTrigger<HolyProte
 		return StellarityCriteriaTriggers.HOLY_PROTECTION_DODGE.createCriterion(new TriggerInstance(Optional.empty(), Optional.empty()));
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<DamagePredicate> damage) implements SimpleCriterionTrigger.SimpleInstance {
+	public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<DamagePredicate> damage) implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
 			/* lambda$static$0 */ i -> i.group(
-					EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+					LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
 					DamagePredicate.CODEC.optionalFieldOf("damage").forGetter(TriggerInstance::damage)
 				)
 				.apply(i, TriggerInstance::new)

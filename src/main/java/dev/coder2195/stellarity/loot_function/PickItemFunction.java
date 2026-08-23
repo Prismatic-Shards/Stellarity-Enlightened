@@ -2,9 +2,10 @@ package dev.coder2195.stellarity.loot_function;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.HolderSetCodec;
+import net.minecraft.core.registries.codec.HolderSetCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PickItemFunction extends LootItemConditionalFunction {
 	private final HolderSet<Item> items;
@@ -25,7 +27,7 @@ public class PickItemFunction extends LootItemConditionalFunction {
 			).apply(i, PickItemFunction::new)
 	);
 
-	public PickItemFunction(List<LootItemCondition> predicates, HolderSet<Item> items) {
+	public PickItemFunction(Optional<Holder<LootItemCondition>> predicates, HolderSet<Item> items) {
 		super(predicates);
 		this.items = items;
 	}

@@ -84,7 +84,7 @@ public abstract class EnderDragonFightMixin implements ExtEnderDragonFight {
 		for (EntityReference<EndCrystal> ref : respawnCrystals) {
 			var endCrystal = ref.getEntity(level, EndCrystal.class);
 			if (endCrystal == null) continue;
-			endCrystal.setInvulnerable(false);
+			endCrystal.setPermanentlyInvulnerable(false);
 			endCrystal.setBeamTarget(null);
 
 		}

@@ -82,16 +82,7 @@ public record AltarUpgradeRecipe(Ingredient equipment,
 			if (counts > 0) return null;
 		}
 
-		var returning = result.create();
-		var patched = availableEquipment.getComponentsPatch();
-		for (var component : patched.entrySet()) {
-			var value = component.getValue();
-			if (value.isEmpty()) continue;
-
-			returning.set((DataComponentType<Object>) component.getKey(), component.getValue().get());
-		}
-
-		return new Output(available, returning);
+		return new Output(available, result.apply(availableEquipment.getComponentsPatch()));
 
 	}
 

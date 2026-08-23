@@ -33,7 +33,7 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
 				.add(item(ROTTEN_FLESH).apply(count(0, 1)).apply(enchantCount(lookup, num(0, 1))))
 				.add(item(LEATHER).apply(count(-1, 2)))
 			).withPool(pool().add(item(COPPER_INGOT).when(playerKill()).when(chanceEnchanted(lookup, 0.07f, 0.02f))))
-			.withPool(pool().add(item(SAND).apply(count(1, 4)).apply(enchantCount(registries, num(0, 1))).when(biome(lookup.getOrThrow(StellarityBiomes.ENDLESS_DUNES)))))
+			.withPool(pool().add(item(SAND).apply(count(1, 4)).apply(enchantCount(lookup, num(0, 1))).when(biome(lookup.getOrThrow(StellarityBiomes.ENDLESS_DUNES)))))
 		);
 		add(VOIDED_SILVERFISH, lootTable().withPool(
 			pool().setRolls(num(0, 1)).add(item(ENDER_PEARL).apply(count(0, 1)).apply(enchantCount(lookup, num(0, 1))))

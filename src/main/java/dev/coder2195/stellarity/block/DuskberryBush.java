@@ -1,6 +1,7 @@
 package dev.coder2195.stellarity.block;
 
-import com.mojang.serialization.MapCodec;
+import dev.coder2195.stellarity.item.Duskberry;
+import dev.coder2195.stellarity.tags.StellarityBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -10,10 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.BushBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -26,8 +24,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.NonNull;
-import dev.coder2195.stellarity.item.Duskberry;
-import dev.coder2195.stellarity.tags.StellarityBlockTags;
 
 
 public class DuskberryBush extends BushBlock implements BonemealableBlock {
@@ -43,13 +39,6 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 
-	public static final MapCodec<BushBlock> CODEC = simpleCodec(DuskberryBush::new);
-
-	@Override
-	public @NonNull MapCodec<BushBlock> codec() {
-		return CODEC;
-	}
-
 	@Override
 	protected boolean mayPlaceOn(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos) {
 		return super.mayPlaceOn(blockState, blockGetter, blockPos) || blockState.is(StellarityBlockTags.DIRT);
@@ -60,13 +49,13 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		builder.add(AGE);
 	}
 
-	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY);
+	public static final Properties PROPERTIES = Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollision().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.POPPED);
+
 
 	@Override
-	public boolean isValidBonemealTarget(@NonNull LevelReader levelReader, @NonNull BlockPos blockPos, BlockState blockState) {
-		return blockState.getValue(AGE) < MAX_AGE;
+	public boolean isValidBonemealTarget(@NonNull LevelReader level, @NonNull BlockPos pos, BlockState state, @NonNull BonemealSource source) {
+		return state.getValue(AGE) < MAX_AGE;
 	}
-
 
 	@Override
 	public @NonNull VoxelShape getShape(BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {
@@ -80,9 +69,8 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 		return var10000;
 	}
 
-
 	@Override
-	public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, @NonNull BlockState blockState) {
+	public boolean isBonemealSuccess(@NonNull Level level, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, @NonNull BlockState blockState, @NonNull BonemealSource source) {
 		return true;
 	}
 
@@ -98,7 +86,7 @@ public class DuskberryBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public void performBonemeal(ServerLevel serverLevel, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, BlockState blockState) {
+	public void performBonemeal(ServerLevel serverLevel, @NonNull RandomSource randomSource, @NonNull BlockPos blockPos, BlockState blockState, @NonNull BonemealSource source) {
 		int i = Math.min(3, blockState.getValue(AGE) + 1);
 		serverLevel.setBlock(blockPos, blockState.setValue(AGE, i), 2);
 	}

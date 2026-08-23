@@ -8,7 +8,8 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.serialization.Codec;
+import dev.coder2195.stellarity.Stellarity;
+import dev.coder2195.stellarity.registry.StellarityBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.RandomSequence;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.EndSpikeConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,31 +28,24 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import dev.coder2195.stellarity.Stellarity;
-import dev.coder2195.stellarity.registry.StellarityBlocks;
 
 @Mixin(EndSpikeFeature.class)
 @Debug(export = true)
-public abstract class EndSpikeFeatureMixin extends Feature<EndSpikeConfiguration> {
-
-	public EndSpikeFeatureMixin(Codec<EndSpikeConfiguration> codec) {
-		super(codec);
-	}
-
+public abstract class EndSpikeFeatureMixin implements Feature {
 	@Unique
 	private RandomSource random;
 
 	@Inject(method = "placeSpike", at = @At("HEAD"))
-	private void stellaritySpikeInit(ServerLevelAccessor serverLevelAccessor, RandomSource randomSource, EndSpikeConfiguration spikeConfiguration, EndSpikeFeature.EndSpike endSpike, CallbackInfo ci) {
-		random = new RandomSequence((long) (endSpike.getCenterX()) << 32 & endSpike.getCenterZ(), Stellarity.id("obsidian_splatter")).random();
+	private void stellaritySpikeInit(ServerLevelAccessor level, RandomSource random, EndSpikeFeature.EndSpike spike, CallbackInfo ci) {
+		random = new RandomSequence((long) (spike.getCenterX()) << 32 & spike.getCenterZ(), Stellarity.id("obsidian_splatter")).random();
 	}
 
 	@Definition(id = "OBSIDIAN", field = "Lnet/minecraft/world/level/block/Blocks;OBSIDIAN:Lnet/minecraft/world/level/block/Block;")
 	@Expression("OBSIDIAN.?()")
 	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local(name = "pos") BlockPos blockPos, @Local(argsOnly = true) EndSpikeFeature.EndSpike endSpike) {
-		if (endSpike.stellarity$hasCryingObsidianTops()) {
-			int distance = endSpike.getHeight() - blockPos.getY();
+	private BlockState cryingObsidianTops(Block instance, Operation<BlockState> original, @Local(name = "pos") BlockPos pos, @Local(argsOnly = true, name = "spike") EndSpikeFeature.EndSpike spike) {
+		if (spike.stellarity$hasCryingObsidianTops()) {
+			int distance = spike.getHeight() - pos.getY();
 
 			if (distance <= 15f && random.nextFloat() < -0.05f * distance + 0.8f)
 				return Blocks.CRYING_OBSIDIAN.defaultBlockState();
@@ -66,7 +59,7 @@ public abstract class EndSpikeFeatureMixin extends Feature<EndSpikeConfiguration
 	@Definition(id = "pos", local = @Local(type = BlockPos.class, name = "pos"))
 	@Expression("?.setBlock(?, pos, ?)")
 	@WrapOperation(method = "placeSpike", at = @At("MIXINEXTRAS:EXPRESSION"))
-	private void hollowForAltar(EndSpikeFeature instance, LevelWriter levelWriter, BlockPos blockPos, BlockState blockState, Operation<Void> original, @Local(argsOnly = true) EndSpikeFeature.EndSpike spike) {
+	private void hollowForAltar(EndSpikeFeature instance, LevelWriter levelWriter, BlockPos blockPos, BlockState blockState, Operation<Void> original, @Local(argsOnly = true, name = "spike") EndSpikeFeature.EndSpike spike) {
 		int y = blockPos.getY();
 		if (spike.stellarity$hasAltar() && y < spike.getHeight() - 4 && y > spike.getHeight() - 30) return;
 		original.call(instance, levelWriter, blockPos, blockState);
@@ -74,13 +67,13 @@ public abstract class EndSpikeFeatureMixin extends Feature<EndSpikeConfiguration
 
 
 	@WrapMethod(method = "placeSpike")
-	private void placeAltar(ServerLevelAccessor level, RandomSource random, EndSpikeConfiguration config, EndSpikeFeature.EndSpike endSpike, Operation<Void> original) {
+	private void placeAltar(ServerLevelAccessor level, RandomSource random, EndSpikeFeature.EndSpike spike, Operation<Void> original) {
 		try {
-			var altarPos = new BlockPos(endSpike.getCenterX(), endSpike.getHeight() - 20, endSpike.getCenterZ());
+			var altarPos = new BlockPos(spike.getCenterX(), spike.getHeight() - 20, spike.getCenterZ());
 			var altar = level.getBlockState(altarPos);
 
-			original.call(level, random, config, endSpike);
-			if (!endSpike.stellarity$hasAltar() || altar.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED)) return;
+			original.call(level, random, spike);
+			if (!spike.stellarity$hasAltar() || altar.is(StellarityBlocks.ALTAR_OF_THE_ACCURSED)) return;
 
 			var placePos = altarPos.offset(-8, -9, -9);
 

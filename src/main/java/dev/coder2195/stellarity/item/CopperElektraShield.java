@@ -100,7 +100,7 @@ public class CopperElektraShield extends ShieldItem {
 		var proposedPosition = ownerPosition.add(player.getLookAngle().normalize().scale(7));
 		var raycast = serverLevel.clip(new ClipContext(ownerPosition, proposedPosition, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
 		var endLocation = raycast.getLocation();
-		var entitiesHit = ProjectileUtil.getManyEntityHitResult(level, player, ownerPosition, endLocation, new AABB(ownerPosition, endLocation).inflate(2), (entity) -> entity instanceof LivingEntity target && player.canAttack(target), false);
+		var entitiesHit = ProjectileUtil.getManyEntityHitResult(level, player, ownerPosition, endLocation, new AABB(ownerPosition, endLocation).inflate(2), (entity) -> entity instanceof LivingEntity target && player.canAttack(target), false, true);
 
 		var electric = serverLevel.damageSources().source(StellarityDamageTypes.ELECTRIC, player, player);
 		List<Vec3> creeperLocations = new ArrayList<>();

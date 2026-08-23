@@ -2,12 +2,12 @@ package dev.coder2195.stellarity.criterion_trigger;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.Validatable;
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
@@ -38,28 +39,28 @@ public class SpecialCraftTrigger extends SimpleCriterionTrigger<SpecialCraftTrig
 		this.trigger(player, (t) -> t.matches(context, result));
 	}
 
-	public static Criterion<TriggerInstance> triggerInstance(Optional<ContextAwarePredicate> player,
-	                                                         Optional<ContextAwarePredicate> location, Optional<ItemPredicate> result) {
+	public static Criterion<TriggerInstance> triggerInstance(Optional<Holder<LootItemCondition>> player,
+	                                                         Optional<Holder<LootItemCondition>> location, Optional<ItemPredicate> result) {
 		return StellarityCriteriaTriggers.SPECIAL_CRAFT.createCriterion(new TriggerInstance(player, location, result));
 	}
 
-	public record TriggerInstance(Optional<ContextAwarePredicate> player,
-	                              Optional<ContextAwarePredicate> location,
+	public record TriggerInstance(Optional<Holder<LootItemCondition>> player,
+	                              Optional<Holder<LootItemCondition>> location,
 	                              Optional<ItemPredicate> result) implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<SpecialCraftTrigger.TriggerInstance> CODEC = RecordCodecBuilder.create((i) -> i.group(
-			EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(SpecialCraftTrigger.TriggerInstance::player),
-			ContextAwarePredicate.CODEC.optionalFieldOf("location").forGetter(SpecialCraftTrigger.TriggerInstance::location),
+			LootItemCondition.CODEC.optionalFieldOf("player").forGetter(SpecialCraftTrigger.TriggerInstance::player),
+			LootItemCondition.CODEC.optionalFieldOf("location").forGetter(SpecialCraftTrigger.TriggerInstance::location),
 			ItemPredicate.CODEC.optionalFieldOf("result").forGetter(SpecialCraftTrigger.TriggerInstance::result)
 		).apply(i, SpecialCraftTrigger.TriggerInstance::new));
 
 		public boolean matches(final LootContext locationContext, final ItemStack stack) {
-			return (this.location.isEmpty() || this.location.get().matches(locationContext)) && (this.result.isEmpty() || this.result.get().test(stack));
+			return (this.location.isEmpty() || this.location.get().value().test(locationContext)) && (this.result.isEmpty() || this.result.get().test(stack));
 		}
 
 		@Override
 		public void validate(@NonNull ValidationContextSource validator) {
 			SimpleInstance.super.validate(validator);
-			Validatable.validate(validator.context(LootContextParamSets.ADVANCEMENT_LOCATION), "location", this.location);
+			Validatable.validateHolder(validator.context(LootContextParamSets.ADVANCEMENT_LOCATION), "location", this.location);
 		}
 	}
 }
