@@ -5,6 +5,7 @@ import dev.coder2195.stellarity.tags.StellarityBlockTags;
 import dev.coder2195.stellarity.tags.StellarityDamageTypeTags;
 import dev.coder2195.stellarity.tags.StellarityEntityTypeTags;
 import dev.coder2195.stellarity.tags.StellarityItemTags;
+import dev.coder2195.stellarity.util.ValueUtil;
 import dev.coder2195.stellarity.util.tuple.Tuple2;
 import net.minecraft.advancements.predicates.TagPredicate;
 import net.minecraft.core.Holder;
@@ -37,7 +38,8 @@ import java.util.stream.Stream;
 
 import static dev.coder2195.stellarity.util.EnchantmentUtil.*;
 import static dev.coder2195.stellarity.util.LootUtil.*;
-import static dev.coder2195.stellarity.util.ValueUtil.numf;
+import static dev.coder2195.stellarity.util.ValueUtil.enchantNum;
+import static dev.coder2195.stellarity.util.ValueUtil.numfRaw;
 import static net.minecraft.world.item.enchantment.EnchantmentEffectComponents.DAMAGE;
 import static net.minecraft.world.item.enchantment.EnchantmentEffectComponents.POST_ATTACK;
 
@@ -79,7 +81,7 @@ public interface StellarityEnchantments {
 				.set(POST_ATTACK, Stream.concat(
 					Stream.of(new TargetedConditionalEffect<>(EnchantmentTarget.ATTACKER, EnchantmentTarget.VICTIM, allEffects(
 						IntStream.range(0, 9).mapToObj((_) ->
-							new SpawnParticlesEffect(ParticleTypes.TRIAL_SPAWNER_DETECTED_PLAYER, inBoundingBox(), inBoundingBox(), particleVelocity(), particleVelocity(), numf(0.2f))
+							new SpawnParticlesEffect(ParticleTypes.TRIAL_SPAWNER_DETECTED_PLAYER, inBoundingBox(), inBoundingBox(), particleVelocity(), particleVelocity(), ValueUtil.numfRaw(0.2f))
 						).toArray(EnchantmentEntityEffect[]::new)
 					), Optional.of(ambushRequirements))),
 					Stream.of(
@@ -87,8 +89,8 @@ public interface StellarityEnchantments {
 						new Tuple2<>(StellaritySoundEvents.AMBUSH_LEVEL_2, 2),
 						new Tuple2<>(StellaritySoundEvents.AMBUSH_LEVEL_3, 3)
 					).map(tuple -> new TargetedConditionalEffect<>(
-						EnchantmentTarget.ATTACKER, EnchantmentTarget.VICTIM, playSound(tuple._1(), numf(0.7f), numf(1)
-					), Optional.of(all(ambushRequirements, valueCheck(enchantNum(levelBasedLinear(1, 1)), intRange(tuple._2()))))
+						EnchantmentTarget.ATTACKER, EnchantmentTarget.VICTIM, playSound(tuple._1(), ValueUtil.numfRaw(0.7f), ValueUtil.numfRaw(1)
+					), Optional.of(all(ambushRequirements, floatValueCheck(enchantNum(levelBasedLinear(1, 1)), intRange(tuple._2()))))
 					))
 				).toList())
 				.build()

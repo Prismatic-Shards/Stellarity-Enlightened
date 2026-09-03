@@ -3,6 +3,7 @@ package dev.coder2195.stellarity.feature;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import org.jspecify.annotations.NonNull;
 
-public record DragonEggFeature(BlockStateProvider toPlace) implements Feature {
+public record DragonEggFeature(Holder<BlockStateProvider> toPlace) implements Feature {
 	public static final MapCodec<DragonEggFeature> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
 			BlockStateProvider.CODEC.fieldOf("to_place").forGetter(DragonEggFeature::toPlace)
@@ -27,8 +28,8 @@ public record DragonEggFeature(BlockStateProvider toPlace) implements Feature {
 		var ox = origin.getX();
 		var oz = origin.getZ();
 
-
 		BlockPos.MutableBlockPos pos = origin.mutable();
+		var toPlace = this.toPlace.value();
 
 		for (int layer : LAYERS) {
 			int maxX = ox + layer;

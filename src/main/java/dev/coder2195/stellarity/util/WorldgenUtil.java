@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.*;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
@@ -22,6 +21,8 @@ import net.minecraft.world.level.levelgen.heightproviders.ConstantHeight;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.heightproviders.VeryBiasedToBottomHeight;
+import net.minecraft.world.level.levelgen.material.MaterialRules;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
@@ -33,12 +34,20 @@ import static dev.coder2195.stellarity.util.ValueUtil.*;
 import static net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate.matchesBlocks;
 
 public interface WorldgenUtil {
-	static SimpleStateProvider block(Block block) {
-		return BlockStateProvider.simple(block);
+	static BlockStateProvider blockRaw(Block block) {
+		return BlockStateProvider.of(block);
 	}
 
-	static SimpleStateProvider block(BlockState blockState) {
-		return BlockStateProvider.simple(blockState);
+	static BlockStateProvider blockRaw(BlockState blockState) {
+		return BlockStateProvider.of(blockState);
+	}
+
+	static Holder<BlockStateProvider> block(Block block) {
+		return BlockStateProvider.holderOf(block);
+	}
+
+	static Holder<BlockStateProvider> block(BlockState blockState) {
+		return BlockStateProvider.holderOf(blockState);
 	}
 
 	static CountPlacement countPlace(IntProvider count) {
@@ -46,7 +55,7 @@ public interface WorldgenUtil {
 	}
 
 	static CountPlacement countPlace(int count) {
-		return countPlace(num(count));
+		return countPlace(numRaw(count));
 	}
 
 	static InSquarePlacement inSquare() {
@@ -108,7 +117,7 @@ public interface WorldgenUtil {
 	}
 
 	static BlockColumnFeature.Layer columnLayer(IntProvider intProvider, BlockStateProvider state) {
-		return new BlockColumnFeature.Layer(intProvider, state);
+		return BlockColumnFeature.layer(intProvider, state);
 	}
 
 	static BlockColumnFeature blockColumns(Direction direction, BlockPredicate allowedPlacement, boolean prioritizeTip, BlockColumnFeature.Layer... layers) {
@@ -119,20 +128,36 @@ public interface WorldgenUtil {
 		return BiomeFilter.biome();
 	}
 
-	static WeightedStateProvider weightedBlocks(BlockState[] states, int[] weights) {
+	static WeightedStateProvider weightedBlocksRaw(BlockState[] states, int[] weights) {
 		return new WeightedStateProvider(weighted(states, weights));
 	}
 
-	static WeightedStateProvider weightedBlocks(Block[] states, int[] weights) {
+	static WeightedStateProvider weightedBlocksRaw(Block[] states, int[] weights) {
 		return new WeightedStateProvider(weighted(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new), weights));
 	}
 
-	static WeightedStateProvider blocks(Block... states) {
+	static Holder<BlockStateProvider> weightedBlocks(BlockState[] states, int[] weights) {
+		return Holder.direct(new WeightedStateProvider(weighted(states, weights)));
+	}
+
+	static Holder<BlockStateProvider> weightedBlocks(Block[] states, int[] weights) {
+		return Holder.direct(new WeightedStateProvider(weighted(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new), weights)));
+	}
+
+	static WeightedStateProvider blocksRaw(Block... states) {
 		return new WeightedStateProvider(weightedEven(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new)));
 	}
 
-	static WeightedStateProvider blocks(BlockState... states) {
+	static WeightedStateProvider blocksRaw(BlockState... states) {
 		return new WeightedStateProvider(weightedEven(states));
+	}
+
+	static Holder<BlockStateProvider> blocks(Block... states) {
+		return Holder.direct(new WeightedStateProvider(weightedEven(Arrays.stream(states).map(Block::defaultBlockState).toArray(BlockState[]::new))));
+	}
+
+	static Holder<BlockStateProvider> blocks(BlockState... states) {
+		return Holder.direct(new WeightedStateProvider(weightedEven(states)));
 	}
 
 	static BlockPredicate all() {
@@ -167,11 +192,15 @@ public interface WorldgenUtil {
 
 	@SuppressWarnings("deprecation")
 	static CountOnEveryLayerPlacement everyLayer(int count) {
-		return everyLayer(num(count));
+		return everyLayer(numRaw(count));
 	}
 
-	static SurfaceRules.RuleSource state(final Block state) {
-		return SurfaceRules.state(state.defaultBlockState());
+	static MaterialRule state(final Block block) {
+		return MaterialRules.state(block.defaultBlockState());
+	}
+
+	static MaterialRule state(final BlockState state) {
+		return MaterialRules.state(state);
 	}
 
 	static ThreeLayersFeatureSize threeLayersSize() {
@@ -268,11 +297,11 @@ public interface WorldgenUtil {
 		return new RandomizedIntStateProvider(block, property, num);
 	}
 
-	static RandomizedIntStateProvider randIntState(BlockState block, IntegerProperty property, IntProvider num) {
-		return new RandomizedIntStateProvider(block(block), property, num);
+	static Holder<BlockStateProvider> randIntState(BlockState block, IntegerProperty property, IntProvider num) {
+		return Holder.direct(new RandomizedIntStateProvider(blockRaw(block), property, num));
 	}
 
-	static RandomizedIntStateProvider randIntState(Block block, IntegerProperty property, IntProvider num) {
-		return new RandomizedIntStateProvider(block(block), property, num);
+	static Holder<BlockStateProvider> randIntState(Block block, IntegerProperty property, IntProvider num) {
+		return Holder.direct(new RandomizedIntStateProvider(blockRaw(block), property, num));
 	}
 }

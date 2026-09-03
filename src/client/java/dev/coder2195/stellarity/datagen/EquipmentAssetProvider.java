@@ -1,5 +1,6 @@
 package dev.coder2195.stellarity.datagen;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -19,7 +20,7 @@ import java.util.function.BiConsumer;
 public class EquipmentAssetProvider extends net.minecraft.client.data.models.EquipmentAssetProvider {
 	private final PackOutput.PathProvider pathProvider;
 
-	public EquipmentAssetProvider(final PackOutput output) {
+	public EquipmentAssetProvider(final FabricPackOutput output) {
 		super(output);
 		this.pathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "equipment");
 	}

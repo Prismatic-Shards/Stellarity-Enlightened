@@ -158,7 +158,7 @@ public class HangingColumnDecorator extends TreeDecorator {
 				boolean toBreak = false;
 				for (int i = 0; i < layerSize; i++) {
 					var pos = resolvedColumn.get(currentIdx);
-					level.setBlock(pos, layer._2().getState(level, random, pos), Block.UPDATE_CLIENTS);
+					level.setBlock(pos, layer._2().value().getState(level, random, pos), Block.UPDATE_CLIENTS);
 
 					currentIdx++;
 					if (currentIdx >= columnSize) {

@@ -15,6 +15,8 @@ import net.minecraft.world.item.trading.VillagerTrade;
 import java.util.List;
 import java.util.Optional;
 
+import static dev.coder2195.stellarity.util.ValueUtil.num;
+
 public interface StellarityVillagerTradeSets {
 	ResourceKey<TradeSet> ARMORER_LEVEL_1 = id("armorer/level_1");
 	ResourceKey<TradeSet> ARMORER_LEVEL_1_2 = id("armorer/level_1_2");
@@ -248,7 +250,7 @@ public interface StellarityVillagerTradeSets {
 		)) {
 			context.register(entry._1(), new TradeSet(
 				tradeTags.getOrThrow(entry._2()),
-				LootUtil.num(entry._3()),
+				num(entry._3()),
 				false,
 				Optional.empty()
 			));

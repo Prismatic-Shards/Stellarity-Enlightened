@@ -2,7 +2,7 @@ package dev.coder2195.stellarity.registry;
 
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.block.*;
-import net.fabricmc.fabric.api.registry.BlockTransformerRegistry;
+import net.fabricmc.fabric.api.item.v1.BlockTransformerHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.BlockTransformer;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -64,8 +64,8 @@ public interface StellarityBlocks {
 
 	static void init() {
 		Stellarity.LOGGER.info("Registering Stellarity Blocks");
-		BlockTransformerRegistry.registerHoe(BlockTransformer.BlockTransformData.builder(BlockPredicate.matchesBlocks(ROOTED_ENDER_DIRT), Blocks.ROOTED_DIRT).sound(SoundEvents.HOE_TILL).loot(BuiltInLootTables.TILL_ROOTED_DIRT).dropStrategy(BlockTransformer.DropStrategy.CLICKED_FACE).build());
-		BlockTransformerRegistry.registerTilling(COARSE_ENDER_DIRT, ENDER_DIRT);
-		BlockTransformerRegistry.registerTilling(new Block[]{ENDER_DIRT, ENDER_GRASS_BLOCK, COARSE_ENDER_DIRT}, ENDER_DIRT_PATH);
+		BlockTransformerHelper.registerHoe(BlockTransformer.BlockTransformData.builder(BlockPredicate.matchesBlocks(ROOTED_ENDER_DIRT), Blocks.ROOTED_DIRT).sound(SoundEvents.HOE_TILL).loot(BuiltInLootTables.TILL_ROOTED_DIRT).dropStrategy(BlockTransformer.DropStrategy.CLICKED_FACE).build());
+		BlockTransformerHelper.registerTilling(COARSE_ENDER_DIRT, ENDER_DIRT);
+		BlockTransformerHelper.registerTilling(new Block[]{ENDER_DIRT, ENDER_GRASS_BLOCK, COARSE_ENDER_DIRT}, ENDER_DIRT_PATH);
 	}
 }

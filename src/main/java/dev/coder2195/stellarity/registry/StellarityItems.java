@@ -468,11 +468,23 @@ public interface StellarityItems {
 		);
 	}
 
-	static Item.Properties tpFoodProperties(Consumable.Builder consumable, int nutrition, float saturation, boolean alwaysEat, int teleportDiameter, StellarityItems.EffectChance... effectChances) {
+	static Item.Properties tpFoodProperties(Consumable.Builder consumable, int nutrition, float saturation, boolean alwaysEat, float teleportDiameter, StellarityItems.EffectChance... effectChances) {
 		return foodProperties(
 			new Item.Properties(),
 			new FoodProperties.Builder(),
-			consumable.onConsume(new TeleportRandomlyConsumeEffect(teleportDiameter)),
+			consumable.onConsume(new TeleportRandomlyConsumeEffect(teleportDiameter, true)),
+			nutrition,
+			saturation,
+			alwaysEat,
+			effectChances
+		);
+	}
+
+	static Item.Properties tpFoodProperties(Consumable.Builder consumable, int nutrition, float saturation, boolean alwaysEat, float teleportDiameter, boolean directionalParticles, StellarityItems.EffectChance... effectChances) {
+		return foodProperties(
+			new Item.Properties(),
+			new FoodProperties.Builder(),
+			consumable.onConsume(new TeleportRandomlyConsumeEffect(teleportDiameter, directionalParticles)),
 			nutrition,
 			saturation,
 			alwaysEat,

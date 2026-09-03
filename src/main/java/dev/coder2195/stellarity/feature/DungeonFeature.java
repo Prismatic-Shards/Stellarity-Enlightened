@@ -37,13 +37,13 @@ public record DungeonFeature(
 ) implements Feature {
 	public static final MapCodec<DungeonFeature> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
 		EntityType.CODEC.optionalFieldOf("entity_type", EntityTypes.ENDERMITE).forGetter(DungeonFeature::entityType),
-		IntProviders.CODEC.optionalFieldOf("size", num(4)).forGetter(DungeonFeature::size),
-		IntProviders.CODEC.optionalFieldOf("height", num(6)).forGetter(DungeonFeature::height),
-		IntProviders.CODEC.optionalFieldOf("chests", num(1, 2)).forGetter(DungeonFeature::chests)
+		IntProviders.CODEC.optionalFieldOf("size", numRaw(4)).forGetter(DungeonFeature::size),
+		IntProviders.CODEC.optionalFieldOf("height", numRaw(6)).forGetter(DungeonFeature::height),
+		IntProviders.CODEC.optionalFieldOf("chests", numRaw(1, 2)).forGetter(DungeonFeature::chests)
 	).apply(i, DungeonFeature::new));
 
 	public DungeonFeature() {
-		this(EntityTypes.ENDERMITE, num(4), num(6), num(1, 2));
+		this(EntityTypes.ENDERMITE, numRaw(4), numRaw(6), numRaw(1, 2));
 	}
 
 	@Override

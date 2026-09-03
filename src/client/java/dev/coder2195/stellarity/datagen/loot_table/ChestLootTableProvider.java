@@ -31,6 +31,7 @@ import java.util.function.BiConsumer;
 import static dev.coder2195.stellarity.registry.StellarityItems.*;
 import static dev.coder2195.stellarity.registry.StellarityLootTables.*;
 import static dev.coder2195.stellarity.util.LootUtil.*;
+import static dev.coder2195.stellarity.util.ValueUtil.*;
 import static net.minecraft.world.item.Items.*;
 
 public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
@@ -391,7 +392,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 			.withPool(pool().setRolls(num(0, 1)).add(item(WATER_BUCKET)))
 		);
 		consumer.accept(VILLAGE_CENTER_TOWN_HALL, lootTable()
-			.withPool(pool().setRolls(num(3)).setBonusRolls(binomial(1, 0.25f))
+			.withPool(pool().setRolls(num(3)).setBonusRolls(binomialf(1, 0.25f))
 				.add(item(IRON_INGOT).setWeight(10).apply(count(1, 2)))
 				.add(item(GOLD_INGOT).setWeight(7).apply(count(1, 2)))
 				.add(item(DIAMOND).setWeight(2))

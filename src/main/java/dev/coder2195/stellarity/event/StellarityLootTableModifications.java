@@ -13,16 +13,16 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.Sum;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.registry.StellarityItems;
-import dev.coder2195.stellarity.number_provider.Multiply;
-import dev.coder2195.stellarity.number_provider.NbtNumberValue;
+import dev.coder2195.stellarity.int_provider.NbtValue;
+import net.minecraft.world.level.storage.loot.providers.number.floats.Product;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 
 import java.util.HashMap;
 
 import static dev.coder2195.stellarity.util.LootUtil.*;
+import static dev.coder2195.stellarity.util.ValueUtil.*;
 
 
 public interface StellarityLootTableModifications {
@@ -51,7 +51,7 @@ public interface StellarityLootTableModifications {
 		});
 		modifications.put(Stellarity.mcId("entities/phantom"), (_, builder, _, provider) -> {
 			try {
-				Holder<NumberProvider> sizeValue = Holder.direct(new NbtNumberValue(LootContext.EntityTarget.THIS, NbtPathArgument.NbtPath.of("size"), 0));
+				Holder<ContextIntProvider> sizeValue = Holder.direct(new NbtValue(LootContext.EntityTarget.THIS, NbtPathArgument.NbtPath.of("size"), 0));
 				builder
 					.modifyPools(pool -> pool.setRolls(sizeValue))
 					.withPool(pool().setRolls(sizeValue).add(item(Items.GUNPOWDER)
@@ -59,8 +59,8 @@ public interface StellarityLootTableModifications {
 						.when(damageSource(new DamageSourcePredicate.Builder().tag(new TagPredicate<>(provider.getOrThrow(DamageTypeTags.IS_FIRE), true))))
 					))
 					.withPool(pool().add(item(StellarityItems.PHANTOM_WINGS)).when(randomChance(
-						Multiply.multiply(Sum.sum(num(3), sizeValue), num(0.01f)))
-					));
+						multiplyf(numf(0.05f), addf(numf(3), toF(sizeValue)))
+					)));
 			} catch (CommandSyntaxException e) {
 				Stellarity.LOGGER.error("Failed to initialize NBT path argument {}", e.toString());
 			}

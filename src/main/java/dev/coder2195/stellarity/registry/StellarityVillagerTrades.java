@@ -1,7 +1,6 @@
 package dev.coder2195.stellarity.registry;
 
 import dev.coder2195.stellarity.Stellarity;
-import dev.coder2195.stellarity.mixin.accessor.SetComponentsFunctionAccessor;
 import dev.coder2195.stellarity.mixin.accessor.VillagerTradeAccessor;
 import dev.coder2195.stellarity.tags.StellarityStructureTags;
 import dev.coder2195.stellarity.util.tuple.Tuple2;
@@ -31,17 +30,17 @@ import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.block.ColorCollection;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
-import net.minecraft.world.level.storage.loot.entries.EntryGroup;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 
 import java.util.List;
 import java.util.Optional;
 
 import static dev.coder2195.stellarity.registry.StellarityItems.*;
 import static dev.coder2195.stellarity.util.LootUtil.*;
+import static dev.coder2195.stellarity.util.ValueUtil.num;
+import static dev.coder2195.stellarity.util.ValueUtil.numf;
 import static net.minecraft.world.item.Items.*;
 
 public interface StellarityVillagerTrades {
@@ -228,7 +227,7 @@ public interface StellarityVillagerTrades {
 	ResourceKey<VillagerTrade> SHEPHERD_5_ENDERITE_SHARD_SNATCH_PAINTING = id("shepherd/5/enderite_shard_snatch_painting");
 	ResourceKey<VillagerTrade> SHEPHERD_5_ENDERITE_SHARD_THE_OBSIDIAN_RELIQUARY_PAINTING = id("shepherd/5/enderite_shard_the_obsidian_reliquary_painting");
 
-	
+
 	ResourceKey<VillagerTrade> TOOLSMITH_1_COAL_ENDERITE_SHARD = id("toolsmith/1/coal_enderite_shard");
 	ResourceKey<VillagerTrade> TOOLSMITH_1_CHARCOAL_ENDERITE_SHARD = id("toolsmith/1/charcoal_enderite_shard");
 	ResourceKey<VillagerTrade> TOOLSMITH_1_BLAZE_ROD_ENDERITE_SHARD = id("toolsmith/1/blaze_rod_enderite_shard");
@@ -245,8 +244,8 @@ public interface StellarityVillagerTrades {
 	ResourceKey<VillagerTrade> TOOLSMITH_4_ENDERITE_SHARD_DIAMOND_SHOVEL = id("toolsmith/4/enderite_shard_diamond_shovel");
 	ResourceKey<VillagerTrade> TOOLSMITH_5_ENDERITE_SHARD_DIAMOND_AXE = id("toolsmith/5/enderite_shard_diamond_axe");
 	ResourceKey<VillagerTrade> TOOLSMITH_5_ENDERITE_SHARD_DIAMOND_PICKAXE = id("toolsmith/5/enderite_shard_diamond_pickaxe");
-	
-	
+
+
 	ResourceKey<VillagerTrade> WEAPONSMITH_1_COAL_ENDERITE_SHARD = id("weaponsmith/1/coal_enderite_shard");
 	ResourceKey<VillagerTrade> WEAPONSMITH_1_CHARCOAL_ENDERITE_SHARD = id("weaponsmith/1/charcoal_enderite_shard");
 	ResourceKey<VillagerTrade> WEAPONSMITH_1_BLAZE_ROD_ENDERITE_SHARD = id("weaponsmith/1/blaze_rod_enderite_shard");
@@ -260,7 +259,7 @@ public interface StellarityVillagerTrades {
 	ResourceKey<VillagerTrade> WEAPONSMITH_4_ENDERITE_SHARD_DIAMOND_SWORD = id("weaponsmith/4/enderite_shard_diamond_sword");
 	ResourceKey<VillagerTrade> WEAPONSMITH_5_ENDERITE_SHARD_DIAMOND_AXE = id("weaponsmith/5/enderite_shard_diamond_axe");
 	ResourceKey<VillagerTrade> WEAPONSMITH_5_GOLDEN_SWORD_ENDERITE_SHARD_STELLAR_STRIKER = id("weaponsmith/5/golden_sword_enderite_shard_stellar_striker");
-	
+
 
 
 	static void bootstrap(BootstrapContext<VillagerTrade> context) {
@@ -575,14 +574,14 @@ public interface StellarityVillagerTrades {
 		return simpleToShard(item, num(count), shards, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade simpleToShard(Item item, Holder<NumberProvider> count, int shards, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade simpleToShard(Item item, Holder<ContextIntProvider> count, int shards, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(item, count),
 			Optional.empty(),
 			new ItemStackTemplate(ENDERITE_SHARD, shards),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty()
@@ -593,14 +592,14 @@ public interface StellarityVillagerTrades {
 		return shardToSimple(num(shards), item, count, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade shardToSimple(Holder<NumberProvider> shards, Item item, int count, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade shardToSimple(Holder<ContextIntProvider> shards, Item item, int count, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(ENDERITE_SHARD, shards),
 			Optional.empty(),
 			new ItemStackTemplate(item, count),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty()
@@ -611,14 +610,14 @@ public interface StellarityVillagerTrades {
 		return shardToModifierItem(num(shards), item, modifiers, count, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade shardToModifierItem(Holder<NumberProvider> shards, Item item, Holder<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade shardToModifierItem(Holder<ContextIntProvider> shards, Item item, Holder<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(ENDERITE_SHARD, shards),
 			Optional.empty(),
 			new ItemStackTemplate(item, count),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.of(modifiers),
 			Optional.empty()
@@ -629,7 +628,7 @@ public interface StellarityVillagerTrades {
 		return simpleShardToModifierItem(buy, num(buyCount), num(shards), item, modifiers, count, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade simpleShardToModifierItem(Item buy, Holder<NumberProvider> buyCount, Holder<NumberProvider> shards, Item item, Holder<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade simpleShardToModifierItem(Item buy, Holder<ContextIntProvider> buyCount, Holder<ContextIntProvider> shards, Item item, Holder<LootItemFunction> modifiers, int count, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(buy, buyCount),
 			Optional.of(new TradeCost(ENDERITE_SHARD, shards)),
@@ -637,7 +636,7 @@ public interface StellarityVillagerTrades {
 
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.of(modifiers),
 			Optional.empty()
@@ -652,28 +651,28 @@ public interface StellarityVillagerTrades {
 		return simpleShardToSimplePredicate(item, num(count), num(shards), result, resultCount, xp, maxUses, repDiscount, predicate);
 	}
 
-	static VillagerTrade simpleShardToSimplePredicate(Item item, Holder<NumberProvider> count, Holder<NumberProvider> shards, Item result, int resultCount, int xp, int maxUses, float repDiscount, Holder<LootItemCondition> predicate) {
+	static VillagerTrade simpleShardToSimplePredicate(Item item, Holder<ContextIntProvider> count, Holder<ContextIntProvider> shards, Item result, int resultCount, int xp, int maxUses, float repDiscount, Holder<LootItemCondition> predicate) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(item, count),
 			Optional.of(new TradeCost(ENDERITE_SHARD, shards)),
 			new ItemStackTemplate(result, resultCount),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.of(predicate),
 			Optional.empty(),
 			Optional.empty()
 		);
 	}
 
-	static VillagerTrade simpleShardToSimple(Item item, Holder<NumberProvider> count, Holder<NumberProvider> shards, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade simpleShardToSimple(Item item, Holder<ContextIntProvider> count, Holder<ContextIntProvider> shards, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(item, count),
 			Optional.of(new TradeCost(ENDERITE_SHARD, shards)),
 			new ItemStackTemplate(result, resultCount),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty()
@@ -684,14 +683,14 @@ public interface StellarityVillagerTrades {
 		return simpleToSimple(item, num(count), result, resultCount, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade simpleToSimple(Item item, Holder<NumberProvider> count, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade simpleToSimple(Item item, Holder<ContextIntProvider> count, Item result, int resultCount, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(item, count),
 			Optional.empty(),
 			new ItemStackTemplate(result, resultCount),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty()
@@ -702,14 +701,14 @@ public interface StellarityVillagerTrades {
 		return simpleSimpleToShard(item, num(count), item2, num(count2), shards, xp, maxUses, repDiscount);
 	}
 
-	static VillagerTrade simpleSimpleToShard(Item item, Holder<NumberProvider> count, Item item2, Holder<NumberProvider> count2, int shards, int xp, int maxUses, float repDiscount) {
+	static VillagerTrade simpleSimpleToShard(Item item, Holder<ContextIntProvider> count, Item item2, Holder<ContextIntProvider> count2, int shards, int xp, int maxUses, float repDiscount) {
 		return VillagerTradeAccessor.create(
 			new TradeCost(item, count),
 			Optional.of(new TradeCost(item2, count2)),
 			new ItemStackTemplate(ENDERITE_SHARD, shards),
 			num(maxUses),
 			num(xp),
-			num(repDiscount),
+			numf(repDiscount),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty()

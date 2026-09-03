@@ -6,17 +6,96 @@ import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.*;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.floats.EnchantmentLevelProvider;
+import net.minecraft.world.level.storage.loot.providers.number.floats.FromInt;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Arrays;
 
 public interface ValueUtil {
-	static ConstantInt num(int value) {
+	static ConstantInt numRaw(int value) {
 		return ConstantInt.of(value);
 	}
+
+
+	static UniformInt numRaw(int min, int max) {
+		return UniformInt.of(min, max);
+	}
+
+	static Holder<ContextIntProvider> num(int value) {
+		return ContextIntProviders.exactly(value);
+	}
+
+	static Holder<ContextIntProvider> num(int min, int max) {
+		return ContextIntProviders.between(min, max);
+	}
+
+	static ConstantFloat numfRaw(float num) {
+		return ConstantFloat.of(num);
+	}
+
+	static UniformFloat numfRaw(float min, float max) {
+		return UniformFloat.of(min, max);
+	}
+
+
+	static Holder<ContextFloatProvider> numf(float num) {
+		return ContextFloatProviders.exactly(num);
+	}
+
+	static Holder<ContextFloatProvider> numf(float min, float max) {
+		return ContextFloatProviders.between(min, max);
+	}
+
+	static Holder<ContextIntProvider> binomial(int n, float p) {
+		return ContextIntProviders.binomial(n, p);
+	}
+
+	static Holder<ContextFloatProvider> binomialf(int n, float p) {
+		return toF(binomial(n, p));
+	}
+
+	static Holder<ContextFloatProvider> enchantNum(LevelBasedValue amount) {
+		return Holder.direct(new EnchantmentLevelProvider(amount));
+	}
+
+	@SafeVarargs
+	static Holder<ContextIntProvider> multiply(Holder<ContextIntProvider>... products) {
+		return ContextIntProviders.mul(products);
+	}
+
+	@SafeVarargs
+	static Holder<ContextFloatProvider> multiplyf(Holder<ContextFloatProvider>... products) {
+		return ContextFloatProviders.mul(products);
+	}
+
+	@SafeVarargs
+	static Holder<ContextIntProvider> add(Holder<ContextIntProvider>... sums) {
+		return ContextIntProviders.add(sums);
+	}
+
+	@SafeVarargs
+	static Holder<ContextFloatProvider> addf(Holder<ContextFloatProvider>... sums) {
+		return ContextFloatProviders.add(sums);
+	}
+
+	static Holder<ContextIntProvider> toI(Holder<ContextFloatProvider> floatProvider) {
+		return ContextIntProviders.fromFloat(floatProvider);
+	}
+
+	static Holder<ContextFloatProvider> toF(Holder<ContextIntProvider> intProvider) {
+		return Holder.direct(new FromInt(intProvider));
+	}
+
+
 
 
 	/**
@@ -30,7 +109,7 @@ public interface ValueUtil {
 		@SuppressWarnings("unchecked") Weighted<IntProvider>[] weights = new Weighted[values.length / 2];
 
 		for (int i = 0; i < weights.length; i++) {
-			weights[i] = new Weighted<>(num(values[2 * i]), values[2 * i + 1]);
+			weights[i] = new Weighted<>(numRaw(values[2 * i]), values[2 * i + 1]);
 		}
 
 		return new WeightedListInt(WeightedList.of(weights));
@@ -40,24 +119,12 @@ public interface ValueUtil {
 		return new WeightedListInt(weighted(ints, weights));
 	}
 
-	static UniformInt num(int min, int max) {
-		return UniformInt.of(min, max);
-	}
-
 	static BiasedToBottomInt biasBottom(int min, int max) {
 		return BiasedToBottomInt.of(min, max);
 	}
 
 	static VeryBiasedToBottomInt veryBiasBottom(int min, int max) {
 		return VeryBiasedToBottomInt.of(min, max);
-	}
-
-	static ConstantFloat numf(float num) {
-		return ConstantFloat.of(num);
-	}
-
-	static UniformFloat numf(float min, float max) {
-		return UniformFloat.of(min, max);
 	}
 
 

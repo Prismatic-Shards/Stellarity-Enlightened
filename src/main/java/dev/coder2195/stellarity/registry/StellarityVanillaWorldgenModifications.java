@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static dev.coder2195.stellarity.util.ValueUtil.num;
+import static dev.coder2195.stellarity.util.ColorUtil.vecColor;
+import static dev.coder2195.stellarity.util.ValueUtil.numRaw;
 import static net.minecraft.world.attribute.EnvironmentAttributes.*;
 import static net.minecraft.world.level.biome.Biomes.END_BARRENS;
 import static net.minecraft.world.level.levelgen.GenerationStep.Decoration.*;
@@ -64,9 +65,9 @@ public interface StellarityVanillaWorldgenModifications {
 		BiomeModifications.addFeature(mainIsland, TOP_LAYER_MODIFICATION, MAIN_ISLAND_PORTAL_PLATFORM);
 		BiomeModifications.create(Stellarity.id("the_end_replacements")).add(ModificationPhase.REPLACEMENTS, mainIsland, (_, modification) -> {
 				var attributes = modification.getAttributes();
-				attributes.set(SKY_COLOR, 0x000000);
-				attributes.set(FOG_COLOR, 0x000000);
-				attributes.set(WATER_FOG_COLOR, 0x41307e);
+				attributes.set(SKY_COLOR, vecColor(0));
+				attributes.set(FOG_COLOR, vecColor(0x000000));
+				attributes.set(WATER_FOG_COLOR, vecColor(0x41307e));
 
 				var effects = modification.getEffects();
 				effects.setWaterColor(0x62529e);
@@ -75,7 +76,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 				var mobSpawns = modification.getMobSpawnSettings();
 				mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)),10);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, numRaw(4)),10);
 				mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 				mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.75, 1);
 			}
@@ -86,10 +87,10 @@ public interface StellarityVanillaWorldgenModifications {
 		BiomeModifications.addFeature(endBarrens, UNDERGROUND_DECORATION, END_BARRENS_HILLS);
 		BiomeModifications.create(Stellarity.id("end_barrens_replacements")).add(ModificationPhase.REPLACEMENTS, endBarrens, (_, modification) -> {
 				var attributes = modification.getAttributes();
-				attributes.set(SKY_COLOR, 0x000000);
-				attributes.set(FOG_COLOR, 0x000000);
-				attributes.set(WATER_FOG_COLOR, 0x302947);
-				attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+				attributes.set(SKY_COLOR, vecColor(0x000000));
+				attributes.set(FOG_COLOR, vecColor(0x000000));
+				attributes.set(WATER_FOG_COLOR, vecColor(0x302947));
+				attributes.set(AMBIENT_LIGHT_COLOR, vecColor(0x3f473f));
 				attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(StellaritySoundEvents.AMBIENT_THE_END_DARK), Optional.of(new AmbientMoodSettings(
 					SoundEvents.AMBIENT_CAVE, 800, 8, 2
 				)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.005))));
@@ -102,8 +103,8 @@ public interface StellarityVanillaWorldgenModifications {
 
 				var mobSpawns = modification.getMobSpawnSettings();
 				mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 30);
-				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(StellarityEntityTypes.VOIDED_ZOMBIE, num(4)), 30);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, numRaw(4)), 30);
+				mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(StellarityEntityTypes.VOIDED_ZOMBIE, numRaw(4)), 30);
 				mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 				mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.8, 1);
 				mobSpawns.addMobCharge(StellarityEntityTypes.VOIDED_ZOMBIE, 0.68, 1);
@@ -119,10 +120,10 @@ public interface StellarityVanillaWorldgenModifications {
 		BiomeModifications.addFeature(endMidlands, TOP_LAYER_MODIFICATION, GLOBAL_FOSSILS);
 		BiomeModifications.create(Stellarity.id("end_midlands_replacements")).add(ModificationPhase.REPLACEMENTS, endMidlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
-			attributes.set(SKY_COLOR, 0x000000);
-			attributes.set(FOG_COLOR, 0x000000);
-			attributes.set(WATER_FOG_COLOR, 0x6c519e);
-			attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+			attributes.set(SKY_COLOR, vecColor(0x000000));
+			attributes.set(FOG_COLOR, vecColor(0x000000));
+			attributes.set(WATER_FOG_COLOR, vecColor(0x6c519e));
+			attributes.set(AMBIENT_LIGHT_COLOR, vecColor(0x3f473f));
 			attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM), Optional.of(new AmbientMoodSettings(
 				SoundEvents.AMBIENT_NETHER_WASTES_MOOD, 900, 8, 2
 			)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.001))));
@@ -134,7 +135,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 			var mobSpawns = modification.getMobSpawnSettings();
 			mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 10);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, numRaw(4)), 10);
 			mobSpawns.clearMobCharge(EntityTypes.ENDERMAN);
 			mobSpawns.addMobCharge(EntityTypes.ENDERMAN, 0.7, 1);
 		});
@@ -154,10 +155,10 @@ public interface StellarityVanillaWorldgenModifications {
 
 		BiomeModifications.create(Stellarity.id("end_highlands_replacements")).add(ModificationPhase.REPLACEMENTS, endHighlands, (_, modification) -> {
 			var attributes = modification.getAttributes();
-			attributes.set(SKY_COLOR, 0x000000);
-			attributes.set(FOG_COLOR, 0x000000);
-			attributes.set(WATER_FOG_COLOR, 0x5c79f0);
-			attributes.set(AMBIENT_LIGHT_COLOR, 0x3f473f);
+			attributes.set(SKY_COLOR, vecColor(0x000000));
+			attributes.set(FOG_COLOR, vecColor(0x000000));
+			attributes.set(WATER_FOG_COLOR, vecColor(0x5c79f0));
+			attributes.set(AMBIENT_LIGHT_COLOR, vecColor(0x3f473f));
 			attributes.set(AMBIENT_SOUNDS, new AmbientSounds(Optional.of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM), Optional.of(new AmbientMoodSettings(
 				SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, 850, 2, 2
 			)), List.of(new AmbientAdditionsSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_ADDITIONS, 0.0013))));
@@ -170,7 +171,7 @@ public interface StellarityVanillaWorldgenModifications {
 
 			var mobSpawns = modification.getMobSpawnSettings();
 			mobSpawns.removeSpawnsOfEntityType(EntityTypes.ENDERMAN);
-			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, num(4)), 20);
+			mobSpawns.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, numRaw(4)), 20);
 		});
 	}
 }

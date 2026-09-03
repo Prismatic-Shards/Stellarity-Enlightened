@@ -80,7 +80,7 @@ public abstract class EndSpikeFeatureMixin implements Feature {
 			var server = level.getServer();
 
 			if (server != null) {
-				level.getServer().getStructureManager().getOrCreate(Stellarity.id("altar_of_the_accursed")).placeInWorld(level, placePos, placePos, new StructurePlaceSettings(), random, Block.UPDATE_CLIENTS);
+				level.getServer().getStructureTemplateManager().getOrCreate(Stellarity.id("altar_of_the_accursed")).placeInWorld(level, placePos, placePos, new StructurePlaceSettings(), random, Block.UPDATE_CLIENTS);
 			} else {
 				Stellarity.LOGGER.info("failed to create the altar");
 			}

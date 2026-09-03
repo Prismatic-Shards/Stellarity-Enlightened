@@ -17,7 +17,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import java.util.List;
 
 import static dev.coder2195.stellarity.registry.StellarityPlacedFeatures.*;
-import static dev.coder2195.stellarity.util.ValueUtil.num;
+import static dev.coder2195.stellarity.util.ColorUtil.vecColor;
+import static dev.coder2195.stellarity.util.ValueUtil.numRaw;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static net.minecraft.core.Holder.direct;
@@ -52,10 +53,10 @@ public interface StellarityBiomes {
 
 		context.register(AMETHYST_FOREST, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f473f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0))
 			.setAttribute(EnvironmentAttributes.CREATURE_WORLD_GEN_SPAWN_PROBABILITY, 0.4f)
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM),
@@ -63,7 +64,7 @@ public interface StellarityBiomes {
 				List.of(new AmbientAdditionsSettings(direct(SoundEvents.AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE), 0.001))
 			)).specialEffects(new BiomeSpecialEffects(0xf3d1ff, of(0xd494ff), empty(), of(0xdeadff), BiomeSpecialEffects.GrassColorModifier.NONE))
 			.mobSpawnSettings(new MobSpawnSettings.Builder()
-				.addSpawn(EntityTypes.ENDERMAN, 8, num(4))
+				.addSpawn(EntityTypes.ENDERMAN, 8, numRaw(4))
 				.addSpawn(EntityTypes.SHEEP, 12, 1, 4)
 				.addSpawn(EntityTypes.PIG, 10, 1, 4)
 				.addSpawn(EntityTypes.CHICKEN, 10, 1, 4)
@@ -87,9 +88,9 @@ public interface StellarityBiomes {
 
 		context.register(ASHFALL_DELTAS, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.9f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xc4c4cf)
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0xc4c4cf))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1250, 3, 2)),
@@ -99,7 +100,7 @@ public interface StellarityBiomes {
 			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(
 				ParticleTypes.WHITE_ASH, 0.01f
 			)))
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f473f))
 			.specialEffects(new BiomeSpecialEffects(
 				0xe5eeff, of(0xc2c2c2), empty(), of(0xdedede), BiomeSpecialEffects.GrassColorModifier.NONE
 			))
@@ -125,10 +126,10 @@ public interface StellarityBiomes {
 
 		context.register(CRYSTAL_CRAGS, new Biome.BiomeBuilder()
 			.temperature(0.5f).downfall(0.5f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x5d2a6f)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f473f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x5d2a6f))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1100, 6, 2)),
@@ -172,10 +173,10 @@ public interface StellarityBiomes {
 			.build();
 		context.register(END_SHRUBLAND, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x041f33))
 			.setAttribute(EnvironmentAttributes.AMBIENT_PARTICLES, List.of(new AmbientParticle(ParticleTypes.SPORE_BLOSSOM_AIR, 0.002f)))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM),
@@ -201,10 +202,10 @@ public interface StellarityBiomes {
 		//noinspection DuplicatedCode
 		context.register(END_WILDS, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x041f33))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 1000, 2, 1)),
@@ -229,10 +230,10 @@ public interface StellarityBiomes {
 
 		context.register(ENDER_WASTES, new Biome.BiomeBuilder()
 			.temperature(0.5f).downfall(0.5f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f473f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x302947)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f473f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x302947))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_CAVE, 1000, 4, 2)),
@@ -256,10 +257,10 @@ public interface StellarityBiomes {
 
 		context.register(ENDLESS_DUNES, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x78a7ff)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x78a7ff))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0xc0d8ff))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x041f33))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_GRIM),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_CAVE, 1000, 4, 2)),
@@ -292,10 +293,10 @@ public interface StellarityBiomes {
 
 		context.register(FIERY_HILLS, new Biome.BiomeBuilder()
 			.temperature(0.5f).downfall(0.5f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x041f33)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x041f33))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_NETHER_WASTES_MOOD, 820, 8, 2)),
@@ -329,10 +330,10 @@ public interface StellarityBiomes {
 
 		context.register(FLESH_TUNDRA, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xff0000)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0xff0000))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_CRIMSON_FOREST_MOOD, 3000, 10, 100)),
@@ -363,10 +364,10 @@ public interface StellarityBiomes {
 
 		context.register(FROSTED_VALLEY, new Biome.BiomeBuilder()
 			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x050533))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 200, 4, 4)),
@@ -396,10 +397,10 @@ public interface StellarityBiomes {
 
 		context.register(FROZEN_MARSH, new Biome.BiomeBuilder()
 			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x050533))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 800, 4, 4)),
@@ -425,10 +426,10 @@ public interface StellarityBiomes {
 
 		context.register(FROZEN_SHRUBLAND, new Biome.BiomeBuilder()
 			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x050533))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 200, 4, 4)),
@@ -462,10 +463,10 @@ public interface StellarityBiomes {
 
 		context.register(FROZEN_SPIKES, new Biome.BiomeBuilder()
 			.temperature(-0.5f).downfall(0.4f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x050533)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x050533))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 200, 4, 4)),
@@ -499,10 +500,10 @@ public interface StellarityBiomes {
 
 		context.register(HALLOWED_TUNDRA, new Biome.BiomeBuilder()
 			.temperature(-0.5f).downfall(0.6f).hasPrecipitation(false).temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x7ba4ff)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xe566ff)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x7ba4ff))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0xc0d8ff))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0xe566ff))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_BLESSED),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 900, 2, 2)),
@@ -530,10 +531,10 @@ public interface StellarityBiomes {
 
 		context.register(PRISMARINE_FOREST, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x16395a)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x16395a))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_BLESSED),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 800, 4, 4)),
@@ -567,10 +568,10 @@ public interface StellarityBiomes {
 
 		context.register(PRISMATIC_DUNES, new Biome.BiomeBuilder()
 			.temperature(0.6f).downfall(0.6f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x7ba4ff)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xe566ff)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x7ba4ff))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0xc0d8ff))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0xe566ff))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_BLESSED),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 900, 2, 2)),
@@ -596,10 +597,10 @@ public interface StellarityBiomes {
 		//noinspection DuplicatedCode
 		context.register(THE_HALLOW, new Biome.BiomeBuilder()
 			.temperature(0.6f).downfall(0.6f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x7ba4ff)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0xc0d8ff)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0xe566ff)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x7ba4ff))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0xc0d8ff))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0xe566ff))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_BLESSED),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_SOUL_SAND_VALLEY_MOOD, 900, 2, 2)),
@@ -633,10 +634,10 @@ public interface StellarityBiomes {
 
 		context.register(THE_NEST, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x333333)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x333333))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_DARK_CALM),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 1600, 5, 1)),
@@ -663,10 +664,10 @@ public interface StellarityBiomes {
 
 		context.register(WARPED_MARSH, new Biome.BiomeBuilder()
 			.temperature(0.8f).downfall(0.4f).hasPrecipitation(false)
-			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, 0x3f472f)
-			.setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.FOG_COLOR, 0x000000)
-			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x67bbc1)
+			.setAttribute(EnvironmentAttributes.AMBIENT_LIGHT_COLOR, vecColor(0x3f472f))
+			.setAttribute(EnvironmentAttributes.SKY_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.FOG_COLOR, vecColor(0x000000))
+			.setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, vecColor(0x67bbc1))
 			.setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, new AmbientSounds(
 				of(StellaritySoundEvents.AMBIENT_THE_END_HEAVENLY_BLESSED),
 				of(new AmbientMoodSettings(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 1200, 4, 1)),

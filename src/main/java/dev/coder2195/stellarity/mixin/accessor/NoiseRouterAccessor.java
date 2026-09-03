@@ -33,8 +33,8 @@ public interface NoiseRouterAccessor {
 	void stellarity$setRidges(DensityFunction ridges);
 
 	@Mutable
-	@Accessor("preliminarySurfaceLevel")
-	void stellarity$setPreliminarySurfaceLevel(DensityFunction densityFunction);
+	@Accessor("chunkSurfaceLevel")
+	void stellarity$setChunkSurfaceLevel(DensityFunction densityFunction);
 
 	@Mutable
 	@Accessor("finalDensity")

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import static net.minecraft.world.level.biome.Biomes.*;
 import static net.minecraft.world.level.biome.Climate.Parameter.point;
 import static net.minecraft.world.level.biome.Climate.Parameter.span;
 import static net.minecraft.world.level.block.Blocks.*;
-import static net.minecraft.world.level.levelgen.SurfaceRules.*;
+import static net.minecraft.world.level.levelgen.material.MaterialRules.*;
 
 public interface WorldgenData {
 	static ResourceKey<Biome> nullscapeBiome(String id) {
@@ -818,7 +818,7 @@ public interface WorldgenData {
 		new Tuple2<>(THE_VOID, new Climate.ParameterPoint(point(0f), point(0f), point(0f), point(0f), point(2f), point(0f), 1))
 	);
 
-	RuleSource WILDS_DIRT_SEQUENCE = sequence(
+	MaterialRule WILDS_DIRT_SEQUENCE = sequence(
 		ifTrue(stoneDepthCheck(1, false, 0, CaveSurface.FLOOR),
 			ifTrue(noiseCondition2d(StellarityNoises.SURFACE, -1, 0.197555555),
 				sequence(
@@ -829,15 +829,14 @@ public interface WorldgenData {
 		)
 	);
 
-	RuleSource[] FOREST_DIRT_SEQUENCE = new RuleSource[]{ifTrue(stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
+	MaterialRule[] FOREST_DIRT_SEQUENCE = new MaterialRule[]{ifTrue(stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
 		state(ENDER_GRASS_BLOCK)
 	),
 		state(ENDER_DIRT)
 	};
 
 
-	static RuleSource stellaritySurfaceRules(HolderGetter<Biome> biomes) {
-		// for when biolith doesn't have support
+	static MaterialRule stellarityMaterialRules(HolderGetter<Biome> biomes) {
 		return sequence(
 			ifTrue(isBiome(biomes, END_WILDS, END_SHRUBLAND), WILDS_DIRT_SEQUENCE),
 			ifTrue(isBiome(biomes, FROZEN_SHRUBLAND),
@@ -868,7 +867,7 @@ public interface WorldgenData {
 				ifTrue(noiseCondition2d(StellarityNoises.SURFACE, 0.2, 0.4),
 					ifTrue(stoneDepthCheck(4, true, 2, CaveSurface.FLOOR), sequence(
 						ifTrue(noiseCondition2d(StellarityNoises.SURFACE, 0.25, 0.35),
-							SurfaceRules.state(from(BASALT))
+							state(from(BASALT))
 						),
 						state(SMOOTH_BASALT)
 					))
@@ -904,7 +903,7 @@ public interface WorldgenData {
 			ifTrue(isBiome(biomes, FLESH_TUNDRA),
 				ifTrue(stoneDepthCheck(2, false, 6, CaveSurface.FLOOR), sequence(
 					ifTrue(noiseCondition2d(StellarityNoises.SURFACE, -0.03, 0.02),
-						SurfaceRules.state(from(BASALT))
+						state(from(BASALT))
 					),
 					ifTrue(noiseCondition2d(StellarityNoises.SURFACE, -0.05, 0.04),
 						state(SMOOTH_BASALT)
@@ -989,14 +988,14 @@ public interface WorldgenData {
 		);
 	}
 
-	static RuleSource vanillaSurfaceRules(HolderGetter<Biome> biomes) {
+	static MaterialRule vanillaMaterialRules(HolderGetter<Biome> biomes) {
 
 		return sequence(
 			ifTrue(isBiome(biomes, END_MIDLANDS), WorldgenData.WILDS_DIRT_SEQUENCE),
 			ifTrue(isBiome(biomes, THE_END),
 				ifTrue(stoneDepthCheck(2, false, 6, CaveSurface.FLOOR), sequence(
 					ifTrue(noiseCondition2d(StellarityNoises.SURFACE, -0.03, 0.02),
-						SurfaceRules.state(from(BASALT))
+						state(from(BASALT))
 					),
 					ifTrue(noiseCondition2d(StellarityNoises.SURFACE, -0.05, 0.04),
 						state(SMOOTH_BASALT)

@@ -28,20 +28,21 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.saveddata.maps.MapDecorationType;
-import net.minecraft.world.level.storage.loot.IntRange;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.*;
 import net.minecraft.world.level.storage.loot.entries.*;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.*;
-import net.minecraft.world.level.storage.loot.providers.number.*;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
+import net.minecraft.world.level.storage.loot.providers.number.floats.EnchantmentLevelProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static dev.coder2195.stellarity.util.ValueUtil.*;
 
 public interface LootUtil {
 	static LootPool.Builder pool() {
@@ -88,13 +89,7 @@ public interface LootUtil {
 		return SetNameFunction.setName(text, target).build();
 	}
 
-	static Holder<NumberProvider> num(float num) {
-		return ConstantValue.exactly(num);
-	}
 
-	static Holder<NumberProvider> num(float min, float max) {
-		return UniformGenerator.between(min, max);
-	}
 
 	static Holder<LootItemFunction> sequence(List<Holder<LootItemFunction>> functions) {
 		return Holder.direct(SequenceFunction.of(functions));
@@ -109,35 +104,33 @@ public interface LootUtil {
 	}
 
 
-	static Holder<NumberProvider> binomial(int n, float p) {
-		return BinomialDistributionGenerator.binomial(n, p);
-	}
-
 	static UniformContainerBase.Builder<?> item(ItemLike i) {
 		return LootItem.lootTableItem(i);
 	}
 
-	static LootItemConditionalFunction.Builder<?> count(Holder<NumberProvider> provider) {
+
+
+	static LootItemConditionalFunction.Builder<?> count(Holder<ContextIntProvider> provider) {
 		return SetItemCountFunction.setCount(provider);
 	}
 
-	static LootItemConditionalFunction.Builder<?> count(float constant) {
+	static LootItemConditionalFunction.Builder<?> count(int constant) {
 		return SetItemCountFunction.setCount(num(constant));
 	}
 
-	static LootItemConditionalFunction.Builder<?> count(float min, float max) {
+	static LootItemConditionalFunction.Builder<?> count(int min, int max) {
 		return SetItemCountFunction.setCount(num(min, max));
 	}
 
-	static LootItemConditionalFunction.Builder<?> countAdd(Holder<NumberProvider> provider) {
+	static LootItemConditionalFunction.Builder<?> countAdd(Holder<ContextIntProvider> provider) {
 		return SetItemCountFunction.setCount(provider, true);
 	}
 
-	static LootItemConditionalFunction.Builder<?> countAdd(float constant) {
+	static LootItemConditionalFunction.Builder<?> countAdd(int constant) {
 		return SetItemCountFunction.setCount(num(constant), true);
 	}
 
-	static LootItemConditionalFunction.Builder<?> countAdd(float min, float max) {
+	static LootItemConditionalFunction.Builder<?> countAdd(int min, int max) {
 		return SetItemCountFunction.setCount(num(min, max), true);
 	}
 
@@ -146,7 +139,7 @@ public interface LootUtil {
 	}
 
 	static EnchantWithLevelsFunction.Builder enchant(HolderGetter<Enchantment> enchantments, int min, int max) {
-		return new EnchantWithLevelsFunction.Builder(num(min, max)).withOptions(enchantments.getOrThrow(EnchantmentTags.ON_RANDOM_LOOT));
+		return EnchantWithLevelsFunction.enchantWithLevels(enchantments, num(min, max));
 	}
 
 	static EnchantWithLevelsFunction.Builder enchant(HolderGetter.Provider provider, int min, int max) {
@@ -159,11 +152,11 @@ public interface LootUtil {
 	}
 
 	static LootItemConditionalFunction.Builder<?> damage(float damage) {
-		return SetItemDamageFunction.setDamage(num(damage));
+		return SetItemDamageFunction.setDamage(numf(damage));
 	}
 
 	static LootItemConditionalFunction.Builder<?> damage(float min, float max) {
-		return SetItemDamageFunction.setDamage(num(min, max));
+		return SetItemDamageFunction.setDamage(numf(min, max));
 	}
 
 
@@ -191,17 +184,12 @@ public interface LootUtil {
 		return BlockPredicate.Builder.block();
 	}
 
-	static Holder<LootItemCondition> valueCheck(Holder<NumberProvider> value, IntRange range) {
-		return Holder.direct(new ValueCheckCondition(value, range));
+	static Holder<LootItemCondition> floatValueCheck(Holder<ContextFloatProvider> value, FloatRangePredicate range) {
+		return Holder.direct(new FloatValueCheck(value, range));
 	}
 	
 	static EntryGroup.Builder group(LootPoolEntryContainer.Builder<?>... entries) {
 		return EntryGroup.list(entries);
-	}
-
-
-	static Holder<NumberProvider> enchantNum(LevelBasedValue amount) {
-		return EnchantmentLevelProvider.forEnchantmentLevel(amount);
 	}
 
 	static LootItemCondition.Builder enchantInactive() {
@@ -224,7 +212,7 @@ public interface LootUtil {
 		return new LevelBasedValue.Constant(level);
 	}
 
-	static LootItemCondition.Builder randomChance(Holder<NumberProvider> numberProvider) {
+	static LootItemCondition.Builder randomChance(Holder<ContextFloatProvider> numberProvider) {
 		return LootItemRandomChanceCondition.randomChance(numberProvider);
 	}
 
@@ -232,13 +220,20 @@ public interface LootUtil {
 		return LootItemRandomChanceCondition.randomChance(chance);
 	}
 
-
-	static IntRange intRange(int min, int max) {
-		return IntRange.range(min, max);
+	static FloatRangePredicate floatRange(float min, float max) {
+		return FloatRangePredicate.range(min, max);
 	}
 
-	static IntRange intRange(int constant) {
-		return IntRange.exact(constant);
+	static FloatRangePredicate floatRange(float constant) {
+		return FloatRangePredicate.exact(constant);
+	}
+
+	static FloatRangePredicate intRange(int min, int max) {
+		return FloatRangePredicate.range(min, max);
+	}
+
+	static FloatRangePredicate intRange(int constant) {
+		return FloatRangePredicate.exact(constant);
 	}
 
 	static <T extends Comparable<T> & StringRepresentable> StatePropertiesPredicate.Builder hasProperty(Property<@NonNull T> property, T value) {
@@ -274,7 +269,7 @@ public interface LootUtil {
 		return LootItemRandomChanceCondition.randomChance(chance);
 	}
 
-	static LootItemCondition.Builder chance(Holder<NumberProvider> numberProvider) {
+	static LootItemCondition.Builder chance(Holder<ContextFloatProvider> numberProvider) {
 		return LootItemRandomChanceCondition.randomChance(numberProvider);
 	}
 
@@ -336,11 +331,11 @@ public interface LootUtil {
 		return AnyOfCondition.anyOf(conditions);
 	}
 
-	static EnchantedCountIncreaseFunction.Builder enchantCount(Holder<Enchantment> enchant, Holder<NumberProvider> count) {
+	static EnchantedCountIncreaseFunction.Builder enchantCount(Holder<Enchantment> enchant, Holder<ContextFloatProvider> count) {
 		return new EnchantedCountIncreaseFunction.Builder(enchant, count);
 	}
 
-	static EnchantedCountIncreaseFunction.Builder enchantCount(HolderLookup.Provider provider, Holder<NumberProvider> count) {
+	static EnchantedCountIncreaseFunction.Builder enchantCount(HolderLookup.Provider provider, Holder<ContextFloatProvider> count) {
 		return EnchantedCountIncreaseFunction.lootingMultiplier( provider.lookupOrThrow(Registries.ENCHANTMENT), count);
 	}
 

@@ -8,7 +8,8 @@ import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -20,9 +21,9 @@ public interface VillagerTradeAccessor {
 	static VillagerTrade create(final TradeCost wants,
 	                            final Optional<TradeCost> additionalWants,
 	                            final ItemStackTemplate gives,
-	                            final Holder<NumberProvider> maxUses,
-	                            final Holder<NumberProvider> xp,
-	                            final Holder<NumberProvider> reputationDiscount,
+	                            final Holder<ContextIntProvider> maxUses,
+	                            final Holder<ContextIntProvider> xp,
+	                            final Holder<ContextFloatProvider> reputationDiscount,
 	                            final Optional<Holder<LootItemCondition>> merchantPredicate,
 	                            final Optional<Holder<LootItemFunction>> givenItemModifier,
 	                            final Optional<HolderSet<Enchantment>> doubleTradePriceEnchantments) {

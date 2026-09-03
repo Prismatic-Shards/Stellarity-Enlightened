@@ -16,8 +16,8 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouter;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.densityfunction.DensityFunction;
+import net.minecraft.world.level.levelgen.material.MaterialRules;
 
 import static dev.coder2195.stellarity.registry.StellarityDensityFunctions.*;
 
@@ -54,7 +54,7 @@ public class StellarityRegistryEntryModifications {
 		routerAccessor.stellarity$setRidges(ridges);
 
 		boolean usedNullscape = nullscapeFinalDensity != null && nullscapePreliminarySurfaceLevel != null;
-		routerAccessor.stellarity$setPreliminarySurfaceLevel(nullscapePreliminarySurfaceLevel == null ? preliminarySurfaceLevel : nullscapePreliminarySurfaceLevel);
+		routerAccessor.stellarity$setChunkSurfaceLevel(nullscapePreliminarySurfaceLevel == null ? preliminarySurfaceLevel : nullscapePreliminarySurfaceLevel);
 		routerAccessor.stellarity$setFinalDensity(nullscapeFinalDensity == null ? finalDensity : nullscapeFinalDensity);
 
 		Stellarity.LOGGER.info("MERGED! This is an important checkpoint as it could corrupt worlds without it. Used Nullscape: {}", usedNullscape);
@@ -118,9 +118,9 @@ public class StellarityRegistryEntryModifications {
 					try {
 
 						generatorSettingsAccessor.stellarity$setMaterialRule(Holder.direct(
-							SurfaceRules.sequence(
-								WorldgenData.stellaritySurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
-								WorldgenData.vanillaSurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+							MaterialRules.sequence(
+								WorldgenData.stellarityMaterialRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+								WorldgenData.vanillaMaterialRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
 								generatorSettings.materialRule().value()
 							)
 						));
@@ -172,9 +172,9 @@ public class StellarityRegistryEntryModifications {
 					try {
 						//noinspection DataFlowIssue
 						var cachedNoiseSettingsAccessor = (NoiseGeneratorSettingsAccessor) (Object) cachedNoiseSettings;
-						cachedNoiseSettingsAccessor.stellarity$setMaterialRule(Holder.direct(SurfaceRules.sequence(
-							WorldgenData.stellaritySurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
-							WorldgenData.vanillaSurfaceRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+						cachedNoiseSettingsAccessor.stellarity$setMaterialRule(Holder.direct(MaterialRules.sequence(
+							WorldgenData.stellarityMaterialRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
+							WorldgenData.vanillaMaterialRules(registryView.asRegistryAccess().lookupOrThrow(Registries.BIOME)),
 							cachedNoiseSettings.materialRule().value()
 						)));
 						Stellarity.LOGGER.info("biome registry is mature for surface rules (biome)");

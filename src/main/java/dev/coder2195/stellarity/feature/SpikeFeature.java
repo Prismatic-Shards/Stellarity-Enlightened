@@ -3,6 +3,7 @@ package dev.coder2195.stellarity.feature;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -18,7 +19,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 
 public record SpikeFeature(
-	BlockStateProvider stateProvider, Optional<BlockPredicate> canReplace, FloatProvider radius, FloatProvider height,
+	Holder<BlockStateProvider> stateProvider, Optional<BlockPredicate> canReplace, FloatProvider radius, FloatProvider height,
 	FloatProvider windX, FloatProvider windZ
 ) implements Feature {
 
@@ -47,6 +48,8 @@ public record SpikeFeature(
 		var decreaseFactor = radius / height;
 		var blockPos = new BlockPos.MutableBlockPos();
 
+		var stateProvider = this.stateProvider.value();
+
 		for (float y = originY; y < maxY; y++) {
 			var radiusSquared = Mth.square(currentRadius);
 			int xCap = Mth.ceil(currentRadius);
@@ -58,7 +61,7 @@ public record SpikeFeature(
 						continue;
 					blockPos.set(currentX + dx, y, currentZ + dz);
 					if (level.getBlockState(blockPos).isAir() || canReplace.map(c -> c.test(level, blockPos)).orElse(true))
-						level.setBlock(blockPos, this.stateProvider.getState(level, random, blockPos), Block.UPDATE_CLIENTS);
+						level.setBlock(blockPos, stateProvider.getState(level, random, blockPos), Block.UPDATE_CLIENTS);
 				}
 			}
 

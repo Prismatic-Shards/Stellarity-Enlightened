@@ -1,5 +1,9 @@
 package dev.coder2195.stellarity.util;
 
+import net.minecraft.util.ARGB;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+
 public interface ColorUtil {
 	/**
 	 * i dont do java doc usually but im sure someone is gonna use this wrong
@@ -46,6 +50,14 @@ public interface ColorUtil {
 
 	static int joinRgb(int r, int g, int b) {
 		return r << 16 | g << 8 | b;
+	}
+
+	static Vector3f vecColor(int color) {
+		return ARGB.vector3fFromRGB24(color);
+	}
+
+	static Vector4f vecAColor(int color) {
+		return ARGB.vector4fFromARGB32(color);
 	}
 
 }
