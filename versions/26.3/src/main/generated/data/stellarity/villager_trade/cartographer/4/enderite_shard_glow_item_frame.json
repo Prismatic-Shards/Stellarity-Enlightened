@@ -3,11 +3,11 @@
     "count": 2,
     "id": "minecraft:glow_item_frame"
   },
-  "max_uses": 8.0,
+  "max_uses": 8,
   "reputation_discount": 0.05,
   "wants": {
-    "count": 3.0,
+    "count": 3,
     "id": "stellarity:enderite_shard"
   },
-  "xp": 18.0
+  "xp": 18
 }

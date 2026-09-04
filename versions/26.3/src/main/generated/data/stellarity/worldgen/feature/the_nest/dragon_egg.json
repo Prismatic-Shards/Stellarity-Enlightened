@@ -1,7 +1,7 @@
 {
   "type": "stellarity:dragon_egg",
   "to_place": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "minecraft:obsidian",

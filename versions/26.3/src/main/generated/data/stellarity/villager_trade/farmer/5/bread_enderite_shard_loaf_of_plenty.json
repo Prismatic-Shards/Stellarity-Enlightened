@@ -1,20 +1,20 @@
 {
   "additional_wants": {
-    "count": 64.0,
+    "count": 64,
     "id": "stellarity:enderite_shard"
   },
   "gives": {
     "id": "stellarity:loaf_of_plenty"
   },
-  "max_uses": 2.0,
+  "max_uses": 2,
   "merchant_predicate": {
     "type": "minecraft:random_chance",
     "chance": 0.2
   },
   "reputation_discount": 0.2,
   "wants": {
-    "count": 10.0,
+    "count": 10,
     "id": "minecraft:bread"
   },
-  "xp": 50.0
+  "xp": 50
 }

@@ -2,17 +2,14 @@
   "type": "minecraft:geode",
   "blocks": {
     "alternate_inner_layer_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "minecraft:budding_amethyst"
+      "id": "minecraft:budding_amethyst"
     },
     "cannot_replace": "#stellarity:worldgen/amethyst_geode_invalid",
     "filling_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "minecraft:air"
+      "id": "minecraft:air"
     },
     "inner_layer_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "minecraft:amethyst_block"
+      "id": "minecraft:amethyst_block"
     },
     "inner_placements": [
       "minecraft:amethyst_cluster",
@@ -22,7 +19,7 @@
     ],
     "invalid_blocks": "#stellarity:worldgen/amethyst_geode_invalid",
     "middle_layer_provider": {
-      "type": "minecraft:weighted_state_provider",
+      "type": "minecraft:weighted",
       "entries": [
         {
           "data": "minecraft:calcite",
@@ -39,7 +36,7 @@
       ]
     },
     "outer_layer_provider": {
-      "type": "minecraft:weighted_state_provider",
+      "type": "minecraft:weighted",
       "entries": [
         {
           "data": "minecraft:calcite",

@@ -4,8 +4,10 @@
   "extra_bottom_block_chance": 0.0,
   "extra_edge_column_chance": 0.0,
   "ground_state": {
-    "type": "minecraft:simple_state_provider",
-    "state": "stellarity:ender_grass_block"
+    "id": "stellarity:ender_grass_block",
+    "properties": {
+      "snowy": "false"
+    }
   },
   "replaceable": "#stellarity:worldgen/end_stone",
   "surface": "floor",
@@ -14,14 +16,11 @@
     "feature": {
       "type": "minecraft:simple_block",
       "to_place": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:oak_leaves",
-          "properties": {
-            "distance": "7",
-            "persistent": "true",
-            "waterlogged": "false"
-          }
+        "id": "minecraft:oak_leaves",
+        "properties": {
+          "distance": "7",
+          "persistent": "true",
+          "waterlogged": "false"
         }
       }
     },

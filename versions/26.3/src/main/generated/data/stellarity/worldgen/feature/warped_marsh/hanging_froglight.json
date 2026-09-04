@@ -18,27 +18,26 @@
         "min_inclusive": 3
       },
       "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:cave_vines_plant"
-      }
-    },
-    {
-      "height": 1,
-      "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:cave_vines",
-          "properties": {
-            "age": "25",
-            "berries": "false"
-          }
+        "id": "minecraft:cave_vines_plant",
+        "properties": {
+          "berries": "false"
         }
       }
     },
     {
       "height": 1,
       "provider": {
-        "type": "minecraft:weighted_state_provider",
+        "id": "minecraft:cave_vines",
+        "properties": {
+          "age": "25",
+          "berries": "false"
+        }
+      }
+    },
+    {
+      "height": 1,
+      "provider": {
+        "type": "minecraft:weighted",
         "entries": [
           {
             "data": "minecraft:verdant_froglight",

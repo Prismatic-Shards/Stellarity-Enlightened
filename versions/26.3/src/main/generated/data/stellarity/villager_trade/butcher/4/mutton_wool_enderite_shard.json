@@ -2,23 +2,23 @@
   "additional_wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 10.0,
-      "min": 5.0
+      "max": 10,
+      "min": 5
     },
     "id": "minecraft:white_wool"
   },
   "gives": {
     "id": "stellarity:enderite_shard"
   },
-  "max_uses": 8.0,
+  "max_uses": 8,
   "reputation_discount": 0.05,
   "wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 10.0,
-      "min": 5.0
+      "max": 10,
+      "min": 5
     },
     "id": "minecraft:mutton"
   },
-  "xp": 20.0
+  "xp": 20
 }

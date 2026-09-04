@@ -2,8 +2,8 @@
   "additional_wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 60.0,
-      "min": 50.0
+      "max": 60,
+      "min": 50
     },
     "id": "stellarity:enderite_shard"
   },
@@ -34,10 +34,10 @@
   "gives": {
     "id": "minecraft:map"
   },
-  "max_uses": 1.0,
+  "max_uses": 1,
   "reputation_discount": 0.2,
   "wants": {
     "id": "minecraft:map"
   },
-  "xp": 40.0
+  "xp": 40
 }

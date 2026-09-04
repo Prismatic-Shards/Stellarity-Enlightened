@@ -2,8 +2,8 @@
   "additional_wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 22.0,
-      "min": 18.0
+      "max": 22,
+      "min": 18
     },
     "id": "stellarity:enderite_shard"
   },
@@ -22,5 +22,5 @@
   "wants": {
     "id": "minecraft:book"
   },
-  "xp": 12.0
+  "xp": 12
 }

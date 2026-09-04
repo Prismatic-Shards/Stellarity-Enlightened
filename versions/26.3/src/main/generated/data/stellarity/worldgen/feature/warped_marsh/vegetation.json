@@ -4,7 +4,7 @@
     "feature": {
       "type": "minecraft:simple_block",
       "to_place": {
-        "type": "minecraft:weighted_state_provider",
+        "type": "minecraft:weighted",
         "entries": [
           {
             "data": "minecraft:nether_sprouts",
@@ -76,7 +76,7 @@
         "feature": {
           "type": "minecraft:simple_block",
           "to_place": {
-            "type": "minecraft:noise_provider",
+            "type": "minecraft:noise",
             "noise": {
               "base_amplitude": 0.9494731054427981,
               "base_octave": -7,

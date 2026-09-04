@@ -40,7 +40,6 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(VillagerProfessionTagProvider::new);
 		pack.addProvider(ChestLootTableProvider::new);
 		pack.addProvider(EquipmentAssetProvider::new);
-		// todo: broken by fabric api
 		pack.addProvider(FishingLootTableProvider::new);
 		pack.addProvider(BlockLootTableProvider::new);
 		pack.addProvider(EntityLootTableProvider::new);

@@ -10,8 +10,8 @@
             "add": true,
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:book",
@@ -25,8 +25,8 @@
             "add": true,
             "count": {
               "type": "minecraft:uniform",
-              "max": 4.0,
-              "min": 1.0
+              "max": 4,
+              "min": 1
             }
           },
           "name": "minecraft:paper",
@@ -39,8 +39,8 @@
             "type": "minecraft:enchant_with_levels",
             "levels": {
               "type": "minecraft:uniform",
-              "max": 30.0,
-              "min": 20.0
+              "max": 30,
+              "min": 20
             },
             "options": "#minecraft:on_random_loot"
           },
@@ -54,8 +54,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 1.0
+              "max": 3,
+              "min": 1
             }
           },
           "name": "minecraft:obsidian",
@@ -67,8 +67,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:amethyst_shard",
@@ -77,8 +77,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 7.0,
-        "min": 5.0
+        "max": 7,
+        "min": 5
       }
     }
   ]

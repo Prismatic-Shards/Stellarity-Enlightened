@@ -11,7 +11,7 @@
     "min_inclusive": 5.0
   },
   "state_provider": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "minecraft:obsidian",

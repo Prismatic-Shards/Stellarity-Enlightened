@@ -4,7 +4,7 @@
   "extra_bottom_block_chance": 0.334,
   "extra_edge_column_chance": 0.556,
   "ground_state": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "minecraft:end_stone",
@@ -34,7 +34,7 @@
         "feature": {
           "type": "minecraft:simple_block",
           "to_place": {
-            "type": "minecraft:weighted_state_provider",
+            "type": "minecraft:weighted",
             "entries": [
               {
                 "data": {
@@ -93,8 +93,10 @@
             "feature": {
               "type": "minecraft:tree",
               "below_trunk_provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:bone_block"
+                "id": "minecraft:bone_block",
+                "properties": {
+                  "axis": "y"
+                }
               },
               "decorators": [],
               "foliage_placer": {
@@ -104,8 +106,7 @@
                 "radius": 0
               },
               "foliage_provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:air"
+                "id": "minecraft:air"
               },
               "ignore_vines": false,
               "minimum_size": {
@@ -118,8 +119,10 @@
                 "height_rand_b": 8
               },
               "trunk_provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:bone_block"
+                "id": "minecraft:bone_block",
+                "properties": {
+                  "axis": "y"
+                }
               }
             },
             "placement": []

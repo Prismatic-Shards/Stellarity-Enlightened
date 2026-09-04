@@ -3,15 +3,15 @@
     "count": 2,
     "id": "stellarity:fried_chorus_fruit"
   },
-  "max_uses": 8.0,
+  "max_uses": 8,
   "reputation_discount": 0.2,
   "wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 6.0,
-      "min": 5.0
+      "max": 6,
+      "min": 5
     },
     "id": "stellarity:enderite_shard"
   },
-  "xp": 15.0
+  "xp": 15
 }

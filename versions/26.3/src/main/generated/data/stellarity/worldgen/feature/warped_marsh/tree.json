@@ -4,8 +4,7 @@
     "feature": {
       "type": "minecraft:tree",
       "below_trunk_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:snow_block"
+        "id": "minecraft:snow_block"
       },
       "decorators": [
         {
@@ -20,8 +19,7 @@
         "radius": 1
       },
       "foliage_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:warped_wart_block"
+        "id": "minecraft:warped_wart_block"
       },
       "ignore_vines": false,
       "minimum_size": {
@@ -34,8 +32,10 @@
         "height_rand_b": 3
       },
       "trunk_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:warped_hyphae"
+        "id": "minecraft:warped_hyphae",
+        "properties": {
+          "axis": "y"
+        }
       }
     },
     "placement": []
@@ -50,13 +50,14 @@
             "type": "minecraft:true"
           },
           "cap_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "minecraft:warped_wart_block"
+            "id": "minecraft:warped_wart_block"
           },
           "foliage_radius": 1,
           "stem_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "minecraft:warped_stem"
+            "id": "minecraft:warped_stem",
+            "properties": {
+              "axis": "y"
+            }
           }
         },
         "placement": []
@@ -100,8 +101,7 @@
                 ]
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:twisting_vines_plant"
+                "id": "minecraft:twisting_vines_plant"
               }
             }
           ],

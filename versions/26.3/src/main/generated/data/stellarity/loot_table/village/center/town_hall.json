@@ -3,9 +3,12 @@
   "pools": [
     {
       "bonus_rolls": {
-        "type": "minecraft:binomial",
-        "n": 1.0,
-        "p": 0.25
+        "type": "minecraft:from_int",
+        "input": {
+          "type": "minecraft:binomial",
+          "n": 1,
+          "p": 0.25
+        }
       },
       "entries": [
         {
@@ -14,8 +17,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:iron_ingot",
@@ -27,8 +30,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:gold_ingot",
@@ -40,7 +43,7 @@
           "weight": 2
         }
       ],
-      "rolls": 3.0
+      "rolls": 3
     },
     {
       "entries": [
@@ -48,7 +51,7 @@
           "type": "minecraft:item",
           "modifier": {
             "type": "minecraft:set_count",
-            "count": 2.0
+            "count": 2
           },
           "name": "minecraft:wheat"
         },
@@ -58,8 +61,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:apple"
@@ -68,12 +71,12 @@
           "type": "minecraft:item",
           "modifier": {
             "type": "minecraft:set_count",
-            "count": 2.0
+            "count": 2
           },
           "name": "minecraft:bread"
         }
       ],
-      "rolls": 3.0
+      "rolls": 3
     },
     {
       "entries": [
@@ -83,8 +86,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 1.0
+              "max": 3,
+              "min": 1
             }
           },
           "name": "minecraft:leather"
@@ -95,8 +98,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:white_wool"
@@ -104,8 +107,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 3.0,
-        "min": 0.0
+        "max": 3,
+        "min": 0
       }
     },
     {
@@ -116,8 +119,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 6.0,
-              "min": 3.0
+              "max": 6,
+              "min": 3
             }
           },
           "name": "minecraft:iron_nugget"
@@ -128,14 +131,14 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 6.0,
-              "min": 3.0
+              "max": 6,
+              "min": 3
             }
           },
           "name": "minecraft:gold_nugget"
         }
       ],
-      "rolls": 2.0
+      "rolls": 2
     }
   ]
 }

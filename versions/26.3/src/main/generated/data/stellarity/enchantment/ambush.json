@@ -290,8 +290,8 @@
               }
             },
             {
-              "type": "minecraft:value_check",
-              "range": 1,
+              "type": "minecraft:float_value_check",
+              "test": 1.0,
               "value": {
                 "type": "minecraft:enchantment_level",
                 "amount": {
@@ -357,8 +357,8 @@
               }
             },
             {
-              "type": "minecraft:value_check",
-              "range": 2,
+              "type": "minecraft:float_value_check",
+              "test": 2.0,
               "value": {
                 "type": "minecraft:enchantment_level",
                 "amount": {
@@ -424,8 +424,8 @@
               }
             },
             {
-              "type": "minecraft:value_check",
-              "range": 3,
+              "type": "minecraft:float_value_check",
+              "test": 3.0,
               "value": {
                 "type": "minecraft:enchantment_level",
                 "amount": {

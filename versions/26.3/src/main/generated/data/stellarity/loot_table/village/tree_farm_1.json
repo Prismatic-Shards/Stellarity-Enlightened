@@ -9,8 +9,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:oak_log"
@@ -21,8 +21,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:oak_sapling"
@@ -33,8 +33,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 3.0
+              "max": 5,
+              "min": 3
             }
           },
           "name": "minecraft:oak_leaves"
@@ -42,8 +42,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     },
     {
@@ -54,8 +54,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:birch_log"
@@ -66,8 +66,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:birch_sapling"
@@ -78,8 +78,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 3.0
+              "max": 5,
+              "min": 3
             }
           },
           "name": "minecraft:birch_leaves"
@@ -87,8 +87,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     },
     {
@@ -99,8 +99,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:dark_oak_log"
@@ -111,8 +111,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:dark_oak_sapling"
@@ -123,8 +123,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 3.0
+              "max": 5,
+              "min": 3
             }
           },
           "name": "minecraft:dark_oak_leaves"
@@ -132,8 +132,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     },
     {
@@ -144,8 +144,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:pale_oak_log"
@@ -156,8 +156,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:pale_oak_sapling"
@@ -168,8 +168,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 3.0
+              "max": 5,
+              "min": 3
             }
           },
           "name": "minecraft:pale_oak_leaves"
@@ -177,8 +177,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     }
   ]

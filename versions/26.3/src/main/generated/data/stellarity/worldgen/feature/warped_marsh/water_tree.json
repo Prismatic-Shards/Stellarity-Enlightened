@@ -20,8 +20,14 @@
               "min_inclusive": 1
             },
             "provider": {
-              "type": "minecraft:simple_state_provider",
-              "state": "minecraft:dark_oak_fence"
+              "id": "minecraft:dark_oak_fence",
+              "properties": {
+                "east": "false",
+                "north": "false",
+                "south": "false",
+                "waterlogged": "false",
+                "west": "false"
+              }
             }
           },
           {
@@ -31,14 +37,11 @@
               "min_inclusive": 1
             },
             "provider": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "id": "minecraft:mangrove_leaves",
-                "properties": {
-                  "distance": "7",
-                  "persistent": "true",
-                  "waterlogged": "false"
-                }
+              "id": "minecraft:mangrove_leaves",
+              "properties": {
+                "distance": "7",
+                "persistent": "true",
+                "waterlogged": "false"
               }
             }
           }
@@ -66,8 +69,14 @@
               "min_inclusive": 1
             },
             "provider": {
-              "type": "minecraft:simple_state_provider",
-              "state": "minecraft:spruce_fence"
+              "id": "minecraft:spruce_fence",
+              "properties": {
+                "east": "false",
+                "north": "false",
+                "south": "false",
+                "waterlogged": "false",
+                "west": "false"
+              }
             }
           },
           {
@@ -77,14 +86,11 @@
               "min_inclusive": 1
             },
             "provider": {
-              "type": "minecraft:simple_state_provider",
-              "state": {
-                "id": "minecraft:oak_leaves",
-                "properties": {
-                  "distance": "7",
-                  "persistent": "true",
-                  "waterlogged": "false"
-                }
+              "id": "minecraft:oak_leaves",
+              "properties": {
+                "distance": "7",
+                "persistent": "true",
+                "waterlogged": "false"
               }
             }
           }

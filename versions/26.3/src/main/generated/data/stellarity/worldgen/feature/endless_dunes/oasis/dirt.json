@@ -7,7 +7,7 @@
     "min_inclusive": 6
   },
   "state_provider": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "stellarity:coarse_ender_dirt",

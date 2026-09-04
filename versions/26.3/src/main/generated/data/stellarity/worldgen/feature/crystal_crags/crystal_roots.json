@@ -8,8 +8,7 @@
     "feature": {
       "type": "minecraft:simple_block",
       "to_place": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:amethyst_block"
+        "id": "minecraft:amethyst_block"
       }
     },
     "placement": []
@@ -17,8 +16,11 @@
   "hanging_root_placement_attempts": 15,
   "hanging_root_radius": 3,
   "hanging_root_state_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:amethyst_cluster"
+    "id": "minecraft:amethyst_cluster",
+    "properties": {
+      "facing": "up",
+      "waterlogged": "false"
+    }
   },
   "hanging_roots_vertical_span": 2,
   "level_test_distance": 3,
@@ -29,7 +31,6 @@
   "root_radius": 3,
   "root_replaceable": "#stellarity:worldgen/stalactite_replaceable",
   "root_state_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:amethyst_block"
+    "id": "minecraft:amethyst_block"
   }
 }

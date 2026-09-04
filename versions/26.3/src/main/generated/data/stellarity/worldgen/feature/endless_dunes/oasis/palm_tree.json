@@ -1,8 +1,7 @@
 {
   "type": "minecraft:tree",
   "below_trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "stellarity:rooted_ender_dirt"
+    "id": "stellarity:rooted_ender_dirt"
   },
   "decorators": [
     {
@@ -12,8 +11,7 @@
     {
       "type": "minecraft:attached_to_leaves",
       "block_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:shroomlight"
+        "id": "minecraft:shroomlight"
       },
       "directions": [
         "down"
@@ -40,14 +38,11 @@
     }
   },
   "foliage_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": {
-      "id": "minecraft:jungle_leaves",
-      "properties": {
-        "distance": "7",
-        "persistent": "true",
-        "waterlogged": "false"
-      }
+    "id": "minecraft:jungle_leaves",
+    "properties": {
+      "distance": "7",
+      "persistent": "true",
+      "waterlogged": "false"
     }
   },
   "ignore_vines": false,
@@ -61,7 +56,9 @@
     "height_rand_b": 2
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:jungle_log"
+    "id": "minecraft:jungle_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

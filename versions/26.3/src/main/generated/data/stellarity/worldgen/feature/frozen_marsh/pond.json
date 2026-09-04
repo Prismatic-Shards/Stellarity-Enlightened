@@ -11,8 +11,7 @@
       "extra_bottom_block_chance": 0.6,
       "extra_edge_column_chance": 0.4,
       "ground_state": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:snow_block"
+        "id": "minecraft:snow_block"
       },
       "replaceable": "#stellarity:worldgen/frozen_marsh/pond_replaceable",
       "surface": "floor",
@@ -44,8 +43,7 @@
           "extra_bottom_block_chance": 0.8,
           "extra_edge_column_chance": 0.7,
           "ground_state": {
-            "type": "minecraft:simple_state_provider",
-            "state": "minecraft:white_concrete_powder"
+            "id": "minecraft:white_concrete_powder"
           },
           "replaceable": "#stellarity:worldgen/frozen_marsh/pond_replaceable",
           "surface": "floor",

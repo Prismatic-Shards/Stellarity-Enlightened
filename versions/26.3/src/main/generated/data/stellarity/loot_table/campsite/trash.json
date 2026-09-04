@@ -9,8 +9,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:stick"
@@ -21,8 +21,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:paper"
@@ -33,8 +33,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 4.0,
-              "min": 2.0
+              "max": 4,
+              "min": 2
             }
           },
           "name": "minecraft:feather"
@@ -45,8 +45,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 4.0,
-              "min": 2.0
+              "max": 4,
+              "min": 2
             }
           },
           "name": "minecraft:gold_nugget"
@@ -57,8 +57,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "stellarity:coarse_ender_dirt"
@@ -69,8 +69,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 5.0,
-              "min": 2.0
+              "max": 5,
+              "min": 2
             }
           },
           "name": "minecraft:bone_meal"
@@ -94,8 +94,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 7.0,
-        "min": 4.0
+        "max": 7,
+        "min": 4
       }
     }
   ]

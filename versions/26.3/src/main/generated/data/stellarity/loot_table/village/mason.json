@@ -9,8 +9,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:brick",
@@ -22,8 +22,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 4.0,
-              "min": 2.0
+              "max": 4,
+              "min": 2
             }
           },
           "name": "minecraft:clay_ball",
@@ -36,8 +36,8 @@
             "add": true,
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 2.0
+              "max": 3,
+              "min": 2
             }
           },
           "name": "minecraft:end_stone",
@@ -49,8 +49,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 4.0,
-              "min": 3.0
+              "max": 4,
+              "min": 3
             }
           },
           "name": "minecraft:end_stone_bricks",
@@ -71,8 +71,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 7.0,
-        "min": 5.0
+        "max": 7,
+        "min": 5
       }
     }
   ]

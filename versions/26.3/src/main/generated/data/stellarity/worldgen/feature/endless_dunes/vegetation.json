@@ -4,7 +4,7 @@
     "feature": {
       "type": "minecraft:simple_block",
       "to_place": {
-        "type": "minecraft:weighted_state_provider",
+        "type": "minecraft:weighted",
         "entries": [
           {
             "data": "minecraft:dead_bush",
@@ -75,8 +75,7 @@
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:end_stone"
+                "id": "minecraft:end_stone"
               }
             },
             {
@@ -86,25 +85,24 @@
                 "min_inclusive": 0
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:chorus_plant",
-                  "properties": {
-                    "down": "true",
-                    "east": "false",
-                    "north": "false",
-                    "south": "false",
-                    "up": "true",
-                    "west": "false"
-                  }
+                "id": "minecraft:chorus_plant",
+                "properties": {
+                  "down": "true",
+                  "east": "false",
+                  "north": "false",
+                  "south": "false",
+                  "up": "true",
+                  "west": "false"
                 }
               }
             },
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:chorus_flower"
+                "id": "minecraft:chorus_flower",
+                "properties": {
+                  "age": "0"
+                }
               }
             }
           ],

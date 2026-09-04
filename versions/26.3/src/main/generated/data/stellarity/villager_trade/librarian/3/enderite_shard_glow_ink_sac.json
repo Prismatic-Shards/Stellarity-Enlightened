@@ -2,10 +2,10 @@
   "gives": {
     "id": "minecraft:glow_ink_sac"
   },
-  "max_uses": 6.0,
+  "max_uses": 6,
   "reputation_discount": 0.05,
   "wants": {
     "id": "stellarity:enderite_shard"
   },
-  "xp": 5.0
+  "xp": 5
 }

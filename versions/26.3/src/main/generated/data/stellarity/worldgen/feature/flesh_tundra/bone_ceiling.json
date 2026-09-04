@@ -13,8 +13,10 @@
         "min_inclusive": 9
       },
       "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:bone_block"
+        "id": "minecraft:bone_block",
+        "properties": {
+          "axis": "y"
+        }
       }
     },
     {
@@ -32,13 +34,10 @@
         ]
       },
       "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:soul_lantern",
-          "properties": {
-            "hanging": "true",
-            "waterlogged": "false"
-          }
+        "id": "minecraft:soul_lantern",
+        "properties": {
+          "hanging": "true",
+          "waterlogged": "false"
         }
       }
     }

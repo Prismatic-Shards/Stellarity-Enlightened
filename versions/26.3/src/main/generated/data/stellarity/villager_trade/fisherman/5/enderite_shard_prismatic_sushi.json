@@ -6,10 +6,10 @@
   "wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 20.0,
-      "min": 14.0
+      "max": 20,
+      "min": 14
     },
     "id": "stellarity:enderite_shard"
   },
-  "xp": 15.0
+  "xp": 15
 }

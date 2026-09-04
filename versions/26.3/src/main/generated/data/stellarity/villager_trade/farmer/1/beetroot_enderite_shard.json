@@ -2,15 +2,15 @@
   "gives": {
     "id": "stellarity:enderite_shard"
   },
-  "max_uses": 10.0,
+  "max_uses": 10,
   "reputation_discount": 0.05,
   "wants": {
     "count": {
       "type": "minecraft:uniform",
-      "max": 25.0,
-      "min": 15.0
+      "max": 25,
+      "min": 15
     },
     "id": "minecraft:beetroot"
   },
-  "xp": 2.0
+  "xp": 2
 }

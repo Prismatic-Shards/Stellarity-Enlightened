@@ -21,16 +21,13 @@
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "true",
-                    "south": "false",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "true",
+                  "south": "false",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             },
@@ -41,16 +38,13 @@
                 "min_inclusive": 12
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "true",
-                    "south": "false",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "true",
+                  "south": "false",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             }
@@ -79,16 +73,13 @@
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "false",
-                    "south": "true",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "false",
+                  "south": "true",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             },
@@ -99,16 +90,13 @@
                 "min_inclusive": 12
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "false",
-                    "south": "true",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "false",
+                  "south": "true",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             }
@@ -137,16 +125,13 @@
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "true",
-                    "north": "false",
-                    "south": "false",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "true",
+                  "north": "false",
+                  "south": "false",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             },
@@ -157,16 +142,13 @@
                 "min_inclusive": 12
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "true",
-                    "north": "false",
-                    "south": "false",
-                    "up": "false",
-                    "west": "false"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "true",
+                  "north": "false",
+                  "south": "false",
+                  "up": "false",
+                  "west": "false"
                 }
               }
             }
@@ -195,16 +177,13 @@
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "false",
-                    "south": "false",
-                    "up": "false",
-                    "west": "true"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "false",
+                  "south": "false",
+                  "up": "false",
+                  "west": "true"
                 }
               }
             },
@@ -215,16 +194,13 @@
                 "min_inclusive": 12
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                  "id": "minecraft:vine",
-                  "properties": {
-                    "east": "false",
-                    "north": "false",
-                    "south": "false",
-                    "up": "false",
-                    "west": "true"
-                  }
+                "id": "minecraft:vine",
+                "properties": {
+                  "east": "false",
+                  "north": "false",
+                  "south": "false",
+                  "up": "false",
+                  "west": "true"
                 }
               }
             }
@@ -284,18 +260,19 @@
                 ]
               },
               "provider": {
-                "type": "minecraft:simple_state_provider",
-                "state": "minecraft:weeping_vines_plant"
+                "id": "minecraft:weeping_vines_plant"
               }
             },
             {
               "height": 1,
               "provider": {
-                "type": "minecraft:randomized_int_state_provider",
+                "type": "minecraft:randomized_int",
                 "property": "age",
                 "source": {
-                  "type": "minecraft:simple_state_provider",
-                  "state": "minecraft:weeping_vines"
+                  "id": "minecraft:weeping_vines",
+                  "properties": {
+                    "age": "0"
+                  }
                 },
                 "values": {
                   "type": "minecraft:uniform",

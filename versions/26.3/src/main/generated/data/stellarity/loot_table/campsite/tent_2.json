@@ -9,14 +9,14 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 3.0,
-              "min": 1.0
+              "max": 3,
+              "min": 1
             }
           },
           "name": "stellarity:enderite_shard"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -31,8 +31,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "minecraft:emerald",
@@ -49,8 +49,8 @@
             "type": "minecraft:enchant_with_levels",
             "levels": {
               "type": "minecraft:uniform",
-              "max": 40.0,
-              "min": 30.0
+              "max": 40,
+              "min": 30
             },
             "options": "#minecraft:on_random_loot"
           },
@@ -58,7 +58,7 @@
           "quality": 1
         }
       ],
-      "rolls": 2.0
+      "rolls": 2
     },
     {
       "entries": [
@@ -88,8 +88,8 @@
           },
           "levels": {
             "type": "minecraft:uniform",
-            "max": 32.0,
-            "min": 20.0
+            "max": 32,
+            "min": 20
           },
           "options": "#minecraft:on_random_loot"
         },
@@ -141,7 +141,7 @@
           }
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -187,8 +187,8 @@
           },
           "levels": {
             "type": "minecraft:uniform",
-            "max": 32.0,
-            "min": 20.0
+            "max": 32,
+            "min": 20
           },
           "options": "#minecraft:on_random_loot"
         },
@@ -203,8 +203,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
-        "min": 1.0
+        "max": 2,
+        "min": 1
       }
     },
     {
@@ -215,14 +215,14 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 18.0,
-              "min": 9.0
+              "max": 18,
+              "min": 9
             }
           },
           "name": "minecraft:arrow"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
       "entries": [
@@ -250,8 +250,8 @@
             "type": "minecraft:set_count",
             "count": {
               "type": "minecraft:uniform",
-              "max": 2.0,
-              "min": 1.0
+              "max": 2,
+              "min": 1
             }
           },
           "name": "stellarity:chorus_pie",
@@ -286,8 +286,8 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 3.0,
-        "min": 2.0
+        "max": 3,
+        "min": 2
       }
     }
   ]

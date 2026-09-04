@@ -1,8 +1,10 @@
 {
   "type": "minecraft:tree",
   "below_trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:cherry_wood"
+    "id": "minecraft:cherry_wood",
+    "properties": {
+      "axis": "y"
+    }
   },
   "decorators": [
     {
@@ -12,14 +14,11 @@
     {
       "type": "minecraft:attached_to_leaves",
       "block_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:acacia_leaves",
-          "properties": {
-            "distance": "1",
-            "persistent": "true",
-            "waterlogged": "false"
-          }
+        "id": "minecraft:acacia_leaves",
+        "properties": {
+          "distance": "1",
+          "persistent": "true",
+          "waterlogged": "false"
         }
       },
       "directions": [
@@ -42,7 +41,7 @@
     "radius": 0
   },
   "foliage_provider": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "stellarity:rooted_ender_dirt",
@@ -65,7 +64,9 @@
     "height_rand_b": 0
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:cherry_wood"
+    "id": "minecraft:cherry_wood",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

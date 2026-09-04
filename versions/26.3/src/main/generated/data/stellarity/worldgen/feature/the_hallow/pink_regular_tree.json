@@ -1,8 +1,7 @@
 {
   "type": "minecraft:tree",
   "below_trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "stellarity:ender_dirt"
+    "id": "stellarity:ender_dirt"
   },
   "decorators": [
     {
@@ -20,20 +19,20 @@
             "min_inclusive": 4
           },
           "provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "minecraft:iron_chain"
+            "id": "minecraft:iron_chain",
+            "properties": {
+              "axis": "y",
+              "waterlogged": "false"
+            }
           }
         },
         {
           "height": 1,
           "provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "id": "minecraft:lantern",
-              "properties": {
-                "hanging": "true",
-                "waterlogged": "false"
-              }
+            "id": "minecraft:lantern",
+            "properties": {
+              "hanging": "true",
+              "waterlogged": "false"
             }
           }
         }
@@ -55,7 +54,7 @@
     }
   },
   "foliage_provider": {
-    "type": "minecraft:weighted_state_provider",
+    "type": "minecraft:weighted",
     "entries": [
       {
         "data": "minecraft:pink_wool",
@@ -76,8 +75,10 @@
     "above_root_placement": {
       "above_root_placement_chance": 0.5,
       "above_root_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:stripped_birch_wood"
+        "id": "minecraft:stripped_birch_wood",
+        "properties": {
+          "axis": "y"
+        }
       }
     },
     "mangrove_root_placement": {
@@ -86,14 +87,15 @@
       "max_root_width": 1,
       "muddy_roots_in": "#stellarity:worldgen/dirt",
       "muddy_roots_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:stone"
+        "id": "minecraft:stone"
       },
       "random_skew_chance": 0.1
     },
     "root_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": "minecraft:stripped_birch_wood"
+      "id": "minecraft:stripped_birch_wood",
+      "properties": {
+        "axis": "y"
+      }
     },
     "trunk_offset_y": 0
   },
@@ -104,7 +106,9 @@
     "height_rand_b": 9
   },
   "trunk_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:stripped_birch_log"
+    "id": "minecraft:stripped_birch_log",
+    "properties": {
+      "axis": "y"
+    }
   }
 }

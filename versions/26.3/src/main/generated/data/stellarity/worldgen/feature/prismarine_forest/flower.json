@@ -1,7 +1,7 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "type": "minecraft:dual_noise_provider",
+    "type": "minecraft:dual_noise",
     "noise": {
       "base_amplitude": 0.9381732587751008,
       "base_octave": -2,

@@ -1,7 +1,6 @@
 {
   "type": "minecraft:block_pile",
   "state_provider": {
-    "type": "minecraft:simple_state_provider",
-    "state": "minecraft:light_gray_concrete_powder"
+    "id": "minecraft:light_gray_concrete_powder"
   }
 }

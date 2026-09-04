@@ -4,8 +4,7 @@
     "feature": {
       "type": "minecraft:tree",
       "below_trunk_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "stellarity:ender_dirt"
+        "id": "stellarity:ender_dirt"
       },
       "decorators": [],
       "foliage_placer": {
@@ -16,14 +15,11 @@
         "radius": 3
       },
       "foliage_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:oak_leaves",
-          "properties": {
-            "distance": "7",
-            "persistent": "true",
-            "waterlogged": "false"
-          }
+        "id": "minecraft:oak_leaves",
+        "properties": {
+          "distance": "7",
+          "persistent": "true",
+          "waterlogged": "false"
         }
       },
       "ignore_vines": false,
@@ -39,8 +35,10 @@
         "height_rand_b": 0
       },
       "trunk_provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:stripped_jungle_log"
+        "id": "minecraft:stripped_jungle_log",
+        "properties": {
+          "axis": "y"
+        }
       }
     },
     "placement": []
@@ -52,8 +50,7 @@
         "feature": {
           "type": "minecraft:tree",
           "below_trunk_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "stellarity:ender_dirt"
+            "id": "stellarity:ender_dirt"
           },
           "decorators": [],
           "foliage_placer": {
@@ -64,14 +61,11 @@
             "radius": 3
           },
           "foliage_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": {
-              "id": "minecraft:cherry_leaves",
-              "properties": {
-                "distance": "7",
-                "persistent": "true",
-                "waterlogged": "false"
-              }
+            "id": "minecraft:cherry_leaves",
+            "properties": {
+              "distance": "7",
+              "persistent": "true",
+              "waterlogged": "false"
             }
           },
           "ignore_vines": false,
@@ -87,8 +81,10 @@
             "height_rand_b": 0
           },
           "trunk_provider": {
-            "type": "minecraft:simple_state_provider",
-            "state": "minecraft:stripped_jungle_log"
+            "id": "minecraft:stripped_jungle_log",
+            "properties": {
+              "axis": "y"
+            }
           }
         },
         "placement": []

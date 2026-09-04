@@ -2,11 +2,11 @@
   "gives": {
     "id": "stellarity:shepherds_pie"
   },
-  "max_uses": 2.0,
+  "max_uses": 2,
   "reputation_discount": 0.2,
   "wants": {
-    "count": 44.0,
+    "count": 44,
     "id": "stellarity:enderite_shard"
   },
-  "xp": 50.0
+  "xp": 50
 }

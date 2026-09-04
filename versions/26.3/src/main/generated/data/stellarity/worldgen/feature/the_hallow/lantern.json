@@ -18,20 +18,20 @@
         "min_inclusive": 4
       },
       "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": "minecraft:iron_chain"
+        "id": "minecraft:iron_chain",
+        "properties": {
+          "axis": "y",
+          "waterlogged": "false"
+        }
       }
     },
     {
       "height": 1,
       "provider": {
-        "type": "minecraft:simple_state_provider",
-        "state": {
-          "id": "minecraft:lantern",
-          "properties": {
-            "hanging": "true",
-            "waterlogged": "false"
-          }
+        "id": "minecraft:lantern",
+        "properties": {
+          "hanging": "true",
+          "waterlogged": "false"
         }
       }
     }
