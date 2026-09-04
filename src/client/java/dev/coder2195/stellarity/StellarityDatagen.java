@@ -24,8 +24,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		FabricDataGenerator.Pack pack = generator.createPack();
-
-
+		
 		pack.addProvider(DynamicRegistriesProvider::new);
 		pack.addProvider(ModelProvider::new);
 		pack.addProvider(AdvancementProvider::new);

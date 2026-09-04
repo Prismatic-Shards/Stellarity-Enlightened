@@ -5,10 +5,7 @@ import net.minecraft.advancements.predicates.*;
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderSet;
+import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,7 +31,6 @@ import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
-import net.minecraft.world.level.storage.loot.providers.number.floats.EnchantmentLevelProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 import org.jspecify.annotations.NonNull;
 
@@ -164,7 +160,11 @@ public interface LootUtil {
 		return NestedLootTable.lootTableReference(table);
 	}
 
-	static UniformContainerBase.Builder<?> lootTable(HolderGetter.Provider provider, ResourceKey<LootTable> table) {
+	static UniformContainerBase.Builder<?> lootTable(HolderOwner<LootTable> lookup, ResourceKey<LootTable> table) {
+		return lootTable(Holder.Reference.createStandAlone(lookup, table));
+	}
+
+	static UniformContainerBase.Builder<?> lootTableBound(HolderGetter.Provider provider, ResourceKey<LootTable> table) {
 		return lootTable(provider.getOrThrow(table));
 	}
 
@@ -343,8 +343,12 @@ public interface LootUtil {
 		return LootItemKilledByPlayerCondition.killedByPlayer();
 	}
 
+	static LootItemCondition.Builder chanceEnchanted(HolderGetter<Enchantment> enchantments, float chance, float perLevel) {
+		return LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(enchantments, chance, perLevel);
+	}
+
 	static LootItemCondition.Builder chanceEnchanted(HolderGetter.Provider provider, float chance, float perLevel) {
-		return LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(provider.getOrThrow(Registries.ENCHANTMENT).value(), chance, perLevel);
+		return chanceEnchanted(provider.lookupOrThrow(Registries.ENCHANTMENT), chance, perLevel);
 	}
 
 

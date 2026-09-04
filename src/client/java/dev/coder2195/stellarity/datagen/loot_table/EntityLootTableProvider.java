@@ -1,21 +1,22 @@
 package dev.coder2195.stellarity.datagen.loot_table;
 
+import dev.coder2195.stellarity.registry.StellarityBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.MobEffectsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.storage.loot.LootContext;
-import dev.coder2195.stellarity.registry.StellarityBiomes;
 
 import java.util.concurrent.CompletableFuture;
 
-import static dev.coder2195.stellarity.util.ValueUtil.*;
-import static net.minecraft.world.item.Items.*;
 import static dev.coder2195.stellarity.registry.StellarityEntityTypes.*;
 import static dev.coder2195.stellarity.registry.StellarityItems.STARLIGHT_SOOT;
 import static dev.coder2195.stellarity.util.LootUtil.*;
+import static dev.coder2195.stellarity.util.ValueUtil.num;
+import static dev.coder2195.stellarity.util.ValueUtil.numf;
+import static net.minecraft.world.item.Items.*;
 
 public class EntityLootTableProvider extends FabricEntityLootSubProvider {
 	private final CompletableFuture<HolderLookup.Provider> registryLookup;

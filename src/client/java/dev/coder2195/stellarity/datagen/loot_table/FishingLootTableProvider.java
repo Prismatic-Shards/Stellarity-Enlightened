@@ -37,26 +37,27 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 	@Override
 	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 		var lookup = registryLookup.join();
+		var lootTables = lookup.lookupOrThrow(Registries.LOOT_TABLE);
 		consumer.accept(VOID_FISHING_FISH, lootTable().withPool(pool()
 			.add(item(ENDER_KOI).setWeight(15).apply(count(2, 4)))
 			.add(item(CRYSTAL_HEARTFISH).setWeight(4))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_THE_HALLOW).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.THE_HALLOW))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_FLESH_TUNDRA).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FLESH_TUNDRA))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_WARPED_MARSH).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.WARPED_MARSH))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_ENDLESS_DUNES).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.ENDLESS_DUNES))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_FROZEN_SPIKES).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FROZEN_SPIKES))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_VANILLA_BIOMES).when(any(
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_THE_HALLOW).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.THE_HALLOW))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_FLESH_TUNDRA).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FLESH_TUNDRA))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_WARPED_MARSH).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.WARPED_MARSH))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_ENDLESS_DUNES).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.ENDLESS_DUNES))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_FROZEN_SPIKES).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FROZEN_SPIKES))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_VANILLA_BIOMES).when(any(
 				biome(lookup.getOrThrow(Biomes.END_BARRENS)),
 				biome(lookup.getOrThrow(Biomes.END_HIGHLANDS)),
 				biome(lookup.getOrThrow(Biomes.END_MIDLANDS)),
 				biome(lookup.getOrThrow(Biomes.SMALL_END_ISLANDS))
 			)))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_FIERY_HILLS).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FIERY_HILLS))))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_AMETHYST_BIOMES).when(any(
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_FIERY_HILLS).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.FIERY_HILLS))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_AMETHYST_BIOMES).when(any(
 				biome(lookup.getOrThrow(StellarityBiomes.AMETHYST_FOREST)),
 				biome(lookup.getOrThrow(StellarityBiomes.CRYSTAL_CRAGS))
 			)))
-			.add(lootTable(lookup, VOID_FISHING_LOCATION_PRISMARINE_FOREST).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.PRISMARINE_FOREST))))
+			.add(lootTable(lootTables, VOID_FISHING_LOCATION_PRISMARINE_FOREST).setWeight(30).when(biome(lookup.getOrThrow(StellarityBiomes.PRISMARINE_FOREST))))
 		));
 
 		consumer.accept(VOID_FISHING_JUNK, lootTable().withPool(pool()
@@ -106,9 +107,9 @@ public class FishingLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 
 		consumer.accept(VOID_FISHING_EVENT, lootTable().withPool(pool()
-			.add(lootTable(lookup, VOID_FISHING_JUNK).setWeight(15).setQuality(-2))
-			.add(lootTable(lookup, VOID_FISHING_TREASURE).setWeight(4).setQuality(2))
-			.add(lootTable(lookup, VOID_FISHING_FISH).setWeight(70).setQuality(-1))
+			.add(lootTable(lootTables, VOID_FISHING_JUNK).setWeight(15).setQuality(-2))
+			.add(lootTable(lootTables, VOID_FISHING_TREASURE).setWeight(4).setQuality(2))
+			.add(lootTable(lootTables, VOID_FISHING_FISH).setWeight(70).setQuality(-1))
 		));
 
 		consumer.accept(VOID_FISHING_LOCATION_AMETHYST_BIOMES, lootTable().withPool(pool()
