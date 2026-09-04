@@ -7,9 +7,9 @@ import net.minecraft.world.level.levelgen.feature.LargeDripstoneFeature;
 import static dev.coder2195.stellarity.util.ValueUtil.from;
 
 public interface ExtLargeDripstoneFeature extends ExtLargeDripstone {
-	static LargeDripstoneFeature apply(LargeDripstoneFeature config, BlockState blockState) {
-		config.stellarity$setBlockState(blockState);
-		return config;
+	static LargeDripstoneFeature apply(LargeDripstoneFeature feature, BlockState blockState) {
+		feature.stellarity$setBlockState(blockState);
+		return feature;
 	}
 
 	static LargeDripstoneFeature applyDefaults(LargeDripstoneFeature config) {

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:large_dripstone",
-  "block_state": "minecraft:packed_ice",
   "column_radius": {
     "type": "minecraft:uniform",
     "max_inclusive": 8,
@@ -26,6 +25,7 @@
     "max_exclusive": 0.3,
     "min_inclusive": 0.1
   },
+  "stellarity:block_state": "minecraft:packed_ice",
   "wind_speed": {
     "type": "minecraft:trapezoid",
     "max": 0.06,

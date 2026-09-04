@@ -48,8 +48,8 @@ public interface StellarityNoises {
 		context.register(MAIN_ISLAND_N2, NormalNoise.createParity(-14, 1.0));
 		context.register(MAIN_ISLAND_N4, NormalNoise.createParity(-14, 1.0));
 		context.register(MAIN_ISLAND_SURFACE, NormalNoise.createParity(-3, 1, 1, 1, 1, 1));
-		context.register(MAIN_ISLAND_EDGES_3, NormalNoise.createParity(-5, -1, 0.5, 1.5, 0));
-		context.register(MAIN_ISLAND_EDGES_1, NormalNoise.createParity(-7, 1.5, -0.2, 1, 0, 0));
+		context.register(MAIN_ISLAND_EDGES_3, NormalNoise.createParity(-5, 0, 0.5, 1.5, 0));
+		context.register(MAIN_ISLAND_EDGES_1, NormalNoise.createParity(-7, 1.5, 0, 1, 0, 0));
 		context.register(MAIN_ISLAND_SHIFT_Y, NormalNoise.createParity(-6, 1));
 		context.register(MAIN_ISLAND_EDGES_2, NormalNoise.createParity(-6, 1, 2, 1, 0, 0));
 		context.register(MAIN_ISLAND_SHAPER_1, NormalNoise.createParity(-4, 1));

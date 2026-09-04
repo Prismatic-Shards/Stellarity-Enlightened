@@ -1,10 +1,10 @@
 {
-  "type": "cache_once",
-  "argument": {
+  "type": "cache",
+  "input": {
     "type": "add",
-    "argument1": {
-      "type": "end_islands"
+    "left": {
+      "type": "minecraft:end_outer_islands"
     },
-    "argument2": 0.3
+    "right": 0.3
   }
 }

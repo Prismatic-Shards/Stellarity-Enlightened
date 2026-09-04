@@ -2,7 +2,8 @@
 
 Compatibility update along with general additions of armor and recipes
 
-
+## Versions
+**[*] 26.2 -> 26.3**
 
 # Developer's Note
 

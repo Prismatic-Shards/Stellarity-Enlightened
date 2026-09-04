@@ -5,6 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.coder2195.stellarity.interface_injection.ExtLargeDripstone;
 import dev.coder2195.stellarity.interface_injection.ExtLargeDripstoneFeature;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.LargeDripstoneFeature;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,7 +34,7 @@ public class LargeDripstoneFeatureMixin implements ExtLargeDripstone {
 	private static MapCodec<LargeDripstoneFeature> extendCodec(MapCodec<LargeDripstoneFeature> original) {
 		return RecordCodecBuilder.mapCodec(instance -> instance.group(
 			original.forGetter(Function.identity()),
-			BlockState.CODEC.fieldOf("block_state").forGetter(LargeDripstoneFeature::stellarity$blockState)
+			BlockState.CODEC.optionalFieldOf("stellarity:block_state", Blocks.DRIPSTONE_BLOCK.defaultBlockState()).forGetter(LargeDripstoneFeature::stellarity$blockState)
 		).apply(instance, ExtLargeDripstoneFeature::apply));
 	}
 }

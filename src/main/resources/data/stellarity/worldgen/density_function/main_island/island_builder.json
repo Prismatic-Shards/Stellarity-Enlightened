@@ -1,9 +1,7 @@
 {
   "type": "minecraft:spline",
   "spline": {
-    "coordinate": {
-      "type": "minecraft:end_islands"
-    },
+    "coordinate": "minecraft:end/islands",
     "points": [
       {
         "location": -0.5,
@@ -16,7 +14,7 @@
         "value": {
           "coordinate": {
             "type": "minecraft:abs",
-            "argument": {
+            "input": {
               "type": "minecraft:noise",
               "noise": "stellarity:main_island/shaper_1",
               "xz_scale": 1,

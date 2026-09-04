@@ -1,40 +1,46 @@
 {
   "type": "minecraft:squeeze",
-  "argument": {
+  "input": {
     "type": "minecraft:interpolated",
-    "argument": {
+    "cell_size_xz": 4,
+    "cell_size_y": 8,
+    "input": {
       "type": "minecraft:interpolated",
-      "argument": {
+      "cell_size_xz": 4,
+      "cell_size_y": 8,
+      "input": {
         "type": "add",
-        "argument1": -1,
-        "argument2": {
+        "left": -1,
+        "right": {
           "type": "mul",
-          "argument1": {
-            "type": "y_clamped_gradient",
+          "left": {
+            "type": "minecraft:gradient",
+            "axis": "y",
             "from_value": 1,
             "to_value": 0,
-            "from_y": 45,
-            "to_y": 65
+            "from_coordinate": 45,
+            "to_coordinate": 65
           },
-          "argument2": {
+          "right": {
             "type": "add",
-            "argument1": 1,
-            "argument2": {
+            "left": 1,
+            "right": {
               "type": "add",
-              "argument1": -1,
-              "argument2": {
+              "left": -1,
+              "right": {
                 "type": "mul",
-                "argument1": {
-                  "type": "y_clamped_gradient",
+                "left": {
+                  "type": "minecraft:gradient",
+                  "axis": "y",
                   "from_value": 0,
                   "to_value": 1,
-                  "from_y": 2,
-                  "to_y": 26
+                  "from_coordinate": 2,
+                  "to_coordinate": 26
                 },
-                "argument2": {
+                "right": {
                   "type": "add",
-                  "argument1": 1,
-                  "argument2": "stellarity:main_island/island_builder"
+                  "left": 1,
+                  "right": "stellarity:main_island/island_builder"
                 }
               }
             }

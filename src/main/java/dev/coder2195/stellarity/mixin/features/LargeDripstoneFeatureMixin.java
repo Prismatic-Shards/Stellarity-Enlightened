@@ -13,4 +13,6 @@ public class LargeDripstoneFeatureMixin implements ExtLargeDripstone {
 		original.stellarity$setBlockState(this.stellarity$blockState());
 		return original;
 	}
+
+
 }

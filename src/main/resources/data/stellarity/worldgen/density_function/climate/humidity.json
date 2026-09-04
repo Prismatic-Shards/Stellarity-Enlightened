@@ -1,7 +1,7 @@
 {
-  "type": "minecraft:cache_once",
-  "argument": {
-    "type": "minecraft:shifted_noise",
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:noise",
     "noise": "stellarity:climate/humidity",
     "xz_scale": 0.25,
     "y_scale": 0,
