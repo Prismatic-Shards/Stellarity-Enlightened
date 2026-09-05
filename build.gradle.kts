@@ -2,12 +2,13 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 plugins {
-	id("net.fabricmc.fabric-loom")
+	id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
 	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.22"
 	id("me.modmuss50.mod-publish-plugin") version "2.1.1"
 	// `maven-publish`
 	kotlin("jvm") version "2.2.20"
 	id("com.google.devtools.ksp") version "2.2.20-2.0.4"
+	id("co.uzzu.dotenv.gradle") version "4.0.0"
 }
 
 val modId = property("mod.id") as String
@@ -40,7 +41,7 @@ repositories {
 
 dependencies {
 
-	minecraft("com.mojang:minecraft:${stonecutter.current.version}")
+	minecraft("com.mojang:minecraft:${property("deps.minecraft_dev")}")
 	implementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
 	implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
 	include(implementation("com.moulberry:mixinconstraints:1.0.9")!!)
@@ -48,10 +49,6 @@ dependencies {
 	compileOnly("com.terraformersmc:biolith-fabric:${property("deps.biolith")}")
 	val modonomicon = property("deps.modonomicon").toString().split('-')
 	compileOnly("com.klikli_dev:modonomicon-${modonomicon[0]}-fabric:${modonomicon[1]}")
-
-}
-
-stonecutter {
 
 }
 
@@ -75,8 +72,6 @@ fletchingTable {
 
 
 loom {
-
-
 	splitEnvironmentSourceSets()
 
 	mods {
@@ -88,27 +83,24 @@ loom {
 
 
 	fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
-	accessWidenerPath = sc.process(rootProject.file("src/main/resources/${modId}.accesswidener"), "build/dev.aw")
-	file("build/generated/stonecutter/main/resources/${modId}.accesswidener").let {
-		if (it.exists()) accessWidenerPath = it
-	}
+	accessWidenerPath = rootProject.file("src/main/resources/${modId}.accesswidener")
 
 	decompilerOptions.named("vineflower") {
 		options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
 	}
 
 	runConfigs["client"].apply {
-		programArgs += listOf("--username", "Coder2195", "--uuid", "12f1e56e-9fad-4371-9d1f-a18bf67f6f13")
+		programArguments.addAll("--username", "Coder2195", "--uuid", "12f1e56e-9fad-4371-9d1f-a18bf67f6f13")
 	}
 
 	runConfigs["server"].apply {
-		runDir = "./serverrun"
+		runDirectory.file("./serverrun")
 	}
 
 
 	runConfigs.all {
-		ideConfigGenerated(true)
-		vmArgs("-Dmixin.debug.export=true -XX:+AllowEnhancedClassRedefinition")
+		generateRunConfig = true
+		jvmArguments.addAll("-Dmixin.debug.export=true", "-XX:+AllowEnhancedClassRedefinition")
 	}
 }
 
@@ -167,9 +159,69 @@ java {
 
 val sourcesJar = tasks.named("sourcesJar", Jar::class)
 
+
+//val generatePackageInfos = tasks.register("generatePackageInfos") {
+//	description = "Generate package infos across"
+//	val srcDir = file("src/main/java")
+//	val outDir = layout.buildDirectory.dir("generated/sources/packageInfo/main/java").get().asFile
+//	inputs.dir(srcDir)
+//	outputs.dir(outDir)
+//
+//	doLast {
+//		srcDir.walk().forEach { file ->
+//			if (file.isDirectory) {
+//				val javaFiles = file.listFiles(FileFilter { f -> f.name.endsWith(".java") })
+//				if (javaFiles != null && javaFiles.isNotEmpty()) {
+//					val relPath = srcDir.toPath().relativize(file.toPath()).toString().replace('\\', '/')
+//					val pkgName = relPath.replace('/', '.')
+//					val pkgInfo = File(outDir, "$relPath/package-info.java")
+//					pkgInfo.parentFile.mkdirs()
+//					pkgInfo.writeText("""@NullMarked
+//package $pkgName;
+//
+//import org.jspecify.annotations.NullMarked;
+//""")
+//				}
+//			}
+//		}
+//	}
+//}
+//
+//val generatePackageInfosClient = tasks.register("generatePackageInfos") {
+//	description = "Generate package infos across"
+//	val srcDir = file("src/main/java")
+//	val outDir = layout.buildDirectory.dir("generated/sources/packageInfo/main/java").get().asFile
+//	inputs.dir(srcDir)
+//	outputs.dir(outDir)
+//
+//	doLast {
+//		srcDir.walk().forEach { file ->
+//			if (file.isDirectory) {
+//				val javaFiles = file.listFiles(FileFilter { f -> f.name.endsWith(".java") })
+//				if (javaFiles != null && javaFiles.isNotEmpty()) {
+//					val relPath = srcDir.toPath().relativize(file.toPath()).toString().replace('\\', '/')
+//					val pkgName = relPath.replace('/', '.')
+//					val pkgInfo = File(outDir, "$relPath/package-info.java")
+//					pkgInfo.parentFile.mkdirs()
+//					pkgInfo.writeText("""@NullMarked
+//package $pkgName;
+//
+//import org.jspecify.annotations.NullMarked;
+//""")
+//				}
+//			}
+//		}
+//	}
+//}
+//
+//rootProject.sourceSets.getByName("main").java.srcDir(generatePackageInfos)
+//rootProject.sourceSets.getByName("client").java.srcDir(generatePackageInfosClient)
+//tasks.named("ideaSyncTask") { dependsOn(generatePackageInfos) }
+
 tasks {
 	// Builds the version into a shared folder in `build/libs/${mod version}/`
 	register<Copy>("buildAndCollect") {
+		description = "No clue"
 		group = "build"
 		from(jar.map { it.archiveFile }, sourcesJar.map { it.archiveFile })
 		into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
@@ -179,20 +231,15 @@ tasks {
 	build {
 		dependsOn("validateAccessWidener")
 	}
-
-	stonecutterGenerate {
-		dependsOn("validateAccessWidener")
-	}
-
-
 }
+
 
 
 // Publishes builds to Modrinth and Curseforge with changelog from the CHANGELOG.md file
 // Publishing using publishMods task
 publishMods {
 	file = tasks.jar.map { it.archiveFile.get() }
-	displayName = "${property("mod.name")} ${property("mod.version")} for ${property("mod.mc_title")}"
+	displayName = "${property("mod.name")} ${property("mod.version")}"
 	version = property("mod.version") as String
 	changelog = rootProject.file("CHANGELOG.md").readText()
 	type = STABLE
@@ -229,31 +276,3 @@ publishMods {
 		changelogType = "markdown"
 	}
 }
-
-
-/*
-// Publishes builds to a maven repository under `com.example:template:0.1.0+mc`
-publishing {
-    repositories {
-        maven("https://maven.example.com/releases") {
-            name = "myMaven"
-            // To authenticate, create `myMavenUsername` and `myMavenPassword` properties in your Gradle home properties.
-            // See https://stonecutter.kikugie.dev/wiki/tips/properties#defining-properties
-            credentials(PasswordCredentials::class.java)
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
-
-    publications {
-        create<MavenPublication>("mavenJava") {
-            groupId = "${property("mod.group")}.${property("mod.id")}"
-            artifactId = property("mod.id") as String
-            version = project.version
-
-            from(components["java"])
-        }
-    }
-}
-*/

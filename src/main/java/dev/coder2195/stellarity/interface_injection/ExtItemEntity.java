@@ -9,6 +9,7 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ItemStack;
 import dev.coder2195.stellarity.registry.StellarityDataAttachments;
 import dev.coder2195.stellarity.util.CustomCodecs;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.function.IntFunction;
@@ -17,8 +18,9 @@ import java.util.function.IntFunction;
 public interface ExtItemEntity extends AttachmentTarget {
 	enum ItemMode {
 		DEFAULT(0),
-		CRAFTING(1),
-		RESULT(2);
+		ALTAR_CRAFTING(1),
+		CONSECRATING(2),
+		RESULT(3);
 
 		private final int id;
 
@@ -39,14 +41,28 @@ public interface ExtItemEntity extends AttachmentTarget {
 
 		public static final StreamCodec<ByteBuf, ItemMode> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, ItemMode::id);
 		public static final Codec<ItemMode> CODEC = CustomCodecs.enumName(ItemMode.class, DEFAULT);
+
+		public @Nullable Short getPickupDelay() {
+			if (this == ALTAR_CRAFTING) return Short.MAX_VALUE;
+			if (this == CONSECRATING) return null;
+			return 0;
+		}
+
+		public boolean isCrafting() {
+			return !(this == RESULT || this == DEFAULT);
+		}
 	}
 
 	default ItemMode stellarity$getItemMode() {
 		return this.getAttachedOrElse(StellarityDataAttachments.ITEM_MODE, ItemMode.DEFAULT);
 	}
 
-	default void stellarity$setItemMode(ItemMode mode) {
+	default void stellarity$setItemMode(ItemMode mode, @Nullable Integer color) {
 		this.setAttached(StellarityDataAttachments.ITEM_MODE, mode);
+	}
+
+	default void stellarity$setItemMode(ItemMode mode) {
+		stellarity$setItemMode(mode, null);
 	}
 
 	default void stellarity$updateResults(HashMap<ItemStack, Integer> results) {

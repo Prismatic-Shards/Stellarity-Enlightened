@@ -7,11 +7,6 @@ need to apply an old fabric tutorial to implement something,
 use [Linkie](https://linkie.shedaniel.dev/mappings?namespace=yarn&translateMode=ns&translateAs=mojang_raw&search=) for
 Mojmap and Yarn conversions (or general lookups).
 
-This project also uses [Stonecutter](https://stonecutter.kikugie.dev/). For the most part you will likely NOT need to
-modify any of this, but if you do you should reach out. `build.gradle.kts` resides the file for configuration datagen,
-run tasks, publishing, dependencies, etc. `settings.gradle.kts` carries info related to Stonecutter. We mostly will not
-use this file unless upgrading versions. `stonecutter.gradle.kts` SHOULD NOT BE touched, unless cleared.
-
 ## General Project Structure
 
 Use `dev.coder2195.stellarity.snake_case_for_packages.PascalCaseForClasses`

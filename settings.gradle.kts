@@ -9,17 +9,5 @@ pluginManagement {
 	}
 }
 
-plugins {
-	id("dev.kikugie.stonecutter") version "0.10-alpha.1"
-}
-
-stonecutter {
-	create(rootProject) {
-		// See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
-		version("26.3", "26.3-pre-1")
-		vcsVersion = "26.3"
-	}
-}
-
 
 rootProject.name = "Stellarity"

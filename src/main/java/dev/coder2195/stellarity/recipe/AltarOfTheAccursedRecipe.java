@@ -3,6 +3,7 @@ package dev.coder2195.stellarity.recipe;
 
 import dev.coder2195.stellarity.interface_injection.ExtItemEntity;
 import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
+import dev.coder2195.stellarity.registry.StellarityRecipeBookCategories;
 import dev.coder2195.stellarity.registry.StellarityRecipeTypes;
 import dev.coder2195.stellarity.registry.StellaritySoundEvents;
 import net.minecraft.ChatFormatting;
@@ -51,9 +52,8 @@ public interface AltarOfTheAccursedRecipe extends Recipe<AltarOfTheAccursedRecip
 
 	@Override
 	default RecipeBookCategory recipeBookCategory() {
-		return RecipeBookCategories.CRAFTING_MISC;
+		return StellarityRecipeBookCategories.ALTAR_OF_THE_ACCURSED;
 	}
-
 
 	@Override
 	default RecipeType<? extends Recipe<Input>> getType() {
@@ -90,7 +90,7 @@ public interface AltarOfTheAccursedRecipe extends Recipe<AltarOfTheAccursedRecip
 		}
 
 		List<ItemStack> itemStacks = itemEntities.stream().map(ItemEntity::getItem).toList();
-		ExtItemEntity.ItemMode itemMode = player != null && player.isCrouching() ? ExtItemEntity.ItemMode.DEFAULT : ExtItemEntity.ItemMode.CRAFTING;
+		ExtItemEntity.ItemMode itemMode = player != null && player.isCrouching() ? ExtItemEntity.ItemMode.DEFAULT : ExtItemEntity.ItemMode.ALTAR_CRAFTING;
 
 		for (var entity : itemEntities) {
 			if (!entity.stellarity$getItemMode().equals(itemMode)) entity.stellarity$setItemMode(itemMode);
@@ -99,7 +99,7 @@ public interface AltarOfTheAccursedRecipe extends Recipe<AltarOfTheAccursedRecip
 
 		AltarOfTheAccursedRecipe.Output output = null;
 
-		if (itemMode == ExtItemEntity.ItemMode.CRAFTING) {
+		if (itemMode == ExtItemEntity.ItemMode.ALTAR_CRAFTING) {
 			var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_OF_THE_ACCURSED);
 
 			for (var recipeHolder : allRecipes) {
