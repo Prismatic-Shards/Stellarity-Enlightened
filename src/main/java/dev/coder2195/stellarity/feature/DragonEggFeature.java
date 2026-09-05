@@ -12,10 +12,10 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import org.jspecify.annotations.NonNull;
 
-public record DragonEggFeature(Holder<BlockStateProvider> toPlace) implements Feature {
+public record DragonEggFeature(Holder<BlockStateProvider> material) implements Feature {
 	public static final MapCodec<DragonEggFeature> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-			BlockStateProvider.CODEC.fieldOf("to_place").forGetter(DragonEggFeature::toPlace)
+			BlockStateProvider.CODEC.fieldOf("material").forGetter(DragonEggFeature::material)
 			).apply(instance, DragonEggFeature::new));
 
 	public static final int[] LAYERS = {
@@ -29,7 +29,7 @@ public record DragonEggFeature(Holder<BlockStateProvider> toPlace) implements Fe
 		var oz = origin.getZ();
 
 		BlockPos.MutableBlockPos pos = origin.mutable();
-		var toPlace = this.toPlace.value();
+		var toPlace = this.material.value();
 
 		for (int layer : LAYERS) {
 			int maxX = ox + layer;

@@ -1,6 +1,6 @@
 {
   "type": "stellarity:dragon_egg",
-  "to_place": {
+  "material": {
     "type": "minecraft:weighted",
     "entries": [
       {

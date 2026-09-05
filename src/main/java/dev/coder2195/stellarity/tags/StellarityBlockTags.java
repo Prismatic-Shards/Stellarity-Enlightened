@@ -29,6 +29,7 @@ public interface StellarityBlockTags {
 	TagKey<Block> WORLDGEN_THE_NEST_SURFACE = id("worldgen/the_nest/surface");
 	TagKey<Block> WORLDGEN_WARPED_MARSH_POND_REPLACEABLE = id("worldgen/warped_marsh/pond_replaceable");
 	TagKey<Block> FLORAL_ARMOR_HIDEABLES = id("floral_armor_hideables");
+	TagKey<Block> INCORRECT_FOR_SHULKER_TOOL = id("incorrect_for_shulker_tool");
 
 	private static TagKey<Block> id(String id) {
 		return TagKey.create(Registries.BLOCK, Stellarity.id(id));

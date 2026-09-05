@@ -5,12 +5,7 @@
     "max_exclusive": 30.0,
     "min_inclusive": 25.0
   },
-  "radius": {
-    "type": "minecraft:uniform",
-    "max_exclusive": 8.0,
-    "min_inclusive": 5.0
-  },
-  "state_provider": {
+  "material": {
     "type": "minecraft:weighted",
     "entries": [
       {
@@ -22,6 +17,11 @@
         "weight": 1
       }
     ]
+  },
+  "radius": {
+    "type": "minecraft:uniform",
+    "max_exclusive": 8.0,
+    "min_inclusive": 5.0
   },
   "wind_x": {
     "type": "minecraft:trapezoid",

@@ -3,8 +3,6 @@ package dev.coder2195.stellarity.datagen;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.client.item_tint_source.ColorTintSource;
 import dev.coder2195.stellarity.registry.StellarityBlocks;
-import dev.coder2195.stellarity.registry.StellarityEquipmentAssets;
-import dev.coder2195.stellarity.util.tuple.Tuple2;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.color.item.GrassColorSource;
@@ -99,6 +97,11 @@ public class ModelProvider extends FabricModelProvider {
 		BOOK_OF_RETURN
 	};
 
+	public final static Item[] HANDHELD_ITEMS = new Item[]{
+		TAMARIS, STELLAR_STRIKER,
+		SHULKER_SWORD, SHULKER_PICKAXE, SHULKER_HOE, SHULKER_AXE, SHULKER_SHOVEL
+	};
+
 	public final static Block[] SIMPLE_BLOCKS = new Block[]{
 		StellarityBlocks.ENDER_DIRT,
 		StellarityBlocks.ROOTED_ENDER_DIRT,
@@ -188,12 +191,14 @@ public class ModelProvider extends FabricModelProvider {
 		generators.declareCustomModelItem(SHULKER_BODY);
 		generators.generateFishingRod(FISHER_OF_VOIDS);
 
-		for (var handheld : List.of(TAMARIS, STELLAR_STRIKER))
+		for (var handheld : HANDHELD_ITEMS)
 			generators.generateFlatItem(handheld, ModelTemplates.FLAT_HANDHELD_ITEM);
 
 		for (Item item : FLAT_ITEMS) {
 			generators.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 		}
+
+		generators.generateSpear(SHULKER_SPEAR);
 
 		for (Item elytra : List.of(PHANTOM_WINGS, DRAGON_WINGS, EMPRESS_WINGS))
 			generators.generateElytra(elytra);

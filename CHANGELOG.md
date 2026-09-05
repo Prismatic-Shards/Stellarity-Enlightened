@@ -2,8 +2,21 @@
 
 Compatibility update along with general additions of armor and recipes
 
+## Items
+**[+] Shulker Axe**
+
+**[+] Shulker Pickaxe**
+
+**[+] Shulker Hoe**
+
+**[+] Shulker Spear**
+
+**[+] Shulker Sword**
+
+**[+] Shulker Shovel**
+
 ## Versions
-**[*] 26.2 -> 26.3**
+**[*] 26.2 -> 26.3d**
 
 # Developer's Note
 

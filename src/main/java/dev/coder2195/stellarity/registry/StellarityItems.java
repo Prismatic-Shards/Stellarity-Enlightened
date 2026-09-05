@@ -356,6 +356,20 @@ public interface StellarityItems {
 			.build())
 	);
 
+	Item SHULKER_SWORD = register(
+		StellarityItemIds.SHULKER_SWORD, new Item.Properties().sword(StellarityToolMaterials.SHULKER, 3.0F, -2.4f * 1.1f).fireResistant()
+	);
+	Item SHULKER_SHOVEL = register(
+		StellarityItemIds.SHULKER_SHOVEL, new Item.Properties().shovel(StellarityToolMaterials.SHULKER, 1.5F, -3.0F * 1.1f).fireResistant()
+	);
+	Item SHULKER_PICKAXE = register(
+		StellarityItemIds.SHULKER_PICKAXE, new Item.Properties().pickaxe(StellarityToolMaterials.SHULKER, 1.0F, -2.8F * 1.1f).fireResistant()
+	);
+	Item SHULKER_AXE = register(StellarityItemIds.SHULKER_AXE, new Item.Properties().axe(StellarityToolMaterials.SHULKER, 5.0F, -3.0F * 1.1f).fireResistant());
+	Item SHULKER_HOE = register(StellarityItemIds.SHULKER_HOE, new Item.Properties().hoe(StellarityToolMaterials.SHULKER, -4.0F, 0.0F).fireResistant());
+	Item SHULKER_SPEAR = register(
+		StellarityItemIds.SHULKER_SPEAR, new Item.Properties().spear(StellarityToolMaterials.SHULKER, 1.15F, 1.4F, 0.4F, 2.5F, 9.0F, 5.5F, 5.1F, 8.75F, 4.6F).fireResistant()
+	);
 	static Supplier<ItemStack> createPotion(Holder<Potion> potion) {
 		return () -> PotionContents.createItemStack(Items.POTION, potion);
 	}
@@ -540,12 +554,12 @@ public interface StellarityItems {
 //		put(RADIANT_JEWEL, 0xff5555);
 //		put(PRISMATIC_SHIELD, 0xFF76D0);
 //		put(CREST_OF_THE_END, 0x9936D6);
-//		put(SHULKER_HOE, 0x976A97);
-//		put(SHULKER_SWORD, 0x976A97);
-//		put(SHULKER_AXE, 0x976A97);
-//		put(SHULKER_SHOVEL, 0x976A97);
-//		put(SHULKER_PICKAXE, 0x976A97);
-//		put(SHULKER_SPEAR, 0x976A97);
+		put(SHULKER_HOE, 0x976A97);
+		put(SHULKER_SWORD, 0x976A97);
+		put(SHULKER_AXE, 0x976A97);
+		put(SHULKER_SHOVEL, 0x976A97);
+		put(SHULKER_PICKAXE, 0x976A97);
+		put(SHULKER_SPEAR, 0x976A97);
 		put(FISHER_OF_VOIDS, 0x8865AF);
 		put(ROYAL_JELLY, TextColor.YELLOW.getValue());
 		put(ROYAL_JELLY_II, TextColor.YELLOW.getValue());

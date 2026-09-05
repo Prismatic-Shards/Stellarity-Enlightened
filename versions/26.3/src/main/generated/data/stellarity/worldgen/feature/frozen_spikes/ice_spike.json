@@ -5,13 +5,13 @@
     "max_exclusive": 25.0,
     "min_inclusive": 15.0
   },
+  "material": {
+    "id": "minecraft:packed_ice"
+  },
   "radius": {
     "type": "minecraft:uniform",
     "max_exclusive": 6.0,
     "min_inclusive": 3.0
-  },
-  "state_provider": {
-    "id": "minecraft:packed_ice"
   },
   "wind_x": {
     "type": "minecraft:uniform",

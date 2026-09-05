@@ -100,6 +100,7 @@ public interface StellarityItemIds {
 	ResourceKey<Item> SHULKER_PICKAXE = id("shulker_pickaxe");
 	ResourceKey<Item> SHULKER_SHOVEL = id("shulker_shovel");
 	ResourceKey<Item> SHULKER_SWORD = id("shulker_sword");
+	ResourceKey<Item> SHULKER_SPEAR = id("shulker_spear");
 	ResourceKey<Item> SLAYER_CROSSBOW = id("slayer_crossbow");
 	ResourceKey<Item> SOARING_INSIGNIA = id("soaring_insignia");
 	ResourceKey<Item> SPECTRAL_FURY = id("spectral_fury");

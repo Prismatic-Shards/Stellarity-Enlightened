@@ -67,7 +67,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
 		// TODO: add shulker spear, and ensure all implementations complete
 		var donator = addTags(StellarityItemTags.DONATOR);
-		List.of(BELL_FLOWER, LOAF_OF_PLENTY, FLUFFY_HAMMER, SANDSTORM_TRIDENT, SHULKER_PICKAXE, SHULKER_SHOVEL, SHULKER_SWORD, SHULKER_AXE, LOAF_OF_PLENTY).forEach(donator::addOptional);
+		List.of(BELL_FLOWER, LOAF_OF_PLENTY, FLUFFY_HAMMER, SANDSTORM_TRIDENT, SHULKER_PICKAXE, SHULKER_SHOVEL, SHULKER_SWORD, SHULKER_AXE, LOAF_OF_PLENTY,  SHULKER_AXE, SHULKER_PICKAXE, SHULKER_HOE, SHULKER_SPEAR, SHULKER_SHOVEL, SHULKER_SWORD).forEach(donator::addOptional);
 
 		// TODO: add beginning and the end, and ensure all implementations complete
 		var developer = addTags(StellarityItemTags.DEVELOPER);
@@ -87,6 +87,8 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 		addTags(StellarityItemTags.REPAIRS_PHANTOM_WINGS).add(PHANTOM_MEMBRANE);
 		addTags(StellarityItemTags.REPAIRS_DRAGON_WINGS).add(PHANTOM_MEMBRANE);
 		addTags(StellarityItemTags.REPAIRS_EMPRESS_WINGS).add(PHANTOM_MEMBRANE);
+
+		addTags(StellarityItemTags.SHULKER_TOOL_MATERIALS).add(SHULKER_SHELL);
 
 	}
 }

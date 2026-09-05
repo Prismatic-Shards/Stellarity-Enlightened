@@ -19,12 +19,12 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 
 public record SpikeFeature(
-	Holder<BlockStateProvider> stateProvider, Optional<BlockPredicate> canReplace, FloatProvider radius, FloatProvider height,
+	Holder<BlockStateProvider> material, Optional<BlockPredicate> canReplace, FloatProvider radius, FloatProvider height,
 	FloatProvider windX, FloatProvider windZ
 ) implements Feature {
 
 	public static final MapCodec<SpikeFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		BlockStateProvider.CODEC.fieldOf("state_provider").forGetter(SpikeFeature::stateProvider),
+		BlockStateProvider.CODEC.fieldOf("material").forGetter(SpikeFeature::material),
 		BlockPredicate.CODEC.optionalFieldOf("can_replace").forGetter(SpikeFeature::canReplace),
 		FloatProviders.CODEC.fieldOf("radius").forGetter(SpikeFeature::radius),
 		FloatProviders.CODEC.fieldOf("height").forGetter(SpikeFeature::height),
@@ -48,7 +48,7 @@ public record SpikeFeature(
 		var decreaseFactor = radius / height;
 		var blockPos = new BlockPos.MutableBlockPos();
 
-		var stateProvider = this.stateProvider.value();
+		var stateProvider = this.material.value();
 
 		for (float y = originY; y < maxY; y++) {
 			var radiusSquared = Mth.square(currentRadius);

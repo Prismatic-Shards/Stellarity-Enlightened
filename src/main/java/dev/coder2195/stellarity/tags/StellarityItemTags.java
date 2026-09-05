@@ -27,6 +27,8 @@ public interface StellarityItemTags {
 	TagKey<Item> REPAIRS_DRAGON_WINGS = id("repairs_dragon_wings");
 	TagKey<Item> REPAIRS_EMPRESS_WINGS = id("repairs_empress_wings");
 
+	TagKey<Item> SHULKER_TOOL_MATERIALS = id("shulker_tool_materials");
+
 	static TagKey<Item> id(String id) {
 		return TagKey.create(Registries.ITEM, Stellarity.id(id));
 	}

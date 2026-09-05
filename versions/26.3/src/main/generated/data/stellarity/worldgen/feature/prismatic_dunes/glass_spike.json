@@ -13,14 +13,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:red_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -46,14 +46,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:orange_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -79,14 +79,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:yellow_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -112,14 +112,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:lime_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -145,14 +145,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:green_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -178,14 +178,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:cyan_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -211,14 +211,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:light_blue_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -244,14 +244,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:blue_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -277,14 +277,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:purple_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -310,14 +310,14 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
-        "radius": {
-          "type": "minecraft:uniform",
-          "max_exclusive": 5.0,
-          "min_inclusive": 2.0
-        },
-        "state_provider": {
+        "material": {
           "id": "minecraft:magenta_stained_glass"
         },
+        "radius": {
+          "type": "minecraft:uniform",
+          "max_exclusive": 5.0,
+          "min_inclusive": 2.0
+        },
         "wind_x": {
           "type": "minecraft:uniform",
           "max_exclusive": 0.15,
@@ -343,13 +343,13 @@
           "max_exclusive": 20.0,
           "min_inclusive": 10.0
         },
+        "material": {
+          "id": "minecraft:pink_stained_glass"
+        },
         "radius": {
           "type": "minecraft:uniform",
           "max_exclusive": 5.0,
           "min_inclusive": 2.0
-        },
-        "state_provider": {
-          "id": "minecraft:pink_stained_glass"
         },
         "wind_x": {
           "type": "minecraft:uniform",
