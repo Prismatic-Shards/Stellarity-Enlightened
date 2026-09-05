@@ -2,8 +2,8 @@ package dev.coder2195.stellarity.criterion_trigger;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
 import net.minecraft.advancements.predicates.ItemPredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
@@ -20,14 +20,12 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
 
 import java.util.Optional;
 
 public class SpecialCraftTrigger extends SimpleCriterionTrigger<SpecialCraftTrigger.TriggerInstance> {
 	@Override
-	public @NonNull Codec<TriggerInstance> codec() {
+	public Codec<TriggerInstance> codec() {
 		return SpecialCraftTrigger.TriggerInstance.CODEC;
 	}
 
@@ -58,7 +56,7 @@ public class SpecialCraftTrigger extends SimpleCriterionTrigger<SpecialCraftTrig
 		}
 
 		@Override
-		public void validate(@NonNull ValidationContextSource validator) {
+		public void validate(ValidationContextSource validator) {
 			SimpleInstance.super.validate(validator);
 			Validatable.validateHolder(validator.context(LootContextParamSets.ADVANCEMENT_LOCATION), "location", this.location);
 		}

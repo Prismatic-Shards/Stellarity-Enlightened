@@ -3,8 +3,12 @@ package dev.coder2195.stellarity.util;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.PrimitiveCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.Map;
 import java.util.UUID;
 
 public interface CustomCodecs {
@@ -19,6 +23,13 @@ public interface CustomCodecs {
 			return ops.createString(value.toString());
 		}
 	};
+
+	MapCodec<Map.Entry<Ingredient, Integer>> INGREDIENT_MAP_CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+			Ingredient.CODEC.fieldOf("ingredient").forGetter(Map.Entry::getKey),
+			Codec.INT.optionalFieldOf("count", 1).forGetter(Map.Entry::getValue)
+		).apply(instance, Map::entry)
+	);
 
 	static <T extends Enum<T>> Codec<T> enumName(Class<T> enumClass, T defaultValue) {
 		return PrimitiveCodec.STRING.xmap(name -> {

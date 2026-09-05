@@ -14,7 +14,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public record SpikeFeature(
 	).apply(instance, SpikeFeature::new));
 
 	@Override
-	public boolean place(@NonNull WorldGenLevel level, @NonNull ChunkGenerator generator, @NonNull RandomSource random, @NonNull BlockPos origin) {
+	public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
 
 		var originY = origin.getY();
 		double currentX = origin.getX();
@@ -75,7 +74,7 @@ public record SpikeFeature(
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends Feature> codec() {
+	public MapCodec<? extends Feature> codec() {
 		return CODEC;
 	}
 }

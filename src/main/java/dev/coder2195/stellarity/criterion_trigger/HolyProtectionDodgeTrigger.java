@@ -10,13 +10,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
 public class HolyProtectionDodgeTrigger extends SimpleCriterionTrigger<HolyProtectionDodgeTrigger.TriggerInstance> {
 	@Override
-	public @NonNull Codec<TriggerInstance> codec() {
+	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 

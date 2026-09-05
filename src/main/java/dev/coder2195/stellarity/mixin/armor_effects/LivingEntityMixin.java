@@ -36,7 +36,6 @@ import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,7 +44,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 @Mixin(LivingEntity.class)
@@ -70,7 +68,7 @@ public abstract class LivingEntityMixin extends Entity {
 	protected float lastHurt;
 
 	@Shadow
-	public abstract @Nullable MobEffectInstance getEffect(Holder<MobEffect> effect);
+	public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
 
 	@Unique
 	private int counter = 0;
@@ -125,7 +123,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@Unique
-	private @NonNull Predicate<LivingEntity> attackFilter(LivingEntity castedSelf) {
+	private Predicate<LivingEntity> attackFilter(LivingEntity castedSelf) {
 		final var attacker = getLastAttacker();
 
 		return castedSelf instanceof Monster monster ? (e) -> e != castedSelf && castedSelf.canAttack(e) && (

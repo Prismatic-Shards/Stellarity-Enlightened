@@ -8,7 +8,6 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import org.jspecify.annotations.NonNull;
 
 
 public class ScaleShrinkingParticle extends SingleQuadParticle {
@@ -37,7 +36,7 @@ public class ScaleShrinkingParticle extends SingleQuadParticle {
 
 
 	@Override
-	public @NonNull Layer getLayer() {
+	public Layer getLayer() {
 		return Layer.OPAQUE;
 	}
 
@@ -58,7 +57,7 @@ public class ScaleShrinkingParticle extends SingleQuadParticle {
 
 
 		@Override
-		public Particle createParticle(@NonNull SimpleParticleType simpleParticleType, @NonNull ClientLevel clientLevel, double d, double e, double f, double g, double h, double i, @NonNull RandomSource randomSource) {
+		public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i, RandomSource randomSource) {
 			return new ScaleShrinkingParticle(clientLevel, d, e, f, this.sprite.get(randomSource));
 		}
 	}

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.BlockColumnFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -71,7 +71,7 @@ public class HangingColumnDecorator extends TreeDecorator {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(@Nullable Object obj) {
 		if (obj == this) return true;
 		if (obj == null || obj.getClass() != this.getClass()) return false;
 		var that = (HangingColumnDecorator) obj;
@@ -101,12 +101,12 @@ public class HangingColumnDecorator extends TreeDecorator {
 
 
 	@Override
-	protected @NonNull TreeDecoratorType<?> type() {
+	protected TreeDecoratorType<?> type() {
 		return StellarityTreeDecorators.HANGING_COLUMN;
 	}
 
 	@Override
-	public void place(@NonNull Context context) {
+	public void place(Context context) {
 		var leaves = context.leaves();
 		var logs = context.logs();
 		var level = context.level();

@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import org.jspecify.annotations.NonNull;
 
 public class ObstructSpellBlockRenderer extends EntityRenderer<ObstructSpellBlock, ObstructSpellBlockRenderer.ObstructSpellBlockState> {
 	public final BlockModelResolver blockModelResolver;
@@ -23,7 +22,7 @@ public class ObstructSpellBlockRenderer extends EntityRenderer<ObstructSpellBloc
 	}
 
 	@Override
-	public void submit(@NonNull ObstructSpellBlockState state, @NonNull PoseStack poseStack, @NonNull SubmitNodeCollector submitNodeCollector, @NonNull CameraRenderState camera) {
+	public void submit(ObstructSpellBlockState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		super.submit(state, poseStack, submitNodeCollector, camera);
 
 		poseStack.translate(-0.5, 0, -0.5);
@@ -32,14 +31,14 @@ public class ObstructSpellBlockRenderer extends EntityRenderer<ObstructSpellBloc
 	}
 
 	@Override
-	public void extractRenderState(@NonNull ObstructSpellBlock entity, @NonNull ObstructSpellBlockState state, float partialTicks) {
+	public void extractRenderState(ObstructSpellBlock entity, ObstructSpellBlockState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
 
 		blockModelResolver.update(state.blockModel, entity.getBlockState(), BLOCK_DISPLAY_CONTEXT);
 	}
 
 	@Override
-	public @NonNull ObstructSpellBlockState createRenderState() {
+	public ObstructSpellBlockState createRenderState() {
 		return new ObstructSpellBlockState();
 	}
 

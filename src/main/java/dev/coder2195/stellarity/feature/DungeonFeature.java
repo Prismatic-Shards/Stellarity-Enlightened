@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -47,7 +46,7 @@ public record DungeonFeature(
 	}
 
 	@Override
-	public boolean place(@NonNull WorldGenLevel level, @NonNull ChunkGenerator chunkGenerator, @NonNull RandomSource random, @NonNull BlockPos origin) {
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 
 		var size = this.size.sample(random);
 		var height = this.height.sample(random);
@@ -151,7 +150,7 @@ public record DungeonFeature(
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends Feature> codec() {
+	public MapCodec<? extends Feature> codec() {
 		return CODEC;
 	}
 

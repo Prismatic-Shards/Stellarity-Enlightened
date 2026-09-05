@@ -3,6 +3,8 @@ package dev.coder2195.stellarity.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.coder2195.stellarity.util.CustomCodecs;
+import dev.coder2195.stellarity.util.CustomStreamCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -10,16 +12,15 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityRecipeSerializers;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
 
 
-public record AltarSimpleRecipe(HashMap<Ingredient, Integer> ingredients,
-                                ItemStackTemplate result) implements AltarRecipe {
+public record AltarOfTheAccursedSimpleRecipe(HashMap<Ingredient, Integer> ingredients,
+                                             ItemStackTemplate result) implements AltarOfTheAccursedRecipe {
 
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
 		HashMap<Ingredient, Integer> required = new HashMap<>(ingredients);
@@ -68,36 +69,26 @@ public record AltarSimpleRecipe(HashMap<Ingredient, Integer> ingredients,
 
 
 	@Override
-	public @NonNull RecipeSerializer<? extends Recipe<Input>> getSerializer() {
-		return StellarityRecipeSerializers.ALTAR_SIMPLE;
+	public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
+		return StellarityRecipeSerializers.ALTAR_OF_THE_ACCURSED_SIMPLE;
 	}
 
-	public static final StreamCodec<RegistryFriendlyByteBuf, AltarSimpleRecipe> STREAM_CODEC = StreamCodec.of(AltarSimpleRecipe::toNetwork, AltarSimpleRecipe::fromNetwork);
-	public static final MapCodec<AltarSimpleRecipe> CODEC = RecordCodecBuilder.mapCodec(
+	public static final StreamCodec<RegistryFriendlyByteBuf, AltarOfTheAccursedSimpleRecipe> STREAM_CODEC = StreamCodec.composite(CustomStreamCodecs.INGREDIENTS_MAP, AltarOfTheAccursedSimpleRecipe::ingredients, ItemStackTemplate.STREAM_CODEC, AltarOfTheAccursedSimpleRecipe::result, AltarOfTheAccursedSimpleRecipe::new);
+
+	public static final MapCodec<AltarOfTheAccursedSimpleRecipe> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
-			INGREDIENT_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
+			CustomCodecs.INGREDIENT_MAP_CODEC.codec().listOf().fieldOf("ingredients").forGetter((recipe) ->
 				recipe.ingredients.entrySet().stream().toList()
 			),
-			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarSimpleRecipe::result)
+			ItemStackTemplate.CODEC.fieldOf("result").forGetter(AltarOfTheAccursedSimpleRecipe::result)
 		).apply(instance, (ingredients, result) -> {
 			HashMap<Ingredient, Integer> ingredientMap = new HashMap<>();
 
 			for (var ingredient : ingredients) {
 				ingredientMap.put(ingredient.getKey(), ingredient.getValue());
 			}
-			return new AltarSimpleRecipe(ingredientMap, result);
+			return new AltarOfTheAccursedSimpleRecipe(ingredientMap, result);
 		}));
-
-	public static AltarSimpleRecipe fromNetwork(RegistryFriendlyByteBuf buf) {
-		var ingredients = AltarRecipe.readIngredients(buf);
-		ItemStackTemplate itemStack = ItemStackTemplate.STREAM_CODEC.decode(buf);
-		return new AltarSimpleRecipe(ingredients, itemStack);
-	}
-
-	public static void toNetwork(RegistryFriendlyByteBuf buf, AltarSimpleRecipe recipe) {
-		recipe.writeIngredients(buf);
-		ItemStackTemplate.STREAM_CODEC.encode(buf, recipe.result);
-	}
 
 
 }

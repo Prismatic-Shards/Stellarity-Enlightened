@@ -6,7 +6,6 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityDamageTypes;
 
 public class FrostburnEffect extends MobEffect {
@@ -14,7 +13,7 @@ public class FrostburnEffect extends MobEffect {
 		super(MobEffectCategory.HARMFUL, 0x10222f);
 	}
 
-	public boolean applyEffectTick(@NonNull ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
+	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
 		if (livingEntity.level().isClientSide()) return false;
 		float damage = 1f;
 		if (livingEntity.is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) damage *= 2;

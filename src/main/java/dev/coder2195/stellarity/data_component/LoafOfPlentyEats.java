@@ -10,7 +10,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jspecify.annotations.NonNull;
 
 import java.util.function.Consumer;
 
@@ -22,7 +21,7 @@ public record LoafOfPlentyEats(int amount) implements TooltipProvider {
 	public static final StreamCodec<ByteBuf, LoafOfPlentyEats> STREAM_CODEC = ByteBufCodecs.INT.map(LoafOfPlentyEats::new, LoafOfPlentyEats::amount);
 
 	@Override
-	public void addToTooltip(Item.@NonNull TooltipContext context, @NonNull Consumer<Component> consumer, @NonNull TooltipFlag flag, @NonNull DataComponentGetter components) {
+	public void addToTooltip(Item.TooltipContext context, Consumer<Component> consumer, TooltipFlag flag, DataComponentGetter components) {
 		for (int desc: DESCRIPTIONS[Mth.clamp(amount - 1, 0, DESCRIPTIONS.length - 1)]) {
 			consumer.accept(Component.translatable("item.stellarity.loaf_of_plenty.description." + desc));
 		}

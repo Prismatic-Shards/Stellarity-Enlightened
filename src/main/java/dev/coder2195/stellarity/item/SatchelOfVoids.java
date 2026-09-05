@@ -4,7 +4,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.entity.SatchelSigil;
 
 public class SatchelOfVoids extends Item {
@@ -17,7 +16,7 @@ public class SatchelOfVoids extends Item {
 
 
 	@Override
-	public @NonNull InteractionResult useOn(@NonNull UseOnContext useOnContext) {
+	public InteractionResult useOn(UseOnContext useOnContext) {
 		var prev = super.useOn(useOnContext);
 		var player = useOnContext.getPlayer();
 		var level = useOnContext.getLevel();

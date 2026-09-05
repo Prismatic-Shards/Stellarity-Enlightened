@@ -8,10 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.entity.VoidArrow;
 import dev.coder2195.stellarity.util.tuple.Tuple3;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class CallOfTheVoid extends BowItem implements StellarityBow {
 	}
 
 	@Override
-	protected @NonNull Projectile createProjectile(@NonNull Level level, @NonNull LivingEntity shooter, @NonNull ItemStack weapon, ItemStack projectile, boolean isCrit) {
+	protected Projectile createProjectile(Level level, LivingEntity shooter, ItemStack weapon, ItemStack projectile, boolean isCrit) {
 		if (projectile.getItem() instanceof ArrowItem) {
 			return new VoidArrow(level, shooter, projectile.copyWithCount(1), weapon);
 		}
@@ -32,12 +31,12 @@ public class CallOfTheVoid extends BowItem implements StellarityBow {
 	}
 
 	@Override
-	protected void shoot(@NonNull ServerLevel level, @NonNull LivingEntity shooter, @NonNull InteractionHand hand, @NonNull ItemStack weapon, @NonNull List<ItemStack> projectiles, float power, float uncertainty, boolean isCrit, @Nullable LivingEntity targetOverride) {
+	protected void shoot(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon, List<ItemStack> projectiles, float power, float uncertainty, boolean isCrit, @Nullable LivingEntity targetOverride) {
 		super.shoot(level, shooter, hand, weapon, projectiles, power * 1.08f, uncertainty, isCrit, targetOverride);
 	}
 
 	@Override
-	public @Nullable Tuple3<@Nullable SoundEvent, @Nullable Float, @Nullable Float> shootSound(ItemStack weapon, ItemStack projectile, Level level, LivingEntity entity) {
+	public Tuple3<SoundEvent, Float, Float> shootSound(ItemStack weapon, ItemStack projectile, Level level, LivingEntity entity) {
 		return SHOOT_SOUND;
 	}
 }

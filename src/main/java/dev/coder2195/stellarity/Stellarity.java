@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
 public class Stellarity implements ModInitializer {
-	public static final String VERSION = /*$ minecraft*/ "26.2";
+	public static final String VERSION = /*$ minecraft*/ "26.3-pre-1";
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 

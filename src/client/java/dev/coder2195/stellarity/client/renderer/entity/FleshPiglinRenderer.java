@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.PiglinRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.state.ZombifiedPiglinRenderState;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.entity.FleshPiglin;
 
@@ -39,12 +38,12 @@ public class FleshPiglinRenderer extends HumanoidMobRenderer<FleshPiglin, Zombif
 
 
 	@Override
-	public @NonNull Identifier getTextureLocation(ZombifiedPiglinRenderState state) {
+	public Identifier getTextureLocation(ZombifiedPiglinRenderState state) {
 		return state.isBaby ? BABY_FLESH_PIGLIN_LOCATION : FLESH_PIGLIN_LOCATION;
 	}
 
 	@Override
-	public @NonNull ZombifiedPiglinRenderState createRenderState() {
+	public ZombifiedPiglinRenderState createRenderState() {
 		return new ZombifiedPiglinRenderState();
 	}
 }

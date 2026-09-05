@@ -1,8 +1,8 @@
 package dev.coder2195.stellarity.item;
 
 import dev.coder2195.stellarity.Stellarity;
-import dev.coder2195.stellarity.registry.StellarityDataComponents;
 import dev.coder2195.stellarity.entity.StrikerStar;
+import dev.coder2195.stellarity.registry.StellarityDataComponents;
 import dev.coder2195.stellarity.util.RaycastUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -25,7 +25,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class StellarStriker extends Item {
@@ -42,7 +41,7 @@ public class StellarStriker extends Item {
 
 	public static final Properties PROPERTIES = new Properties().stacksTo(1).sword(new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9, 6, 15, ItemTags.NETHERITE_TOOL_MATERIALS) {
 		@Override
-		public @NonNull ItemAttributeModifiers createSwordAttributes(float attackDamageBaseline, float attackSpeedBaseline) {
+		public ItemAttributeModifiers createSwordAttributes(float attackDamageBaseline, float attackSpeedBaseline) {
 			return super.createSwordAttributes(attackDamageBaseline, attackSpeedBaseline)
 				.withModifierAdded(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Stellarity.id("weapon_reach"), 0.3, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 		}
@@ -54,7 +53,7 @@ public class StellarStriker extends Item {
 	}
 
 	@Override
-	public void inventoryTick(@NonNull ItemStack itemStack, @NonNull ServerLevel level, @NonNull Entity owner, @Nullable EquipmentSlot slot) {
+	public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
 		super.inventoryTick(itemStack, level, owner, slot);
 
 		if (itemStack.get(StellarityDataComponents.RECHARGES_AT) == null)
@@ -75,7 +74,7 @@ public class StellarStriker extends Item {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (!(player.isShiftKeyDown() && player.isCrouching())) return InteractionResult.FAIL;
 		var itemStack = player.getItemInHand(hand);
 
@@ -112,7 +111,7 @@ public class StellarStriker extends Item {
 	}
 
 	@Override
-	public void hurtEnemy(@NonNull ItemStack itemStack, @NonNull LivingEntity mob, @NonNull LivingEntity attacker) {
+	public void hurtEnemy(ItemStack itemStack, LivingEntity mob, LivingEntity attacker) {
 		super.hurtEnemy(itemStack, mob, attacker);
 
 		if (!(attacker.level() instanceof ServerLevel level) || !attacker.getMainHandItem().equals(itemStack)) return;

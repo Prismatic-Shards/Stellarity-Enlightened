@@ -10,7 +10,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityBlocks;
 
 
@@ -28,7 +27,7 @@ public class EnderDirtPath extends PathBlock {
 
 
 	@Override
-	public @NonNull BlockState getStateForPlacement(BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return
 			!this.defaultBlockState().canSurvive(context.getLevel(), context.getClickedPos()) ?
 				Block.pushEntitiesUp(this.defaultBlockState(), StellarityBlocks.ENDER_DIRT.defaultBlockState(), context.getLevel(), context.getClickedPos()) :
@@ -37,7 +36,7 @@ public class EnderDirtPath extends PathBlock {
 
 
 	@Override
-	protected @NonNull BlockState updateShape(@NonNull BlockState blockState, @NonNull LevelReader levelReader, @NonNull ScheduledTickAccess scheduledTickAccess, @NonNull BlockPos blockPos, @NonNull Direction direction, @NonNull BlockPos blockPos2, @NonNull BlockState blockState2, @NonNull RandomSource randomSource) {
+	protected BlockState updateShape(BlockState blockState, LevelReader levelReader, ScheduledTickAccess scheduledTickAccess, BlockPos blockPos, Direction direction, BlockPos blockPos2, BlockState blockState2, RandomSource randomSource) {
 		if (direction == Direction.UP && !blockState.canSurvive(levelReader, blockPos)) {
 			return StellarityBlocks.ENDER_DIRT.defaultBlockState();
 		}
@@ -48,7 +47,7 @@ public class EnderDirtPath extends PathBlock {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean canSurvive(@NonNull BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
+	public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
 		BlockState blockState2 = levelReader.getBlockState(blockPos.above());
 		return !(blockState2.isSolid() || blockState2.getBlock() instanceof PathBlock) || blockState2.getBlock() instanceof FenceGateBlock;
 	}

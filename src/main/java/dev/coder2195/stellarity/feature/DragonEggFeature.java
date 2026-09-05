@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jspecify.annotations.NonNull;
 
 public record DragonEggFeature(Holder<BlockStateProvider> material) implements Feature {
 	public static final MapCodec<DragonEggFeature> CODEC = RecordCodecBuilder.mapCodec(
@@ -23,7 +22,7 @@ public record DragonEggFeature(Holder<BlockStateProvider> material) implements F
 	};
 
 	@Override
-	public boolean place(@NonNull WorldGenLevel level, @NonNull ChunkGenerator chunkGenerator, @NonNull RandomSource random, BlockPos origin) {
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 
 		var ox = origin.getX();
 		var oz = origin.getZ();
@@ -50,7 +49,7 @@ public record DragonEggFeature(Holder<BlockStateProvider> material) implements F
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends Feature> codec() {
+	public MapCodec<? extends Feature> codec() {
 		return CODEC;
 	}
 

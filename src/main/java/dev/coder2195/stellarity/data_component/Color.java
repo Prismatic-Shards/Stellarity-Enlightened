@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipProvider;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityDataComponents;
 
 import java.util.List;
@@ -82,7 +81,7 @@ public record Color(int rgb) implements TooltipProvider {
 		return new Color(rgb);
 	}
 
-	public void addToTooltip(final Item.@NonNull TooltipContext context, final Consumer<Component> consumer, final @NonNull TooltipFlag flag, final @NonNull DataComponentGetter components) {
+	public void addToTooltip(final Item.TooltipContext context, final Consumer<Component> consumer, final TooltipFlag flag, final DataComponentGetter components) {
 		int color = rgb();
 		int inverted = invert(color);
 		consumer.accept(Component.translatable("item.color",

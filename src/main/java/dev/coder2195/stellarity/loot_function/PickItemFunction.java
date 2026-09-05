@@ -12,9 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jspecify.annotations.NonNull;
 
-import java.util.List;
 import java.util.Optional;
 
 public class PickItemFunction extends LootItemConditionalFunction {
@@ -37,12 +35,12 @@ public class PickItemFunction extends LootItemConditionalFunction {
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends LootItemConditionalFunction> codec() {
+	public MapCodec<? extends LootItemConditionalFunction> codec() {
 		return MAP_CODEC;
 	}
 
 	@Override
-	protected @NonNull ItemStack run(@NonNull ItemStack itemStack, @NonNull LootContext context) {
+	protected ItemStack run(ItemStack itemStack, LootContext context) {
 		if (items.size() == 0) return itemStack;
 		var item = items.getRandomElement(random);
 		return item.map(itemHolder -> itemStack.transmuteCopy(itemHolder.value())).orElse(itemStack);

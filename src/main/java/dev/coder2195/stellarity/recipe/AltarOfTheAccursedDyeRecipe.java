@@ -11,22 +11,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityDataComponents;
 import dev.coder2195.stellarity.registry.StellarityRecipeSerializers;
 import dev.coder2195.stellarity.data_component.Color;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public record AltarDyeRecipe(Ingredient item) implements AltarRecipe {
+public record AltarOfTheAccursedDyeRecipe(Ingredient item) implements AltarOfTheAccursedRecipe {
 
-	public static final StreamCodec<RegistryFriendlyByteBuf, AltarDyeRecipe> STREAM_CODEC = StreamCodec.composite(Ingredient.CONTENTS_STREAM_CODEC, AltarDyeRecipe::item, AltarDyeRecipe::new);
-	public static final MapCodec<AltarDyeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-		Ingredient.CODEC.fieldOf("item").forGetter(AltarDyeRecipe::item)
-	).apply(instance, AltarDyeRecipe::new));
+	public static final StreamCodec<RegistryFriendlyByteBuf, AltarOfTheAccursedDyeRecipe> STREAM_CODEC = StreamCodec.composite(Ingredient.CONTENTS_STREAM_CODEC, AltarOfTheAccursedDyeRecipe::item, AltarOfTheAccursedDyeRecipe::new);
+	public static final MapCodec<AltarOfTheAccursedDyeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+		Ingredient.CODEC.fieldOf("item").forGetter(AltarOfTheAccursedDyeRecipe::item)
+	).apply(instance, AltarOfTheAccursedDyeRecipe::new));
 
 	@Override
 	public @Nullable Output craft(List<ItemStack> itemStacks) {
@@ -43,7 +42,7 @@ public record AltarDyeRecipe(Ingredient item) implements AltarRecipe {
 				continue;
 			}
 
-			@Nullable DyeColor dye = itemStack.get(DataComponents.DYE);
+			DyeColor dye = itemStack.get(DataComponents.DYE);
 			if (dye != null) {
 				for (int i = 0; i < itemStack.count(); i++) dyes.add(dye);
 				continue;
@@ -74,12 +73,7 @@ public record AltarDyeRecipe(Ingredient item) implements AltarRecipe {
 	}
 
 	@Override
-	public HashMap<Ingredient, Integer> ingredients() {
-		return new HashMap<>();
-	}
-
-	@Override
-	public @NonNull RecipeSerializer<? extends Recipe<Input>> getSerializer() {
-		return StellarityRecipeSerializers.ALTAR_DYE;
+	public RecipeSerializer<? extends Recipe<Input>> getSerializer() {
+		return StellarityRecipeSerializers.ALTAR_OF_THE_ACCURSED_DYE;
 	}
 }

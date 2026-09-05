@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class FleshPiglin extends ZombifiedPiglin {
@@ -17,22 +16,22 @@ public class FleshPiglin extends ZombifiedPiglin {
 		super(type, level);
 	}
 
-	public static AttributeSupplier.@NonNull Builder createAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return ZombifiedPiglin.createAttributes();
 	}
 
 	@Override
-	public boolean isAngryAt(@NonNull LivingEntity entity, @NonNull ServerLevel level) {
+	public boolean isAngryAt(LivingEntity entity, ServerLevel level) {
 		return canAttack(entity) && entity.is(EntityTypes.PLAYER) || super.isAngryAt(entity, level);
 	}
 
 	@Override
-	public void populateDefaultEquipmentSlots(@NonNull RandomSource random, @NonNull DifficultyInstance difficulty) {
+	public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		// nothing lol
 	}
 
 	@Override
-	public @Nullable SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor level, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 
 

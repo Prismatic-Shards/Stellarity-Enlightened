@@ -20,9 +20,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.util.ColorUtil;
+import org.jspecify.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -60,31 +59,31 @@ public class Pixie extends PathfinderMob {
 		return originBiome;
 	}
 
-	public void setOriginBiome(@NonNull Holder<Biome> originBiome) {
+	public void setOriginBiome(Holder<Biome> originBiome) {
 		this.originBiome = originBiome;
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("origin_biome", Biome.CODEC).ifPresent(this::setOriginBiome);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.storeNullable("origin_biome", Biome.CODEC, getOriginBiome());
 	}
 
 	@Override
-	public boolean teleportTo(@NonNull ServerLevel level, double x, double y, double z, @NonNull Set<Relative> relatives, float newYRot, float newXRot, boolean resetCamera) {
+	public boolean teleportTo(ServerLevel level, double x, double y, double z, Set<Relative> relatives, float newYRot, float newXRot, boolean resetCamera) {
 		if (!super.teleportTo(level, x, y, z, relatives, newYRot, newXRot, resetCamera)) return false;
 		moveControl.setWantedPosition(x, y, z, 0.25);
 		return true;
 	}
 
 	@Override
-	public @Nullable SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor level, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 
 		setOriginBiome(level.getBiome(blockPosition()));

@@ -15,7 +15,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import org.jspecify.annotations.NonNull;
 
 public class BookOfLight extends Spellbook {
 	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
@@ -26,7 +25,7 @@ public class BookOfLight extends Spellbook {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		var itemStack = player.getItemInHand(hand);
 
 		player.getCooldowns().addCooldown(itemStack, RECHARGE_TIME);

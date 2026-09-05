@@ -33,12 +33,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.entity.variant.VoidedSkeletonVariant;
 import dev.coder2195.stellarity.util.tuple.Tuple2;
 import dev.coder2195.stellarity.util.tuple.Tuple3;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,21 +73,21 @@ public class VoidedSkeleton extends Skeleton {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		super.defineSynchedData(entityData);
 		entityData.define(DATA_MINIBOSS, false);
 		entityData.define(DATA_VARIANT, VariantUtils.getDefaultOrAny(this.registryAccess(), VoidedSkeletonVariant.DEFAULT_VARIANT));
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("miniboss", Codec.BOOL).ifPresent(this::setMiniboss);
 		input.read("variant", VoidedSkeletonVariant.CODEC).ifPresent(this::setVariant);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 
 		VariantUtils.writeVariant(output, getVariant());
@@ -96,10 +95,10 @@ public class VoidedSkeleton extends Skeleton {
 	}
 
 	@Override
-	public @Nullable SpawnGroupData finalizeSpawn(@NonNull ServerLevelAccessor level, @NonNull DifficultyInstance difficulty, @NonNull EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+	public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
 		groupData = super.finalizeSpawn(level, difficulty, spawnReason, groupData);
 
-		setVariant(VariantUtils.selectVariantToSpawn(SpawnContext.create(level, blockPosition()), StellarityRegistries.VOIDED_SKELETON_VARIANT).orElse(null));
+		setVariant(VariantUtils.selectVariantToSpawn(SpawnContext.create(level, blockPosition()), StellarityRegistries.VOIDED_SKELETON_VARIANT).orElseGet(() -> level.registryAccess().getOrThrow(VoidedSkeletonVariant.DEFAULT_VARIANT)));
 
 		var miniboss = random.nextDouble() <= 0.01;
 		var registry = registryAccess();
@@ -143,7 +142,7 @@ public class VoidedSkeleton extends Skeleton {
 
 
 	@Override
-	public void populateDefaultEquipmentSlots(@NonNull RandomSource random, @NonNull DifficultyInstance difficulty) {
+	public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(StellarityItems.CALL_OF_THE_VOID));
 		setDropChance(EquipmentSlot.MAINHAND, 0.004f);
 		setDropChance(EquipmentSlot.OFFHAND, 0);
@@ -151,13 +150,13 @@ public class VoidedSkeleton extends Skeleton {
 
 	public
 
-	static AttributeSupplier.@NonNull Builder createAttributes() {
+	static AttributeSupplier.Builder createAttributes() {
 		return Skeleton.createAttributes();
 
 	}
 
 	@Override
-	public boolean doHurtTarget(@NonNull ServerLevel level, @NonNull Entity target) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
 		if (!super.doHurtTarget(level, target)) return false;
 
 		if (target instanceof LivingEntity entity) {

@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -46,14 +45,14 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 	}
 
 	@Override
-	public void configure(HolderLookup.@NonNull Provider provider, @NonNull Entries entries) {
+	public void configure(HolderLookup.Provider provider, Entries entries) {
 		for (var registry : List.of(JUKEBOX_SONG, NOISE, PAINTING_VARIANT, COW_VARIANT, FROG_VARIANT, CAT_VARIANT, WOLF_VARIANT, PIG_VARIANT, CHICKEN_VARIANT, VOIDED_SKELETON_VARIANT, CARVER, FEATURE, PLACED_FEATURE, BIOME, PROCESSOR_LIST, TEMPLATE_POOL, ENCHANTMENT, STRUCTURE, STRUCTURE_SET, VILLAGER_TRADE, TRADE_SET, DAMAGE_TYPE)) {
 			entries.addAll(provider.lookupOrThrow(registry));
 		}
 	}
 
 	@Override
-	public @NonNull String getName() {
+	public String getName() {
 		return "All Dynamic Registries Provider";
 	}
 }

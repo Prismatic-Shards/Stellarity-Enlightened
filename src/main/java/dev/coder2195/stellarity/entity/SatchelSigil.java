@@ -18,10 +18,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityEntityDataSerializers;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
-import dev.coder2195.stellarity.recipe.AltarRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedRecipe;
 
 import java.util.function.IntFunction;
 
@@ -74,7 +73,7 @@ public class SatchelSigil extends Entity {
 
 
 		if (level instanceof ServerLevel serverLevel) {
-			if (localElapsedTime % 10 == 0 && isActive()) AltarRecipe.handleItems(
+			if (localElapsedTime % 10 == 0 && isActive()) AltarOfTheAccursedRecipe.handleItems(
 				serverLevel, x, y, z, false, getBoundingBox(),
 				(itemEntity) -> Mth.square(position.x - itemEntity.getX()) + Mth.square(position.z - itemEntity.getZ()) < Mth.square(1)
 			);
@@ -174,7 +173,7 @@ public class SatchelSigil extends Entity {
 
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		entityData.define(DATA_STATE, State.OPENING);
 		entityData.define(DATA_ELAPSED_TIME, 0);
 		entityData.define(DATA_LIVE_TIME, DEFAULT_ACTIVE_TIME);
@@ -196,7 +195,7 @@ public class SatchelSigil extends Entity {
 	}
 
 	@Override
-	public void onSyncedDataUpdated(@NonNull EntityDataAccessor<?> accessor) {
+	public void onSyncedDataUpdated(EntityDataAccessor<?> accessor) {
 		super.onSyncedDataUpdated(accessor);
 
 		if (accessor.equals(DATA_STATE)) {
@@ -207,7 +206,7 @@ public class SatchelSigil extends Entity {
 
 
 	@Override
-	public boolean hurtServer(@NonNull ServerLevel level, @NonNull DamageSource source, float damage) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 }

@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.Property;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.entity.PhantomItemFrame;
 
 
@@ -22,7 +21,7 @@ public class PhantomItemFrameRenderer extends ItemFrameRenderer<PhantomItemFrame
 	}
 
 	@Override
-	public void extractRenderState(@NonNull PhantomItemFrame entity, @NonNull ItemFrameRenderState state, float partialTicks) {
+	public void extractRenderState(PhantomItemFrame entity, ItemFrameRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
 
 		if (!state.isInvisible) {

@@ -15,7 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.*;
@@ -24,11 +23,11 @@ public class DashTrigger extends SimpleCriterionTrigger<DashTrigger.TriggerInsta
 
 
 	@Override
-	public @NonNull Codec<TriggerInstance> codec() {
+	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 
-	public void trigger(final ServerPlayer player, final Collection<Entity> victims, @Nullable final ItemStack weapon) {
+	public void trigger(final ServerPlayer player, final Collection<Entity> victims, final ItemStack weapon) {
 		List<LootContext> victimContexts = Lists.newArrayList();
 		Set<EntityType<?>> entityTypes = Sets.newHashSet();
 
@@ -53,7 +52,7 @@ public class DashTrigger extends SimpleCriterionTrigger<DashTrigger.TriggerInsta
 				)
 				.apply(i, TriggerInstance::new));
 
-		public boolean matches(final Collection<LootContext> victims, final int uniqueEntityTypes, @Nullable final ItemStack weapon) {
+		public boolean matches(final Collection<LootContext> victims, final int uniqueEntityTypes, final @Nullable ItemStack weapon) {
 			if (!this.uniqueEntityTypes.matches(uniqueEntityTypes) || !this.victimCount.matches(victims.size())) {
 				return false;
 			}
@@ -61,14 +60,14 @@ public class DashTrigger extends SimpleCriterionTrigger<DashTrigger.TriggerInsta
 			if (this.weapon.isEmpty() || weapon != null && this.weapon.get().test(weapon)) {
 				if (this.victims.isEmpty()) return true;
 
-				List<LootContext> victimsCopy = Lists.<LootContext>newArrayList(victims);
+				List<LootContext> victimsCopy = Lists.newArrayList(victims);
 
 				for (Holder<LootItemCondition> predicate : this.victims) {
 					boolean found = false;
 					Iterator<LootContext> iterator = victimsCopy.iterator();
 
 					while (iterator.hasNext()) {
-						LootContext entity = (LootContext)iterator.next();
+						LootContext entity = iterator.next();
 						if (predicate.value().test(entity)) {
 							iterator.remove();
 							found = true;

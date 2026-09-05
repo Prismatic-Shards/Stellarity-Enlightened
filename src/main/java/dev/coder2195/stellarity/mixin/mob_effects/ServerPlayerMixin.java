@@ -3,7 +3,9 @@ package dev.coder2195.stellarity.mixin.mob_effects;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.server.PlayerAdvancements;
+import dev.coder2195.stellarity.effect.CreativeShockEffect;
+import dev.coder2195.stellarity.registry.StellarityDataAttachments;
+import dev.coder2195.stellarity.registry.StellarityMobEffects;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,9 +21,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import dev.coder2195.stellarity.registry.StellarityDataAttachments;
-import dev.coder2195.stellarity.registry.StellarityMobEffects;
-import dev.coder2195.stellarity.effect.CreativeShockEffect;
 
 import java.util.Collection;
 
@@ -34,15 +33,14 @@ public abstract class ServerPlayerMixin extends Player {
 
 
 	@Shadow
-	public abstract boolean setGameMode(GameType gameType);
-
+	public abstract boolean setGameMode(GameType mode);
 
 	public ServerPlayerMixin(Level level, GameProfile gameProfile) {
 		super(level, gameProfile);
 	}
 
 	@Unique
-	private void setLastGamemode(GameType gamemode) {
+	private void setLastGamemode(@Nullable GameType gamemode) {
 		setAttached(StellarityDataAttachments.LAST_GAMEMODE, gamemode);
 	}
 
@@ -53,11 +51,11 @@ public abstract class ServerPlayerMixin extends Player {
 
 
 	@Inject(method = "onEffectAdded", at = @At("HEAD"))
-	private void effectAdded(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
+	private void effectAdded(MobEffectInstance effect, Entity source, CallbackInfo ci) {
 		var type = gameMode.getGameModeForPlayer();
 
 
-		if (!effectInstance.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
+		if (!effect.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
 
 		if (!CreativeShockEffect.extremeCreativeShock() && type == GameType.CREATIVE) return;
 
@@ -67,7 +65,7 @@ public abstract class ServerPlayerMixin extends Player {
 
 
 	@Inject(method = "onEffectsRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerGamePacketListenerImpl;send(Lnet/minecraft/network/protocol/Packet;)V", shift = At.Shift.AFTER))
-	protected void effectRemoved(Collection<MobEffectInstance> collection, CallbackInfo ci, @Local(name = "effect") MobEffectInstance effect) {
+	protected void effectRemoved(Collection<MobEffectInstance> effects, CallbackInfo ci, @Local(name = "effect") MobEffectInstance effect) {
 		if (!effect.is(StellarityMobEffects.CREATIVE_SHOCK)) return;
 
 		var lastGamemode = getLastGamemode();

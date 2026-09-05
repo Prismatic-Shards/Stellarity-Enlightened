@@ -8,7 +8,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -34,7 +33,7 @@ public class BiomeTagProvider extends FabricTagsProvider<Biome> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		builder(SNOWY).add(FROZEN_SPIKES, FROSTED_VALLEY, FROZEN_MARSH, HALLOWED_TUNDRA, FROZEN_SHRUBLAND);
 		builder(ALL_STELLARITY).addAll(stellarity());
 		builder(ALL_OUTER).forceAddTag(ALL_STELLARITY).addAll(outerVanilla());

@@ -9,7 +9,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellaritySoundEvents;
 import dev.coder2195.stellarity.entity.ThrownPrismaticPearl;
 
@@ -23,7 +22,7 @@ public class PrismaticPearlItem extends Item {
 
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand interactionHand) {
+	public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
 		ItemStack itemStack = player.getItemInHand(interactionHand);
 
 		if (level instanceof ServerLevel serverLevel) {

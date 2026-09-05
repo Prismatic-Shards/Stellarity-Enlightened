@@ -11,7 +11,6 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -28,7 +27,7 @@ public class BookOfJinx extends Spellbook {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		var itemStack = player.getItemInHand(hand);
 
 		player.getCooldowns().addCooldown(itemStack, RECHARGE_TIME);

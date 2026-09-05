@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import org.jspecify.annotations.NonNull;
 
 import static dev.coder2195.stellarity.util.ValueUtil.from;
 
@@ -17,7 +16,7 @@ public class FreezeWaterFeature implements Feature {
 	public static final MapCodec<FreezeWaterFeature> CODEC = MapCodec.unit(INSTANCE);
 
 	@Override
-	public boolean place(@NonNull WorldGenLevel level, @NonNull ChunkGenerator generator, @NonNull RandomSource random, @NonNull BlockPos origin) {
+	public boolean place(WorldGenLevel level, ChunkGenerator generator, RandomSource random, BlockPos origin) {
 
 		var pos = new BlockPos.MutableBlockPos();
 
@@ -45,7 +44,7 @@ public class FreezeWaterFeature implements Feature {
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends Feature> codec() {
+	public MapCodec<? extends Feature> codec() {
 		return CODEC;
 	}
 

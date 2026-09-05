@@ -9,7 +9,6 @@ import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -32,7 +31,7 @@ public class EntityTypeTagProvider extends FabricTagsProvider.EntityTypeTagsProv
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void addTags(HolderLookup.@NonNull Provider provider) {
+	public void addTags(HolderLookup.Provider provider) {
 		addTags(StellarityEntityTypeTags.INVALID_TARGETS, ConventionalEntityTypeTags.BOATS, EntityTypeTags.IMPACT_PROJECTILES, ConventionalEntityTypeTags.MINECARTS).add(ITEM_FRAME, GLOW_ITEM_FRAME, PAINTING, ARMOR_STAND, LEASH_KNOT, INTERACTION,
 			AREA_EFFECT_CLOUD, ENDER_PEARL, END_CRYSTAL, EVOKER_FANGS, EXPERIENCE_BOTTLE, EXPERIENCE_ORB, EYE_OF_ENDER,
 			FALLING_BLOCK, FISHING_BOBBER, FIREWORK_ROCKET, FIREBALL, ITEM, LLAMA_SPIT, SHULKER_BULLET, SPLASH_POTION, LINGERING_POTION

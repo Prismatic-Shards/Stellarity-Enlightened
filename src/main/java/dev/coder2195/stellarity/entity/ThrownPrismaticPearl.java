@@ -25,12 +25,11 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityEntityDataSerializers;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
 import dev.coder2195.stellarity.registry.StellarityItems;
 import dev.coder2195.stellarity.util.CustomCodecs;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Set;
 import java.util.function.IntFunction;
@@ -49,25 +48,25 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		super.defineSynchedData(entityData);
 		entityData.define(DATA_TRAIL, Trail.NORMAL);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.storeNullable("trail", Trail.CODEC, getTrail());
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("trail", Trail.CODEC).ifPresent(this::setTrail);
 	}
 
 	@Override
-	public void shootFromRotation(@NonNull Entity entity, float f, float g, float h, float i, float j) {
+	public void shootFromRotation(Entity entity, float f, float g, float h, float i, float j) {
 		super.shootFromRotation(entity, f, g, h, i, j);
 
 		if (!level().isClientSide() && entity instanceof Player player) {
@@ -206,7 +205,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	}
 
 	@Override
-	protected @NonNull Item getDefaultItem() {
+	protected Item getDefaultItem() {
 		return StellarityItems.PRISMATIC_PEARL;
 	}
 
@@ -215,7 +214,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 	};
 
 	@Override
-	protected void onHit(@NonNull HitResult hitResult) {
+	protected void onHit(HitResult hitResult) {
 		super.onHit(hitResult);
 
 		var level = level();
@@ -242,7 +241,7 @@ public class ThrownPrismaticPearl extends ThrowableItemProjectile {
 		super.syncPacketPositionCodec(d, e, f);
 	}
 
-	protected void onHitEntity(@NonNull EntityHitResult entityHitResult) {
+	protected void onHitEntity(EntityHitResult entityHitResult) {
 		super.onHitEntity(entityHitResult);
 		var level = level();
 		if (level.isClientSide()) return;

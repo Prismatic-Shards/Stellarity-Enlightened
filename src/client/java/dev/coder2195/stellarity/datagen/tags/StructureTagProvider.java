@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,7 +20,7 @@ public class StructureTagProvider extends FabricTagsProvider<Structure> {
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		builder(EXPLORATION_MAP_END_CITY).add(END_CITY);
 		builder(EXPLORATION_MAP_VILLAGE).add(StellarityStructures.VILLAGE);
 	}

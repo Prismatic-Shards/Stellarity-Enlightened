@@ -10,7 +10,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
-import org.jspecify.annotations.NonNull;
 
 import static net.minecraft.world.damagesource.DamageTypes.*;
 import static dev.coder2195.stellarity.registry.StellarityDamageTypes.*;
@@ -32,7 +31,7 @@ public class DamageTypeTagProvider extends FabricTagsProvider<DamageType> {
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		addTags(BYPASSES_COOLDOWN).add(BRITTLE, STRIKER_STAR, BLOOM);
 		addTags(MELEE).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK, PRISMEMBER);
 		addTags(BYPASSES_ARMOR).add(FROSTBURN, ELECTRIC, BLOOM);

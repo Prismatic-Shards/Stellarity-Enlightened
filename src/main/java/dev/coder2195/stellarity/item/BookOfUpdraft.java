@@ -2,7 +2,6 @@ package dev.coder2195.stellarity.item;
 
 import dev.coder2195.stellarity.registry.StellarityDataAttachments;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -10,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 public class BookOfUpdraft extends Spellbook {
 	public static final Properties PROPERTIES = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
@@ -21,7 +19,7 @@ public class BookOfUpdraft extends Spellbook {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (!(level instanceof ServerLevel serverLevel)) return InteractionResult.SUCCESS;
 		castSpell(serverLevel, player);
 

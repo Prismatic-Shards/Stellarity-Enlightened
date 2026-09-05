@@ -20,7 +20,6 @@ import net.minecraft.world.level.storage.loot.Validatable;
 import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -85,14 +84,14 @@ public class VoidFishedTrigger extends SimpleCriterionTrigger<VoidFishedTrigger.
 		}
 
 		@Override
-		public void validate(final @NonNull ValidationContextSource validator) {
+		public void validate(final ValidationContextSource validator) {
 			SimpleCriterionTrigger.SimpleInstance.super.validate(validator);
 			Validatable.validateHolder(validator.entityContext(), "entity", this.entity);
 		}
 
 	}
 
-	public @NonNull Codec<TriggerInstance> codec() {
+	public Codec<TriggerInstance> codec() {
 		return TriggerInstance.CODEC;
 	}
 }

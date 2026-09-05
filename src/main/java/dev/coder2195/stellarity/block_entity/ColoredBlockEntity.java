@@ -15,11 +15,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.registry.StellarityBlockEntityTypes;
 import dev.coder2195.stellarity.registry.StellarityDataComponents;
 import dev.coder2195.stellarity.data_component.Color;
+import org.jspecify.annotations.Nullable;
 
 public class ColoredBlockEntity extends BlockEntity {
 	private @Nullable Integer color = null;
@@ -49,14 +48,14 @@ public class ColoredBlockEntity extends BlockEntity {
 
 
 	@Override
-	protected void loadAdditional(@NonNull ValueInput input) {
+	protected void loadAdditional(ValueInput input) {
 		super.loadAdditional(input);
 		input.read("color", Codec.INT).ifPresent(c -> this.color = c);
 		setChanged();
 	}
 
 	@Override
-	protected void saveAdditional(@NonNull ValueOutput output) {
+	protected void saveAdditional(ValueOutput output) {
 		super.saveAdditional(output);
 		output.store("color", Codec.INT, getColor());
 	}
@@ -72,24 +71,24 @@ public class ColoredBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void collectImplicitComponents(DataComponentMap.@NonNull Builder components) {
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
 		super.collectImplicitComponents(components);
 		components.set(StellarityDataComponents.COLOR, new Color(getColor()));
 	}
 
 	@Override
-	public @NonNull CompoundTag getUpdateTag(HolderLookup.@NonNull Provider registryLookup) {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
 		return saveWithoutMetadata(registryLookup);
 	}
 
 	@Override
-	protected void applyImplicitComponents(@NonNull DataComponentGetter components) {
+	protected void applyImplicitComponents(DataComponentGetter components) {
 		super.applyImplicitComponents(components);
 		this.color = components.getOrDefault(StellarityDataComponents.COLOR, new Color(defaultColor)).rgb();
 	}
 
 	@Override
-	public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 }

@@ -10,9 +10,7 @@ import net.minecraft.nbt.NumericTag;
 import net.minecraft.server.commands.data.EntityDataAccessor;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.ValidationContext;
-import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
-import org.jspecify.annotations.NonNull;
 
 public record NbtValue(
 	LootContext.EntityTarget target, NbtPathArgument.NbtPath path, int defaultValue
@@ -44,11 +42,11 @@ public record NbtValue(
 	}
 
 	@Override
-	public void validate(@NonNull ValidationContext context) {
+	public void validate(ValidationContext context) {
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends ContextIntProvider> codec() {
+	public MapCodec<? extends ContextIntProvider> codec() {
 		return CODEC;
 	}
 }

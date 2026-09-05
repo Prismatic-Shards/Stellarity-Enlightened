@@ -7,7 +7,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
 import dev.coder2195.stellarity.registry.StellarityItems;
 
@@ -26,7 +25,7 @@ public class PhantomItemFrame extends ItemFrame {
 
 
 	@Override
-	public @NonNull ItemStack getFrameItemStack() {
+	public ItemStack getFrameItemStack() {
 		return new ItemStack(StellarityItems.PHANTOM_ITEM_FRAME);
 	}
 

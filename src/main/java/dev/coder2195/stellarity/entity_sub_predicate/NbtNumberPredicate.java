@@ -11,9 +11,8 @@ import net.minecraft.server.commands.data.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.Stellarity;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public record NbtNumberPredicate(
 	).apply(instance, NbtNumberPredicate::new));
 
 	@Override
-	public boolean matches(@NonNull Entity entity, @NonNull ServerLevel level, @Nullable Vec3 position) {
+	public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position) {
 		var accessor = new EntityDataAccessor(entity);
 		var pathsEntries = paths.entrySet();
 		try {

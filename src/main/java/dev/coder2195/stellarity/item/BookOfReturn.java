@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class BookOfReturn extends Spellbook {
 	public static final ParticleOptions RING_PARTICLE = new DustParticleOptions(0xbf00bf, 0.33745f);
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (player.getAttached(StellarityDataAttachments.RETURN_SPELL_AT) != null) return super.use(level, player, hand);
 
 		player.setAttached(StellarityDataAttachments.RETURN_SPELL_AT, level.getGameTime() + USE_DELAY);

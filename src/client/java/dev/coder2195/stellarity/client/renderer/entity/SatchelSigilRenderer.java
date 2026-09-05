@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.client.registry.StellarityEntityModelLayers;
 import dev.coder2195.stellarity.client.model.entity.SatchelSigilModel;
@@ -26,7 +25,7 @@ public class SatchelSigilRenderer extends EntityRenderer<SatchelSigil, SatchelSi
 	}
 
 	@Override
-	public void submit(@NonNull SatchelSigilRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, @NonNull CameraRenderState camera) {
+	public void submit(SatchelSigilRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
 		poseStack.pushPose();
 		submitNodeCollector.submitModel(this.model, state, poseStack, model.renderType(TEXTURE), state.lightCoords, OverlayTexture.NO_OVERLAY, 0xffbb00ff, null, state.outlineColor);
 		poseStack.popPose();
@@ -34,22 +33,22 @@ public class SatchelSigilRenderer extends EntityRenderer<SatchelSigil, SatchelSi
 	}
 
 	@Override
-	protected int getSkyLightLevel(@NonNull SatchelSigil unused, @NonNull BlockPos unused2) {
+	protected int getSkyLightLevel(SatchelSigil unused, BlockPos unused2) {
 		return 15;
 	}
 
 	@Override
-	protected int getBlockLightLevel(@NonNull SatchelSigil entity, @NonNull BlockPos blockPos) {
+	protected int getBlockLightLevel(SatchelSigil entity, BlockPos blockPos) {
 		return 15;
 	}
 
 	@Override
-	public @NonNull SatchelSigilRenderState createRenderState() {
+	public SatchelSigilRenderState createRenderState() {
 		return new SatchelSigilRenderState();
 	}
 
 	@Override
-	public void extractRenderState(@NonNull SatchelSigil entity, @NonNull SatchelSigilRenderState state, float partialTicks) {
+	public void extractRenderState(SatchelSigil entity, SatchelSigilRenderState state, float partialTicks) {
 		super.extractRenderState(entity, state, partialTicks);
 		state.elapsedTime = entity.getLocalElapsedTime() + partialTicks;
 		state.liveTime = entity.getLiveTime();
@@ -59,6 +58,6 @@ public class SatchelSigilRenderer extends EntityRenderer<SatchelSigil, SatchelSi
 	public static class SatchelSigilRenderState extends EntityRenderState {
 		public float elapsedTime;
 		public int liveTime;
-		public SatchelSigil.State state;
+		public SatchelSigil.State state = SatchelSigil.State.OPENING;
 	}
 }

@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 public class PrismaticInfernoEffect extends MobEffect {
 	public PrismaticInfernoEffect() {
@@ -16,7 +15,7 @@ public class PrismaticInfernoEffect extends MobEffect {
 
 	@Override
 
-	public boolean applyEffectTick(@NonNull ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
+	public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity livingEntity, int amplifier) {
 
 		Level level = livingEntity.level();
 		if (level.isClientSide()) return false;

@@ -8,7 +8,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
-import org.jspecify.annotations.NonNull;
 
 import static dev.coder2195.stellarity.registry.StellarityVillagerProfessions.*;
 
@@ -32,7 +31,7 @@ public class VillagerProfessionTagProvider extends FabricTagsProvider<VillagerPr
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		addTags(ALL, ARMORER, BUTCHER, CARTOGRAPHER, CLERIC, FARMER, FISHERMAN, FLETCHER, LEATHERWORKER, LIBRARIAN, MASON, SHEPHERD, TOOLSMITH, WEAPONSMITH);
 
 		addTags(END_PROFESSION).addTag(ALL.location());

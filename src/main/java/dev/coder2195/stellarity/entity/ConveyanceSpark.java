@@ -13,12 +13,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class ConveyanceSpark extends Projectile {
 	private int liveTime = 5 * 20;
-	private Vec3 posOld = null;
+	private @Nullable Vec3 posOld = null;
 	private double speed = 1.5f;
 
 	public ConveyanceSpark(EntityType<? extends ConveyanceSpark> type, Level level) {
@@ -58,7 +57,7 @@ public class ConveyanceSpark extends Projectile {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("live_time", Codec.INT).ifPresent(this::setLiveTime);
 		input.read("speed", Codec.DOUBLE).ifPresent(this::setSpeed);
@@ -66,7 +65,7 @@ public class ConveyanceSpark extends Projectile {
 
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.store("live_time", Codec.INT, liveTime);
 		output.store("speed", Codec.DOUBLE, speed);
@@ -121,7 +120,7 @@ public class ConveyanceSpark extends Projectile {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 	}
 
 }

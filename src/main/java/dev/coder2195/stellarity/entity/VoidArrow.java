@@ -24,8 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class VoidArrow extends AbstractArrow {
 		super(type, level);
 	}
 
-	public VoidArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, final @Nullable ItemStack firedFromWeapon) {
+	public VoidArrow(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, final ItemStack firedFromWeapon) {
 		super(StellarityEntityTypes.VOID_ARROW, owner, level, pickupItemStack, firedFromWeapon);
 	}
 
@@ -47,7 +45,7 @@ public class VoidArrow extends AbstractArrow {
 	}
 
 	@Override
-	public void applyOnProjectileSpawned(@NonNull ServerLevel serverLevel, @NonNull ItemStack pickupItemStack) {
+	public void applyOnProjectileSpawned(ServerLevel serverLevel, ItemStack pickupItemStack) {
 		super.applyOnProjectileSpawned(serverLevel, pickupItemStack);
 
 		stellarity$addMobEffects(new MobEffectInstance(StellarityMobEffects.VOIDED, 160));
@@ -65,28 +63,28 @@ public class VoidArrow extends AbstractArrow {
 	}
 
 	@Override
-	protected @NonNull SoundEvent getDefaultHitGroundSoundEvent() {
+	protected SoundEvent getDefaultHitGroundSoundEvent() {
 		return SoundEvents.GLASS_BREAK;
 	}
 
 	@Override
-	protected void doPostHurtEffects(@NonNull LivingEntity mob) {
+	protected void doPostHurtEffects(LivingEntity mob) {
 		super.doPostHurtEffects(mob);
 		this.getPickupItemStackOrigin().getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY)
 			.forEachEffect(mob::addEffect, this.getPickupItemStackOrigin().getOrDefault(DataComponents.POTION_DURATION_SCALE, 1.0F));
 	}
 
-	public VoidArrow(final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, final @Nullable ItemStack firedFromWeapon) {
+	public VoidArrow(final Level level, final double x, final double y, final double z, final ItemStack pickupItemStack, final ItemStack firedFromWeapon) {
 		super(StellarityEntityTypes.VOID_ARROW, x, y, z, level, pickupItemStack, firedFromWeapon);
 	}
 
 	@Override
-	public @NonNull ItemStack getDefaultPickupItem() {
+	public ItemStack getDefaultPickupItem() {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	protected void onHit(@NonNull HitResult hitResult) {
+	protected void onHit(HitResult hitResult) {
 		super.onHit(hitResult);
 
 		if (!(level() instanceof ServerLevel level)) return;

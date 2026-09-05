@@ -13,7 +13,6 @@ import net.minecraft.world.entity.variant.PriorityProvider;
 import net.minecraft.world.entity.variant.SpawnCondition;
 import net.minecraft.world.entity.variant.SpawnContext;
 import net.minecraft.world.entity.variant.SpawnPrioritySelectors;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityMobVariants;
 import dev.coder2195.stellarity.registry.StellarityRegistries;
 
@@ -40,9 +39,7 @@ public record VoidedSkeletonVariant(ClientAsset.ResourceTexture assetInfo,
 	static final StreamCodec<RegistryFriendlyByteBuf, Holder<VoidedSkeletonVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(StellarityRegistries.VOIDED_SKELETON_VARIANT);
 
 	@Override
-	public @NonNull List<PriorityProvider.Selector<SpawnContext, SpawnCondition>>
-
-	selectors() {
+	public List<PriorityProvider.Selector<SpawnContext, SpawnCondition>> selectors() {
 		return this.spawnConditions.selectors();
 
 	}

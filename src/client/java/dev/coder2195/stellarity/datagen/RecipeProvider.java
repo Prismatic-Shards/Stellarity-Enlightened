@@ -2,10 +2,10 @@ package dev.coder2195.stellarity.datagen;
 
 import com.mojang.serialization.Lifecycle;
 import dev.coder2195.stellarity.Stellarity;
-import dev.coder2195.stellarity.recipe.AltarDyeRecipe;
-import dev.coder2195.stellarity.recipe.AltarRecipe;
-import dev.coder2195.stellarity.recipe.AltarSimpleRecipe;
-import dev.coder2195.stellarity.recipe.AltarUpgradeRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedDyeRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedSimpleRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedUpgradeRecipe;
 import dev.coder2195.stellarity.util.tuple.Tuple2;
 import dev.coder2195.stellarity.util.tuple.Tuple3;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -25,7 +25,6 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
-import org.jspecify.annotations.NonNull;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 		super(output, registriesFuture);
 	}
 
-	public static void altarOfTheAccursed(RecipeOutput output, String id, AltarRecipe recipe) {
+	public static void altarOfTheAccursed(RecipeOutput output, String id, AltarOfTheAccursedRecipe recipe) {
 		output.accept(Stellarity.key(Registries.RECIPE, id), recipe, null);
 	}
 
@@ -63,7 +62,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	protected net.minecraft.data.recipes.@NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull BootstrapContext<Recipe<?>> recipes, @NonNull BootstrapContext<Advancement> advancements) {
+	protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
 		return new net.minecraft.data.recipes.RecipeProvider(recipes, advancements) {
 			@Override
 			public void buildRecipes() {
@@ -184,45 +183,45 @@ public class RecipeProvider extends FabricRecipeProvider {
 
 
 	public void buildRecipes(HolderLookup.Provider provider, RecipeOutput output) {
-		altarOfTheAccursed(output, "altar_of_the_accursed/lapis_to_amethyst", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/lapis_to_amethyst", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(DIAMOND).put(LAPIS_LAZULI),
 			new ItemStackTemplate(AMETHYST_SHARD)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/chorus_plating", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/chorus_plating", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(IRON_INGOT).put(POPPED_CHORUS_FRUIT	, 2),
 			new ItemStackTemplate(CHORUS_PLATING)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/enderite_upgrade_smithing_template", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/enderite_upgrade_smithing_template", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(ENDERITE_UPGRADE_SMITHING_TEMPLATE).put(ENDERITE_SHARD, 5).put(PURPUR_BLOCK, 9),
 			new ItemStackTemplate(ENDERITE_UPGRADE_SMITHING_TEMPLATE, 2)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/endonomicon", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/endonomicon", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(ENCHANTED_BOOK),
 			new ItemStackTemplate(ENDONOMICON)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(BUNDLE).put(NETHER_STAR, 2).put(NETHERITE_INGOT, 4).put(ENDERITE_SHARD, 64).put(STARLIGHT_SOOT, 64),
 			new ItemStackTemplate(SATCHEL_OF_VOIDS)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids_alternative", new AltarSimpleRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/satchel_of_voids_alternative", new AltarOfTheAccursedSimpleRecipe(
 			new Ingredients().put(LEATHER).put(STRING).put(NETHER_STAR, 2).put(NETHERITE_INGOT, 4).put(ENDERITE_SHARD, 64).put(STARLIGHT_SOOT, 64),
 			new ItemStackTemplate(SATCHEL_OF_VOIDS)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/dye_elytra", new AltarDyeRecipe(Ingredient.of(ELYTRA)));
+		altarOfTheAccursed(output, "altar_of_the_accursed/dye_elytra", new AltarOfTheAccursedDyeRecipe(Ingredient.of(ELYTRA)));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/spectral_fury", new AltarUpgradeRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/spectral_fury", new AltarOfTheAccursedUpgradeRecipe(
 			Ingredient.of(SHARANGA),
 			new Ingredients().put(ENDERITE_UPGRADE_SMITHING_TEMPLATE).put(PHANTOM_MEMBRANE, 8).put(DIAMOND, 3),
 			new ItemStackTemplate(SPECTRAL_FURY)
 		));
 
-		altarOfTheAccursed(output, "altar_of_the_accursed/tamaris", new AltarUpgradeRecipe(
+		altarOfTheAccursed(output, "altar_of_the_accursed/tamaris", new AltarOfTheAccursedUpgradeRecipe(
 			Ingredient.of(NETHERITE_SWORD),
 			new Ingredients().put(ENDERITE_UPGRADE_SMITHING_TEMPLATE).put(ENDERITE_SHARD, 8).put(WITHER_SKELETON_SKULL).put(ENDERITE_UPGRADE_SMITHING_TEMPLATE),
 			new ItemStackTemplate(TAMARIS)
@@ -244,7 +243,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 				new Tuple3<>("hallowed", new Item[]{HALLOWED_HELMET, HALLOWED_CHESTPLATE, HALLOWED_LEGGINGS, HALLOWED_BOOTS}, () -> new Ingredients().put(HALLOWED_INGOT, 4)),
 				new Tuple3<>("floral", new Item[]{FLORAL_HELMET, FLORAL_CHESTPLATE, FLORAL_LEGGINGS, FLORAL_BOOTS}, () -> new Ingredients().put(CHERRY_LEAVES, 8))
 			))
-				altarOfTheAccursed(output, "altar_of_the_accursed/" + armorType._1() + "_" + piece._2(), new AltarUpgradeRecipe(
+				altarOfTheAccursed(output, "altar_of_the_accursed/" + armorType._1() + "_" + piece._2(), new AltarOfTheAccursedUpgradeRecipe(
 					Ingredient.of(piece._1()),
 					armorType._3().get().put(ENDERITE_UPGRADE_SMITHING_TEMPLATE),
 					new ItemStackTemplate(armorType._2()[i])
@@ -254,7 +253,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 	}
 
 	@Override
-	public @NonNull String getName() {
+	public String getName() {
 		return Stellarity.MOD_ID;
 	}
 

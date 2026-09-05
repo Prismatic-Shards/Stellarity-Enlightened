@@ -5,7 +5,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public record ClientboundElectricDashPayload(Vec3 from, Vec3 to, List<Vec3> cree
 	);
 
 	@Override
-	public @NonNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

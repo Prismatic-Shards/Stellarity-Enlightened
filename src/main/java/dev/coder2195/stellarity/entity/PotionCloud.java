@@ -16,7 +16,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class PotionCloud extends Entity {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 		entityData.define(DATA_PARTICLES, List.of());
 		entityData.define(DATA_PARTICLE_DENSITY, 20f);
 		entityData.define(DATA_WIDTH, 2f);
@@ -114,17 +113,17 @@ public class PotionCloud extends Entity {
 	}
 
 	@Override
-	public @NonNull EntityDimensions getDimensions(final @NonNull Pose pose) {
+	public EntityDimensions getDimensions(final Pose pose) {
 		return this.getDimensions();
 	}
 
 	@Override
-	protected @NonNull AABB makeBoundingBox(final @NonNull Vec3 position) {
+	protected AABB makeBoundingBox(final Vec3 position) {
 		return this.getDimensions().makeBoundingBox(position);
 	}
 
 	@Override
-	public boolean hurtServer(@NonNull ServerLevel level, @NonNull DamageSource source, float damage) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 
@@ -137,7 +136,7 @@ public class PotionCloud extends Entity {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		input.read("particles", ParticleTypes.CODEC.listOf()).ifPresent(this::setParticles);
 		input.read("particle_density", Codec.FLOAT).ifPresent(this::setParticleDensity);
 		input.read("width", Codec.FLOAT).ifPresent(this::setWidth);
@@ -146,7 +145,7 @@ public class PotionCloud extends Entity {
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		output.store("particles", ParticleTypes.CODEC.listOf(), getParticles());
 		output.store("particle_density", Codec.FLOAT, getParticleDensity());
 		output.store("width", Codec.FLOAT, getWidth());

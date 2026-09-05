@@ -7,16 +7,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import org.jspecify.annotations.NonNull;
 
 public class PixieModel extends EntityModel<LivingEntityRenderState> {
-	private final ModelPart body;
 	private final ModelPart wing1;
 	private final ModelPart wing2;
 
 	public PixieModel(ModelPart root) {
 		super(root, RenderTypes::entityTranslucent);
-		this.body = root.getChild("body");
 		this.wing1 = root.getChild("wing1");
 		this.wing2 = root.getChild("wing2");
 	}
@@ -36,7 +33,7 @@ public class PixieModel extends EntityModel<LivingEntityRenderState> {
 
 
 	@Override
-	public void setupAnim(@NonNull LivingEntityRenderState state) {
+	public void setupAnim(LivingEntityRenderState state) {
 		super.setupAnim(state);
 
 		float wingRot = (float) (Math.sin(state.ageInTicks * 2) * (Math.PI / 4));

@@ -6,7 +6,6 @@ import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.registry.StellarityBlocks;
 import dev.coder2195.stellarity.block_entity.ColoredBlockEntity;
@@ -19,12 +18,12 @@ public interface StellarityBlockTintSources {
 	static BlockTintSource coloredLeaves() {
 		return new BlockTintSource() {
 			@Override
-			public int color(@NonNull BlockState state) {
+			public int color(BlockState state) {
 				return 0;
 			}
 
 			@Override
-			public int colorInWorld(@NonNull BlockState state, @NonNull BlockAndTintGetter level, @NonNull BlockPos pos) {
+			public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
 				if (state.hasBlockEntity() && level.getBlockEntity(pos) instanceof ColoredBlockEntity coloredBlockEntity)
 					return coloredBlockEntity.getColor() | 0xff000000;
 				return 0;

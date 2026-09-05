@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ArrowRenderState;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.entity.SpectralBolt;
 
@@ -15,11 +14,11 @@ public class SpectralBoltRenderer extends ArrowRenderer<SpectralBolt, ArrowRende
 		super(context);
 	}
 
-	protected @NonNull Identifier getTextureLocation(final @NonNull ArrowRenderState state) {
+	protected Identifier getTextureLocation(final ArrowRenderState state) {
 		return TEXTURE;
 	}
 
-	public @NonNull ArrowRenderState createRenderState() {
+	public ArrowRenderState createRenderState() {
 		return new ArrowRenderState();
 	}
 }

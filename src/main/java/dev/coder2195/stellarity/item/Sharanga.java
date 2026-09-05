@@ -9,8 +9,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.entity.SpectralBolt;
 import dev.coder2195.stellarity.util.tuple.Tuple3;
 
@@ -23,7 +21,7 @@ public class Sharanga extends BowItem implements StellarityBow {
 	}
 
 	@Override
-	protected @NonNull Projectile createProjectile(@NonNull Level level, @NonNull LivingEntity shooter, @NonNull ItemStack weapon, ItemStack projectile, boolean isCrit) {
+	protected Projectile createProjectile(Level level, LivingEntity shooter, ItemStack weapon, ItemStack projectile, boolean isCrit) {
 		if (projectile.is(Items.SPECTRAL_ARROW)) {
 			var chance = 0.25 + EnchantmentHelper.getItemEnchantmentLevel(shooter.registryAccess().getOrThrow(Enchantments.INFINITY), weapon) > 0 ? 0.25 : 0;
 			if (shooter.getRandom().nextDouble() < chance && shooter instanceof Player player && !player.isCreative()) {
@@ -36,7 +34,7 @@ public class Sharanga extends BowItem implements StellarityBow {
 	}
 
 	@Override
-	public @Nullable Tuple3<@Nullable SoundEvent, @Nullable Float, @Nullable Float> shootSound(ItemStack weapon, ItemStack projectile, Level level, LivingEntity entity) {
+	public Tuple3<SoundEvent, Float, Float> shootSound(ItemStack weapon, ItemStack projectile, Level level, LivingEntity entity) {
 		return SHOOT_SOUND;
 	}
 }

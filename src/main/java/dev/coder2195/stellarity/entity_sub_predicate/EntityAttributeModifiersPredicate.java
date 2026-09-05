@@ -14,9 +14,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.Stellarity;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +29,7 @@ public record EntityAttributeModifiersPredicate(List<EntryPredicate> entries) im
 	);
 
 	@Override
-	public boolean matches(@NonNull Entity entity, @NonNull ServerLevel level, @Nullable Vec3 position) {
+	public boolean matches(Entity entity, ServerLevel level, @Nullable Vec3 position) {
 		if (!(entity instanceof LivingEntity livingEntity)) {
 			Stellarity.LOGGER.error("Detected attribute modifier predicates being used on non living entities. This is dead code and should be removed.");
 			return false;

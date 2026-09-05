@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
-import org.jspecify.annotations.NonNull;
 
 import static net.minecraft.world.item.equipment.ArmorMaterials.makeDefense;
 
@@ -18,7 +17,7 @@ public interface StellarityArmorMaterials {
 		37, makeDefense(3, 6, 8, 4, 20), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 4.0F, 0.2F, StellarityItemTags.REPAIRS_SHULKER_ARMOR, StellarityEquipmentAssets.SHULKER
 	) {
 		@Override
-		public @NonNull ItemAttributeModifiers createAttributes(@NonNull ArmorType type) {
+		public ItemAttributeModifiers createAttributes(ArmorType type) {
 			return super.createAttributes(type).withModifierAdded(Attributes.MOVEMENT_SPEED, new AttributeModifier(
 				Stellarity.id("armor." + type.getName()),
 				-0.03,
@@ -35,7 +34,7 @@ public interface StellarityArmorMaterials {
 		37, makeDefense(3, 6, 8, 4, 20), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 6.0F, 0.2F, StellarityItemTags.REPAIRS_REINFORCED_ARMOR, StellarityEquipmentAssets.REINFORCED
 	) {
 		@Override
-		public @NonNull ItemAttributeModifiers createAttributes(@NonNull ArmorType type) {
+		public ItemAttributeModifiers createAttributes(ArmorType type) {
 			return super.createAttributes(type).withModifierAdded(Attributes.MOVEMENT_SPEED, new AttributeModifier(
 				Stellarity.id("armor." + type.getName()),
 				0.1,
@@ -51,7 +50,7 @@ public interface StellarityArmorMaterials {
 	// durability doesn't matter, custom durability
 	ArmorMaterial CHAMPION = new ArmorMaterial(30, makeDefense(3, 6, 8, 3, 20), 9, SoundEvents.ARMOR_EQUIP_NETHERITE, 2F, 0.08F, StellarityItemTags.REPAIRS_CHAMPION_ARMOR, StellarityEquipmentAssets.CHAMPION) {
 		@Override
-		public @NonNull ItemAttributeModifiers createAttributes(@NonNull ArmorType type) {
+		public ItemAttributeModifiers createAttributes(ArmorType type) {
 			return super.createAttributes(type).withModifierAdded(Attributes.ATTACK_DAMAGE, new AttributeModifier(
 				Stellarity.id("armor." + type.getName()), 0.025, AttributeModifier.Operation.ADD_MULTIPLIED_BASE
 			), EquipmentSlotGroup.bySlot(type.getSlot()));
@@ -60,7 +59,7 @@ public interface StellarityArmorMaterials {
 
 	ArmorMaterial HALLOWED = new ArmorMaterial(37, makeDefense(3, 6, 8, 3, 20), 9, SoundEvents.ARMOR_EQUIP_NETHERITE, 3, 0.1F, StellarityItemTags.REPAIRS_HALLOWED_ARMOR, StellarityEquipmentAssets.HALLOWED) {
 		@Override
-		public @NonNull ItemAttributeModifiers createAttributes(@NonNull ArmorType type) {
+		public ItemAttributeModifiers createAttributes(ArmorType type) {
 			var parentAttrs = super.createAttributes(type);
 			var id =Stellarity.id("armor." + type.getName());
 			if (type.equals(ArmorType.BOOTS)) return parentAttrs
@@ -76,7 +75,7 @@ public interface StellarityArmorMaterials {
 
 	ArmorMaterial FLORAL = new ArmorMaterial(37, makeDefense(3, 6, 8, 3, 20), 9, SoundEvents.ARMOR_EQUIP_NETHERITE, 3, 0.1F, StellarityItemTags.REPAIRS_FLORAL_ARMOR, StellarityEquipmentAssets.FLORAL) {
 		@Override
-		public @NonNull ItemAttributeModifiers createAttributes(@NonNull ArmorType type) {
+		public ItemAttributeModifiers createAttributes(ArmorType type) {
 			var id =Stellarity.id("armor." + type.getName());
 			var attributes = super.createAttributes(type).withModifierAdded(Attributes.ATTACK_DAMAGE, new AttributeModifier(id, -0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), EquipmentSlotGroup.bySlot(type.getSlot()));
 

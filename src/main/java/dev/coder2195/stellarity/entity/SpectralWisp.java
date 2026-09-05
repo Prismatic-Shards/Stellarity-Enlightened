@@ -19,10 +19,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
 import dev.coder2195.stellarity.tags.StellarityEntityTypeTags;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class SpectralWisp extends AbstractArrow {
 		super(type, level);
 	}
 
-	public SpectralWisp(@NonNull Level level, @NonNull LivingEntity shooter, ItemStack itemStack, @NonNull ItemStack weapon) {
+	public SpectralWisp(Level level, LivingEntity shooter, ItemStack itemStack, ItemStack weapon) {
 		super(StellarityEntityTypes.SPECTRAL_WISP, shooter, level, itemStack, weapon);
 		this.setPos(shooter.getX(), shooter.getEyeY() - 0.1f, shooter.getZ());
 		var power = EnchantmentHelper.getItemEnchantmentLevel(registryAccess().getOrThrow(Enchantments.POWER), weapon);
@@ -49,7 +48,7 @@ public class SpectralWisp extends AbstractArrow {
 	}
 
 	@Override
-	protected void onHitEntity(@NonNull EntityHitResult hitResult) {
+	protected void onHitEntity(EntityHitResult hitResult) {
 		var level = level();
 		if (!(level instanceof ServerLevel serverLevel)) return;
 		var entity = hitResult.getEntity();
@@ -72,7 +71,7 @@ public class SpectralWisp extends AbstractArrow {
 	}
 
 	@Override
-	protected void onHitBlock(@NonNull BlockHitResult hitResult) {
+	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);
 		this.discard();
 	}
@@ -162,13 +161,13 @@ public class SpectralWisp extends AbstractArrow {
 	}
 
 	@Override
-	protected @NonNull ItemStack getDefaultPickupItem() {
+	protected ItemStack getDefaultPickupItem() {
 		return ItemStack.EMPTY;
 	}
 
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.store("damage", Codec.FLOAT, damage);
 		output.store("mobs_remaining", Codec.INT, mobsRemaining);
@@ -181,7 +180,7 @@ public class SpectralWisp extends AbstractArrow {
 
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("damage", Codec.FLOAT).ifPresent(this::setDamage);
 		input.read("mobs_remaining", Codec.INT).ifPresent(this::setMobsRemaining);
@@ -193,7 +192,7 @@ public class SpectralWisp extends AbstractArrow {
 
 
 	@Override
-	protected boolean canHitEntity(@NonNull Entity entity) {
+	protected boolean canHitEntity(Entity entity) {
 		return super.canHitEntity(entity) && entity.canBeHitByProjectile() && !entity.is(StellarityEntityTypeTags.INVALID_TARGETS);
 	}
 

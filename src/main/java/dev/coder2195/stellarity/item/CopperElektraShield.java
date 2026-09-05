@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.entity.BannerPatterns;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityDamageTypes;
 import dev.coder2195.stellarity.networking.ClientboundElectricDashPayload;
 import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
@@ -86,7 +85,7 @@ public class CopperElektraShield extends ShieldItem {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, @NonNull Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		if (!(level instanceof ServerLevel serverLevel && player.isShiftKeyDown())) return super.use(level, player, hand);
 
 		var itemStack = player.getItemInHand(hand);

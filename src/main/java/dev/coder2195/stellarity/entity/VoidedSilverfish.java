@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
 import dev.coder2195.stellarity.registry.StellarityMobEffects;
 
@@ -21,12 +20,12 @@ public class VoidedSilverfish extends Silverfish {
 		this(StellarityEntityTypes.VOIDED_SILVERFISH, level);
 	}
 
-	public static AttributeSupplier.@NonNull Builder createAttributes() {
+	public static AttributeSupplier.Builder createAttributes() {
 		return Silverfish.createAttributes();
 	}
 
 	@Override
-	public boolean doHurtTarget(@NonNull ServerLevel level, @NonNull Entity target) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
 		if (!super.doHurtTarget(level, target)) return false;
 
 		if (target instanceof LivingEntity entity) {

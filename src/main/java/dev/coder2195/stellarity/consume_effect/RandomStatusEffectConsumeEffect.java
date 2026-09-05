@@ -12,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -29,12 +28,12 @@ public record RandomStatusEffectConsumeEffect(List<MobEffectInstance> effects) i
 	);
 
 	@Override
-	public @NonNull Type<? extends ConsumeEffect> getType() {
+	public Type<? extends ConsumeEffect> getType() {
 		return StellarityConsumeEffects.RANDOM_EFFECT;
 	}
 
 	@Override
-	public boolean apply(@NonNull Level level, @NonNull ItemStack stack, LivingEntity user) {
+	public boolean apply(Level level, ItemStack stack, LivingEntity user) {
 		RandomSource random = RandomSource.create();
 
 		return user.addEffect(effects.get(random.nextInt(effects.size())));

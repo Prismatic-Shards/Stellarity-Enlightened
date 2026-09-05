@@ -14,10 +14,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import dev.coder2195.stellarity.registry.StellarityBlockEntityTypes;
 import dev.coder2195.stellarity.block.AltarOfTheAccursed;
-import dev.coder2195.stellarity.recipe.AltarRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedRecipe;
 
 
 public class AltarOfTheAccursedBlockEntity extends BlockEntity {
@@ -32,7 +31,7 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
 	}
 
@@ -119,7 +118,7 @@ public class AltarOfTheAccursedBlockEntity extends BlockEntity {
 				}
 
 				if (entity.ticksPassed % 10 == 0) {
-					AltarRecipe.handleItems(serverLevel, x, y, z, locked);
+					AltarOfTheAccursedRecipe.handleItems(serverLevel, x, y, z, locked);
 				}
 
 			}

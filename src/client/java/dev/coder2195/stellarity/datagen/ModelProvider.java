@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -122,7 +121,7 @@ public class ModelProvider extends FabricModelProvider {
 
 
 	@Override
-	public void generateBlockStateModels(@NonNull BlockModelGenerators generators) {
+	public void generateBlockStateModels(BlockModelGenerators generators) {
 		for (var block : SIMPLE_BLOCKS)
 			generators.createTrivialCube(block);
 
@@ -182,7 +181,7 @@ public class ModelProvider extends FabricModelProvider {
 	}
 
 	@Override
-	public void generateItemModels(@NonNull ItemModelGenerators generators) {
+	public void generateItemModels(ItemModelGenerators generators) {
 		for (var bow : List.of(CALL_OF_THE_VOID, SHARANGA, SPECTRAL_FURY)) {
 			generators.generateBow(bow);
 			generators.createFlatItemModel(bow, ModelTemplates.BOW);

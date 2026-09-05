@@ -8,7 +8,6 @@ import net.minecraft.references.ItemIds;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.tags.StellarityItemTags;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 	}
 
 	@Override
-	public void addTags(HolderLookup.@NonNull Provider provider) {
+	public void addTags(HolderLookup.Provider provider) {
 		addTags(StellarityItemTags.FISHES).add(
 			AMETHYST_BUDFISH,
 			BUBBLEFISH,

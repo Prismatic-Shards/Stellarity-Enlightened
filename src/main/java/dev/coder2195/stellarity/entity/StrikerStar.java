@@ -18,12 +18,11 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.*;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class StrikerStar extends Projectile {
 	private int liveTime = 4 * 20;
-	private Vec3 posOld = null;
+	private @Nullable Vec3 posOld = null;
 
 	public StrikerStar(EntityType<? extends StrikerStar> type, Level level) {
 		super(type, level);
@@ -44,13 +43,13 @@ public class StrikerStar extends Projectile {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("live_time", Codec.INT).ifPresent(this::setLiveTime);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.store("live_time", Codec.INT, liveTime);
 	}
@@ -90,6 +89,7 @@ public class StrikerStar extends Projectile {
 
 	private void drawTrail(Vec3 target) {
 		var level = level();
+		if (posOld == null) return;
 		var delta = target.subtract(posOld);
 		var steps = delta.length() / 0.1;
 		var stepVec = delta.scale(1 / steps);
@@ -101,13 +101,13 @@ public class StrikerStar extends Projectile {
 	}
 
 	@Override
-	protected void onHitBlock(@NonNull BlockHitResult hitResult) {
+	protected void onHitBlock(BlockHitResult hitResult) {
 		explode(null, hitResult.getLocation());
 		discard();
 	}
 
 	@Override
-	protected void onHitEntity(@NonNull EntityHitResult hitResult) {
+	protected void onHitEntity(EntityHitResult hitResult) {
 		explode(hitResult.getEntity() instanceof LivingEntity living ? living : null, hitResult.getLocation());
 		discard();
 	}
@@ -127,7 +127,7 @@ public class StrikerStar extends Projectile {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.@NonNull Builder entityData) {
+	protected void defineSynchedData(SynchedEntityData.Builder entityData) {
 	}
 
 	@Override

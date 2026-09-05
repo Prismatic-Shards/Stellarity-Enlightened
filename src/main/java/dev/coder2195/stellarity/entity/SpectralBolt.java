@@ -14,14 +14,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
+import org.jspecify.annotations.Nullable;
 
 public class SpectralBolt extends AbstractArrow {
 	private float spin = 0;
 	private int liveTime = 3 * 20;
-	private Vec3 posOld = null;
+	private @Nullable Vec3 posOld = null;
 
 	public static final FloralBloom.Applier DEFAULT_FLORAL_BLOOM_APPLIER = new FloralBloom.Applier(3, 1.5f, 50, 30);
 
@@ -29,7 +28,7 @@ public class SpectralBolt extends AbstractArrow {
 		super(type, level);
 	}
 
-	public SpectralBolt(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, final @Nullable ItemStack firedFromWeapon) {
+	public SpectralBolt(final Level level, final LivingEntity owner, final ItemStack pickupItemStack, final ItemStack firedFromWeapon) {
 		super(StellarityEntityTypes.SPECTRAL_BOLT, owner, level, pickupItemStack, firedFromWeapon);
 	}
 
@@ -49,19 +48,19 @@ public class SpectralBolt extends AbstractArrow {
 	}
 
 	@Override
-	protected void readAdditionalSaveData(@NonNull ValueInput input) {
+	protected void readAdditionalSaveData(ValueInput input) {
 		super.readAdditionalSaveData(input);
 		input.read("live_time", Codec.INT).ifPresent(this::setLiveTime);
 	}
 
 	@Override
-	protected void addAdditionalSaveData(@NonNull ValueOutput output) {
+	protected void addAdditionalSaveData(ValueOutput output) {
 		super.addAdditionalSaveData(output);
 		output.store("live_time", Codec.INT, liveTime);
 	}
 
 	@Override
-	protected @NonNull ItemStack getDefaultPickupItem() {
+	protected ItemStack getDefaultPickupItem() {
 		return ItemStack.EMPTY;
 	}
 
@@ -109,13 +108,13 @@ public class SpectralBolt extends AbstractArrow {
 	}
 
 	@Override
-	public void shootFromRotation(@NonNull Entity source, float xRot, float yRot, float yOffset, float pow, float uncertainty) {
+	public void shootFromRotation(Entity source, float xRot, float yRot, float yOffset, float pow, float uncertainty) {
 		super.shootFromRotation(source, xRot, yRot, yOffset, pow * 1.3f, uncertainty);
 		this.setNoGravity(true);
 	}
 
 	@Override
-	protected void onHitBlock(@NonNull BlockHitResult hitResult) {
+	protected void onHitBlock(BlockHitResult hitResult) {
 		super.onHitBlock(hitResult);
 		this.discard();
 	}

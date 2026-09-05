@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.client.registry.StellarityEntityModelLayers;
 import dev.coder2195.stellarity.client.model.entity.PixieModel;
@@ -18,12 +17,12 @@ public class PixieRenderer extends MobRenderer<Pixie, LivingEntityRenderState, P
 	}
 
 	@Override
-	public @NonNull Identifier getTextureLocation(@NonNull LivingEntityRenderState state) {
+	public Identifier getTextureLocation(LivingEntityRenderState state) {
 		return TEXTURE;
 	}
 
 	@Override
-	public @NonNull LivingEntityRenderState createRenderState() {
+	public LivingEntityRenderState createRenderState() {
 		return new LivingEntityRenderState();
 	}
 }

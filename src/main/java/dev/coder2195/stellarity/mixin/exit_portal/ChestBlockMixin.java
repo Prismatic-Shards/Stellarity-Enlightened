@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import dev.coder2195.stellarity.registry.StellarityDataAttachments;
 
@@ -25,7 +25,7 @@ public abstract class ChestBlockMixin extends AbstractChestBlock<ChestBlockEntit
 	}
 
 	@WrapMethod(method = "getTicker")
-	private <T extends BlockEntity> @NonNull BlockEntityTicker<T> stellarityTicking(Level level, BlockState blockState, BlockEntityType<T> type, Operation<BlockEntityTicker<T>> original) {
+	private <T extends BlockEntity> BlockEntityTicker<T> stellarityTicking(Level level, BlockState blockState, BlockEntityType<T> type, Operation<@Nullable BlockEntityTicker<T>> original) {
 		final var originalMethod = original.call(level, blockState, type);
 		return (level1, pos, state, entity) -> {
 			if (level1.isClientSide() && entity.getAttached(StellarityDataAttachments.EXIT_PORTAL_CHEST) != null) {

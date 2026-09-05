@@ -9,7 +9,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +17,7 @@ import dev.coder2195.stellarity.tags.StellarityItemTags;
 @Mixin(AbstractSkeleton.class)
 public abstract class AbstractSkeletonMixin extends Monster {
 	@Shadow
-	public abstract boolean canUseNonMeleeWeapon(@NonNull ItemStack item);
+	public abstract boolean canUseNonMeleeWeapon(ItemStack item);
 
 	protected AbstractSkeletonMixin(EntityType<? extends Monster> type, Level level) {
 		super(type, level);

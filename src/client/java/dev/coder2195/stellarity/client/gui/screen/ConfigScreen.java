@@ -12,7 +12,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
-import org.jspecify.annotations.Nullable;
 import dev.coder2195.stellarity.StellarityConfig;
 import dev.coder2195.stellarity.client.gui.widget.IntegerSliderTextInput;
 import dev.coder2195.stellarity.networking.ServerboundConfigUpdatePayload;
@@ -22,7 +21,7 @@ import java.util.HashMap;
 public class ConfigScreen extends Screen {
 	private HeaderAndFooterLayout layout;
 	private ScrollableLayout bodyScroll;
-	private final @Nullable Screen previousScreen;
+	private final Screen previousScreen;
 	private final boolean canEdit;
 	private final StellarityConfig config;
 	private final LinearLayout body = LinearLayout.vertical().spacing(10);
@@ -46,12 +45,10 @@ public class ConfigScreen extends Screen {
 		ClientPlayNetworking.send(new ServerboundConfigUpdatePayload(newConfig));
 		this.close();
 	}).build();
-	private final Button exitButton = Button.builder(Component.translatable("stellarity.config.exit"), (_) -> {
-		this.close();
-	}).build();
+	private final Button exitButton = Button.builder(Component.translatable("stellarity.config.exit"), (_) -> this.close()).build();
 	private final LinearLayout footer = LinearLayout.horizontal().spacing(10);
 
-	public ConfigScreen(@Nullable Screen previousScreen, StellarityConfig config, boolean canEdit) {
+	public ConfigScreen(Screen previousScreen, StellarityConfig config, boolean canEdit) {
 		super(Component.translatable("stellarity.config.title"));
 		this.config = config;
 		this.previousScreen = previousScreen;

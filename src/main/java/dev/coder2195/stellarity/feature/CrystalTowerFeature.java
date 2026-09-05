@@ -12,7 +12,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public record CrystalTowerFeature(IntProvider width, IntProvider height, Holder<BlockStateProvider> material) implements Feature {
 	public static final MapCodec<CrystalTowerFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -22,22 +22,21 @@ public record CrystalTowerFeature(IntProvider width, IntProvider height, Holder<
 	).apply(instance, CrystalTowerFeature::new));
 
 	@Override
-	public @NonNull MapCodec<? extends Feature> codec() {
+	public MapCodec<? extends Feature> codec() {
 		return CODEC;
 	}
 
-	public static boolean[][] pattern(int width) {
+	public static boolean @Nullable [][] pattern(int width) {
 		if (width < 1) return null;
 		if (width == 1) return new boolean[][]{{true}};
 		if (width == 2) return new boolean[][]{{true, true}, {true, true}};
 		if (width == 3) return new boolean[][]{{false, true, false}, {true, true, true}, {false, true, false}};
 
-		boolean[][] arr = new boolean[width][width];
-		return arr;
+		return new boolean[width][width];
 	}
 
 	@Override
-	public boolean place(@NonNull WorldGenLevel level, @NonNull ChunkGenerator chunkGenerator, @NonNull RandomSource random, @NonNull BlockPos origin) {
+	public boolean place(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin) {
 		var width = this.width.sample(random);
 		var height = this.height.sample(random);
 		var material = this.material.value().getState(level, random, origin);

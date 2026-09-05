@@ -1,15 +1,15 @@
 package dev.coder2195.stellarity.recipe;
 
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.coder2195.stellarity.interface_injection.ExtItemEntity;
+import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
+import dev.coder2195.stellarity.registry.StellarityRecipeTypes;
+import dev.coder2195.stellarity.registry.StellaritySoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -22,20 +22,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
-import dev.coder2195.stellarity.interface_injection.ExtItemEntity;
-import dev.coder2195.stellarity.registry.StellarityCriteriaTriggers;
-import dev.coder2195.stellarity.registry.StellarityRecipeTypes;
-import dev.coder2195.stellarity.registry.StellaritySoundEvents;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
-
-public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
+public interface AltarOfTheAccursedRecipe extends Recipe<AltarOfTheAccursedRecipe.Input> {
 	class Input extends SimpleContainer implements RecipeInput {
 		@Override
 		public int size() {
@@ -51,47 +44,25 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 
 	@Nullable Output craft(List<ItemStack> itemStacks);
 
-	HashMap<Ingredient, Integer> ingredients();
-
-	static HashMap<Ingredient, Integer> readIngredients(RegistryFriendlyByteBuf buf) {
-		int size = buf.readInt();
-		HashMap<Ingredient, Integer> ingredients = new HashMap<>();
-		for (int i = 0; i < size; i++) {
-			Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-			int count = buf.readInt();
-			ingredients.put(ingredient, count);
-		}
-		return ingredients;
-	}
-
-	default void writeIngredients(RegistryFriendlyByteBuf buf) {
-		var ingredients = ingredients();
-		buf.writeInt(ingredients.size());
-		for (var entry : ingredients.entrySet()) {
-			Ingredient.CONTENTS_STREAM_CODEC.encode(buf, entry.getKey());
-			buf.writeInt(entry.getValue());
-		}
-	}
-
 	@Override
-	default @NonNull PlacementInfo placementInfo() {
+	default PlacementInfo placementInfo() {
 		return PlacementInfo.NOT_PLACEABLE;
 	}
 
 	@Override
-	default @NonNull RecipeBookCategory recipeBookCategory() {
+	default RecipeBookCategory recipeBookCategory() {
 		return RecipeBookCategories.CRAFTING_MISC;
 	}
 
 
 	@Override
-	default @NonNull RecipeType<? extends Recipe<Input>> getType() {
-		return StellarityRecipeTypes.ALTAR_RECIPE;
+	default RecipeType<? extends Recipe<Input>> getType() {
+		return StellarityRecipeTypes.ALTAR_OF_THE_ACCURSED;
 	}
 
 
 	@Override
-	default boolean matches(Input container, @NonNull Level level) {
+	default boolean matches(Input container, Level level) {
 		return craft(container.items) == null;
 	}
 
@@ -126,10 +97,10 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		}
 		if (itemEntities.isEmpty()) return;
 
-		AltarRecipe.Output output = null;
+		AltarOfTheAccursedRecipe.Output output = null;
 
 		if (itemMode == ExtItemEntity.ItemMode.CRAFTING) {
-			var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_RECIPE);
+			var allRecipes = serverLevel.getServer().getRecipeManager().getAllOfType(StellarityRecipeTypes.ALTAR_OF_THE_ACCURSED);
 
 			for (var recipeHolder : allRecipes) {
 				var recipe = recipeHolder.value();
@@ -180,22 +151,15 @@ public interface AltarRecipe extends Recipe<AltarRecipe.Input> {
 		return false;
 	}
 
-	MapCodec<Map.Entry<Ingredient, Integer>> INGREDIENT_CODEC = RecordCodecBuilder.mapCodec(
-		instance -> instance.group(
-			Ingredient.CODEC.fieldOf("ingredient").forGetter(Map.Entry::getKey),
-			Codec.INT.optionalFieldOf("count", 1).forGetter(Map.Entry::getValue)
-		).apply(instance, Map::entry)
-	);
-
 
 	@Override
-	default @NonNull ItemStack assemble(@NonNull Input recipeInput) {
+	default ItemStack assemble(Input recipeInput) {
 		// stupid mojang recipes
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default @NonNull String group() {
+	default String group() {
 		return "";
 	}
 }

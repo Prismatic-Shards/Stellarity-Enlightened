@@ -7,7 +7,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.equipment.EquipmentAsset;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.registry.StellarityEquipmentAssets;
 
@@ -51,7 +50,7 @@ public class EquipmentAssetProvider extends net.minecraft.client.data.models.Equ
 
 
 	@Override
-	public @NonNull CompletableFuture<?> run(final @NonNull CachedOutput cache) {
+	public CompletableFuture<?> run(final CachedOutput cache) {
 		Map<ResourceKey<EquipmentAsset>, EquipmentClientInfo> equipmentAssets = new HashMap<>();
 		bootstrap((id, asset) -> {
 			if (equipmentAssets.putIfAbsent(id, asset) != null) {

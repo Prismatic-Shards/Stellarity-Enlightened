@@ -7,7 +7,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 public record ClientboundHolyProtectionDodgePayload(Vec3 position, SoundSource source) implements CustomPacketPayload {
 	public static final Type<ClientboundHolyProtectionDodgePayload> TYPE = new Type<>(Stellarity.id("holy_protection_dodge"));
@@ -18,7 +17,7 @@ public record ClientboundHolyProtectionDodgePayload(Vec3 position, SoundSource s
 	);
 
 	@Override
-	public @NonNull Type<? extends CustomPacketPayload> type() {
+	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
 }

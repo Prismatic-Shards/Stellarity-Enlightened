@@ -18,7 +18,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class ObstructSpellBlock extends Entity implements Attackable {
@@ -46,7 +45,7 @@ public class ObstructSpellBlock extends Entity implements Attackable {
 	}
 
 	@Override
-	public boolean canCollideWith(@NonNull Entity entity) {
+	public boolean canCollideWith(Entity entity) {
 		return true;
 	}
 
@@ -84,18 +83,13 @@ public class ObstructSpellBlock extends Entity implements Attackable {
 	}
 
 	@Override
-	public @NonNull EntityDimensions getDimensions(final @NonNull Pose pose) {
+	public EntityDimensions getDimensions(final Pose pose) {
 		return EntityDimensions.fixed(1, 1);
 	}
 
 	@Override
-	protected @NonNull AABB makeBoundingBox(@NonNull Vec3 position) {
+	protected AABB makeBoundingBox(Vec3 position) {
 		return this.getDimensions(Pose.STANDING).makeBoundingBox(position);
-	}
-
-	@Override
-	public boolean skipAttackInteraction(@NonNull Entity source) {
-		return false;
 	}
 
 	@Override
@@ -104,12 +98,12 @@ public class ObstructSpellBlock extends Entity implements Attackable {
 	}
 
 	@Override
-	public @NonNull PushReaction getPistonPushReaction() {
+	public PushReaction getPistonPushReaction() {
 		return PushReaction.IGNORE_ENTITY;
 	}
 
 	@Override
-	public boolean hurtServer(@NonNull ServerLevel level, @NonNull DamageSource source, float damage) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
 		return false;
 	}
 

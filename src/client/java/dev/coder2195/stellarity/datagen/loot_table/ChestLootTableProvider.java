@@ -24,7 +24,6 @@ import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.functions.SetNameFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -46,7 +45,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
 
 	@SuppressWarnings("DuplicatedCode")
 	@Override
-	public void generate(@NonNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+	public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 		var lookup = registryLookup.join();
 		var enchantments = lookup.lookupOrThrow(Registries.ENCHANTMENT);
 		var trimMaterials = lookup.lookupOrThrow(Registries.TRIM_MATERIAL);

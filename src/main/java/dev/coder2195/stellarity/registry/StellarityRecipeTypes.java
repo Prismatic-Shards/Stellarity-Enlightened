@@ -1,15 +1,16 @@
 package dev.coder2195.stellarity.registry;
 
+import dev.coder2195.stellarity.recipe.ConsecrationRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import dev.coder2195.stellarity.Stellarity;
-import dev.coder2195.stellarity.recipe.AltarRecipe;
+import dev.coder2195.stellarity.recipe.AltarOfTheAccursedRecipe;
 
 public interface StellarityRecipeTypes {
-	RecipeType<AltarRecipe> ALTAR_RECIPE = register("altar_of_the_accursed");
-
+	RecipeType<AltarOfTheAccursedRecipe> ALTAR_OF_THE_ACCURSED = register("altar_of_the_accursed");
+	RecipeType<ConsecrationRecipe> CONSECRATION = register("consecration");
 
 	private static <T extends Recipe<?>> RecipeType<T> register(final String id) {
 		final var path = Stellarity.id(id);

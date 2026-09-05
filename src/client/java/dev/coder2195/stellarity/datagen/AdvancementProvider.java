@@ -37,7 +37,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
-import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -74,7 +73,7 @@ public class AdvancementProvider extends FabricAdvancementProvider {
 	}
 
 	@Override
-	public void generateAdvancement(HolderLookup.Provider registryLookup, @NonNull Consumer<AdvancementHolder> consumer) {
+	public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
 		final var items = registryLookup.lookupOrThrow(Registries.ITEM);
 		final var entities = registryLookup.lookupOrThrow(Registries.ENTITY_TYPE);
 		final var structures = registryLookup.lookupOrThrow(Registries.STRUCTURE);

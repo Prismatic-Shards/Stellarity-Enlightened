@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.registry.StellarityEntityTypes;
 import dev.coder2195.stellarity.registry.StellarityMobEffects;
 
@@ -37,7 +36,7 @@ public class VoidedSlime extends Slime {
 	}
 
 	@Override
-	public boolean doHurtTarget(@NonNull ServerLevel level, @NonNull Entity target) {
+	public boolean doHurtTarget(ServerLevel level, Entity target) {
 		if (!super.doHurtTarget(level, target)) return false;
 
 		if (target instanceof LivingEntity entity) {

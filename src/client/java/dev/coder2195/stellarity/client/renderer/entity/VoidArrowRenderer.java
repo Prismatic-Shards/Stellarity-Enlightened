@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ArrowRenderState;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.entity.VoidArrow;
 
@@ -16,11 +15,11 @@ public class VoidArrowRenderer extends ArrowRenderer<VoidArrow, ArrowRenderState
 	}
 
 	@Override
-	protected @NonNull Identifier getTextureLocation(final @NonNull ArrowRenderState state) {
+	protected Identifier getTextureLocation(final ArrowRenderState state) {
 		return SPECTRAL_ARROW_LOCATION;
 	}
 
-	public @NonNull ArrowRenderState createRenderState() {
+	public ArrowRenderState createRenderState() {
 		return new ArrowRenderState();
 	}
 }

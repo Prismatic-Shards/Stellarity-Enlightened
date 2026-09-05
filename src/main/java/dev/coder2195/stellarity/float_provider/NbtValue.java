@@ -11,7 +11,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import dev.coder2195.stellarity.Stellarity;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
-import org.jspecify.annotations.NonNull;
 
 public record NbtValue(
 	LootContext.EntityTarget target, NbtPathArgument.NbtPath path, float defaultValue
@@ -43,11 +42,11 @@ public record NbtValue(
 	}
 
 	@Override
-	public void validate(@NonNull ValidationContext context) {
+	public void validate(ValidationContext context) {
 	}
 
 	@Override
-	public @NonNull MapCodec<? extends ContextFloatProvider> codec() {
+	public MapCodec<? extends ContextFloatProvider> codec() {
 		return CODEC;
 	}
 }

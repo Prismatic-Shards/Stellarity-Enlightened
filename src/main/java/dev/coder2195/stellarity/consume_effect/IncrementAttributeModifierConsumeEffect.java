@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -39,12 +38,12 @@ public record IncrementAttributeModifierConsumeEffect(Holder<Attribute> attribut
 	);
 
 	@Override
-	public @NonNull Type<? extends ConsumeEffect> getType() {
+	public Type<? extends ConsumeEffect> getType() {
 		return StellarityConsumeEffects.INCREMENT_ATTRIBUTE_MODIFIER;
 	}
 
 	@Override
-	public boolean apply(@NonNull Level level, @NonNull ItemStack stack, LivingEntity user) {
+	public boolean apply(Level level, ItemStack stack, LivingEntity user) {
 		AttributeInstance maxHPAttribute = user.getAttributes().getInstance(attributeHolder);
 		if (maxHPAttribute == null) return false;
 

@@ -6,7 +6,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantment;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,7 +18,7 @@ public class EnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
 	}
 
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider registries) {
+	protected void addTags(HolderLookup.Provider registries) {
 		builder(EnchantmentTags.DAMAGE_EXCLUSIVE).add(CRITICAL_STRIKE);
 	}
 }

@@ -1,12 +1,16 @@
 package dev.coder2195.stellarity.block;
 
 
-import com.mojang.serialization.MapCodec;
+import dev.coder2195.stellarity.block_entity.AltarOfTheAccursedBlockEntity;
+import dev.coder2195.stellarity.registry.StellarityBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -18,10 +22,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
-import dev.coder2195.stellarity.registry.StellarityBlockEntityTypes;
-import dev.coder2195.stellarity.block_entity.AltarOfTheAccursedBlockEntity;
+import org.jspecify.annotations.Nullable;
 
 public class AltarOfTheAccursed extends Block implements EntityBlock {
 	public enum PlaceType implements StringRepresentable {
@@ -31,7 +32,7 @@ public class AltarOfTheAccursed extends Block implements EntityBlock {
 
 		@Override
 
-		public @NonNull String getSerializedName() {
+		public String getSerializedName() {
 			return switch (this) {
 				case NORMAL -> "normal";
 				case CREATIVE -> "creative";
@@ -71,22 +72,23 @@ public class AltarOfTheAccursed extends Block implements EntityBlock {
 		.requiresCorrectToolForDrops();
 
 	@Override
-	public @NonNull VoxelShape getShape(@NonNull BlockState blockState, @NonNull BlockGetter blockGetter, @NonNull BlockPos blockPos, @NonNull CollisionContext collisionContext) {
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
 		return SHAPE;
 	}
 
 	@Override
-	public @NonNull RenderShape getRenderShape(@NonNull BlockState blockState) {
+	public RenderShape getRenderShape(BlockState blockState) {
 		return RenderShape.MODEL;
 	}
 
 	@Override
-	public @Nullable BlockEntity newBlockEntity(@NonNull BlockPos blockPos, @NonNull BlockState blockState) {
+	public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
 		return new AltarOfTheAccursedBlockEntity(blockPos, blockState);
 	}
 
 	@Override
-	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NonNull Level level, @NonNull BlockState blockState, @NonNull BlockEntityType<T> type) {
+	@Nullable
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
 		if (type == StellarityBlockEntityTypes.ALTAR_OF_THE_ACCURSED) return AltarOfTheAccursedBlockEntity::tick;
 		return null;
 	}

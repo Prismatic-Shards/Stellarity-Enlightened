@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 public class BookOfConveyance extends Spellbook {
 	public static final Properties PROPERTIES = new Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
@@ -18,7 +17,7 @@ public class BookOfConveyance extends Spellbook {
 	}
 
 	@Override
-	public @NonNull InteractionResult use(@NonNull Level level, Player player, @NonNull InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		var itemStack = player.getItemInHand(hand);
 
 		if (!(level instanceof ServerLevel serverLevel)) return InteractionResult.SUCCESS;

@@ -12,7 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
@@ -33,12 +32,12 @@ public record ChanceConsumeEffect(List<ConsumeEffect> effects, double chance) im
 	}
 
 	@Override
-	public @NonNull Type<? extends ConsumeEffect> getType() {
+	public Type<? extends ConsumeEffect> getType() {
 		return StellarityConsumeEffects.CHANCE;
 	}
 
 	@Override
-	public boolean apply(@NonNull Level level, @NonNull ItemStack stack, @NonNull LivingEntity user) {
+	public boolean apply(Level level, ItemStack stack, LivingEntity user) {
 		RandomSource random = RandomSource.create();
 		if (random.nextDouble() > chance) return false;
 

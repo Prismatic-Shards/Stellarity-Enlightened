@@ -7,7 +7,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.client.renderer.entity.SatchelSigilRenderer;
 import dev.coder2195.stellarity.entity.SatchelSigil;
 
@@ -33,7 +32,7 @@ public class SatchelSigilModel extends EntityModel<SatchelSigilRenderer.SatchelS
 	}
 
 	@Override
-	public void setupAnim(SatchelSigilRenderer.@NonNull SatchelSigilRenderState state) {
+	public void setupAnim(SatchelSigilRenderer.SatchelSigilRenderState state) {
 		super.setupAnim(state);
 
 		float scale = state.state.equals(SatchelSigil.State.OPENING) ? Mth.clamp(state.elapsedTime / 10, 0, 1) :

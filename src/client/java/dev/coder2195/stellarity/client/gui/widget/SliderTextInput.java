@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.MultiLineTextWidget;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.network.chat.Component;
-import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -27,9 +26,9 @@ public abstract class SliderTextInput extends LinearLayout {
 			super(x, y, width, height, message, initialValue);
 		}
 
-		@Nullable Consumer<Double> onValueChange = null;
+		Consumer<Double> onValueChange = null;
 
-		public void setOnValueChange(@Nullable Consumer<Double> onValueChange) {
+		public void setOnValueChange(Consumer<Double> onValueChange) {
 			this.onValueChange = onValueChange;
 		}
 

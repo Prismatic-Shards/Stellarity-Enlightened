@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.trading.VillagerTrade;
-import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +30,7 @@ public class VillagerTradeTagProvider extends FabricTagsProvider<VillagerTrade> 
 
 	@SuppressWarnings("DuplicatedCode")
 	@Override
-	protected void addTags(HolderLookup.@NonNull Provider provider) {
+	protected void addTags(HolderLookup.Provider provider) {
 		addTags(ARMORER_LEVEL_1, ARMORER_1_COAL_ENDERITE_SHARD, ARMORER_1_CHARCOAL_ENDERITE_SHARD, ARMORER_1_BLAZE_ROD_ENDERITE_SHARD);
 		addTags(ARMORER_LEVEL_1_2, ARMORER_1_ENDERITE_SHARD_IRON_CHESTPLATE, ARMORER_1_ENDERITE_SHARD_IRON_HELMET);
 		addTags(ARMORER_LEVEL_2, ARMORER_2_ENDERITE_SHARD_IRON_LEGGINGS, ARMORER_2_ENDERITE_SHARD_IRON_BOOTS);

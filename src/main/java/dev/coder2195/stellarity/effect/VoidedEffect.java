@@ -10,7 +10,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 import dev.coder2195.stellarity.registry.StellarityMobEffects;
 import dev.coder2195.stellarity.registry.StellaritySoundEvents;
@@ -26,7 +25,7 @@ public class VoidedEffect extends MobEffect {
 	public static final ParticleOptions PARTICLE = PowerParticleOption.create(ParticleTypes.DRAGON_BREATH, 0);
 
 	@Override
-	public @NonNull ParticleOptions createParticleOptions(@NonNull MobEffectInstance mobEffectInstance) {
+	public ParticleOptions createParticleOptions(MobEffectInstance mobEffectInstance) {
 		return super.createParticleOptions(mobEffectInstance);
 	}
 
@@ -36,7 +35,7 @@ public class VoidedEffect extends MobEffect {
 	}
 
 	@Override
-	public boolean applyEffectTick(@NonNull ServerLevel level, LivingEntity livingEntity, int i) {
+	public boolean applyEffectTick(ServerLevel level, LivingEntity livingEntity, int i) {
 		if (livingEntity.getHealth() > livingEntity.getMaxHealth()) {
 			livingEntity.setHealth(livingEntity.getMaxHealth());
 		}

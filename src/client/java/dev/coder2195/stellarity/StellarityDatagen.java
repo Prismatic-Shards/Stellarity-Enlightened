@@ -10,12 +10,10 @@ import dev.coder2195.stellarity.datagen.tags.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
-import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 public class StellarityDatagen implements DataGeneratorEntrypoint {
 	@Override
-	public void buildRegistry(@NonNull RegistrySetBuilder builder) {
+	public void buildRegistry(RegistrySetBuilder builder) {
 		DynamicRegistriesProvider.buildRegistry(builder);
 	}
 
@@ -55,7 +53,7 @@ public class StellarityDatagen implements DataGeneratorEntrypoint {
 
 
 	@Override
-	public @Nullable String getEffectiveModId() {
+	public String getEffectiveModId() {
 		return "stellarity";
 	}
 }

@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SilverfishRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 import dev.coder2195.stellarity.Stellarity;
 
 public class VoidedSilverfishRenderer extends SilverfishRenderer {
@@ -16,7 +15,7 @@ public class VoidedSilverfishRenderer extends SilverfishRenderer {
 	public static final Identifier TEXTURE = Stellarity.id("textures/entity/voided_silverfish/voided_silverfish.png");
 
 	@Override
-	public @NonNull Identifier getTextureLocation(@NonNull LivingEntityRenderState state) {
+	public Identifier getTextureLocation(LivingEntityRenderState state) {
 		return TEXTURE;
 	}
 }
